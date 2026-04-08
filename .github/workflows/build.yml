@@ -22,6 +22,9 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Install ImageMagick
+        run: sudo apt-get install -y imagemagick
+
       - name: Generate keystore
         run: |
           mkdir -p app
@@ -131,29 +134,21 @@ jobs:
           }
           EOF
 
-          # Generate icons using ImageMagick (pre-installed on ubuntu-latest)
-          for size in 48 72 96 144 192; do
-            case $size in
-              48)  folder="mipmap-mdpi" ;;
-              72)  folder="mipmap-hdpi" ;;
-              96)  folder="mipmap-xhdpi" ;;
-              144) folder="mipmap-xxhdpi" ;;
-              192) folder="mipmap-xxxhdpi" ;;
-            esac
-            for shape in square round; do
-              if [ "$shape" = "round" ]; then
-                name="ic_launcher_round.png"
-                mask="-alpha set \( +clone -threshold 100% -fill white -draw \"circle $((size/2)),$((size/2)) $((size/2)),2\" \) -compose DstIn -composite"
-              else
-                name="ic_launcher.png"
-                mask=""
-              fi
-              convert -size ${size}x${size} xc:"#0e0a06" \
-                -fill "#2a1409" -draw "circle $((size/2)),$((size/2)) $((size/2)),$((size/6))" \
-                -stroke "#d4a017" -strokewidth $((size/18)) -fill none \
-                -draw "circle $((size/2)),$((size/2)) $((size/2)),$((size/9))" \
-                -fill "#f0c040" -font DejaVu-Sans-Bold -pointsize $((size*38/100)) \
-                -gravity center -annotate 0 "T" \
+          # Generate icons using ImageMagick
+          for entry in "48:mipmap-mdpi" "72:mipmap-hdpi" "96:mipmap-xhdpi" "144:mipmap-xxhdpi" "192:mipmap-xxxhdpi"; do
+            size="${entry%%:*}"
+            folder="${entry##*:}"
+            half=$((size / 2))
+            inner=$((size * 44 / 100))
+            stroke=$((size / 18))
+            fs=$((size * 38 / 100))
+            for name in ic_launcher.png ic_launcher_round.png; do
+              magick -size ${size}x${size} xc:"#0e0a06" \
+                -fill "#2a1409" -draw "circle ${half},${half} ${half},$((size/6))" \
+                -stroke "#d4a017" -strokewidth ${stroke} -fill none \
+                -draw "circle ${half},${half} ${half},$((size/9))" \
+                -fill "#f0c040" -font DejaVu-Sans-Bold -pointsize ${fs} \
+                -gravity Center -annotate 0 "T" \
                 "app/src/main/res/${folder}/${name}"
             done
           done
