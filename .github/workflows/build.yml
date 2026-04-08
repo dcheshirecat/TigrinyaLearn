@@ -24,6 +24,7 @@ jobs:
 
       - name: Generate keystore
         run: |
+          mkdir -p app
           keytool -genkey -v \
             -keystore app/keystore.jks \
             -alias tigrinya \
