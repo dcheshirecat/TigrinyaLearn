@@ -22,9 +22,6 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install ImageMagick
-        run: sudo apt-get install -y imagemagick
-
       - name: Generate keystore
         run: |
           mkdir -p app
@@ -50,6 +47,15 @@ jobs:
           mkdir -p gradle/wrapper
 
           cp index.html app/src/main/assets/index.html
+
+          # Embed icon as base64 - no image tools needed
+          ICON_B64="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"
+
+          for folder in mipmap-mdpi mipmap-hdpi mipmap-xhdpi mipmap-xxhdpi mipmap-xxxhdpi; do
+            echo "$ICON_B64" | base64 -d > "app/src/main/res/${folder}/ic_launcher.png"
+            cp "app/src/main/res/${folder}/ic_launcher.png" "app/src/main/res/${folder}/ic_launcher_round.png"
+          done
+          echo "Icons OK"
 
           cat > app/src/main/AndroidManifest.xml << 'EOF'
           <?xml version="1.0" encoding="utf-8"?>
@@ -133,26 +139,6 @@ jobs:
               }
           }
           EOF
-
-          # Generate icons using ImageMagick
-          for entry in "48:mipmap-mdpi" "72:mipmap-hdpi" "96:mipmap-xhdpi" "144:mipmap-xxhdpi" "192:mipmap-xxxhdpi"; do
-            size="${entry%%:*}"
-            folder="${entry##*:}"
-            half=$((size / 2))
-            inner=$((size * 44 / 100))
-            stroke=$((size / 18))
-            fs=$((size * 38 / 100))
-            for name in ic_launcher.png ic_launcher_round.png; do
-              magick -size ${size}x${size} xc:"#0e0a06" \
-                -fill "#2a1409" -draw "circle ${half},${half} ${half},$((size/6))" \
-                -stroke "#d4a017" -strokewidth ${stroke} -fill none \
-                -draw "circle ${half},${half} ${half},$((size/9))" \
-                -fill "#f0c040" -font DejaVu-Sans-Bold -pointsize ${fs} \
-                -gravity Center -annotate 0 "T" \
-                "app/src/main/res/${folder}/${name}"
-            done
-          done
-          echo "Icons OK"
 
           cat > settings.gradle << 'EOF'
           pluginManagement {
