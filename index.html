@@ -1,266 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ትግርኛ — Learn Tigrinya</title>
-  <style>
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; }
-body {
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  background: #0e0a06; color: #f0e6d3;
-  overflow: hidden; height: 100%; height: 100dvh;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover">
+<title>ትግርኛ — Learn Tigrinya</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a06;color:#f0e6d3;overflow:hidden;height:100%;height:100dvh}
+:root{
+  --bg:#0e0a06;--bg2:#1a1009;--card:#221509;--card2:#2c1c0d;
+  --border:rgba(240,230,211,0.07);--accent:#c1440e;--gold:#d4a017;--gold2:#f0c040;
+  --sand:#f0e6d3;--smoke:#8a7a6a;--green:#4a7c59;--red:#9b2335;
+  --coin:#f0c040;--rare:#4a90d9;--legend:#b44fd4;
 }
-:root {
-  --bg:#0e0a06; --bg2:#1a1009; --card:#221509; --card2:#2c1c0d;
-  --border:rgba(240,230,211,0.07); --accent:#c1440e; --accent2:#e05c1f;
-  --gold:#d4a017; --gold2:#f0c040; --sand:#f0e6d3; --smoke:#8a7a6a;
-  --green:#4a7c59; --red:#9b2335; --blue:#2a5580;
-}
-.screen { display:none; flex-direction:column; height:100%; height:100dvh; overflow:hidden; }
-.screen.active { display:flex; }
-.scroll-area { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-bottom:74px; }
-.ge { font-family:'Noto Serif Ethiopic','Ethiopic','Nyala',serif; }
+.screen{display:none;flex-direction:column;height:100%;height:100dvh;overflow:hidden}
+.screen.active{display:flex}
+.scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:74px}
+.ge{font-family:'Noto Serif Ethiopic','Ethiopic','Nyala',serif}
 
 /* NAV */
-.nav {
-  position:fixed; bottom:0; left:0; right:0; height:62px;
-  padding-bottom:env(safe-area-inset-bottom,0);
-  background:#160e06; border-top:1px solid var(--border);
-  display:flex; z-index:200;
-}
-.nav-btn {
-  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
-  background:none; border:none; color:var(--smoke); font-family:inherit;
-  font-size:0.55rem; letter-spacing:0.07em; text-transform:uppercase; cursor:pointer; transition:color 0.2s;
-}
-.nav-btn span:first-child { font-size:1.15rem; line-height:1; }
-.nav-btn.active { color:var(--gold); }
+.nav{position:fixed;bottom:0;left:0;right:0;height:62px;padding-bottom:env(safe-area-inset-bottom,0);background:#160e06;border-top:1px solid var(--border);display:flex;z-index:200}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;color:var(--smoke);font-family:inherit;font-size:0.5rem;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:color 0.2s}
+.nav-btn span:first-child{font-size:1.1rem;line-height:1}
+.nav-btn.active{color:var(--gold)}
 
 /* HOME */
-.home-hero {
-  background:linear-gradient(175deg,#2a1a0a 0%,#0e0a06 100%);
-  padding:calc(env(safe-area-inset-top,12px) + 0.5rem) 1.25rem 1.25rem;
-  text-align:center; position:relative; overflow:hidden;
-}
-.home-hero::before {
-  content:'ሀ ለ ሐ መ ሰ ረ'; position:absolute; inset:0;
-  font-family:'Noto Serif Ethiopic',serif; font-size:4rem;
-  color:rgba(212,160,23,0.04); letter-spacing:1rem; line-height:1;
-  display:flex; align-items:center; justify-content:center; pointer-events:none;
-}
-.hero-ge { font-family:'Noto Serif Ethiopic',serif; font-size:0.85rem; letter-spacing:0.3em; color:var(--smoke); margin-bottom:0.3rem; }
-.hero-title { font-size:2rem; font-weight:800; color:var(--sand); letter-spacing:-0.02em; }
-.hero-sub { font-size:0.65rem; letter-spacing:0.2em; color:var(--smoke); text-transform:uppercase; margin-top:0.3rem; }
-.level-card { margin:0.9rem 1rem; background:var(--card); border:1px solid var(--border); border-radius:18px; padding:1.1rem 1.25rem; }
-.lv-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:0.7rem; }
-.lv-badge { background:var(--accent); color:#fff; font-size:0.65rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:0.28rem 0.7rem; border-radius:50px; }
-.lv-xp { font-size:0.72rem; color:var(--smoke); }
-.xp-bar { height:5px; background:rgba(240,230,211,0.08); border-radius:3px; overflow:hidden; }
-.xp-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:3px; transition:width 0.6s ease; }
-.stats-row { display:flex; gap:0.65rem; margin:0 1rem 0.9rem; }
-.stat { flex:1; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:0.85rem 0.4rem; text-align:center; }
-.stat-n { font-size:1.75rem; font-weight:800; color:var(--gold); line-height:1; }
-.stat-l { font-size:0.58rem; letter-spacing:0.1em; color:var(--smoke); text-transform:uppercase; margin-top:0.25rem; }
-.sec-label { font-size:0.62rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--smoke); margin:0 1rem 0.6rem; }
-.mode-list { display:flex; flex-direction:column; gap:0.55rem; margin:0 1rem; }
-.mode-row { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:0.9rem 1rem; display:flex; align-items:center; gap:0.9rem; cursor:pointer; transition:border-color 0.2s,background 0.2s; }
-.mode-row:active { border-color:var(--accent); background:rgba(193,68,14,0.07); }
-.mode-ico { font-size:1.7rem; }
-.mode-txt { flex:1; }
-.mode-name { font-weight:700; font-size:0.92rem; color:var(--sand); }
-.mode-desc { font-size:0.68rem; color:var(--smoke); margin-top:0.1rem; }
-.mode-arr { color:var(--smoke); font-size:1.1rem; }
+.home-hero{background:linear-gradient(175deg,#2a1a0a 0%,#0e0a06 100%);padding:calc(env(safe-area-inset-top,12px) + 0.5rem) 1.25rem 1.25rem;text-align:center;position:relative;overflow:hidden}
+.home-hero::before{content:'ሀ ለ ሐ መ ሰ ረ';position:absolute;inset:0;font-family:'Noto Serif Ethiopic',serif;font-size:4rem;color:rgba(212,160,23,0.04);letter-spacing:1rem;line-height:1;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.hero-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.85rem;letter-spacing:0.3em;color:var(--smoke);margin-bottom:0.3rem}
+.hero-title{font-size:2rem;font-weight:800;color:var(--sand);letter-spacing:-0.02em}
+.hero-sub{font-size:0.65rem;letter-spacing:0.2em;color:var(--smoke);text-transform:uppercase;margin-top:0.3rem}
+.level-card{margin:0.9rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.1rem 1.25rem}
+.lv-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.7rem}
+.lv-badge{background:var(--accent);color:#fff;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.7rem;border-radius:50px}
+.lv-xp{font-size:0.72rem;color:var(--smoke)}
+.xp-bar{height:5px;background:rgba(240,230,211,0.08);border-radius:3px;overflow:hidden}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:3px;transition:width 0.6s ease}
+.stats-row{display:flex;gap:0.5rem;margin:0 1rem 0.9rem}
+.stat{flex:1;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.75rem 0.3rem;text-align:center}
+.stat-n{font-size:1.5rem;font-weight:800;color:var(--gold);line-height:1}
+.stat-l{font-size:0.52rem;letter-spacing:0.08em;color:var(--smoke);text-transform:uppercase;margin-top:0.2rem}
+.sec-label{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--smoke);margin:0 1rem 0.6rem}
+.mode-list{display:flex;flex-direction:column;gap:0.55rem;margin:0 1rem}
+.mode-row{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:0.9rem 1rem;display:flex;align-items:center;gap:0.9rem;cursor:pointer;transition:border-color 0.2s,background 0.2s}
+.mode-row:active{border-color:var(--accent);background:rgba(193,68,14,0.07)}
+.mode-ico{font-size:1.7rem}
+.mode-txt{flex:1}
+.mode-name{font-weight:700;font-size:0.92rem;color:var(--sand)}
+.mode-desc{font-size:0.68rem;color:var(--smoke);margin-top:0.1rem}
+.mode-arr{color:var(--smoke);font-size:1.1rem}
 
 /* PAGE HEADER */
-.page-header { display:flex; align-items:center; gap:0.75rem; padding:calc(env(safe-area-inset-top,0px) + 1rem) 1rem 0.75rem; }
-.back { background:var(--card); border:1px solid var(--border); border-radius:10px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1rem; color:var(--sand); flex-shrink:0; }
-.page-title { font-size:1rem; font-weight:700; color:var(--sand); }
+.page-header{display:flex;align-items:center;gap:0.75rem;padding:calc(env(safe-area-inset-top,0px) + 1rem) 1rem 0.75rem}
+.back{background:var(--card);border:1px solid var(--border);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;color:var(--sand);flex-shrink:0}
+.page-title{font-size:1rem;font-weight:700;color:var(--sand)}
 
-/* CATEGORY GRID */
-.cat-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.65rem; padding:0.5rem 1rem; }
-.cat-card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:1.1rem 0.7rem; text-align:center; cursor:pointer; transition:border-color 0.2s,transform 0.15s; }
-.cat-card:active { border-color:var(--gold); transform:scale(0.97); }
-.cat-ico { font-size:1.8rem; margin-bottom:0.4rem; }
-.cat-ge { font-family:'Noto Serif Ethiopic',serif; font-size:0.95rem; color:var(--sand); display:block; margin-bottom:0.2rem; }
-.cat-en { font-size:0.6rem; letter-spacing:0.1em; color:var(--smoke); text-transform:uppercase; }
-.cat-pbar { height:3px; background:rgba(240,230,211,0.07); border-radius:2px; margin-top:0.6rem; overflow:hidden; }
-.cat-pfill { height:100%; background:var(--gold); border-radius:2px; }
+/* CAT GRID */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;padding:0.5rem 1rem}
+.cat-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.1rem 0.7rem;text-align:center;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
+.cat-card:active{border-color:var(--gold);transform:scale(0.97)}
+.cat-ico{font-size:1.8rem;margin-bottom:0.4rem}
+.cat-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.95rem;color:var(--sand);display:block;margin-bottom:0.2rem}
+.cat-en{font-size:0.6rem;letter-spacing:0.1em;color:var(--smoke);text-transform:uppercase}
+.cat-pbar{height:3px;background:rgba(240,230,211,0.07);border-radius:2px;margin-top:0.6rem;overflow:hidden}
+.cat-pfill{height:100%;background:var(--gold);border-radius:2px}
 
-/* GAME HEADER */
-.game-hdr { display:flex; align-items:center; justify-content:space-between; padding:calc(env(safe-area-inset-top,0px) + 0.75rem) 1rem 0.5rem; flex-shrink:0; }
-.g-streak { font-size:0.78rem; color:var(--gold); font-weight:700; }
-.g-prog { font-size:0.72rem; color:var(--smoke); }
+/* GAME HDR */
+.game-hdr{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 0.75rem) 1rem 0.5rem;flex-shrink:0}
+.g-streak{font-size:0.78rem;color:var(--gold);font-weight:700}
+.g-prog{font-size:0.72rem;color:var(--smoke)}
 
 /* FLASHCARD */
-.fc-area { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0.5rem 1rem; gap:1rem; }
-.flashcard { width:100%; max-width:360px; aspect-ratio:3/2; perspective:1000px; cursor:pointer; }
-.fc-inner { position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform 0.5s cubic-bezier(0.23,1,0.32,1); }
-.flashcard.flipped .fc-inner { transform:rotateY(180deg); }
-.fc-face { position:absolute; inset:0; border-radius:22px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.5rem 1.25rem; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
-.fc-front { background:radial-gradient(ellipse at 30% 25%,rgba(212,160,23,0.1),transparent 60%),var(--card2); border:1px solid rgba(212,160,23,0.2); }
-.fc-back { background:radial-gradient(ellipse at 70% 70%,rgba(74,124,89,0.15),transparent 60%),#1a2e22; border:1px solid rgba(74,124,89,0.35); transform:rotateY(180deg); }
-.fc-ge { font-family:'Noto Serif Ethiopic',serif; font-size:3.2rem; color:var(--sand); text-align:center; }
-.fc-tap { font-size:0.62rem; letter-spacing:0.15em; color:var(--smoke); text-transform:uppercase; margin-top:1rem; }
-.fc-en { font-size:1.35rem; font-weight:700; color:var(--sand); text-align:center; }
-.fc-tr { font-size:0.85rem; font-style:italic; color:var(--gold); margin-top:0.3rem; }
-.fc-tip { font-size:0.7rem; color:rgba(240,230,211,0.5); margin-top:0.2rem; }
-.fc-note { font-size:0.68rem; color:rgba(240,230,211,0.45); text-align:center; margin-top:0.6rem; line-height:1.5; }
-.fc-btns { display:flex; gap:0.65rem; width:100%; max-width:360px; }
-.fc-btn { flex:1; padding:0.9rem; border:none; border-radius:13px; font-family:inherit; font-size:0.78rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; transition:opacity 0.15s; }
-.fc-btn:active { opacity:0.85; }
-.fc-again { background:rgba(155,35,53,0.18); color:#e05565; border:1px solid rgba(155,35,53,0.25); }
-.fc-got { background:rgba(74,124,89,0.2); color:#6ab387; border:1px solid rgba(74,124,89,0.3); }
+.fc-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0.5rem 1rem;gap:1rem}
+.flashcard{width:100%;max-width:360px;aspect-ratio:3/2;perspective:1000px;cursor:pointer}
+.fc-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.5s cubic-bezier(0.23,1,0.32,1)}
+.flashcard.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem 1.25rem;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fc-front{background:radial-gradient(ellipse at 30% 25%,rgba(212,160,23,0.1),transparent 60%),var(--card2);border:1px solid rgba(212,160,23,0.2)}
+.fc-back{background:radial-gradient(ellipse at 70% 70%,rgba(74,124,89,0.15),transparent 60%),#1a2e22;border:1px solid rgba(74,124,89,0.35);transform:rotateY(180deg)}
+.fc-ge{font-family:'Noto Serif Ethiopic',serif;font-size:3.2rem;color:var(--sand);text-align:center}
+.fc-tap{font-size:0.62rem;letter-spacing:0.15em;color:var(--smoke);text-transform:uppercase;margin-top:1rem}
+.fc-en{font-size:1.35rem;font-weight:700;color:var(--sand);text-align:center}
+.fc-tr{font-size:0.85rem;font-style:italic;color:var(--gold);margin-top:0.3rem}
+.fc-tip{font-size:0.7rem;color:rgba(240,230,211,0.5);margin-top:0.2rem}
+.fc-note{font-size:0.68rem;color:rgba(240,230,211,0.45);text-align:center;margin-top:0.6rem;line-height:1.5}
+.fc-btns{display:flex;gap:0.65rem;width:100%;max-width:360px}
+.fc-btn{flex:1;padding:0.9rem;border:none;border-radius:13px;font-family:inherit;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
+.fc-again{background:rgba(155,35,53,0.18);color:#e05565;border:1px solid rgba(155,35,53,0.25)}
+.fc-got{background:rgba(74,124,89,0.2);color:#6ab387;border:1px solid rgba(74,124,89,0.3)}
 
 /* QUIZ */
-.quiz-scroll { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-bottom:80px; }
-.quiz-word { margin:0 1rem 0.85rem; background:radial-gradient(ellipse at 30% 30%,rgba(212,160,23,0.1),transparent 60%),var(--card2); border:1px solid rgba(212,160,23,0.18); border-radius:20px; padding:1.5rem 1.25rem; text-align:center; }
-.q-ge { font-family:'Noto Serif Ethiopic',serif; font-size:2.8rem; color:var(--sand); }
-.q-tr { font-size:0.85rem; font-style:italic; color:var(--gold); margin-top:0.35rem; }
-.q-prompt { font-size:0.9rem; color:var(--smoke); text-align:center; margin:0 1rem 0.75rem; }
-.opts { display:flex; flex-direction:column; gap:0.55rem; padding:0 1rem; }
-.opt { background:var(--card); border:2px solid var(--border); border-radius:13px; padding:0.9rem 1rem; display:flex; align-items:center; gap:0.7rem; cursor:pointer; font-family:inherit; font-size:0.88rem; color:var(--sand); transition:border-color 0.15s,background 0.15s; text-align:left; width:100%; }
-.opt:not([disabled]):active { border-color:var(--accent); }
-.opt-ltr { width:28px; height:28px; border-radius:50%; background:rgba(240,230,211,0.07); display:flex; align-items:center; justify-content:center; font-size:0.68rem; font-weight:700; color:var(--smoke); flex-shrink:0; }
-.opt.c { border-color:var(--green); background:rgba(74,124,89,0.12); }
-.opt.c .opt-ltr { background:var(--green); color:#fff; }
-.opt.w { border-color:var(--red); background:rgba(155,35,53,0.1); }
-.opt.w .opt-ltr { background:var(--red); color:#fff; }
-.q-result { margin:0.75rem 1rem 0; }
-.result-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:0.95rem 1.1rem; animation:popIn 0.28s cubic-bezier(0.34,1.56,0.64,1); }
-@keyframes popIn { from{opacity:0;transform:scale(0.94) translateY(8px)} to{opacity:1;transform:none} }
-.result-box.rc { border-color:var(--green); }
-.result-box.rw { border-color:var(--red); }
-.rv { font-weight:700; font-size:0.95rem; margin-bottom:0.45rem; }
-.rc .rv { color:#6ab387; }
-.rw .rv { color:#e05565; }
-.rn { font-size:0.75rem; color:var(--smoke); line-height:1.55; }
-.next-btn { display:block; width:calc(100% - 2rem); margin:0.65rem 1rem 0; padding:0.95rem; background:var(--accent); border:none; border-radius:13px; color:#fff; font-family:inherit; font-weight:700; font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; }
+.quiz-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:80px}
+.quiz-word{margin:0 1rem 0.85rem;background:radial-gradient(ellipse at 30% 30%,rgba(212,160,23,0.1),transparent 60%),var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:20px;padding:1.5rem 1.25rem;text-align:center}
+.q-ge{font-family:'Noto Serif Ethiopic',serif;font-size:2.8rem;color:var(--sand)}
+.q-tr{font-size:0.85rem;font-style:italic;color:var(--gold);margin-top:0.35rem}
+.q-prompt{font-size:0.9rem;color:var(--smoke);text-align:center;margin:0 1rem 0.75rem}
+.opts{display:flex;flex-direction:column;gap:0.55rem;padding:0 1rem}
+.opt{background:var(--card);border:2px solid var(--border);border-radius:13px;padding:0.9rem 1rem;display:flex;align-items:center;gap:0.7rem;cursor:pointer;font-family:inherit;font-size:0.88rem;color:var(--sand);transition:border-color 0.15s,background 0.15s;text-align:left;width:100%}
+.opt-ltr{width:28px;height:28px;border-radius:50%;background:rgba(240,230,211,0.07);display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;color:var(--smoke);flex-shrink:0}
+.opt.c{border-color:var(--green);background:rgba(74,124,89,0.12)}
+.opt.c .opt-ltr{background:var(--green);color:#fff}
+.opt.w{border-color:var(--red);background:rgba(155,35,53,0.1)}
+.opt.w .opt-ltr{background:var(--red);color:#fff}
+.q-result{margin:0.75rem 1rem 0}
+.result-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:0.95rem 1.1rem;animation:popIn 0.28s cubic-bezier(0.34,1.56,0.64,1)}
+@keyframes popIn{from{opacity:0;transform:scale(0.94) translateY(8px)}to{opacity:1;transform:none}}
+.result-box.rc{border-color:var(--green)}
+.result-box.rw{border-color:var(--red)}
+.rv{font-weight:700;font-size:0.95rem;margin-bottom:0.45rem}
+.rc .rv{color:#6ab387}
+.rw .rv{color:#e05565}
+.rn{font-size:0.75rem;color:var(--smoke);line-height:1.55}
+.next-btn{display:block;width:calc(100% - 2rem);margin:0.65rem 1rem 0;padding:0.95rem;background:var(--accent);border:none;border-radius:13px;color:#fff;font-family:inherit;font-weight:700;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
 
 /* MATCH */
-.match-info { text-align:center; font-size:0.72rem; color:var(--smoke); padding:0.3rem 1rem 0.5rem; }
-.match-timer-big { font-size:1.6rem; font-weight:800; color:var(--gold); text-align:center; padding-bottom:0.1rem; }
-.match-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; padding:0 1rem; }
-.mc { background:var(--card); border:2px solid var(--border); border-radius:14px; padding:0.85rem 0.6rem; text-align:center; cursor:pointer; min-height:68px; display:flex; align-items:center; justify-content:center; transition:border-color 0.15s,background 0.15s,opacity 0.2s; font-size:0.85rem; color:var(--sand); line-height:1.3; word-break:break-word; }
-.mc.ge-mc { font-family:'Noto Serif Ethiopic',serif; font-size:1.3rem; }
-.mc.sel { border-color:var(--gold); background:rgba(212,160,23,0.1); }
-.mc.mat { border-color:rgba(74,124,89,0.4); background:rgba(74,124,89,0.1); opacity:0.45; cursor:default; }
-.mc.bad { border-color:var(--red); background:rgba(155,35,53,0.12); animation:shake 0.4s; }
-@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
-.match-done { text-align:center; padding:1.25rem 1rem; }
-.match-done-ico { font-size:2.5rem; }
-.match-done-title { font-size:1.15rem; font-weight:800; color:var(--sand); margin:0.4rem 0 0.2rem; }
-.match-done-xp { font-size:0.85rem; color:var(--gold); margin-bottom:0.9rem; }
-.play-again { display:inline-block; padding:0.75rem 2rem; background:var(--accent); border:none; border-radius:12px; color:#fff; font-family:inherit; font-weight:700; font-size:0.8rem; letter-spacing:0.1em; cursor:pointer; }
+.match-info{text-align:center;font-size:0.72rem;color:var(--smoke);padding:0.3rem 1rem 0.5rem}
+.match-timer-big{font-size:1.6rem;font-weight:800;color:var(--gold);text-align:center}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;padding:0 1rem}
+.mc{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:0.85rem 0.6rem;text-align:center;cursor:pointer;min-height:68px;display:flex;align-items:center;justify-content:center;transition:border-color 0.15s,background 0.15s,opacity 0.2s;font-size:0.85rem;color:var(--sand);line-height:1.3;word-break:break-word}
+.mc.ge-mc{font-family:'Noto Serif Ethiopic',serif;font-size:1.3rem}
+.mc.sel{border-color:var(--gold);background:rgba(212,160,23,0.1)}
+.mc.mat{border-color:rgba(74,124,89,0.4);background:rgba(74,124,89,0.1);opacity:0.45;cursor:default}
+.mc.bad{border-color:var(--red);background:rgba(155,35,53,0.12);animation:shake 0.4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.match-done{text-align:center;padding:1.25rem 1rem}
+.match-done-ico{font-size:2.5rem}
+.match-done-title{font-size:1.15rem;font-weight:800;color:var(--sand);margin:0.4rem 0 0.2rem}
+.match-done-xp{font-size:0.85rem;color:var(--gold);margin-bottom:0.9rem}
+.play-again{display:inline-block;padding:0.75rem 2rem;background:var(--accent);border:none;border-radius:12px;color:#fff;font-family:inherit;font-weight:700;font-size:0.8rem;cursor:pointer}
 
 /* WORD HUNT */
-.ws-grid { display:grid; gap:0; padding:0 1rem; overflow:hidden; }
-.ws-row { display:flex; }
-.ws-cell { flex:1; aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-family:'Noto Serif Ethiopic',serif; font-size:1.05rem; color:var(--sand); cursor:pointer; border:1px solid rgba(240,230,211,0.05); border-radius:6px; margin:1px; background:var(--card2); transition:background 0.15s,color 0.15s; user-select:none; }
-.ws-cell.sel { background:rgba(212,160,23,0.25); color:var(--gold); }
-.ws-cell.found { background:rgba(74,124,89,0.2); color:#6ab387; border-color:rgba(74,124,89,0.3); }
-.ws-words { display:flex; flex-wrap:wrap; gap:0.5rem; padding:0.75rem 1rem; }
-.ws-word { font-family:'Noto Serif Ethiopic',serif; font-size:0.9rem; color:var(--smoke); padding:0.2rem 0.5rem; border:1px solid var(--border); border-radius:6px; }
-.ws-word.found { text-decoration:line-through; color:rgba(240,230,211,0.2); border-color:transparent; }
+.ws-grid{display:grid;gap:0;padding:0 1rem;overflow:hidden}
+.ws-cell{flex:1;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif Ethiopic',serif;font-size:1.05rem;color:var(--sand);cursor:pointer;border:1px solid rgba(240,230,211,0.05);border-radius:6px;margin:1px;background:var(--card2);transition:background 0.15s,color 0.15s;user-select:none}
+.ws-cell.sel{background:rgba(212,160,23,0.25);color:var(--gold)}
+.ws-cell.found{background:rgba(74,124,89,0.2);color:#6ab387;border-color:rgba(74,124,89,0.3)}
+.ws-words{display:flex;flex-wrap:wrap;gap:0.5rem;padding:0.75rem 1rem}
+.ws-word{font-family:'Noto Serif Ethiopic',serif;font-size:0.9rem;color:var(--smoke);padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:6px}
+.ws-word.found{text-decoration:line-through;color:rgba(240,230,211,0.2);border-color:transparent}
 
-/* ═══════════════════════════
-   SCRIPT / FIDEL SCREEN
-═══════════════════════════ */
-.script-tabs { display:flex; gap:0.5rem; padding:0 1rem 0.75rem; }
-.stab { flex:1; padding:0.6rem 0.4rem; background:var(--card); border:1px solid var(--border); border-radius:10px; font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--smoke); cursor:pointer; text-align:center; transition:all 0.2s; }
-.stab.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+/* SCRIPT */
+.script-tabs{display:flex;gap:0.5rem;padding:0 1rem 0.75rem}
+.stab{flex:1;padding:0.6rem 0.4rem;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--smoke);cursor:pointer;text-align:center;transition:all 0.2s}
+.stab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.fidel-intro{margin:0 1rem 0.75rem;background:var(--card);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:0.9rem 1rem}
+.fidel-intro-title{font-size:0.75rem;font-weight:700;color:var(--gold);margin-bottom:0.35rem;letter-spacing:0.1em;text-transform:uppercase}
+.fidel-intro-text{font-size:0.72rem;color:var(--smoke);line-height:1.6}
+.vowel-hdr{display:flex;gap:2px;padding:0 1rem 0.3rem}
+.vowel-hdr-cell{flex:1;text-align:center;font-size:0.55rem;color:var(--gold);letter-spacing:0.05em;font-weight:700}
+.fidel-family{display:flex;gap:2px;padding:0 1rem;margin-bottom:2px;align-items:center}
+.fidel-name{width:28px;font-size:0.55rem;color:var(--smoke);flex-shrink:0;text-align:right;padding-right:4px;line-height:1.2}
+.fidel-cell{flex:1;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:background 0.15s,border-color 0.15s}
+.fidel-cell:active,.fidel-cell.sel{background:rgba(212,160,23,0.15);border-color:var(--gold)}
+.fidel-cell .ge{font-size:1.1rem;color:var(--sand)}
+.fidel-detail{margin:0.75rem 1rem;background:var(--card2);border:1px solid rgba(212,160,23,0.2);border-radius:18px;padding:1.1rem 1.25rem;animation:popIn 0.25s ease;display:none}
+.fidel-detail.show{display:block}
+.fd-char{font-family:'Noto Serif Ethiopic',serif;font-size:3.5rem;color:var(--sand);text-align:center}
+.fd-row{display:flex;align-items:center;justify-content:space-between;margin-top:0.5rem}
+.fd-label{font-size:0.62rem;color:var(--smoke);text-transform:uppercase;letter-spacing:0.1em}
+.fd-val{font-size:0.88rem;color:var(--sand);font-weight:600}
+.fd-family-row{display:flex;gap:0.4rem;margin-top:0.9rem;flex-wrap:wrap;justify-content:center}
+.fd-sib{display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.5rem 0.4rem;min-width:38px;cursor:pointer;transition:border-color 0.15s}
+.fd-sib .ge{font-size:1.2rem;color:var(--sand)}
+.fd-sib-tr{font-size:0.55rem;color:var(--smoke)}
+.fd-note{font-size:0.7rem;color:var(--smoke);margin-top:0.75rem;line-height:1.55;border-top:1px solid var(--border);padding-top:0.65rem}
+.write-intro{margin:0 1rem 0.6rem;font-size:0.72rem;color:var(--smoke);line-height:1.6}
+.write-char-pick{display:flex;flex-wrap:wrap;gap:0.4rem;padding:0 1rem 0.75rem}
+.wcp{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:0.4rem 0.5rem;font-family:'Noto Serif Ethiopic',serif;font-size:1.1rem;color:var(--sand);cursor:pointer;transition:border-color 0.15s}
+.wcp.active{border-color:var(--gold);background:rgba(212,160,23,0.1);color:var(--gold)}
+.canvas-wrap{margin:0 1rem 0.75rem;position:relative}
+.canvas-label{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.4rem}
+.trace-char{position:absolute;font-family:'Noto Serif Ethiopic',serif;top:50%;left:50%;transform:translate(-50%,-50%);font-size:7rem;color:rgba(212,160,23,0.08);pointer-events:none;user-select:none;line-height:1}
+#writeCanvas{display:block;width:100%;border-radius:16px;border:1px solid rgba(212,160,23,0.18);background:#1a1009;cursor:crosshair;touch-action:none}
+.canvas-btns{display:flex;gap:0.6rem;margin:0 1rem 0.75rem}
+.cbtn{flex:1;padding:0.75rem;border:none;border-radius:12px;font-family:inherit;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer}
+.cbtn-clear{background:rgba(155,35,53,0.15);color:#e05565;border:1px solid rgba(155,35,53,0.25)}
+.cbtn-xp{background:rgba(74,124,89,0.15);color:#6ab387;border:1px solid rgba(74,124,89,0.25)}
+.write-tip{margin:0 1rem 1rem;background:var(--card);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:0.7rem 0.9rem;font-size:0.72rem;color:var(--smoke);line-height:1.55}
+.write-tip strong{color:var(--gold);display:block;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem}
+.rq-card{margin:0 1rem 0.85rem;background:var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:20px;padding:1.5rem;text-align:center}
+.rq-ge{font-family:'Noto Serif Ethiopic',serif;font-size:4rem;color:var(--sand)}
+.rq-prompt{font-size:0.8rem;color:var(--smoke);margin-top:0.5rem}
+.rq-opts{display:grid;grid-template-columns:1fr 1fr;gap:0.55rem;padding:0 1rem}
+.rq-opt{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:0.8rem 0.5rem;text-align:center;cursor:pointer;font-family:inherit;font-size:0.82rem;color:var(--sand);transition:border-color 0.15s;width:100%}
+.rq-opt.c{border-color:var(--green);background:rgba(74,124,89,0.12);color:#6ab387}
+.rq-opt.w{border-color:var(--red);background:rgba(155,35,53,0.1);color:#e05565}
 
-/* FIDEL CHART */
-.fidel-intro { margin:0 1rem 0.75rem; background:var(--card); border:1px solid rgba(212,160,23,0.15); border-radius:16px; padding:0.9rem 1rem; }
-.fidel-intro-title { font-size:0.75rem; font-weight:700; color:var(--gold); margin-bottom:0.35rem; letter-spacing:0.1em; text-transform:uppercase; }
-.fidel-intro-text { font-size:0.72rem; color:var(--smoke); line-height:1.6; }
-.vowel-hdr { display:flex; gap:2px; padding:0 1rem 0.3rem; }
-.vowel-hdr-cell { flex:1; text-align:center; font-size:0.55rem; color:var(--gold); letter-spacing:0.05em; font-weight:700; }
-.fidel-family { display:flex; gap:2px; padding:0 1rem; margin-bottom:2px; align-items:center; }
-.fidel-name { width:28px; font-size:0.55rem; color:var(--smoke); flex-shrink:0; text-align:right; padding-right:4px; line-height:1.2; }
-.fidel-cell { flex:1; aspect-ratio:1; display:flex; align-items:center; justify-content:center; background:var(--card); border:1px solid var(--border); border-radius:6px; cursor:pointer; transition:background 0.15s,border-color 0.15s; }
-.fidel-cell:active, .fidel-cell.sel { background:rgba(212,160,23,0.15); border-color:var(--gold); }
-.fidel-cell .ge { font-size:1.1rem; color:var(--sand); }
-.fidel-detail { margin:0.75rem 1rem; background:var(--card2); border:1px solid rgba(212,160,23,0.2); border-radius:18px; padding:1.1rem 1.25rem; animation:popIn 0.25s ease; display:none; }
-.fidel-detail.show { display:block; }
-.fd-char { font-family:'Noto Serif Ethiopic',serif; font-size:3.5rem; color:var(--sand); text-align:center; }
-.fd-row { display:flex; align-items:center; justify-content:space-between; margin-top:0.5rem; }
-.fd-label { font-size:0.62rem; color:var(--smoke); text-transform:uppercase; letter-spacing:0.1em; }
-.fd-val { font-size:0.88rem; color:var(--sand); font-weight:600; }
-.fd-family-row { display:flex; gap:0.4rem; margin-top:0.9rem; flex-wrap:wrap; justify-content:center; }
-.fd-sib { display:flex; flex-direction:column; align-items:center; gap:2px; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:0.5rem 0.4rem; min-width:38px; cursor:pointer; transition:border-color 0.15s; }
-.fd-sib:active { border-color:var(--gold); }
-.fd-sib .ge { font-size:1.2rem; color:var(--sand); }
-.fd-sib-tr { font-size:0.55rem; color:var(--smoke); }
-.fd-note { font-size:0.7rem; color:var(--smoke); margin-top:0.75rem; line-height:1.55; border-top:1px solid var(--border); padding-top:0.65rem; }
+/* ═══ CARDS ═══ */
+.coin-bar{display:flex;align-items:center;justify-content:center;gap:0.4rem;background:var(--card);border:1px solid rgba(240,192,64,0.2);border-radius:50px;padding:0.45rem 1rem;margin:0 1rem 0.9rem;font-size:0.85rem;font-weight:800;color:var(--coin)}
+.coin-ico{font-size:1.1rem}
+.pack-row{display:flex;gap:0.65rem;padding:0 1rem;margin-bottom:1rem;overflow-x:auto;padding-bottom:0.25rem}
+.pack-card{flex-shrink:0;width:110px;background:var(--card2);border-radius:16px;padding:0.85rem 0.6rem;text-align:center;cursor:pointer;transition:transform 0.15s,border-color 0.15s;position:relative;overflow:hidden}
+.pack-card:active{transform:scale(0.96)}
+.pack-common{border:2px solid rgba(240,230,211,0.2)}
+.pack-rare{border:2px solid rgba(74,144,217,0.5)}
+.pack-legend{border:2px solid rgba(180,79,212,0.6)}
+.pack-glow-rare{box-shadow:0 0 18px rgba(74,144,217,0.25)}
+.pack-glow-legend{box-shadow:0 0 22px rgba(180,79,212,0.3)}
+.pack-ico{font-size:2.2rem;margin-bottom:0.35rem}
+.pack-name{font-size:0.72rem;font-weight:800;color:var(--sand);margin-bottom:0.2rem}
+.pack-cost{font-size:0.7rem;color:var(--coin);font-weight:700}
+.pack-desc{font-size:0.58rem;color:var(--smoke);margin-top:0.2rem;line-height:1.4}
+.cards-tabs{display:flex;gap:0.5rem;padding:0 1rem 0.75rem}
+.ctab{flex:1;padding:0.5rem;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--smoke);cursor:pointer;text-align:center;transition:all 0.2s}
+.ctab.active{background:var(--accent);border-color:var(--accent);color:#fff}
 
-/* WRITING PRACTICE */
-.write-intro { margin:0 1rem 0.75rem; font-size:0.72rem; color:var(--smoke); line-height:1.6; }
-.write-char-pick { display:flex; flex-wrap:wrap; gap:0.4rem; padding:0 1rem 0.75rem; }
-.wcp { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:0.4rem 0.5rem; font-family:'Noto Serif Ethiopic',serif; font-size:1.1rem; color:var(--sand); cursor:pointer; transition:border-color 0.15s; }
-.wcp.active { border-color:var(--gold); background:rgba(212,160,23,0.1); color:var(--gold); }
-.canvas-wrap { margin:0 1rem 0.75rem; position:relative; }
-.canvas-label { font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--smoke); margin-bottom:0.4rem; }
-.trace-char { position:absolute; font-family:'Noto Serif Ethiopic',serif; top:50%; left:50%; transform:translate(-50%,-50%); font-size:7rem; color:rgba(212,160,23,0.08); pointer-events:none; user-select:none; line-height:1; }
-#writeCanvas { display:block; width:100%; border-radius:16px; border:1px solid rgba(212,160,23,0.18); background:#1a1009; cursor:crosshair; touch-action:none; }
-.canvas-btns { display:flex; gap:0.6rem; margin:0 1rem 0.75rem; }
-.cbtn { flex:1; padding:0.75rem; border:none; border-radius:12px; font-family:inherit; font-size:0.75rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; }
-.cbtn-clear { background:rgba(155,35,53,0.15); color:#e05565; border:1px solid rgba(155,35,53,0.25); }
-.cbtn-xp { background:rgba(74,124,89,0.15); color:#6ab387; border:1px solid rgba(74,124,89,0.25); }
-.write-tip { margin:0 1rem 1rem; background:var(--card); border-left:3px solid var(--gold); border-radius:0 12px 12px 0; padding:0.7rem 0.9rem; font-size:0.72rem; color:var(--smoke); line-height:1.55; }
-.write-tip strong { color:var(--gold); display:block; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.25rem; }
+/* Card item */
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;padding:0 1rem}
+.card-item{border-radius:14px;padding:0.9rem 0.65rem;text-align:center;position:relative;overflow:hidden;cursor:pointer;transition:transform 0.15s}
+.card-item:active{transform:scale(0.97)}
+.card-common{background:linear-gradient(145deg,#2a1c0e,#1a1009);border:1px solid rgba(240,230,211,0.15)}
+.card-rare{background:linear-gradient(145deg,#0d2040,#091428);border:1px solid rgba(74,144,217,0.4);box-shadow:0 0 12px rgba(74,144,217,0.1)}
+.card-legend{background:linear-gradient(145deg,#25083a,#130520);border:1px solid rgba(180,79,212,0.5);box-shadow:0 0 16px rgba(180,79,212,0.15)}
+.card-rarity{font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.3rem;font-weight:700}
+.card-common .card-rarity{color:var(--smoke)}
+.card-rare .card-rarity{color:var(--rare)}
+.card-legend .card-rarity{color:var(--legend)}
+.card-art{font-size:2rem;margin-bottom:0.4rem;line-height:1}
+.card-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.4rem;color:var(--sand);margin-bottom:0.2rem}
+.card-en{font-size:0.72rem;color:var(--smoke);margin-bottom:0.15rem}
+.card-tr{font-size:0.62rem;font-style:italic;color:var(--gold)}
+.card-count{position:absolute;top:6px;right:7px;background:rgba(0,0,0,0.5);border-radius:50px;font-size:0.58rem;color:var(--sand);padding:0.1rem 0.35rem;font-weight:700}
+.empty-collection{text-align:center;padding:3rem 1rem;color:var(--smoke);font-size:0.85rem;line-height:1.8}
 
-/* RECOGNITION QUIZ */
-.rq-card { margin:0 1rem 0.85rem; background:var(--card2); border:1px solid rgba(212,160,23,0.18); border-radius:20px; padding:1.5rem; text-align:center; }
-.rq-ge { font-family:'Noto Serif Ethiopic',serif; font-size:4rem; color:var(--sand); }
-.rq-prompt { font-size:0.8rem; color:var(--smoke); margin-top:0.5rem; }
-.rq-opts { display:grid; grid-template-columns:1fr 1fr; gap:0.55rem; padding:0 1rem; }
-.rq-opt { background:var(--card); border:2px solid var(--border); border-radius:12px; padding:0.8rem 0.5rem; text-align:center; cursor:pointer; font-family:inherit; font-size:0.82rem; color:var(--sand); transition:border-color 0.15s; width:100%; }
-.rq-opt:not([disabled]):active { border-color:var(--accent); }
-.rq-opt.c { border-color:var(--green); background:rgba(74,124,89,0.12); color:#6ab387; }
-.rq-opt.w { border-color:var(--red); background:rgba(155,35,53,0.1); color:#e05565; }
+/* Pack opening overlay */
+.pack-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem}
+.pack-overlay.hidden{display:none}
+.pack-open-title{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--smoke);margin-bottom:1.5rem}
+.pack-cards-reveal{display:flex;flex-direction:column;gap:0.75rem;width:100%;max-width:320px}
+.reveal-card{background:var(--card2);border-radius:18px;padding:1.2rem 1rem;text-align:center;opacity:0;transform:translateY(20px) scale(0.95);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+.reveal-card.show{opacity:1;transform:none}
+.reveal-card .card-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.8rem;color:var(--sand)}
+.reveal-card .card-en{font-size:0.88rem;color:var(--smoke);margin-top:0.25rem}
+.reveal-card .card-tr{font-size:0.75rem;font-style:italic;color:var(--gold);margin-top:0.15rem}
+.reveal-rarity{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:0.5rem}
+.reveal-art{font-size:2.5rem;margin-bottom:0.5rem}
+.pack-close-btn{margin-top:1.5rem;padding:0.85rem 2.5rem;background:var(--accent);border:none;border-radius:50px;color:#fff;font-family:inherit;font-weight:700;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
+
+/* ═══ GRAMMAR ═══ */
+.grammar-tabs{display:flex;gap:0.5rem;padding:0 1rem 0.75rem;overflow-x:auto}
+.gtab{flex-shrink:0;padding:0.55rem 0.85rem;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--smoke);cursor:pointer;text-align:center;transition:all 0.2s;white-space:nowrap}
+.gtab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.lesson-card{margin:0 1rem 0.75rem;background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden}
+.lesson-hdr{background:linear-gradient(135deg,rgba(193,68,14,0.2),rgba(212,160,23,0.1));padding:1rem 1.1rem;border-bottom:1px solid var(--border)}
+.lesson-title{font-size:0.95rem;font-weight:800;color:var(--sand)}
+.lesson-subtitle{font-size:0.68rem;color:var(--smoke);margin-top:0.2rem}
+.lesson-body{padding:1rem 1.1rem;display:flex;flex-direction:column;gap:0.75rem}
+.lesson-section{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.15rem;font-weight:700}
+.lesson-text{font-size:0.8rem;color:var(--smoke);line-height:1.65}
+.lesson-text strong{color:var(--sand)}
+.example-row{background:var(--card2);border-radius:12px;padding:0.75rem 0.9rem;border-left:3px solid var(--gold)}
+.ex-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.2rem;color:var(--sand);margin-bottom:0.25rem}
+.ex-tr{font-size:0.75rem;font-style:italic;color:var(--gold)}
+.ex-en{font-size:0.75rem;color:var(--smoke);margin-top:0.15rem}
+.ex-note{font-size:0.68rem;color:rgba(240,230,211,0.35);margin-top:0.2rem}
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border)}
+.gram-table{width:100%;border-collapse:collapse;font-size:0.75rem}
+.gram-table th{background:rgba(212,160,23,0.1);color:var(--gold);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.55rem 0.6rem;text-align:left;font-weight:700}
+.gram-table td{padding:0.5rem 0.6rem;border-top:1px solid var(--border);color:var(--sand);vertical-align:top}
+.gram-table td:first-child{color:var(--smoke);font-size:0.7rem}
+.td-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1rem}
+.td-tr{font-size:0.68rem;font-style:italic;color:var(--gold);margin-top:0.1rem}
+
+/* Sentence Builder */
+.sb-wrap{margin:0 1rem;padding:0 0 1rem}
+.sb-target{background:var(--card2);border:1px solid rgba(212,160,23,0.2);border-radius:14px;padding:1rem;min-height:60px;margin-bottom:0.75rem;display:flex;flex-wrap:wrap;gap:0.4rem;align-items:flex-start}
+.sb-hint{font-size:0.72rem;color:var(--smoke);font-style:italic}
+.sb-word{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:0.45rem 0.7rem;font-family:'Noto Serif Ethiopic',serif;font-size:0.95rem;cursor:pointer;transition:opacity 0.15s}
+.sb-word.placed{background:rgba(193,68,14,0.3);color:rgba(240,230,211,0.5);cursor:default}
+.sb-placed{background:rgba(212,160,23,0.12);border:1px solid rgba(212,160,23,0.2);border-radius:8px;padding:0.45rem 0.7rem;font-family:'Noto Serif Ethiopic',serif;font-size:0.95rem;color:var(--gold);cursor:pointer}
+.sb-bank{display:flex;flex-wrap:wrap;gap:0.4rem;padding:0 0 0.75rem}
+.sb-eng{font-size:0.82rem;color:var(--smoke);margin-bottom:0.6rem;font-style:italic}
+.sb-actions{display:flex;gap:0.5rem;margin-top:0.5rem}
+.sb-btn{flex:1;padding:0.75rem;border:none;border-radius:12px;font-family:inherit;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer}
+.sb-check{background:var(--green);color:#fff}
+.sb-reset{background:rgba(240,230,211,0.07);color:var(--smoke);border:1px solid var(--border)}
+.sb-result{background:var(--card);border-radius:12px;padding:0.75rem 0.9rem;margin-top:0.5rem;font-size:0.8rem;line-height:1.5;display:none}
+.sb-result.show{display:block}
+.sb-result.ok{border-left:3px solid var(--green);color:#6ab387}
+.sb-result.bad{border-left:3px solid var(--red);color:#e05565}
+.sb-counter{font-size:0.62rem;color:var(--smoke);text-align:right;margin-bottom:0.5rem}
 
 /* ACHIEVEMENTS */
-.ach-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.65rem; padding:0.5rem 1rem; }
-.ach-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1rem 0.7rem; text-align:center; }
-.ach-card.ok { border-color:rgba(212,160,23,0.3); }
-.ach-ico { font-size:1.9rem; margin-bottom:0.35rem; }
-.ach-card:not(.ok) .ach-ico { filter:grayscale(1); opacity:0.2; }
-.ach-name { font-size:0.78rem; font-weight:700; color:var(--sand); }
-.ach-card:not(.ok) .ach-name { color:var(--smoke); }
-.ach-ge { font-family:'Noto Serif Ethiopic',serif; font-size:0.7rem; color:var(--smoke); margin-top:0.1rem; }
-.ach-desc { font-size:0.63rem; color:var(--smoke); margin-top:0.25rem; line-height:1.4; }
-.ach-xp { font-size:0.62rem; color:var(--gold); margin-top:0.35rem; }
+.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;padding:0.5rem 1rem}
+.ach-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem 0.7rem;text-align:center}
+.ach-card.ok{border-color:rgba(212,160,23,0.3)}
+.ach-ico{font-size:1.9rem;margin-bottom:0.35rem}
+.ach-card:not(.ok) .ach-ico{filter:grayscale(1);opacity:0.2}
+.ach-name{font-size:0.78rem;font-weight:700;color:var(--sand)}
+.ach-card:not(.ok) .ach-name{color:var(--smoke)}
+.ach-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.7rem;color:var(--smoke);margin-top:0.1rem}
+.ach-desc{font-size:0.63rem;color:var(--smoke);margin-top:0.25rem;line-height:1.4}
+.ach-xp{font-size:0.62rem;color:var(--gold);margin-top:0.35rem}
 
 /* PROGRESS */
-.prog-list { display:flex; flex-direction:column; gap:0.6rem; padding:0.5rem 1rem; }
-.prog-item { background:var(--card); border:1px solid var(--border); border-radius:15px; padding:1rem 1.1rem; }
-.prog-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:0.55rem; }
-.prog-cat { font-size:0.88rem; font-weight:700; color:var(--sand); }
-.prog-ct { font-size:0.78rem; color:var(--gold); font-weight:700; }
-.prog-bar { height:7px; background:rgba(240,230,211,0.07); border-radius:4px; overflow:hidden; }
-.prog-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--gold)); border-radius:4px; transition:width 0.8s cubic-bezier(0.23,1,0.32,1); }
-.prog-total { border-color:rgba(212,160,23,0.25)!important; }
+.prog-list{display:flex;flex-direction:column;gap:0.6rem;padding:0.5rem 1rem}
+.prog-item{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:1rem 1.1rem}
+.prog-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem}
+.prog-cat{font-size:0.88rem;font-weight:700;color:var(--sand)}
+.prog-ct{font-size:0.78rem;color:var(--gold);font-weight:700}
+.prog-bar{height:7px;background:rgba(240,230,211,0.07);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:4px;transition:width 0.8s cubic-bezier(0.23,1,0.32,1)}
+.prog-total{border-color:rgba(212,160,23,0.25)!important}
 
-/* TOAST / XP */
-.toast { position:fixed; top:1rem; left:50%; transform:translateX(-50%) translateY(-100px); background:var(--card2); border:1px solid rgba(212,160,23,0.4); border-radius:50px; padding:0.55rem 1.2rem; font-size:0.8rem; color:var(--sand); z-index:500; transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1); white-space:nowrap; max-width:88vw; text-align:center; box-shadow:0 8px 24px rgba(0,0,0,0.4); }
-.toast.show { transform:translateX(-50%) translateY(0); }
-.xp-pop { position:fixed; font-size:1.1rem; font-weight:800; color:var(--gold); pointer-events:none; z-index:400; animation:xpFloat 1.1s ease-out forwards; }
-@keyframes xpFloat { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-55px) scale(1.15)} }
-.spacer { height:0.5rem; }
-.section-gap { height:0.8rem; }
+/* TOAST */
+.toast{position:fixed;top:1rem;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--card2);border:1px solid rgba(212,160,23,0.4);border-radius:50px;padding:0.55rem 1.2rem;font-size:0.8rem;color:var(--sand);z-index:500;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);white-space:nowrap;max-width:88vw;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.xp-pop{position:fixed;font-size:1rem;font-weight:800;color:var(--gold);pointer-events:none;z-index:400;animation:xpFloat 1.1s ease-out forwards}
+.coin-pop{position:fixed;font-size:1rem;font-weight:800;color:var(--coin);pointer-events:none;z-index:400;animation:xpFloat 1.1s ease-out forwards}
+@keyframes xpFloat{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-55px) scale(1.15)}}
+.section-gap{height:0.8rem}
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
+<div class="pack-overlay hidden" id="pack-overlay">
+  <div class="pack-open-title">📦 Pack Opened!</div>
+  <div class="pack-cards-reveal" id="pack-cards-reveal"></div>
+  <button class="pack-close-btn" onclick="closePackOverlay()">Add to Collection ✓</button>
+</div>
 
 <!-- NAV -->
 <nav class="nav">
   <button class="nav-btn active" id="nb-home" onclick="goNav('home')"><span>🏠</span><span>Home</span></button>
   <button class="nav-btn" id="nb-play" onclick="goNav('play')"><span>🎮</span><span>Play</span></button>
   <button class="nav-btn" id="nb-script" onclick="goNav('script')"><span>✍️</span><span>Script</span></button>
-  <button class="nav-btn" id="nb-ach" onclick="goNav('ach')"><span>🏆</span><span>Medals</span></button>
+  <button class="nav-btn" id="nb-grammar" onclick="goNav('grammar')"><span>📝</span><span>Grammar</span></button>
+  <button class="nav-btn" id="nb-cards" onclick="goNav('cards')"><span>🃏</span><span>Cards</span></button>
   <button class="nav-btn" id="nb-prog" onclick="goNav('prog')"><span>📊</span><span>Progress</span></button>
 </nav>
 
@@ -270,7 +336,7 @@ body {
     <div class="home-hero">
       <div class="hero-ge">ትግርኛ ተምሃር</div>
       <div class="hero-title">Learn Tigrinya</div>
-      <div class="hero-sub">Ge'ez Script · Culture · Language</div>
+      <div class="hero-sub">Ge'ez Script · Grammar · Cards · Games</div>
     </div>
     <div class="level-card">
       <div class="lv-row"><div class="lv-badge" id="h-level">Level 1</div><div class="lv-xp" id="h-xp">0 / 100 XP</div></div>
@@ -279,15 +345,17 @@ body {
     <div class="stats-row">
       <div class="stat"><div class="stat-n" id="h-streak">0</div><div class="stat-l">🔥 Streak</div></div>
       <div class="stat"><div class="stat-n" id="h-words">0</div><div class="stat-l">📖 Words</div></div>
-      <div class="stat"><div class="stat-n" id="h-acc">—</div><div class="stat-l">🎯 Accuracy</div></div>
+      <div class="stat"><div class="stat-n" id="h-coins">0</div><div class="stat-l">🪙 Coins</div></div>
+      <div class="stat"><div class="stat-n" id="h-cards-ct">0</div><div class="stat-l">🃏 Cards</div></div>
     </div>
-    <div class="sec-label">Choose a Game</div>
+    <div class="sec-label">Quick Access</div>
     <div class="mode-list">
-      <div class="mode-row" onclick="startMode('flash')"><div class="mode-ico">🃏</div><div class="mode-txt"><div class="mode-name">Flashcards</div><div class="mode-desc">Flip cards to learn words · +5 XP each</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="startMode('quiz')"><div class="mode-ico">❓</div><div class="mode-txt"><div class="mode-name">Quiz</div><div class="mode-desc">Multiple choice challenge · +15 XP correct</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="startMode('match')"><div class="mode-ico">🔗</div><div class="mode-txt"><div class="mode-name">Match Pairs</div><div class="mode-desc">Connect Ge'ez to English · +25 XP</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="startMode('search')"><div class="mode-ico">🔎</div><div class="mode-txt"><div class="mode-name">Word Hunt</div><div class="mode-desc">Find Tigrinya letters in the grid · +20 XP</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="goNav('script')"><div class="mode-ico">✍️</div><div class="mode-txt"><div class="mode-name">Read &amp; Write</div><div class="mode-desc">Learn the Ge'ez fidel alphabet · +10 XP</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="startMode('quiz')"><div class="mode-ico">❓</div><div class="mode-txt"><div class="mode-name">Quiz</div><div class="mode-desc">+15 XP · +3 🪙 per correct answer</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="startMode('match')"><div class="mode-ico">🔗</div><div class="mode-txt"><div class="mode-name">Match Pairs</div><div class="mode-desc">+25 XP · +5 🪙 per round</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="goNav('grammar')"><div class="mode-ico">📝</div><div class="mode-txt"><div class="mode-name">Grammar</div><div class="mode-desc">Lessons + sentence builder · +10 🪙</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="goNav('cards')"><div class="mode-ico">🃏</div><div class="mode-txt"><div class="mode-name">Card Shop</div><div class="mode-desc">Spend coins · collect Tigrinya cards</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="startMode('flash')"><div class="mode-ico">🃏</div><div class="mode-txt"><div class="mode-name">Flashcards</div><div class="mode-desc">+5 XP · +1 🪙 per card</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="goNav('script')"><div class="mode-ico">✍️</div><div class="mode-txt"><div class="mode-name">Read &amp; Write Script</div><div class="mode-desc">Learn the Ge'ez fidel alphabet</div></div><div class="mode-arr">›</div></div>
     </div>
     <div class="section-gap"></div>
   </div>
@@ -296,15 +364,15 @@ body {
 <!-- PLAY / CAT -->
 <div class="screen" id="screen-play">
   <div class="page-header"><div class="back" onclick="goNav('home')">←</div><div class="page-title" id="play-title">Choose Category</div></div>
-  <div class="scroll-area" style="padding-bottom:80px;"><div class="cat-grid" id="cat-grid"></div><div class="section-gap"></div></div>
+  <div class="scroll-area" style="padding-bottom:80px;"><div class="cat-grid" id="cat-grid"></div></div>
 </div>
 
 <!-- FLASHCARD -->
 <div class="screen" id="screen-flash">
-  <div class="game-hdr"><div class="back" onclick="goNav('play')">←</div><div class="g-prog" id="fc-prog">1 / 12</div><div class="g-streak" id="fc-str">🔥 0</div></div>
+  <div class="game-hdr"><div class="back" onclick="goNav('play')">←</div><div class="g-prog" id="fc-prog">1/12</div><div class="g-streak" id="fc-str">🔥 0</div></div>
   <div class="fc-area">
     <div class="flashcard" id="flashcard" onclick="fcFlip()">
-      <div class="fc-inner" id="fc-inner">
+      <div class="fc-inner">
         <div class="fc-face fc-front"><div class="fc-ge ge" id="fc-ge"></div><div class="fc-tap">tap to reveal</div></div>
         <div class="fc-face fc-back"><div class="fc-en" id="fc-en"></div><div class="fc-tr" id="fc-tr"></div><div class="fc-tip" id="fc-tip"></div><div class="fc-note" id="fc-note"></div></div>
       </div>
@@ -324,21 +392,21 @@ body {
     <div class="q-prompt" id="q-prompt"></div>
     <div class="opts" id="opts"></div>
     <div class="q-result" id="q-result"></div>
-    <div class="spacer"></div>
+    <div style="height:0.5rem"></div>
   </div>
 </div>
 
 <!-- MATCH -->
 <div class="screen" id="screen-match">
   <div class="game-hdr"><div class="back" onclick="stopMatch();goNav('play')">←</div><div class="match-timer-big" id="m-timer">0:00</div><div class="g-streak" id="m-str">🔥 0</div></div>
-  <div class="match-info" id="m-info">Tap a Tigrinya word, then its English match</div>
+  <div class="match-info" id="m-info">Tap Tigrinya, then its English match</div>
   <div class="match-grid" id="m-grid"></div>
   <div id="m-result"></div>
 </div>
 
 <!-- WORD HUNT -->
 <div class="screen" id="screen-search">
-  <div class="game-hdr"><div class="back" onclick="goNav('play')">←</div><div class="g-prog" id="ws-found">0 / 5 found</div><div class="g-streak" id="ws-str">🔥 0</div></div>
+  <div class="game-hdr"><div class="back" onclick="goNav('play')">←</div><div class="g-prog" id="ws-found">0/5</div><div class="g-streak" id="ws-str">🔥 0</div></div>
   <div class="scroll-area" style="padding-bottom:80px;">
     <div class="ws-grid" id="ws-grid"></div>
     <div class="ws-words" id="ws-words"></div>
@@ -346,31 +414,24 @@ body {
   </div>
 </div>
 
-<!-- ═══════════════ SCRIPT SCREEN ═══════════════ -->
+<!-- SCRIPT -->
 <div class="screen" id="screen-script">
   <div class="page-header"><div class="page-title">✍️ Read &amp; Write — Ge'ez Fidel</div></div>
   <div class="script-tabs">
-    <button class="stab active" id="stab-chart" onclick="switchScriptTab('chart')">Fidel Chart</button>
+    <button class="stab active" id="stab-chart" onclick="switchScriptTab('chart')">Chart</button>
     <button class="stab" id="stab-write" onclick="switchScriptTab('write')">Write</button>
     <button class="stab" id="stab-rquiz" onclick="switchScriptTab('rquiz')">Recognize</button>
   </div>
-
-  <!-- CHART TAB -->
   <div id="stab-chart-pane" class="scroll-area" style="padding-bottom:80px;">
-    <div class="fidel-intro">
-      <div class="fidel-intro-title">The Ge'ez Fidel (ፊደል)</div>
-      <div class="fidel-intro-text">Tigrinya uses the ancient <strong style="color:var(--sand)">Ge'ez script</strong>, one of the world's oldest writing systems. Each symbol is called a <em>fidel</em> (ፊደል). The script is an <strong style="color:var(--sand)">abugida</strong> — each character represents a consonant + vowel combination. There are 7 vowel orders, and ~33 consonant families, giving over 230 characters. Tap any character to learn it.</div>
-    </div>
+    <div class="fidel-intro"><div class="fidel-intro-title">The Ge'ez Fidel (ፊደል)</div><div class="fidel-intro-text">Tigrinya uses the ancient <strong style="color:var(--sand)">Ge'ez script</strong> — one of the world's oldest writing systems. Each symbol is called a <em>fidel</em>. The script is an <strong style="color:var(--sand)">abugida</strong>: each character is a consonant + vowel pair. There are 7 vowel orders and ~22 consonant families. Tap any character to explore it.</div></div>
     <div class="vowel-hdr" id="vowel-hdr"></div>
     <div id="fidel-chart"></div>
     <div class="fidel-detail" id="fidel-detail"></div>
     <div class="section-gap"></div>
   </div>
-
-  <!-- WRITE TAB -->
-  <div id="stab-write-pane" class="scroll-area" style="padding-bottom:80px;display:none;">
-    <p class="write-intro" style="margin:0 1rem 0.6rem;">Trace the glowing character on the canvas. Build your muscle memory for writing the Ge'ez script.</p>
-    <div style="padding:0 1rem 0.5rem;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);">Pick a character to practice</div>
+  <div id="stab-write-pane" class="scroll-area" style="padding-bottom:80px;display:none">
+    <p class="write-intro">Trace the glowing character on the canvas. Build muscle memory for writing Ge'ez.</p>
+    <div style="padding:0 1rem 0.5rem;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke)">Pick a character</div>
     <div class="write-char-pick" id="write-char-pick"></div>
     <div class="canvas-wrap">
       <div class="canvas-label">Trace the character below</div>
@@ -381,42 +442,55 @@ body {
       <button class="cbtn cbtn-clear" onclick="clearCanvas()">🗑 Clear</button>
       <button class="cbtn cbtn-xp" onclick="claimWriteXP()">✓ Done! +10 XP</button>
     </div>
-    <div class="write-tip">
-      <strong>How to write Ge'ez</strong>
-      Ge'ez is written <strong style="color:var(--sand)">left to right</strong>, like English. Each fidel is a single character — no separate joining needed. Focus on the overall shape first, then add the vowel marker (the small extension that changes the vowel sound).
-    </div>
+    <div class="write-tip"><strong>How to write Ge'ez</strong>Written <strong style="color:var(--sand)">left to right</strong>. Each fidel is a single character — the small extensions change the vowel sound. Focus on overall shape first.</div>
     <div class="section-gap"></div>
   </div>
-
-  <!-- RECOGNIZE TAB -->
-  <div id="stab-rquiz-pane" style="display:none;flex:1;overflow-y:auto;padding-bottom:80px;">
+  <div id="stab-rquiz-pane" style="display:none;flex:1;overflow-y:auto;padding-bottom:80px">
     <div class="rq-card"><div class="rq-ge ge" id="rq-ge">ሀ</div><div class="rq-prompt" id="rq-prompt">What sound does this character make?</div></div>
     <div class="rq-opts" id="rq-opts"></div>
     <div class="q-result" id="rq-result"></div>
-    <div class="spacer"></div>
   </div>
 </div>
 
-<!-- ACHIEVEMENTS -->
-<div class="screen" id="screen-ach">
-  <div class="page-header"><div class="page-title">Achievements</div></div>
-  <div class="scroll-area" style="padding-bottom:80px;"><div class="ach-grid" id="ach-grid"></div></div>
+<!-- ═══════════ GRAMMAR ═══════════ -->
+<div class="screen" id="screen-grammar">
+  <div class="page-header"><div class="page-title">📝 Grammar</div></div>
+  <div class="grammar-tabs">
+    <button class="gtab active" id="gtab-0" onclick="switchGrammar(0)">Structure</button>
+    <button class="gtab" id="gtab-1" onclick="switchGrammar(1)">Pronouns</button>
+    <button class="gtab" id="gtab-2" onclick="switchGrammar(2)">To Be</button>
+    <button class="gtab" id="gtab-3" onclick="switchGrammar(3)">Verbs</button>
+    <button class="gtab" id="gtab-4" onclick="switchGrammar(4)">Questions</button>
+    <button class="gtab" id="gtab-5" onclick="switchGrammar(5)">Negation</button>
+  </div>
+  <div class="scroll-area" style="padding-bottom:80px;" id="grammar-content"></div>
+</div>
+
+<!-- ═══════════ CARDS ═══════════ -->
+<div class="screen" id="screen-cards">
+  <div class="page-header"><div class="page-title">🃏 Card Collection</div></div>
+  <div class="coin-bar"><span class="coin-ico">🪙</span><span id="cards-coins">0</span><span style="color:var(--smoke);font-size:0.72rem;font-weight:400;margin-left:0.3rem">coins</span></div>
+  <div class="cards-tabs">
+    <button class="ctab active" id="ctab-shop" onclick="switchCardsTab('shop')">Shop</button>
+    <button class="ctab" id="ctab-collection" onclick="switchCardsTab('collection')">Collection</button>
+  </div>
+  <div class="scroll-area" style="padding-bottom:80px;" id="cards-content"></div>
 </div>
 
 <!-- PROGRESS -->
 <div class="screen" id="screen-prog">
-  <div class="page-header"><div class="page-title">Your Progress</div></div>
+  <div class="page-header"><div class="page-title">📊 Your Progress</div></div>
   <div class="scroll-area" style="padding-bottom:80px;"><div class="prog-list" id="prog-list"></div></div>
 </div>
 
 <script>
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
    VOCABULARY
-═══════════════════════════════════════════ */
-const V = {
-  greetings:{ label:'Greetings', icon:'🤝', ge:'ሰላምታ', words:[
-    {g:'ሰላም',t:'selam',e:'hello / peace',p:'sel-AM',n:'Used any time of day. Also means peace — deeply meaningful in Tigrinya culture.'},
-    {g:'ጽቡቕ',t:'tsbuk',e:'good / fine',p:'tsBUK',n:'The most common reply to "how are you?".'},
+═══════════════════════════════════ */
+const V={
+  greetings:{label:'Greetings',icon:'🤝',ge:'ሰላምታ',words:[
+    {g:'ሰላም',t:'selam',e:'hello / peace',p:'sel-AM',n:'Used any time of day. Also means peace.'},
+    {g:'ጽቡቕ',t:'tsbuk',e:'good / fine',p:'tsBUK',n:'Most common reply to "how are you?".'},
     {g:'የቐንየለይ',t:'yeqenyeley',e:'thank you',p:'ye-QEN-ye-ley',n:'A heartfelt expression of gratitude.'},
     {g:'በጃኻ',t:'bejaka',e:'please (to a male)',p:'be-JA-ka',n:'Change to "bejaki" when speaking to a female.'},
     {g:'ይቕረ',t:'yiqre',e:'excuse me / sorry',p:'YIQ-re',n:'Used both for apologies and to get attention.'},
@@ -426,15 +500,15 @@ const V = {
     {g:'ሰናይ ምሸት',t:'senay mshet',e:'good evening',p:'se-NAY mSHET',n:'Said as the sun goes down.'},
     {g:'ሰናይ ዕለት',t:'senay ilet',e:'good day',p:'se-NAY IH-let',n:'A general daytime greeting.'},
     {g:'ሰናይ ምደር',t:'senay mder',e:'good afternoon',p:'se-NAY mDER',n:'Specifically used in the afternoon.'},
-    {g:'ሰናይ ፍጠር',t:'senay fter',e:'goodbye (go in peace)',p:'se-NAY FTer',n:'Literally "go in peace" — a beautiful farewell.'},
+    {g:'ሰናይ ፍጠር',t:'senay fter',e:'goodbye (go in peace)',p:'se-NAY FTer',n:'Literally "go in peace".'},
   ]},
-  numbers:{ label:'Numbers', icon:'🔢', ge:'ቁጽሪ', words:[
+  numbers:{label:'Numbers',icon:'🔢',ge:'ቁጽሪ',words:[
     {g:'ሓደ',t:'hade',e:'one',p:'HA-de',n:'The beginning of all counting.'},
     {g:'ክልተ',t:'kilte',e:'two',p:'KIL-te',n:'Tigrinya has gendered forms for numbers in certain contexts.'},
     {g:'ሰለስተ',t:'seleste',e:'three',p:'se-LES-te',n:'Three is an auspicious number in Eritrean culture.'},
-    {g:'ኣርባዕተ',t:'arbaete',e:'four',p:'ar-BAE-te',n:'Note the glottal "ae" sound — unique to Semitic languages.'},
+    {g:'ኣርባዕተ',t:'arbaete',e:'four',p:'ar-BAE-te',n:'Note the glottal "ae" sound.'},
     {g:'ሓሙሽተ',t:'hamushte',e:'five',p:'ha-MUSH-te',n:'Five fingers on one hand.'},
-    {g:'ሽድሽተ',t:'shdshte',e:'six',p:'shd-SHTE',n:'A complex consonant cluster reflecting Tigrinya\'s rich phonology.'},
+    {g:'ሽድሽተ',t:'shdshte',e:'six',p:'shd-SHTE',n:'A complex consonant cluster.'},
     {g:'ሸውዓተ',t:'shewaete',e:'seven',p:'she-WAE-te',n:'Seven days of the week.'},
     {g:'ሸሞንተ',t:'shemonte',e:'eight',p:'she-MON-te',n:'Eight is a balanced, symmetrical number.'},
     {g:'ትሸዓተ',t:'tsheaete',e:'nine',p:'tshe-AE-te',n:'Almost at ten!'},
@@ -442,161 +516,306 @@ const V = {
     {g:'ዕስራ',t:'isra',e:'twenty',p:'IS-ra',n:'Multiples of ten follow a distinct pattern.'},
     {g:'ሚእቲ',t:'miti',e:'one hundred',p:'MIH-ti',n:'Used constantly in markets across Eritrea.'},
   ]},
-  food:{ label:'Food & Drink', icon:'🍞', ge:'መግቢ', words:[
-    {g:'እንጀራ',t:'injera',e:'injera (flatbread)',p:'in-JE-ra',n:'The cornerstone of Eritrean cuisine, made from fermented teff.'},
-    {g:'ሽሮ',t:'shiro',e:'chickpea stew',p:'SHEE-ro',n:'A beloved spiced chickpea stew eaten daily in many households.'},
-    {g:'ማይ',t:'may',e:'water',p:'MAY',n:'The very first thing offered to a guest — a sacred act.'},
+  food:{label:'Food & Drink',icon:'🍞',ge:'መግቢ',words:[
+    {g:'እንጀራ',t:'injera',e:'injera (flatbread)',p:'in-JE-ra',n:'The cornerstone of Eritrean cuisine.'},
+    {g:'ሽሮ',t:'shiro',e:'chickpea stew',p:'SHEE-ro',n:'A beloved spiced chickpea stew.'},
+    {g:'ማይ',t:'may',e:'water',p:'MAY',n:'The first thing offered to a guest — a sacred act.'},
     {g:'ጸባ',t:'tseba',e:'milk',p:'TSE-ba',n:'Fresh milk is a traditional offering of welcome.'},
     {g:'ስጋ',t:'sga',e:'meat',p:'SGA',n:'Often reserved for celebrations and honored guests.'},
-    {g:'ዓሳ',t:'asa',e:'fish',p:'A-sa',n:'Common in coastal Eritrea near Massawa and the Red Sea.'},
-    {g:'ዳቦ',t:'dabo',e:'wheat bread',p:'DA-bo',n:'Refers to baked wheat bread, distinct from injera.'},
-    {g:'ቡን',t:'bun',e:'coffee',p:'BOON',n:'The coffee ceremony is a sacred social ritual. Never to be rushed.'},
+    {g:'ዓሳ',t:'asa',e:'fish',p:'A-sa',n:'Common in coastal Eritrea near Massawa.'},
+    {g:'ዳቦ',t:'dabo',e:'wheat bread',p:'DA-bo',n:'Distinct from the fermented injera.'},
+    {g:'ቡን',t:'bun',e:'coffee',p:'BOON',n:'The coffee ceremony is a sacred social ritual.'},
     {g:'ሻሂ',t:'shahi',e:'tea',p:'SHA-hi',n:'Often spiced with cardamom and served very sweet.'},
-    {g:'ጨው',t:'chew',e:'salt',p:'CHEW',n:'Historically so valuable it was used as currency.'},
+    {g:'ጨው',t:'chew',e:'salt',p:'CHEW',n:'Historically used as currency.'},
     {g:'ፍሩታ',t:'fruta',e:'fruit',p:'FRU-ta',n:'A borrowed word adapted into modern Tigrinya.'},
-    {g:'ኣሕምልቲ',t:'ahmilti',e:'vegetables',p:'ah-MIL-ti',n:'Central to fasting dishes in the Orthodox Christian calendar.'},
+    {g:'ኣሕምልቲ',t:'ahmilti',e:'vegetables',p:'ah-MIL-ti',n:'Central to fasting dishes in the Orthodox calendar.'},
   ]},
-  family:{ label:'Family', icon:'👨‍👩‍👧', ge:'ስድራ', words:[
+  family:{label:'Family',icon:'👨‍👩‍👧',ge:'ስድራ',words:[
     {g:'ኣደ',t:'ade',e:'mother',p:'A-de',n:'Mothers hold a deeply revered role in Eritrean society.'},
     {g:'ኣቦ',t:'abo',e:'father',p:'A-bo',n:'The traditional head of the household.'},
     {g:'ሓው',t:'haw',e:'brother',p:'HAW',n:'Used as a term of solidarity even for non-relatives.'},
     {g:'ሓብቲ',t:'habti',e:'sister',p:'HAB-ti',n:'Sisters play central roles in family ceremonies.'},
     {g:'ወዲ',t:'wedi',e:'son / boy',p:'WE-di',n:'"Wedi" is also a term of endearment.'},
     {g:'ጓል',t:'gwal',e:'daughter / girl',p:'GWAL',n:'Also appears in many Eritrean place names.'},
-    {g:'ሰበይቲ',t:'sebeyti',e:'wife / woman',p:'se-BEY-ti',n:'Can refer to a woman generally or to a wife specifically.'},
+    {g:'ሰበይቲ',t:'sebeyti',e:'wife / woman',p:'se-BEY-ti',n:'Can refer to a woman generally or to a wife.'},
     {g:'ሰብኣይ',t:'sebay',e:'husband / man',p:'se-BAY',n:'Can refer to a man generally or to a husband.'},
-    {g:'ኣያ',t:'aya',e:'grandfather',p:'A-ya',n:'Elders are deeply revered — their wisdom carries great weight.'},
-    {g:'እዮ',t:'iyo',e:'grandmother',p:'IH-yo',n:'Grandmothers are keepers of family stories and traditions.'},
+    {g:'ኣያ',t:'aya',e:'grandfather',p:'A-ya',n:'Elders are deeply revered in Tigrinya culture.'},
+    {g:'እዮ',t:'iyo',e:'grandmother',p:'IH-yo',n:'Grandmothers are keepers of family stories.'},
     {g:'ቆልዓ',t:'qolaa',e:'child',p:'QO-laa',n:'Children are considered a great blessing.'},
-    {g:'ዓርኪ',t:'arki',e:'friend',p:'AR-ki',n:'Friendship is as sacred as family in Eritrean culture.'},
+    {g:'ዓርኪ',t:'arki',e:'friend',p:'AR-ki',n:'Friendship is as sacred as family.'},
   ]},
-  colors:{ label:'Colors', icon:'🎨', ge:'ሕብሪ', words:[
-    {g:'ቀይሕ',t:'qeyh',e:'red',p:'QEYH',n:'Red in the Eritrean flag represents the blood of independence fighters.'},
+  colors:{label:'Colors',icon:'🎨',ge:'ሕብሪ',words:[
+    {g:'ቀይሕ',t:'qeyh',e:'red',p:'QEYH',n:'Red in the Eritrean flag represents independence fighters.'},
     {g:'ጸሊም',t:'tselim',e:'black',p:'TSE-lim',n:'Used to describe dark colors generally.'},
     {g:'ጻዕዳ',t:'tsaeda',e:'white',p:'TSAE-da',n:'Represents purity and new beginnings.'},
-    {g:'ሰማያዊ',t:'semayawi',e:'sky blue',p:'se-ma-YA-wi',n:'Literally "sky-like" — derived from semay (sky).'},
+    {g:'ሰማያዊ',t:'semayawi',e:'sky blue',p:'se-ma-YA-wi',n:'Literally "sky-like".'},
     {g:'ቢጫ',t:'bicha',e:'yellow',p:'BI-cha',n:'The color of gold and warm sunshine.'},
-    {g:'ሓምላይ',t:'hamlay',e:'green',p:'HAM-lay',n:'Green in the Eritrean flag represents fertile agricultural land.'},
-    {g:'ቡናዊ',t:'bunawi',e:'brown',p:'bu-NA-wi',n:'Literally "coffee-like" — derived from bun (coffee).'},
-    {g:'ሮዛ',t:'roza',e:'pink',p:'RO-za',n:'A borrowed word now fully integrated into modern Tigrinya.'},
-    {g:'ብርቱዕ',t:'brtue',e:'orange',p:'br-TUE',n:'"Brtue" can also mean strong or intense.'},
-    {g:'ወርቃዊ',t:'worqawi',e:'golden',p:'wor-QA-wi',n:'From worqi (gold) — used to describe precious shining things.'},
+    {g:'ሓምላይ',t:'hamlay',e:'green',p:'HAM-lay',n:'Green in the flag represents fertile land.'},
+    {g:'ቡናዊ',t:'bunawi',e:'brown',p:'bu-NA-wi',n:'Literally "coffee-like".'},
+    {g:'ሮዛ',t:'roza',e:'pink',p:'RO-za',n:'A borrowed word now integrated into Tigrinya.'},
+    {g:'ብርቱዕ',t:'brtue',e:'orange',p:'br-TUE',n:'Can also mean strong or intense.'},
+    {g:'ወርቃዊ',t:'worqawi',e:'golden',p:'wor-QA-wi',n:'From worqi (gold).'},
     {g:'ሕምብርቲ',t:'hmbrti',e:'purple',p:'hmb-RTI',n:'Associated with royalty and religious vestments.'},
-    {g:'ብሩህ',t:'bruh',e:'bright / light',p:'BRU-h',n:'"Bruh" describes light itself, and metaphorically, intelligence.'},
+    {g:'ብሩህ',t:'bruh',e:'bright / light',p:'BRU-h',n:'"Bruh" describes light and metaphorically intelligence.'},
   ]},
-  phrases:{ label:'Daily Phrases', icon:'💬', ge:'ዕለታዊ', words:[
+  phrases:{label:'Daily Phrases',icon:'💬',ge:'ዕለታዊ',words:[
     {g:'ስምካ መን ዩ?',t:'smka men yu?',e:'What is your name? (male)',p:'SMKA men YU',n:'Say "smki men yu?" to a female.'},
     {g:'ስመይ ... ዩ',t:'smey ... yu',e:'My name is ...',p:'SME-y ... yu',n:'Fill your name in the middle.'},
-    {g:'ካብ ኣበይ ኢኻ?',t:'kab abey ika?',e:'Where are you from? (male)',p:'KAB a-BEY IH-ka',n:'Eritreans identify closely with their village or ancestral homeland.'},
-    {g:'ኣይፈልጥን',t:'ayfeltn',e:'I don\'t know',p:'ay-FEL-tn',n:'An honest and humble answer — always respected.'},
+    {g:'ካብ ኣበይ ኢኻ?',t:'kab abey ika?',e:'Where are you from? (male)',p:'KAB a-BEY IH-ka',n:'Eritreans identify closely with their homeland.'},
+    {g:'ኣይፈልጥን',t:'ayfeltn',e:'I don\'t know',p:'ay-FEL-tn',n:'An honest and humble answer.'},
     {g:'ሓጊዝካኒ',t:'hagizakni',e:'Help me (asking a male)',p:'ha-GI-zak-ni',n:'A direct and clear request for help.'},
     {g:'ክንደይ ዋጋ?',t:'kindey waga?',e:'How much does it cost?',p:'KIN-dey WA-ga',n:'Essential for shopping at Eritrean markets.'},
     {g:'ኣበይ ዩ?',t:'abey yu?',e:'Where is it?',p:'a-BEY yu',n:'Useful for navigating Eritrean towns.'},
-    {g:'ኣይተረደኣንን',t:'aytereadean',e:'I don\'t understand',p:'ay-te-re-DE-an',n:'Never be afraid to say this — locals appreciate honesty.'},
+    {g:'ኣይተረደኣንን',t:'aytereadean',e:'I don\'t understand',p:'ay-te-re-DE-an',n:'Locals appreciate honesty from learners.'},
     {g:'ብቐስ ተዛረብ',t:'bqes tzerab',e:'Please speak slowly',p:'bQES tze-RAB',n:'A vital phrase for learners!'},
-    {g:'ናቕፋ',t:'naqfa',e:'Nakfa (Eritrean currency)',p:'NAQ-fa',n:'Named after Nakfa city — a stronghold of the independence struggle.'},
-    {g:'ቤተክርስቲያን',t:'betekrstyan',e:'church',p:'be-te-krs-TI-yan',n:'Christianity has been practiced in Eritrea since the 4th century AD.'},
-    {g:'ዕዳጋ',t:'idaga',e:'market / bazaar',p:'IH-da-ga',n:'Markets are the economic and social heartbeat of Eritrean towns.'},
+    {g:'ናቕፋ',t:'naqfa',e:'Nakfa (Eritrean currency)',p:'NAQ-fa',n:'Named after Nakfa city.'},
+    {g:'ቤተክርስቲያን',t:'betekrstyan',e:'church',p:'be-te-krs-TI-yan',n:'Christianity in Eritrea dates to the 4th century AD.'},
+    {g:'ዕዳጋ',t:'idaga',e:'market / bazaar',p:'IH-da-ga',n:'Markets are the heartbeat of Eritrean towns.'},
   ]},
 };
-const CATS = Object.keys(V);
+const CATS=Object.keys(V);
 
-/* ═══════════════════════════════════════════
-   GE'EZ FIDEL DATA
-   Format: [character, romanization, vowel_order, sound_tip]
-   7 vowel orders: ä(1) u(2) i(3) a(4) e(5) ə(6) o(7)
-═══════════════════════════════════════════ */
-const VOWEL_LABELS = ['ä','u','i','a','e','ə','o'];
-const VOWEL_NAMES  = ['1st (ä)','2nd (u)','3rd (i)','4th (a)','5th (e)','6th (ə)','7th (o)'];
-
-const FIDEL = [
-  { name:'h',  sound:'like English "h"',  forms:['ሀ','ሁ','ሂ','ሃ','ሄ','ህ','ሆ'], note:'One of the softest consonants. "ሃ" (ha) appears in many greetings.' },
-  { name:'l',  sound:'like English "l"',  forms:['ለ','ሉ','ሊ','ላ','ሌ','ል','ሎ'], note:'"ል" (lə) is one of the most common final consonants in Tigrinya words.' },
-  { name:'ḥ',  sound:'breathy "h" from throat', forms:['ሐ','ሑ','ሒ','ሓ','ሔ','ሕ','ሖ'], note:'A pharyngeal sound — deeper than regular "h". Common in Semitic languages.' },
-  { name:'m',  sound:'like English "m"',  forms:['መ','ሙ','ሚ','ማ','ሜ','ም','ሞ'], note:'"መ" (mä) starts many important words including "ማይ" (water) and "ምድሪ" (earth).' },
-  { name:'s',  sound:'like English "s"',  forms:['ሰ','ሱ','ሲ','ሳ','ሴ','ስ','ሶ'], note:'"ሰ" (sä) begins "ሰላም" (selam/peace) — one of the most beautiful Tigrinya words.' },
-  { name:'r',  sound:'rolled "r"',         forms:['ረ','ሩ','ሪ','ራ','ሬ','ር','ሮ'], note:'Always rolled, like Spanish "r". Never the English "r" sound.' },
-  { name:'sh', sound:'like English "sh"', forms:['ሸ','ሹ','ሺ','ሻ','ሼ','ሽ','ሾ'], note:'"ሽሮ" (shiro) — the beloved chickpea stew — starts with this sound.' },
-  { name:'q',  sound:'deep "k" from throat', forms:['ቀ','ቁ','ቂ','ቃ','ቄ','ቅ','ቆ'], note:'A uvular stop — said from the back of the throat. Unique to Semitic languages.' },
-  { name:'b',  sound:'like English "b"',  forms:['በ','ቡ','ቢ','ባ','ቤ','ብ','ቦ'], note:'"ብ" (bə) is a very common word — it means "with" or "by" in Tigrinya.' },
-  { name:'t',  sound:'like English "t"',  forms:['ተ','ቱ','ቲ','ታ','ቴ','ት','ቶ'], note:'"ትግርኛ" (Tigrinya) itself begins with this character!' },
-  { name:'n',  sound:'like English "n"',  forms:['ነ','ኑ','ኒ','ና','ኔ','ን','ኖ'], note:'"ን" is one of Tigrinya\'s most common conjunctions, meaning "and".' },
-  { name:'ʾ',  sound:'glottal stop (uh-oh)', forms:['አ','ኡ','ኢ','ኣ','ኤ','እ','ኦ'], note:'The glottal stop — a brief catch in the throat. "ኣ" (a) begins "ኣደ" (mother).' },
-  { name:'k',  sound:'like English "k"',  forms:['ከ','ኩ','ኪ','ካ','ኬ','ክ','ኮ'], note:'"ካ" and "ኪ" are common suffixes meaning "your" (masculine/feminine).' },
-  { name:'w',  sound:'like English "w"',  forms:['ወ','ዉ','ዊ','ዋ','ዌ','ው','ዎ'], note:'"ወ" begins "ወዲ" (son/boy) and "ወርቂ" (gold).' },
-  { name:'z',  sound:'like English "z"',  forms:['ዘ','ዙ','ዚ','ዛ','ዜ','ዝ','ዞ'], note:'"ዝ" is a relative pronoun in Tigrinya, similar to "who/which" in English.' },
-  { name:'y',  sound:'like English "y"',  forms:['የ','ዩ','ዪ','ያ','ዬ','ይ','ዮ'], note:'"ይ" appears in many verb forms as a subject marker.' },
-  { name:'d',  sound:'like English "d"',  forms:['ደ','ዱ','ዲ','ዳ','ዴ','ድ','ዶ'], note:'"ዳቦ" (dabo/bread) starts with this character.' },
-  { name:'j',  sound:'like English "j"',  forms:['ጀ','ጁ','ጂ','ጃ','ጄ','ጅ','ጆ'], note:'Less common but important in loanwords and some native Tigrinya terms.' },
-  { name:'g',  sound:'like English "g"',  forms:['ገ','ጉ','ጊ','ጋ','ጌ','ግ','ጎ'], note:'"ጓል" (gwal/daughter) begins with this character.' },
-  { name:'ṭ',  sound:'emphatic "t"',       forms:['ጠ','ጡ','ጢ','ጣ','ጤ','ጥ','ጦ'], note:'An emphatic consonant — said with more tension in the throat than regular "t".' },
-  { name:'f',  sound:'like English "f"',  forms:['ፈ','ፉ','ፊ','ፋ','ፌ','ፍ','ፎ'], note:'"ፊደል" (fidel/alphabet) itself starts with this character!' },
-  { name:'p',  sound:'like English "p"',  forms:['ፐ','ፑ','ፒ','ፓ','ፔ','ፕ','ፖ'], note:'Rare in native Tigrinya — mainly used in loanwords from other languages.' },
+/* ═══════════════════════════════════
+   FIDEL DATA
+═══════════════════════════════════ */
+const VOWEL_LABELS=['ä','u','i','a','e','ə','o'];
+const VOWEL_NAMES=['1st (ä)','2nd (u)','3rd (i)','4th (a)','5th (e)','6th (ə)','7th (o)'];
+const FIDEL=[
+  {name:'h', sound:'like English "h"', forms:['ሀ','ሁ','ሂ','ሃ','ሄ','ህ','ሆ'],note:'One of the softest consonants. "ሃ" (ha) appears in many greetings.'},
+  {name:'l', sound:'like English "l"', forms:['ለ','ሉ','ሊ','ላ','ሌ','ል','ሎ'],note:'"ል" is one of the most common final consonants in Tigrinya words.'},
+  {name:'ḥ', sound:'breathy "h" from throat', forms:['ሐ','ሑ','ሒ','ሓ','ሔ','ሕ','ሖ'],note:'A pharyngeal sound — deeper than regular "h". Common in Semitic languages.'},
+  {name:'m', sound:'like English "m"', forms:['መ','ሙ','ሚ','ማ','ሜ','ም','ሞ'],note:'"መ" starts many important words including "ማይ" (water).'},
+  {name:'s', sound:'like English "s"', forms:['ሰ','ሱ','ሲ','ሳ','ሴ','ስ','ሶ'],note:'"ሰ" begins "ሰላም" (selam/peace) — one of the most beautiful Tigrinya words.'},
+  {name:'r', sound:'rolled "r"', forms:['ረ','ሩ','ሪ','ራ','ሬ','ር','ሮ'],note:'Always rolled, like Spanish "r". Never the English "r" sound.'},
+  {name:'sh',sound:'like English "sh"', forms:['ሸ','ሹ','ሺ','ሻ','ሼ','ሽ','ሾ'],note:'"ሽሮ" (shiro) — the beloved chickpea stew — starts with this sound.'},
+  {name:'q', sound:'deep "k" from back of throat', forms:['ቀ','ቁ','ቂ','ቃ','ቄ','ቅ','ቆ'],note:'A uvular stop — said from the very back of the throat. Unique to Semitic languages.'},
+  {name:'b', sound:'like English "b"', forms:['በ','ቡ','ቢ','ባ','ቤ','ብ','ቦ'],note:'"ብ" (bə) means "with" or "by" in Tigrinya.'},
+  {name:'t', sound:'like English "t"', forms:['ተ','ቱ','ቲ','ታ','ቴ','ት','ቶ'],note:'"ትግርኛ" (Tigrinya) itself begins with this character!'},
+  {name:'n', sound:'like English "n"', forms:['ነ','ኑ','ኒ','ና','ኔ','ን','ኖ'],note:'"ን" is one of Tigrinya\'s most common conjunctions, meaning "and".'},
+  {name:'ʾ', sound:'glottal stop', forms:['አ','ኡ','ኢ','ኣ','ኤ','እ','ኦ'],note:'A brief catch in the throat. "ኣ" (a) begins "ኣደ" (mother).'},
+  {name:'k', sound:'like English "k"', forms:['ከ','ኩ','ኪ','ካ','ኬ','ክ','ኮ'],note:'"ካ" and "ኪ" are common suffixes meaning "your" (masculine/feminine).'},
+  {name:'w', sound:'like English "w"', forms:['ወ','ዉ','ዊ','ዋ','ዌ','ው','ዎ'],note:'"ወ" begins "ወዲ" (son) and "ወርቂ" (gold).'},
+  {name:'z', sound:'like English "z"', forms:['ዘ','ዙ','ዚ','ዛ','ዜ','ዝ','ዞ'],note:'"ዝ" is a relative pronoun, similar to "who/which" in English.'},
+  {name:'y', sound:'like English "y"', forms:['የ','ዩ','ዪ','ያ','ዬ','ይ','ዮ'],note:'"ይ" appears in many verb forms as a subject marker.'},
+  {name:'d', sound:'like English "d"', forms:['ደ','ዱ','ዲ','ዳ','ዴ','ድ','ዶ'],note:'"ዳቦ" (dabo/bread) starts with this character.'},
+  {name:'j', sound:'like English "j"', forms:['ጀ','ጁ','ጂ','ጃ','ጄ','ጅ','ጆ'],note:'Less common but important in loanwords and some native terms.'},
+  {name:'g', sound:'like English "g"', forms:['ገ','ጉ','ጊ','ጋ','ጌ','ግ','ጎ'],note:'"ጓል" (gwal/daughter) begins with this character.'},
+  {name:'ṭ', sound:'emphatic "t"', forms:['ጠ','ጡ','ጢ','ጣ','ጤ','ጥ','ጦ'],note:'An emphatic consonant — said with more tension in the throat than regular "t".'},
+  {name:'f', sound:'like English "f"', forms:['ፈ','ፉ','ፊ','ፋ','ፌ','ፍ','ፎ'],note:'"ፊደል" (fidel/alphabet) itself starts with this character!'},
+  {name:'p', sound:'like English "p"', forms:['ፐ','ፑ','ፒ','ፓ','ፔ','ፕ','ፖ'],note:'Rare in native Tigrinya — mainly used in loanwords.'},
 ];
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
+   TRADING CARDS DATA
+═══════════════════════════════════ */
+const ALL_CARDS = [
+  // Common — vocabulary
+  {id:'c01',rarity:'common',art:'🌿',g:'ሰላም',t:'selam',e:'hello / peace',cat:'Vocabulary'},
+  {id:'c02',rarity:'common',art:'🔢',g:'ሓደ',t:'hade',e:'one',cat:'Numbers'},
+  {id:'c03',rarity:'common',art:'🍞',g:'እንጀራ',t:'injera',e:'flatbread',cat:'Food'},
+  {id:'c04',rarity:'common',art:'👩',g:'ኣደ',t:'ade',e:'mother',cat:'Family'},
+  {id:'c05',rarity:'common',art:'❤️',g:'ቀይሕ',t:'qeyh',e:'red',cat:'Colors'},
+  {id:'c06',rarity:'common',art:'☕',g:'ቡን',t:'bun',e:'coffee',cat:'Food'},
+  {id:'c07',rarity:'common',art:'💧',g:'ማይ',t:'may',e:'water',cat:'Food'},
+  {id:'c08',rarity:'common',art:'👨',g:'ኣቦ',t:'abo',e:'father',cat:'Family'},
+  {id:'c09',rarity:'common',art:'🌿',g:'ሓምላይ',t:'hamlay',e:'green',cat:'Colors'},
+  {id:'c10',rarity:'common',art:'🔢',g:'ዓሰርተ',t:'aserte',e:'ten',cat:'Numbers'},
+  {id:'c11',rarity:'common',art:'🌅',g:'ጽባሕ',t:'tsbah',e:'morning',cat:'Time'},
+  {id:'c12',rarity:'common',art:'🌙',g:'ምሸት',t:'mshet',e:'evening',cat:'Time'},
+  // Rare — phrases + cultural
+  {id:'r01',rarity:'rare',art:'🕊️',g:'የቐንየለይ',t:'yeqenyeley',e:'thank you',cat:'Phrases'},
+  {id:'r02',rarity:'rare',art:'☕',g:'ቡን ስነ-ስርዓት',t:'bun sne-sriate',e:'coffee ceremony',cat:'Culture'},
+  {id:'r03',rarity:'rare',art:'🏔️',g:'ኤርትራ',t:'eritrea',e:'Eritrea',cat:'Places'},
+  {id:'r04',rarity:'rare',art:'🌟',g:'ጽቡቕ',t:'tsbuk',e:'good / fine',cat:'Phrases'},
+  {id:'r05',rarity:'rare',art:'🎶',g:'ዜማ',t:'zema',e:'music / melody',cat:'Culture'},
+  {id:'r06',rarity:'rare',art:'🤝',g:'ምሕዝነት',t:'mhznet',e:'friendship / unity',cat:'Culture'},
+  {id:'r07',rarity:'rare',art:'🏛️',g:'ኣስመራ',t:'asmera',e:'Asmara (capital)',cat:'Places'},
+  {id:'r08',rarity:'rare',art:'⛵',g:'ምጽዋ',t:'mitswa',e:'Massawa (Red Sea port)',cat:'Places'},
+  // Legendary — wisdom + proverbs
+  {id:'l01',rarity:'legendary',art:'✨',g:'ሰላም ዘይብሉ ሃብቲ የለን',t:'selam zeyblu habti yelen',e:'Without peace there is no wealth',cat:'Proverb'},
+  {id:'l02',rarity:'legendary',art:'🌍',g:'ሓቂ ትዕወት',t:'haqi titwet',e:'Truth prevails',cat:'Proverb'},
+  {id:'l03',rarity:'legendary',art:'🔥',g:'ሓደ ሰብ ዓለም ኣይቅይርን',t:'hade seb alem ayqeyrn',e:'One person cannot change the world alone',cat:'Proverb'},
+  {id:'l04',rarity:'legendary',art:'🌟',g:'ፍልጠት ሃብቲ እዩ',t:'fltset habti eyu',e:'Knowledge is wealth',cat:'Proverb'},
+];
+
+const PACKS = [
+  {id:'basic',name:'Basic Pack',ico:'📦',cost:30,rarity:'common',desc:'3 cards · Common only',color:'pack-common',glow:''},
+  {id:'rare',name:'Rare Pack',ico:'💎',cost:75,rarity:'rare',desc:'3 cards · Rare guaranteed',color:'pack-rare',glow:'pack-glow-rare'},
+  {id:'legend',name:'Legend Pack',ico:'🌟',cost:150,rarity:'legendary',desc:'3 cards · Legendary possible',color:'pack-legend',glow:'pack-glow-legend'},
+];
+
+/* ═══════════════════════════════════
+   GRAMMAR DATA
+═══════════════════════════════════ */
+const GRAMMAR_LESSONS = [
+  {
+    title:'Sentence Structure',subtitle:'SOV — Subject · Object · Verb',
+    content:`
+    <div class="lesson-text">Tigrinya follows <strong>SOV order</strong> — Subject first, Object second, Verb last. This is different from English (SVO).<br><br>In English: "I drink water"<br>In Tigrinya: "I water drink" → <strong>ኣነ ማይ እሰቲ</strong></div>
+    <div class="example-row"><div class="ex-ge ge">ኣነ ማይ እሰቲ።</div><div class="ex-tr">ane may isti.</div><div class="ex-en">I drink water.</div><div class="ex-note">Literally: I · water · drink</div></div>
+    <div class="example-row"><div class="ex-ge ge">ሳሙኤል እንጀራ ይበልዕ።</div><div class="ex-tr">samuel injera ybele.</div><div class="ex-en">Samuel eats injera.</div><div class="ex-note">Literally: Samuel · injera · eats</div></div>
+    <div class="example-row"><div class="ex-ge ge">ሳራ ቡን ትሰቲ።</div><div class="ex-tr">sara bun tisti.</div><div class="ex-en">Sara drinks coffee.</div><div class="ex-note">Note: verb changes based on subject gender</div></div>
+    <div class="lesson-text"><strong>Key rule:</strong> The verb always comes at the end of the sentence. The verb also agrees in gender and number with the subject.</div>
+    `
+  },
+  {
+    title:'Pronouns',subtitle:'Subject pronouns — who is doing the action',
+    content:`
+    <div class="lesson-text">Tigrinya pronouns are <strong>gendered</strong> — "you" has separate forms for addressing a male (masculine) or female (feminine). This is a key feature of the language.</div>
+    <div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>Ge'ez</th><th>Romanization</th></tr>
+    <tr><td>I</td><td><span class="td-ge ge">ኣነ</span><div class="td-tr">ane</div></td><td>ane</td></tr>
+    <tr><td>You (male)</td><td><span class="td-ge ge">ንስኻ</span><div class="td-tr">nsikha</div></td><td>nsikha</td></tr>
+    <tr><td>You (female)</td><td><span class="td-ge ge">ንስኺ</span><div class="td-tr">nski</div></td><td>nski</td></tr>
+    <tr><td>He</td><td><span class="td-ge ge">ንሱ</span><div class="td-tr">nsu</div></td><td>nsu</td></tr>
+    <tr><td>She</td><td><span class="td-ge ge">ንሳ</span><div class="td-tr">nsa</div></td><td>nsa</td></tr>
+    <tr><td>We</td><td><span class="td-ge ge">ንሕና</span><div class="td-tr">nhna</div></td><td>nhna</td></tr>
+    <tr><td>You (plural)</td><td><span class="td-ge ge">ንስኹም</span><div class="td-tr">nskum</div></td><td>nskum</td></tr>
+    <tr><td>They</td><td><span class="td-ge ge">ንሳቶም</span><div class="td-tr">nsatom</div></td><td>nsatom</td></tr>
+    </table></div>
+    <div class="example-row"><div class="ex-ge ge">ንሱ ሓው እዩ።</div><div class="ex-tr">nsu haw eyu.</div><div class="ex-en">He is a brother.</div></div>
+    <div class="example-row"><div class="ex-ge ge">ንሳ ኣደ እያ።</div><div class="ex-tr">nsa ade eya.</div><div class="ex-en">She is a mother.</div></div>
+    `
+  },
+  {
+    title:'Verb "To Be"',subtitle:'እዩ / እያ / እዩም — expressing existence',
+    content:`
+    <div class="lesson-text">The verb "to be" in Tigrinya changes based on the gender and number of the subject. It always comes at the <strong>end of the sentence</strong>.</div>
+    <div class="table-wrap"><table class="gram-table"><tr><th>Subject</th><th>Ge'ez</th><th>Meaning</th></tr>
+    <tr><td>I am</td><td><span class="td-ge ge">እየ</span><div class="td-tr">eye</div></td><td>I am</td></tr>
+    <tr><td>He is</td><td><span class="td-ge ge">እዩ</span><div class="td-tr">eyu</div></td><td>He is / It is (masc.)</td></tr>
+    <tr><td>She is</td><td><span class="td-ge ge">እያ</span><div class="td-tr">eya</div></td><td>She is / It is (fem.)</td></tr>
+    <tr><td>We are</td><td><span class="td-ge ge">ኢና</span><div class="td-tr">ina</div></td><td>We are</td></tr>
+    <tr><td>They are</td><td><span class="td-ge ge">እዮም</span><div class="td-tr">eyom</div></td><td>They are</td></tr>
+    </table></div>
+    <div class="example-row"><div class="ex-ge ge">ኣነ ተምሃራይ እየ።</div><div class="ex-tr">ane temharay eye.</div><div class="ex-en">I am a student.</div></div>
+    <div class="example-row"><div class="ex-ge ge">ንሱ ሓኪም እዩ።</div><div class="ex-tr">nsu hakim eyu.</div><div class="ex-en">He is a doctor.</div></div>
+    <div class="example-row"><div class="ex-ge ge">ንሳ ምምህርቲ እያ።</div><div class="ex-tr">nsa mmhrti eya.</div><div class="ex-en">She is a teacher.</div></div>
+    <div class="lesson-text"><strong>Pattern:</strong> [Subject] + [noun/adjective] + [to be]. The "to be" verb at the end always matches the subject's gender.</div>
+    `
+  },
+  {
+    title:'Simple Verbs',subtitle:'Present tense — actions happening now',
+    content:`
+    <div class="lesson-text">Tigrinya verbs are conjugated (changed) based on both the <strong>subject's gender</strong> and the <strong>number</strong> of people. The root verb changes its prefix and/or suffix. Here are common verbs in the present tense:</div>
+    <div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>He (masc.)</th><th>She (fem.)</th></tr>
+    <tr><td>eats</td><td><span class="td-ge ge">ይበልዕ</span><div class="td-tr">ybele</div></td><td><span class="td-ge ge">ትበልዕ</span><div class="td-tr">tbele</div></td></tr>
+    <tr><td>drinks</td><td><span class="td-ge ge">ይሰቲ</span><div class="td-tr">ysti</div></td><td><span class="td-ge ge">ትሰቲ</span><div class="td-tr">tsti</div></td></tr>
+    <tr><td>speaks</td><td><span class="td-ge ge">ይዛረብ</span><div class="td-tr">yzereb</div></td><td><span class="td-ge ge">ትዛረብ</span><div class="td-tr">tzereb</div></td></tr>
+    <tr><td>goes</td><td><span class="td-ge ge">ይኸይድ</span><div class="td-tr">ykheyid</div></td><td><span class="td-ge ge">ትኸይድ</span><div class="td-tr">tkheyid</div></td></tr>
+    <tr><td>sees</td><td><span class="td-ge ge">ይርኢ</span><div class="td-tr">yri</div></td><td><span class="td-ge ge">ትርኢ</span><div class="td-tr">tri</div></td></tr>
+    </table></div>
+    <div class="lesson-text"><strong>Key pattern:</strong> Masculine verbs use the prefix <strong style="color:var(--gold)">ይ-</strong> (y-). Feminine verbs use <strong style="color:var(--gold)">ት-</strong> (t-). "I" uses <strong style="color:var(--gold)">እ-</strong> (e-).</div>
+    <div class="example-row"><div class="ex-ge ge">ኣነ ትግርኛ እዛረብ።</div><div class="ex-tr">ane tigrinya ezereb.</div><div class="ex-en">I speak Tigrinya.</div></div>
+    `
+  },
+  {
+    title:'Questions',subtitle:'How to ask questions in Tigrinya',
+    content:`
+    <div class="lesson-text">Tigrinya has several question words. Yes/no questions are often formed by adding <strong>-ዶ</strong> (-do) or changing intonation.</div>
+    <div class="table-wrap"><table class="gram-table"><tr><th>Question word</th><th>Ge'ez</th><th>Romanization</th></tr>
+    <tr><td>What?</td><td><span class="td-ge ge">እንታይ?</span><div class="td-tr">entay?</div></td><td>entay?</td></tr>
+    <tr><td>Who?</td><td><span class="td-ge ge">መን?</span><div class="td-tr">men?</div></td><td>men?</td></tr>
+    <tr><td>Where?</td><td><span class="td-ge ge">ኣበይ?</span><div class="td-tr">abey?</div></td><td>abey?</td></tr>
+    <tr><td>When?</td><td><span class="td-ge ge">መዓስ?</span><div class="td-tr">meas?</div></td><td>meas?</td></tr>
+    <tr><td>How?</td><td><span class="td-ge ge">ከመይ?</span><div class="td-tr">kemey?</div></td><td>kemey?</td></tr>
+    <tr><td>How many?</td><td><span class="td-ge ge">ክንደይ?</span><div class="td-tr">kindey?</div></td><td>kindey?</td></tr>
+    <tr><td>Why?</td><td><span class="td-ge ge">ስለምንታይ?</span><div class="td-tr">slemntay?</div></td><td>slemntay?</td></tr>
+    </table></div>
+    <div class="example-row"><div class="ex-ge ge">ስምካ መን ዩ?</div><div class="ex-tr">smka men yu?</div><div class="ex-en">What is your name? (to a male)</div></div>
+    <div class="example-row"><div class="ex-ge ge">ከመይ ኣለካ?</div><div class="ex-tr">kemey aleka?</div><div class="ex-en">How are you? (to a male)</div></div>
+    <div class="example-row"><div class="ex-ge ge">ዕዳጋ ኣበይ ዩ?</div><div class="ex-tr">idaga abey yu?</div><div class="ex-en">Where is the market?</div></div>
+    `
+  },
+  {
+    title:'Negation',subtitle:'How to say "no", "not", and "never"',
+    content:`
+    <div class="lesson-text">To negate a verb in Tigrinya, add the prefix <strong style="color:var(--gold)">ኣይ-</strong> (ay-) before the verb and the suffix <strong style="color:var(--gold)">-ን</strong> (-n) at the end. It wraps around the verb like a sandwich.</div>
+    <div class="table-wrap"><table class="gram-table"><tr><th>Positive</th><th>Negative</th><th>Meaning</th></tr>
+    <tr><td><span class="td-ge ge">ይፈልጥ</span><div class="td-tr">yfelṭ (he knows)</div></td><td><span class="td-ge ge">ኣይፈልጥን</span><div class="td-tr">ayfelṭn</div></td><td>he doesn't know</td></tr>
+    <tr><td><span class="td-ge ge">ይሰቲ</span><div class="td-tr">ysti (he drinks)</div></td><td><span class="td-ge ge">ኣይሰትን</span><div class="td-tr">aystn</div></td><td>he doesn't drink</td></tr>
+    <tr><td><span class="td-ge ge">ይዛረብ</span><div class="td-tr">yzereb (he speaks)</div></td><td><span class="td-ge ge">ኣይዛረብን</span><div class="td-tr">ayzerebbn</div></td><td>he doesn't speak</td></tr>
+    </table></div>
+    <div class="lesson-text"><strong>Formula:</strong> <span style="color:var(--gold)">ኣይ</span> + verb root + <span style="color:var(--gold)">ን</span></div>
+    <div class="example-row"><div class="ex-ge ge">ኣነ ኣይፈልጥን።</div><div class="ex-tr">ane ayfeltn.</div><div class="ex-en">I don't know.</div></div>
+    <div class="example-row"><div class="ex-ge ge">ኣነ ቡን ኣይሰትን።</div><div class="ex-tr">ane bun aystn.</div><div class="ex-en">I don't drink coffee.</div></div>
+    <div class="example-row"><div class="ex-ge ge">ኣይፋልን።</div><div class="ex-tr">ayfalen.</div><div class="ex-en">No. (standalone refusal)</div></div>
+    `
+  },
+];
+
+/* Sentence Builder exercises */
+const SB_EXERCISES = [
+  {eng:'I drink water.',words:['ኣነ','ማይ','እሰቲ','።'],answer:['ኣነ','ማይ','እሰቲ','።'],hint:'I · water · drink'},
+  {eng:'She is a teacher.',words:['ንሳ','ምምህርቲ','እያ','።'],answer:['ንሳ','ምምህርቲ','እያ','።'],hint:'She · teacher · is'},
+  {eng:'Samuel eats injera.',words:['ሳሙኤል','ይበልዕ','እንጀራ','།'],answer:['ሳሙኤል','እንጀራ','ይበልዕ','།'],hint:'Samuel · injera · eats'},
+  {eng:'He is a doctor.',words:['ንሱ','ሓኪም','እዩ','།'],answer:['ንሱ','ሓኪም','እዩ','།'],hint:'He · doctor · is'},
+  {eng:"I don't know.",words:['ኣነ','ኣይፈልጥን','།'],answer:['ኣነ','ኣይፈልጥን','།'],hint:'I · (neg.)know'},
+  {eng:'Where is the market?',words:['ዕዳጋ','ኣበይ','ዩ','?'],answer:['ዕዳጋ','ኣበይ','ዩ','?'],hint:'market · where · is'},
+  {eng:'We speak Tigrinya.',words:['ንሕና','ትግርኛ','ንዛረብ','།'],answer:['ንሕና','ትግርኛ','ንዛረብ','།'],hint:'We · Tigrinya · speak'},
+  {eng:'How are you? (to a male)',words:['ከመይ','ኣለካ','?'],answer:['ከመይ','ኣለካ','?'],hint:'How · are-you'},
+];
+
+/* ═══════════════════════════════════
    ACHIEVEMENTS
-═══════════════════════════════════════════ */
-const ACHS = [
-  {id:'first',  nm:'First Steps',      ge:'ቀዳማይ ስጉምቲ', d:'Answer your first question',           ico:'🌱',xp:10,  ok:s=>s.tot>=1},
-  {id:'str3',   nm:'On a Roll',        ge:'ቀጻሊ',         d:'Get 3 correct in a row',               ico:'🔥',xp:15,  ok:s=>s.best>=3},
-  {id:'str5',   nm:'Hot Streak',       ge:'ሓዊ',           d:'Get 5 correct in a row',               ico:'⚡',xp:25,  ok:s=>s.best>=5},
-  {id:'str10',  nm:'Unstoppable',      ge:'ዘይቆጠን',       d:'Get 10 correct in a row',              ico:'🌪️',xp:50, ok:s=>s.best>=10},
-  {id:'c10',    nm:'Sharp Mind',       ge:'ምርቃ ኣእምሮ',   d:'Get 10 correct answers',               ico:'🧠',xp:20,  ok:s=>s.cor>=10},
-  {id:'c50',    nm:'Word Master',      ge:'ሊቅ ቃላት',      d:'Get 50 correct answers',               ico:'📚',xp:50,  ok:s=>s.cor>=50},
-  {id:'c100',   nm:'Scholar',          ge:'ሊቅ',           d:'Get 100 correct answers',              ico:'🎓',xp:100, ok:s=>s.cor>=100},
-  {id:'match3', nm:'Connector',        ge:'ኣራኻቢ',        d:'Complete 3 matching games',            ico:'🔗',xp:30,  ok:s=>s.matches>=3},
-  {id:'fidel5', nm:'Script Student',   ge:'ተምሃራይ ፊደል',  d:'Learn 5 fidel characters',             ico:'📜',xp:25,  ok:s=>(s.fidelLearned||0)>=5},
-  {id:'fidel22',nm:'Fidel Master',     ge:'ሊቅ ፊደል',      d:'Learn all 22 fidel families',          ico:'🏛️',xp:100,ok:s=>(s.fidelLearned||0)>=22},
-  {id:'write5', nm:'First Strokes',    ge:'ቀዳሞት ጽሑፍ',   d:'Practice writing 5 times',             ico:'✍️',xp:20, ok:s=>(s.writeSessions||0)>=5},
-  {id:'write20',nm:'Calligrapher',     ge:'ጸሓፊ',         d:'Practice writing 20 times',            ico:'🖊️',xp:50, ok:s=>(s.writeSessions||0)>=20},
-  {id:'rquiz10',nm:'Quick Reader',     ge:'ቀልጢፍ ኣንባቢ',  d:'Get 10 correct in Recognition Quiz',   ico:'👁️',xp:30, ok:s=>(s.rqCorrect||0)>=10},
-  {id:'grt',    nm:'Greeter',          ge:'ሰላምታ ሰብ',     d:'Learn all greetings words',            ico:'🤝',xp:40,  ok:s=>(s.cw?.greetings||0)>=V.greetings.words.length},
-  {id:'allcat', nm:'Well-Rounded',     ge:'ምሉእ ትምህርቲ',   d:'Play all 6 vocabulary categories',     ico:'🌍',xp:60,  ok:s=>(s.visited||[]).length>=6},
-  {id:'lv5',    nm:'Rising Star',      ge:'ደይቦ ኮኾብ',     d:'Reach Level 5',                        ico:'⭐',xp:75,  ok:s=>lv(s.xp)>=5},
-  {id:'lv10',   nm:'Tigrinya Adept',   ge:'ፈላጢ ትግርኛ',    d:'Reach Level 10',                       ico:'🌟',xp:150, ok:s=>lv(s.xp)>=10},
-  {id:'perfect',nm:'Perfectionist',    ge:'ሙሉእ ሰብ',       d:'Complete a quiz without mistakes',     ico:'💎',xp:80,  ok:s=>s.perfectQuiz>=1},
+═══════════════════════════════════ */
+const ACHS=[
+  {id:'first',  nm:'First Steps',     ge:'ቀዳማይ ስጉምቲ',d:'Answer your first question',         ico:'🌱',xp:10, ok:s=>s.tot>=1},
+  {id:'str3',   nm:'On a Roll',       ge:'ቀጻሊ',        d:'Get 3 correct in a row',             ico:'🔥',xp:15, ok:s=>s.best>=3},
+  {id:'str5',   nm:'Hot Streak',      ge:'ሓዊ',          d:'Get 5 correct in a row',             ico:'⚡',xp:25, ok:s=>s.best>=5},
+  {id:'str10',  nm:'Unstoppable',     ge:'ዘይቆጠን',      d:'Get 10 correct in a row',            ico:'🌪️',xp:50,ok:s=>s.best>=10},
+  {id:'c50',    nm:'Word Master',     ge:'ሊቅ ቃላት',     d:'Get 50 correct answers',             ico:'📚',xp:50, ok:s=>s.cor>=50},
+  {id:'fidel5', nm:'Script Student',  ge:'ተምሃራይ ፊደል', d:'Explore 5 fidel character families', ico:'📜',xp:25, ok:s=>(s.fidelLearned||0)>=5},
+  {id:'fidel22',nm:'Fidel Master',    ge:'ሊቅ ፊደል',     d:'Explore all 22 fidel families',      ico:'🏛️',xp:100,ok:s=>(s.fidelLearned||0)>=22},
+  {id:'write5', nm:'First Strokes',   ge:'ቀዳሞት ጽሑፍ',  d:'Practice writing 5 times',           ico:'✍️',xp:20,ok:s=>(s.writeSessions||0)>=5},
+  {id:'gram3',  nm:'Grammar Nerd',    ge:'ሊቅ ሰዋስው',    d:'Complete 3 sentence builder exercises',ico:'📝',xp:30,ok:s=>(s.sbCorrect||0)>=3},
+  {id:'gram10', nm:'Sentence Builder',ge:'ሰራሒ ሓሳብ',    d:'Complete 10 sentence builder exercises',ico:'🏗️',xp:60,ok:s=>(s.sbCorrect||0)>=10},
+  {id:'pack1',  nm:'Card Collector',  ge:'ኣኻብቢ ካርድ',   d:'Open your first pack',               ico:'📦',xp:20, ok:s=>(s.packsOpened||0)>=1},
+  {id:'pack10', nm:'Pack Addict',     ge:'ሓጋዚ ካርድ',    d:'Open 10 packs',                      ico:'🎁',xp:60, ok:s=>(s.packsOpened||0)>=10},
+  {id:'legend', nm:'Legendary',       ge:'ዓቢ ዝናን',      d:'Collect a Legendary card',           ico:'🌟',xp:100,ok:s=>(s.collection||[]).some(id=>ALL_CARDS.find(c=>c.id===id)?.rarity==='legendary')},
+  {id:'allcat', nm:'Well-Rounded',    ge:'ምሉእ ትምህርቲ',  d:'Play all 6 vocabulary categories',   ico:'🌍',xp:60, ok:s=>(s.visited||[]).length>=6},
+  {id:'lv5',    nm:'Rising Star',     ge:'ደይቦ ኮኾብ',    d:'Reach Level 5',                      ico:'⭐',xp:75, ok:s=>lv(s.xp)>=5},
+  {id:'lv10',   nm:'Tigrinya Adept',  ge:'ፈላጢ ትግርኛ',   d:'Reach Level 10',                     ico:'🌟',xp:150,ok:s=>lv(s.xp)>=10},
 ];
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
    STATE
-═══════════════════════════════════════════ */
-const SK='tigrinya_v3';
-let S=(() => { try{const r=localStorage.getItem(SK);if(r)return JSON.parse(r);}catch(e){} return {xp:0,cor:0,tot:0,streak:0,best:0,matches:0,hunts:0,perfectQuiz:0,visited:[],wl:[],cw:{},fidelLearned:0,fidelSeen:[],writeSessions:0,rqCorrect:0}; })();
-let mode=null,cat=null;
+═══════════════════════════════════ */
+const SK='tigrinya_v4';
+let S=(()=>{try{const r=localStorage.getItem(SK);if(r)return JSON.parse(r);}catch(e){}
+  return{xp:0,cor:0,tot:0,streak:0,best:0,matches:0,hunts:0,perfectQuiz:0,visited:[],wl:[],cw:{},
+    coins:0,collection:[],packsOpened:0,fidelLearned:0,fidelSeen:[],writeSessions:0,rqCorrect:0,sbCorrect:0};
+})();
+let mode=null,cat=null,currentGrammarTab=0,currentCardsTab='shop',currentScriptTab='chart';
 let fcDeck=[],fcIdx=0,fcFlipped=false,fcReview=[];
 let qDeck=[],qIdx=0,qDone=false,qSesErr=0;
 let mPairs=[],mSel=null,mFound=0,mTI=null,mSecs=0;
 let wsGrid=[],wsTarget=[],wsSel=[],wsFound=[],wsDragging=false,wsPlaced=[];
-let currentScriptTab='chart';
-let selectedFidel=null;
-let writeXPclaimed=false;
-let rqDone=false,rqIdx=0;
+let sbIdx=0,sbPlaced=[],sbDone=false,writeXPclaimed=false,rqDone=false,rqQueue=[];
 
 function save(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
 
-/* XP / LEVEL */
+/* XP/LEVEL/COINS */
 function lv(xp){return Math.max(1,Math.floor(1+Math.sqrt(xp/50)));}
 function lvXP(l){return Math.pow(l-1,2)*50;}
-function addXP(amt,x,y){const pl=lv(S.xp);S.xp+=amt;save();updateHome();showXPPop(amt,x,y);if(lv(S.xp)>pl)setTimeout(()=>toast('🎉 Level Up! Now Level '+lv(S.xp)+'!'),400);}
-function showXPPop(n,x,y){const el=document.createElement('div');el.className='xp-pop';el.textContent='+'+n+' XP';el.style.left=(x||window.innerWidth/2-15)+'px';el.style.top=(y||window.innerHeight*0.55)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),1200);}
+function addXP(amt,x,y){const pl=lv(S.xp);S.xp+=amt;save();updateHome();showPop('+'+amt+' XP',x,y,'xp-pop');if(lv(S.xp)>pl)setTimeout(()=>toast('🎉 Level Up! Now Level '+lv(S.xp)+'!'),400);}
+function addCoins(amt,x,y){S.coins+=amt;save();updateHome();showPop('+'+amt+'🪙',x,y,'coin-pop');}
+function showPop(txt,x,y,cls){const el=document.createElement('div');el.className=cls;el.textContent=txt;el.style.left=(x||window.innerWidth/2-20)+'px';el.style.top=(y||window.innerHeight*0.55)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),1200);}
 
-/* ACHIEVEMENTS */
-function checkAch(){ACHS.forEach(a=>{if(!S.wl.includes('A:'+a.id)&&a.ok(S)){S.wl.push('A:'+a.id);S.xp+=a.xp;save();updateHome();setTimeout(()=>toast('🏆 Achievement: '+a.nm+'! +'+a.xp+' XP'),500);}});}
+function checkAch(){ACHS.forEach(a=>{if(!S.wl.includes('A:'+a.id)&&a.ok(S)){S.wl.push('A:'+a.id);S.xp+=a.xp;save();updateHome();setTimeout(()=>toast('🏆 '+a.nm+'! +'+a.xp+' XP'),500);}});}
 function markWord(c,word){const k=c+':'+word.t;if(!S.wl.includes(k)){S.wl.push(k);S.cw=S.cw||{};S.cw[c]=(S.cw[c]||0)+1;save();}}
 function visitCat(c){if(!(S.visited||[]).includes(c)){S.visited=S.visited||[];S.visited.push(c);save();}}
-
-/* UI */
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);}
+
 function goNav(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+id).classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   const nb=document.getElementById('nb-'+id);if(nb)nb.classList.add('active');
   if(id==='home')updateHome();
-  if(id==='ach')renderAch();
-  if(id==='prog')renderProg();
+  if(id==='grammar'){renderGrammar(currentGrammarTab);}
+  if(id==='cards'){renderCards();}
   if(id==='script')initScript();
+  if(id==='prog')renderProg();
 }
 
 function updateHome(){
@@ -608,20 +827,20 @@ function updateHome(){
   document.getElementById('h-streak').textContent=S.streak;
   const learned=S.wl.filter(k=>!k.startsWith('A:')).length;
   document.getElementById('h-words').textContent=learned;
-  const acc=S.tot>0?Math.round(S.cor/S.tot*100)+'%':'—';
-  document.getElementById('h-acc').textContent=acc;
+  document.getElementById('h-coins').textContent=S.coins;
+  document.getElementById('h-cards-ct').textContent=(S.collection||[]).length;
 }
 
-/* MODE / CATEGORY */
+/* ═══ GAME MODES ═══ */
 function startMode(m){
   mode=m;
-  const titles={flash:'Flashcards — Pick Topic',quiz:'Quiz — Pick Topic',match:'Match Pairs — Pick Topic',search:'Word Hunt — Pick Topic'};
-  document.getElementById('play-title').textContent=titles[m];
+  const titles={flash:'Flashcards',quiz:'Quiz',match:'Match Pairs',search:'Word Hunt'};
+  document.getElementById('play-title').textContent=titles[m]+' — Pick Topic';
   const g=document.getElementById('cat-grid');g.innerHTML='';
   CATS.forEach(c=>{
     const d=V[c],learned=S.cw?.[c]||0,total=d.words.length,pct=Math.round(learned/total*100);
     const el=document.createElement('div');el.className='cat-card';
-    el.innerHTML=`<div class="cat-ico">${d.icon}</div><span class="cat-ge ge">${d.ge}</span><span class="cat-en">${d.label}</span><div class="cat-pbar"><div class="cat-pfill" style="width:${pct}%"></div></div>`;
+    el.innerHTML='<div class="cat-ico">'+d.icon+'</div><span class="cat-ge ge">'+d.ge+'</span><span class="cat-en">'+d.label+'</span><div class="cat-pbar"><div class="cat-pfill" style="width:'+pct+'%"></div></div>';
     el.onclick=()=>launch(m,c);g.appendChild(el);
   });
   goNav('play');
@@ -630,228 +849,154 @@ function launch(m,c){cat=c;visitCat(c);if(m==='flash')startFlash(c);else if(m===
 
 /* FLASHCARD */
 function startFlash(c){fcDeck=shuf([...V[c].words]);fcReview=[];fcIdx=0;fcFlipped=false;showFC();goNav('flash');}
-function showFC(){const w=fcDeck[fcIdx];document.getElementById('fc-ge').textContent=w.g;document.getElementById('fc-en').textContent=w.e;document.getElementById('fc-tr').textContent=w.t;document.getElementById('fc-tip').textContent='🔊 '+w.p;document.getElementById('fc-note').textContent=w.n;document.getElementById('fc-prog').textContent=(fcIdx+1)+' / '+fcDeck.length;document.getElementById('fc-str').textContent='🔥 '+S.streak;document.getElementById('fc-btns').style.display='none';fcFlipped=false;document.getElementById('flashcard').classList.remove('flipped');}
+function showFC(){const w=fcDeck[fcIdx];document.getElementById('fc-ge').textContent=w.g;document.getElementById('fc-en').textContent=w.e;document.getElementById('fc-tr').textContent=w.t;document.getElementById('fc-tip').textContent='🔊 '+w.p;document.getElementById('fc-note').textContent=w.n;document.getElementById('fc-prog').textContent=(fcIdx+1)+'/'+fcDeck.length;document.getElementById('fc-str').textContent='🔥 '+S.streak;document.getElementById('fc-btns').style.display='none';fcFlipped=false;document.getElementById('flashcard').classList.remove('flipped');}
 function fcFlip(){if(!fcFlipped){fcFlipped=true;document.getElementById('flashcard').classList.add('flipped');document.getElementById('fc-btns').style.display='flex';}}
-function fcAns(knew){const w=fcDeck[fcIdx];if(knew){markWord(cat,w);S.cor++;S.tot++;S.streak++;if(S.streak>S.best)S.best=S.streak;addXP(5);checkAch();}else{fcReview.push(w);S.streak=0;S.tot++;}save();fcIdx++;if(fcIdx>=fcDeck.length){if(fcReview.length){fcDeck=shuf(fcReview);fcReview=[];fcIdx=0;toast('Reviewing '+fcDeck.length+' more cards 💪');showFC();}else{addXP(15);toast('🌟 Deck complete!');setTimeout(()=>goNav('play'),1600);}}else showFC();document.getElementById('fc-str').textContent='🔥 '+S.streak;}
+function fcAns(knew){const w=fcDeck[fcIdx];if(knew){markWord(cat,w);S.cor++;S.tot++;S.streak++;if(S.streak>S.best)S.best=S.streak;addXP(5);addCoins(1);checkAch();}else{fcReview.push(w);S.streak=0;S.tot++;}save();fcIdx++;if(fcIdx>=fcDeck.length){if(fcReview.length){fcDeck=shuf(fcReview);fcReview=[];fcIdx=0;toast('Reviewing '+fcDeck.length+' more 💪');showFC();}else{addXP(15);toast('🌟 Deck complete!');setTimeout(()=>goNav('play'),1600);}}else showFC();}
 
 /* QUIZ */
 function startQuiz(c){qDeck=shuf([...V[c].words]);qIdx=0;qDone=false;qSesErr=0;showQ();goNav('quiz');}
-function showQ(){qDone=false;const w=qDeck[qIdx%qDeck.length];const geToEn=Math.random()>0.35;document.getElementById('q-ge').textContent=w.g;document.getElementById('q-tr').textContent=geToEn?w.t:'';document.getElementById('q-prompt').textContent=geToEn?'What does this Tigrinya word mean in English?':'Which Tigrinya word means "'+w.e+'"?';document.getElementById('qz-prog').textContent='Q '+(qIdx+1);document.getElementById('qz-str').textContent='🔥 '+S.streak;document.getElementById('q-result').innerHTML='';const wrong=shuf(V[cat].words.filter(x=>x.t!==w.t)).slice(0,3);const opts=shuf([w,...wrong]);const ci=opts.indexOf(w);const wrap=document.getElementById('opts');wrap.innerHTML='';opts.forEach((o,i)=>{const btn=document.createElement('button');btn.className='opt';const txt=geToEn?o.e:'<span class="ge">'+o.g+'</span>';btn.innerHTML='<span class="opt-ltr">'+['A','B','C','D'][i]+'</span>'+txt;btn.onclick=ev=>ansQ(i,ci,opts,w,ev,geToEn);wrap.appendChild(btn);});}
-function ansQ(chosen,correct,opts,word,ev,geToEn){if(qDone)return;qDone=true;document.querySelectorAll('.opt').forEach((b,i)=>{b.disabled=true;if(i===correct)b.classList.add('c');else if(i===chosen)b.classList.add('w');b.querySelector('.opt-ltr').textContent=i===correct?'✓':(i===chosen?'✗':['A','B','C','D'][i]);});const ok=chosen===correct;S.tot++;if(ok){S.cor++;S.streak++;if(S.streak>S.best)S.best=S.streak;markWord(cat,word);const bonus=S.streak>=5?5:0;addXP(15+bonus,ev.clientX,ev.clientY);checkAch();}else{S.streak=0;qSesErr++;}save();document.getElementById('qz-str').textContent='🔥 '+S.streak;const res=document.getElementById('q-result');res.innerHTML='<div class="result-box '+(ok?'rc':'rw')+'"><div class="rv">'+(ok?'✓ Correct!'+(S.streak>=3?' ('+S.streak+' in a row! 🔥)':''):'✗ Answer: '+opts[correct].e)+'</div><div class="rn">📖 '+word.n+'</div></div><button class="next-btn" onclick="nextQ()">Next →</button>';}
-function nextQ(){qIdx++;if(qIdx>0&&qIdx%qDeck.length===0){if(qSesErr===0){S.perfectQuiz++;save();checkAch();toast('💎 Perfect round!');} qDeck=shuf([...V[cat].words]);qSesErr=0;}showQ();}
+function showQ(){qDone=false;const w=qDeck[qIdx%qDeck.length];const geToEn=Math.random()>0.35;document.getElementById('q-ge').textContent=w.g;document.getElementById('q-tr').textContent=geToEn?w.t:'';document.getElementById('q-prompt').textContent=geToEn?'What does this Tigrinya word mean?':'Which Tigrinya word means "'+w.e+'"?';document.getElementById('qz-prog').textContent='Q '+(qIdx+1);document.getElementById('qz-str').textContent='🔥 '+S.streak;document.getElementById('q-result').innerHTML='';const wrong=shuf(V[cat].words.filter(x=>x.t!==w.t)).slice(0,3);const opts=shuf([w,...wrong]);const ci=opts.indexOf(w);const wrap=document.getElementById('opts');wrap.innerHTML='';opts.forEach((o,i)=>{const btn=document.createElement('button');btn.className='opt';const txt=geToEn?o.e:'<span class="ge">'+o.g+'</span>';btn.innerHTML='<span class="opt-ltr">'+['A','B','C','D'][i]+'</span>'+txt;btn.onclick=ev=>ansQ(i,ci,opts,w,ev,geToEn);wrap.appendChild(btn);});}
+function ansQ(chosen,correct,opts,word,ev){if(qDone)return;qDone=true;document.querySelectorAll('.opt').forEach((b,i)=>{b.disabled=true;if(i===correct)b.classList.add('c');else if(i===chosen)b.classList.add('w');b.querySelector('.opt-ltr').textContent=i===correct?'✓':(i===chosen?'✗':['A','B','C','D'][i]);});const ok=chosen===correct;S.tot++;if(ok){S.cor++;S.streak++;if(S.streak>S.best)S.best=S.streak;markWord(cat,word);addXP(15+(S.streak>=5?5:0),ev.clientX,ev.clientY);addCoins(3,ev.clientX,ev.clientY-30);checkAch();}else{S.streak=0;qSesErr++;}save();document.getElementById('qz-str').textContent='🔥 '+S.streak;document.getElementById('q-result').innerHTML='<div class="result-box '+(ok?'rc':'rw')+'"><div class="rv">'+(ok?'✓ Correct!':'✗ Answer: '+opts[correct].e)+'</div><div class="rn">'+word.n+'</div></div><button class="next-btn" onclick="nextQ()">Next →</button>';}
+function nextQ(){qIdx++;if(qIdx>0&&qIdx%qDeck.length===0){if(qSesErr===0){S.perfectQuiz++;save();checkAch();toast('💎 Perfect round!');}qDeck=shuf([...V[cat].words]);qSesErr=0;}showQ();}
 
 /* MATCH */
-function startMatch(c){const words=shuf([...V[c].words]).slice(0,4);mSel=null;mFound=0;mSecs=0;const ge=shuf(words.map((w,i)=>({id:i,type:'g',txt:w.g,w})));const en=shuf(words.map((w,i)=>({id:i,type:'e',txt:w.e,w})));mPairs=[];for(let i=0;i<4;i++){mPairs.push(ge[i],en[i]);}renderMatch();goNav('match');stopMatch();mTI=setInterval(()=>{mSecs++;const m=Math.floor(mSecs/60),s=mSecs%60;document.getElementById('m-timer').textContent=m+':'+(s<10?'0':'')+s;},1000);document.getElementById('m-info').textContent='Tap a Tigrinya word, then its English match';document.getElementById('m-str').textContent='🔥 '+S.streak;document.getElementById('m-result').innerHTML='';}
+function startMatch(c){const words=shuf([...V[c].words]).slice(0,4);mSel=null;mFound=0;mSecs=0;const ge=shuf(words.map((w,i)=>({id:i,type:'g',txt:w.g,w})));const en=shuf(words.map((w,i)=>({id:i,type:'e',txt:w.e,w})));mPairs=[];for(let i=0;i<4;i++){mPairs.push(ge[i],en[i]);}renderMatch();goNav('match');stopMatch();mTI=setInterval(()=>{mSecs++;const m=Math.floor(mSecs/60),s=mSecs%60;document.getElementById('m-timer').textContent=m+':'+(s<10?'0':'')+s;},1000);document.getElementById('m-str').textContent='🔥 '+S.streak;document.getElementById('m-result').innerHTML='';}
 function stopMatch(){if(mTI){clearInterval(mTI);mTI=null;}}
 function renderMatch(){const g=document.getElementById('m-grid');g.innerHTML='';mPairs.forEach((c,i)=>{const el=document.createElement('div');el.className='mc'+(c.type==='g'?' ge-mc':'');el.textContent=c.txt;el.dataset.i=i;el.onclick=()=>tapMatch(i);g.appendChild(el);});}
-function tapMatch(i){const p=mPairs[i];if(p.matched)return;const els=[...document.querySelectorAll('.mc')];if(mSel===null){mSel=i;els[i].classList.add('sel');return;}if(mSel===i){els[i].classList.remove('sel');mSel=null;return;}const prev=mPairs[mSel];const hit=prev.id===p.id&&prev.type!==p.type;if(hit){prev.matched=p.matched=true;els[mSel].classList.remove('sel');els[mSel].classList.add('mat');els[i].classList.add('mat');mFound++;mSel=null;S.streak++;if(S.streak>S.best)S.best=S.streak;if(mFound===4){stopMatch();S.matches++;S.cor+=4;S.tot+=4;mPairs.filter(c=>c.type==='g').forEach(c=>markWord(cat,c.w));const tb=Math.max(0,60-mSecs);const xpT=25+tb;addXP(xpT);save();checkAch();document.getElementById('m-result').innerHTML='<div class="match-done"><div class="match-done-ico">🎉</div><div class="match-done-title">All Matched!</div><div class="match-done-xp">+'+xpT+' XP'+(tb>0?' (incl. '+tb+' time bonus!)':'')+'</div><button class="play-again" onclick="startMatch(\''+cat+'\')">Play Again</button></div>';}}else{S.streak=0;S.tot++;els[mSel].classList.remove('sel');[els[mSel],els[i]].forEach(e=>{e.classList.add('bad');setTimeout(()=>e.classList.remove('bad'),420);});mSel=null;save();}document.getElementById('m-str').textContent='🔥 '+S.streak;}
+function tapMatch(i){const p=mPairs[i];if(p.matched)return;const els=[...document.querySelectorAll('.mc')];if(mSel===null){mSel=i;els[i].classList.add('sel');return;}if(mSel===i){els[i].classList.remove('sel');mSel=null;return;}const prev=mPairs[mSel];const hit=prev.id===p.id&&prev.type!==p.type;if(hit){prev.matched=p.matched=true;els[mSel].classList.remove('sel');els[mSel].classList.add('mat');els[i].classList.add('mat');mFound++;mSel=null;S.streak++;if(S.streak>S.best)S.best=S.streak;if(mFound===4){stopMatch();S.matches++;S.cor+=4;S.tot+=4;mPairs.filter(c=>c.type==='g').forEach(c=>markWord(cat,c.w));const tb=Math.max(0,60-mSecs);addXP(25+tb);addCoins(5);save();checkAch();document.getElementById('m-result').innerHTML='<div class="match-done"><div class="match-done-ico">🎉</div><div class="match-done-title">All Matched!</div><div class="match-done-xp">+5 🪙 earned!</div><button class="play-again" onclick="startMatch(\''+cat+'\')">Play Again</button></div>';}}else{S.streak=0;S.tot++;els[mSel].classList.remove('sel');[els[mSel],els[i]].forEach(e=>{e.classList.add('bad');setTimeout(()=>e.classList.remove('bad'),420);});mSel=null;save();}document.getElementById('m-str').textContent='🔥 '+S.streak;}
 
 /* WORD HUNT */
-const GE_LETTERS=['ሀ','ሁ','ሂ','ሃ','ለ','ሉ','ሊ','ላ','ሐ','ሑ','ሒ','ሓ','መ','ሙ','ሚ','ማ','ሰ','ሱ','ሲ','ሳ','ረ','ሩ','ሪ','ራ','ቀ','ቁ','ቂ','ቃ','በ','ቡ','ቢ','ባ','ተ','ቱ','ቲ','ታ','ነ','ኑ','ኒ','ና','አ','ኡ','ኢ','ኣ','ከ','ኩ','ኪ','ካ','ወ','ዉ','ዊ','ዋ','ዘ','ዙ','ዚ','ዛ','የ','ዩ','ዪ','ያ','ደ','ዱ','ዲ','ዳ','ጀ','ጁ','ጂ','ጃ','ገ','ጉ','ጊ','ጋ','ጠ','ጡ','ጢ','ጣ','ፈ','ፉ','ፊ','ፋ'];
+const GE_LETTERS=['ሀ','ሁ','ሂ','ሃ','ለ','ሉ','ሊ','ላ','ሐ','ሑ','ሒ','ሓ','መ','ሙ','ሚ','ማ','ሰ','ሱ','ሲ','ሳ','ረ','ሩ','ሪ','ራ','ቀ','ቁ','ቂ','ቃ','በ','ቡ','ቢ','ባ','ተ','ቱ','ቲ','ታ','ነ','ኑ','ኒ','ና','አ','ኡ','ኢ','ኣ','ከ','ኩ','ኪ','ካ','ወ','ዉ','ዊ','ዋ','ዘ','ዙ','ዚ','ዛ','የ','ዩ','ዪ','ያ','ደ','ዱ','ዲ','ዳ'];
 const GRID_SIZE=7;
-function startSearch(c){const words=shuf([...V[c].words]).filter(w=>w.g.length<=4).slice(0,5);wsTarget=words;wsFound=[];wsSel=[];wsDragging=false;buildWSGrid(words);renderWSWords();document.getElementById('ws-found').textContent='0 / '+words.length+' found';document.getElementById('ws-str').textContent='🔥 '+S.streak;document.getElementById('ws-result').innerHTML='';goNav('search');}
-function buildWSGrid(words){wsGrid=Array.from({length:GRID_SIZE},()=>Array(GRID_SIZE).fill(''));wsPlaced=[];words.forEach(w=>{const chars=[...w.g];let tries=0;while(tries<60){const horiz=Math.random()>0.5;const maxR=horiz?GRID_SIZE:GRID_SIZE-chars.length;const maxC=horiz?GRID_SIZE-chars.length:GRID_SIZE;const r=Math.floor(Math.random()*maxR);const c=Math.floor(Math.random()*maxC);let ok=true;chars.forEach((ch,i)=>{const rr=r+(horiz?0:i),cc=c+(horiz?i:0);if(wsGrid[rr][cc]&&wsGrid[rr][cc]!==ch)ok=false;});if(ok){chars.forEach((ch,i)=>{wsGrid[r+(horiz?0:i)][c+(horiz?i:0)]=ch;});wsPlaced.push({word:w,r,c,horiz,len:chars.length});break;}tries++;}});for(let r=0;r<GRID_SIZE;r++)for(let c=0;c<GRID_SIZE;c++)if(!wsGrid[r][c])wsGrid[r][c]=GE_LETTERS[Math.floor(Math.random()*GE_LETTERS.length)];const g=document.getElementById('ws-grid');g.style.gridTemplateRows='repeat('+GRID_SIZE+',1fr)';g.style.gridTemplateColumns='repeat('+GRID_SIZE+',1fr)';g.innerHTML='';for(let r=0;r<GRID_SIZE;r++){for(let c=0;c<GRID_SIZE;c++){const el=document.createElement('div');el.className='ws-cell';el.textContent=wsGrid[r][c];el.dataset.r=r;el.dataset.c=c;el.addEventListener('pointerdown',e=>{wsDragging=true;wsSel=[[r,c]];renderWSsel();e.preventDefault();});el.addEventListener('pointerenter',()=>{if(wsDragging){addWSsel(r,c);renderWSsel();}});g.appendChild(el);}}document.getElementById('ws-grid').addEventListener('pointerup',checkWSsel);}
-function addWSsel(r,c){if(wsSel.length===0){wsSel=[[r,c]];return;}const[fr,fc]=wsSel[0],[lr,lc]=wsSel[wsSel.length-1];const dr=Math.sign(r-fr),dc=Math.sign(c-fc);if(dr===0&&dc===0)return;const nr=lr+dr,nc=lc+dc;if(nr===r&&nc===c&&!wsSel.some(([a,b])=>a===r&&b===c))wsSel.push([r,c]);}
-function renderWSsel(){document.querySelectorAll('.ws-cell').forEach(el=>{const r=+el.dataset.r,c=+el.dataset.c;el.classList.toggle('sel',wsSel.some(([a,b])=>a===r&&b===c)&&!wsFound.includes(wsGrid[r][c]+r+c));});}
-function checkWSsel(){wsDragging=false;const selStr=wsSel.map(([r,c])=>wsGrid[r][c]).join('');const match=wsPlaced.find(p=>p.word.g===selStr&&!wsFound.includes(p.word.t));if(match){wsFound.push(match.word.t);markWord(cat,match.word);S.cor++;S.tot++;S.streak++;if(S.streak>S.best)S.best=S.streak;addXP(8);wsSel.forEach(([r,c])=>{document.querySelectorAll('.ws-cell').forEach(el=>{if(+el.dataset.r===r&&+el.dataset.c===c)el.classList.add('found');});});const cnt=wsFound.length,total=wsTarget.length;document.getElementById('ws-found').textContent=cnt+' / '+total+' found';document.getElementById('ws-str').textContent='🔥 '+S.streak;renderWSWords();if(cnt===total){S.hunts++;addXP(12);save();checkAch();document.getElementById('ws-result').innerHTML='<div class="match-done"><div class="match-done-ico">🌟</div><div class="match-done-title">All Words Found!</div><div class="match-done-xp">+20 XP total!</div><button class="play-again" onclick="startSearch(\''+cat+'\')">Play Again</button></div>';}}wsSel=[];document.querySelectorAll('.ws-cell:not(.found)').forEach(el=>el.classList.remove('sel'));save();checkAch();}
+function startSearch(c){const words=shuf([...V[c].words]).filter(w=>w.g.length<=4).slice(0,5);wsTarget=words;wsFound=[];wsSel=[];wsDragging=false;buildWSGrid(words);renderWSWords();document.getElementById('ws-found').textContent='0/'+words.length;document.getElementById('ws-str').textContent='🔥 '+S.streak;document.getElementById('ws-result').innerHTML='';goNav('search');}
+function buildWSGrid(words){wsGrid=Array.from({length:GRID_SIZE},()=>Array(GRID_SIZE).fill(''));wsPlaced=[];words.forEach(w=>{const chars=[...w.g];let tries=0;while(tries<60){const horiz=Math.random()>0.5;const maxR=horiz?GRID_SIZE:GRID_SIZE-chars.length;const maxC=horiz?GRID_SIZE-chars.length:GRID_SIZE;if(maxR<=0||maxC<=0){tries++;continue;}const r=Math.floor(Math.random()*maxR);const c=Math.floor(Math.random()*maxC);let ok=true;chars.forEach((ch,i)=>{const rr=r+(horiz?0:i),cc=c+(horiz?i:0);if(wsGrid[rr][cc]&&wsGrid[rr][cc]!==ch)ok=false;});if(ok){chars.forEach((ch,i)=>{wsGrid[r+(horiz?0:i)][c+(horiz?i:0)]=ch;});wsPlaced.push({word:w,r,c,horiz,len:chars.length});break;}tries++;}});for(let r=0;r<GRID_SIZE;r++)for(let c=0;c<GRID_SIZE;c++)if(!wsGrid[r][c])wsGrid[r][c]=GE_LETTERS[Math.floor(Math.random()*GE_LETTERS.length)];const g=document.getElementById('ws-grid');g.style.gridTemplateColumns='repeat('+GRID_SIZE+',1fr)';g.innerHTML='';for(let r=0;r<GRID_SIZE;r++){for(let c=0;c<GRID_SIZE;c++){const el=document.createElement('div');el.className='ws-cell';el.textContent=wsGrid[r][c];el.dataset.r=r;el.dataset.c=c;el.addEventListener('pointerdown',e=>{wsDragging=true;wsSel=[[r,c]];renderWSsel();e.preventDefault();});el.addEventListener('pointerenter',()=>{if(wsDragging){addWSsel(r,c);renderWSsel();}});g.appendChild(el);}}document.getElementById('ws-grid').addEventListener('pointerup',checkWSsel);}
+function addWSsel(r,c){if(!wsSel.length){wsSel=[[r,c]];return;}const[fr,fc]=wsSel[0],[lr,lc]=wsSel[wsSel.length-1];const dr=Math.sign(r-fr),dc=Math.sign(c-fc);if(!dr&&!dc)return;const nr=lr+dr,nc=lc+dc;if(nr===r&&nc===c&&!wsSel.some(([a,b])=>a===r&&b===c))wsSel.push([r,c]);}
+function renderWSsel(){document.querySelectorAll('.ws-cell').forEach(el=>{const r=+el.dataset.r,c=+el.dataset.c;el.classList.toggle('sel',wsSel.some(([a,b])=>a===r&&b===c));});}
+function checkWSsel(){wsDragging=false;const selStr=wsSel.map(([r,c])=>wsGrid[r][c]).join('');const match=wsPlaced.find(p=>p.word.g===selStr&&!wsFound.includes(p.word.t));if(match){wsFound.push(match.word.t);markWord(cat,match.word);S.cor++;S.tot++;S.streak++;if(S.streak>S.best)S.best=S.streak;addXP(8);addCoins(2);wsSel.forEach(([r,c])=>{document.querySelectorAll('.ws-cell').forEach(el=>{if(+el.dataset.r===r&&+el.dataset.c===c)el.classList.add('found');});});const cnt=wsFound.length,tot=wsTarget.length;document.getElementById('ws-found').textContent=cnt+'/'+tot;document.getElementById('ws-str').textContent='🔥 '+S.streak;renderWSWords();if(cnt===tot){S.hunts++;addXP(12);addCoins(5);save();checkAch();document.getElementById('ws-result').innerHTML='<div class="match-done"><div class="match-done-ico">🌟</div><div class="match-done-title">All Found!</div><div class="match-done-xp">+5 🪙 bonus!</div><button class="play-again" onclick="startSearch(\''+cat+'\')">Play Again</button></div>';}}wsSel=[];document.querySelectorAll('.ws-cell:not(.found)').forEach(el=>el.classList.remove('sel'));save();checkAch();}
 function renderWSWords(){const w=document.getElementById('ws-words');w.innerHTML='';wsTarget.forEach(word=>{const el=document.createElement('div');el.className='ws-word ge'+(wsFound.includes(word.t)?' found':'');el.textContent=word.g;w.appendChild(el);});}
 
-/* ═══════════════════════════════════════════
-   SCRIPT — FIDEL CHART
-═══════════════════════════════════════════ */
+/* ═══ SCRIPT ═══ */
 function initScript(){
-  // Build vowel header
   const vh=document.getElementById('vowel-hdr');
-  if(!vh.children.length){
-    vh.innerHTML='<div style="width:32px;flex-shrink:0"></div>'+VOWEL_LABELS.map(v=>'<div class="vowel-hdr-cell">'+v+'</div>').join('');
-  }
-  // Build fidel chart
+  if(!vh.children.length){vh.innerHTML='<div style="width:32px;flex-shrink:0"></div>'+VOWEL_LABELS.map(v=>'<div class="vowel-hdr-cell">'+v+'</div>').join('');}
   const chart=document.getElementById('fidel-chart');
-  if(!chart.children.length){
-    FIDEL.forEach((fam,fi)=>{
-      const row=document.createElement('div');row.className='fidel-family';
-      row.innerHTML='<div class="fidel-name">'+fam.name+'</div>';
-      fam.forms.forEach((ch,vi)=>{
-        const cell=document.createElement('div');cell.className='fidel-cell';
-        cell.innerHTML='<span class="ge">'+ch+'</span>';
-        cell.onclick=()=>showFidelDetail(fi,vi,cell);
-        row.appendChild(cell);
-      });
-      chart.appendChild(row);
-    });
-  }
-  // Build write picker
+  if(!chart.children.length){FIDEL.forEach((fam,fi)=>{const row=document.createElement('div');row.className='fidel-family';row.innerHTML='<div class="fidel-name">'+fam.name+'</div>';fam.forms.forEach((ch,vi)=>{const cell=document.createElement('div');cell.className='fidel-cell';cell.innerHTML='<span class="ge">'+ch+'</span>';cell.onclick=()=>showFidelDetail(fi,vi,cell);row.appendChild(cell);});chart.appendChild(row);});}
   const picker=document.getElementById('write-char-pick');
-  if(!picker.children.length){
-    FIDEL.forEach((fam,fi)=>{
-      const btn=document.createElement('button');btn.className='wcp';
-      btn.textContent=fam.forms[0];
-      btn.onclick=()=>{
-        document.querySelectorAll('.wcp').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById('trace-char').textContent=fam.forms[0];
-        writeXPclaimed=false;
-        clearCanvas();
-      };
-      picker.appendChild(btn);
-    });
-    // Select first
-    picker.children[0]?.classList.add('active');
-  }
+  if(!picker.children.length){FIDEL.forEach((fam,fi)=>{const btn=document.createElement('button');btn.className='wcp';btn.textContent=fam.forms[0];btn.onclick=()=>{document.querySelectorAll('.wcp').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('trace-char').textContent=fam.forms[0];writeXPclaimed=false;clearCanvas();};picker.appendChild(btn);});picker.children[0]?.classList.add('active');}
   initCanvas();
   switchScriptTab(currentScriptTab);
-  nextRQ();
+  if(!rqQueue.length)nextRQ();
 }
-
-function showFidelDetail(fi,vi,cell){
-  const fam=FIDEL[fi];
-  const ch=fam.forms[vi];
-  // Mark as learned
-  if(!S.fidelSeen) S.fidelSeen=[];
-  const famKey='f:'+fi;
-  if(!S.fidelSeen.includes(famKey)){S.fidelSeen.push(famKey);S.fidelLearned=(S.fidelSeen.length);addXP(3);save();checkAch();}
-  // Highlight selected
-  document.querySelectorAll('.fidel-cell').forEach(c=>c.classList.remove('sel'));
-  cell.classList.add('sel');
-  const det=document.getElementById('fidel-detail');
-  det.classList.add('show');
-  det.innerHTML=`
-    <div class="fd-char ge">${ch}</div>
-    <div class="fd-row"><span class="fd-label">Consonant family</span><span class="fd-val">${fam.name}</span></div>
-    <div class="fd-row"><span class="fd-label">Vowel order</span><span class="fd-val">${VOWEL_NAMES[vi]}</span></div>
-    <div class="fd-row"><span class="fd-label">Sound</span><span class="fd-val">${fam.name}${VOWEL_LABELS[vi] === 'ə' ? '' : VOWEL_LABELS[vi]}</span></div>
-    <div class="fd-row"><span class="fd-label">Pronunciation</span><span class="fd-val">${fam.sound}</span></div>
-    <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);margin:0.75rem 0 0.3rem;">All 7 forms of "${fam.name}"</div>
-    <div class="fd-family-row">
-      ${fam.forms.map((f,i)=>`<div class="fd-sib" onclick="showFidelDetail(${fi},${i},this)"><span class="ge">${f}</span><span class="fd-sib-tr">${fam.name}${VOWEL_LABELS[i]==='ə'?'':VOWEL_LABELS[i]}</span></div>`).join('')}
-    </div>
-    <div class="fd-note">${fam.note}</div>
-  `;
-  // Scroll detail into view
-  setTimeout(()=>det.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
-}
-
-function switchScriptTab(tab){
-  currentScriptTab=tab;
-  ['chart','write','rquiz'].forEach(t=>{
-    document.getElementById('stab-'+t).classList.toggle('active',t===tab);
-    document.getElementById('stab-'+t+'-pane').style.display=t===tab?'block':'none';
-    if(t===tab&&t==='rquiz') document.getElementById('stab-rquiz-pane').style.display='block';
-  });
-  if(tab==='rquiz') nextRQ();
-}
-
-/* ═══════════════════════════════════════════
-   WRITING CANVAS
-═══════════════════════════════════════════ */
+function showFidelDetail(fi,vi,cell){const fam=FIDEL[fi];const ch=fam.forms[vi];if(!S.fidelSeen)S.fidelSeen=[];const famKey='f:'+fi;if(!S.fidelSeen.includes(famKey)){S.fidelSeen.push(famKey);S.fidelLearned=S.fidelSeen.length;addXP(3);addCoins(1);save();checkAch();}document.querySelectorAll('.fidel-cell').forEach(c=>c.classList.remove('sel'));cell.classList.add('sel');const det=document.getElementById('fidel-detail');det.classList.add('show');det.innerHTML='<div class="fd-char ge">'+ch+'</div><div class="fd-row"><span class="fd-label">Family</span><span class="fd-val">'+fam.name+'</span></div><div class="fd-row"><span class="fd-label">Vowel order</span><span class="fd-val">'+VOWEL_NAMES[vi]+'</span></div><div class="fd-row"><span class="fd-label">Sound</span><span class="fd-val">'+fam.sound+'</span></div><div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);margin:0.75rem 0 0.3rem">All 7 forms</div><div class="fd-family-row">'+fam.forms.map((f,i)=>'<div class="fd-sib" onclick="showFidelDetail('+fi+','+i+',this)"><span class="ge">'+f+'</span><span class="fd-sib-tr">'+fam.name+(VOWEL_LABELS[i]==='ə'?'':VOWEL_LABELS[i])+'</span></div>').join('')+'</div><div class="fd-note">'+fam.note+'</div>';setTimeout(()=>det.scrollIntoView({behavior:'smooth',block:'nearest'}),100);}
+function switchScriptTab(tab){currentScriptTab=tab;['chart','write','rquiz'].forEach(t=>{document.getElementById('stab-'+t).classList.toggle('active',t===tab);const pane=document.getElementById('stab-'+t+'-pane');pane.style.display=t===tab?'block':'none';});}
 let canvas,ctx,drawing=false;
-function initCanvas(){
-  canvas=document.getElementById('writeCanvas');
-  if(!canvas||canvas._init)return;
-  canvas._init=true;
-  // Set canvas pixel size to match display
-  function resize(){
-    const w=canvas.offsetWidth;
-    canvas.width=w*window.devicePixelRatio;
-    canvas.height=220*window.devicePixelRatio;
-    canvas.style.height='220px';
-    ctx=canvas.getContext('2d');
-    ctx.scale(window.devicePixelRatio,window.devicePixelRatio);
-    ctx.strokeStyle='#f0c040';
-    ctx.lineWidth=4;
-    ctx.lineCap='round';
-    ctx.lineJoin='round';
-  }
-  resize();
-  window.addEventListener('resize',resize);
+function initCanvas(){canvas=document.getElementById('writeCanvas');if(!canvas||canvas._init)return;canvas._init=true;function resize(){const w=canvas.offsetWidth;canvas.width=w*window.devicePixelRatio;canvas.height=220*window.devicePixelRatio;canvas.style.height='220px';ctx=canvas.getContext('2d');ctx.scale(window.devicePixelRatio,window.devicePixelRatio);ctx.strokeStyle='#f0c040';ctx.lineWidth=4;ctx.lineCap='round';ctx.lineJoin='round';}resize();window.addEventListener('resize',resize);function getPos(e){const rect=canvas.getBoundingClientRect();const src=e.touches?e.touches[0]:e;return{x:src.clientX-rect.left,y:src.clientY-rect.top};}canvas.addEventListener('pointerdown',e=>{drawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault();});canvas.addEventListener('pointermove',e=>{if(!drawing)return;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault();});canvas.addEventListener('pointerup',()=>{drawing=false;ctx.beginPath();});canvas.addEventListener('pointerleave',()=>{drawing=false;ctx.beginPath();});}
+function clearCanvas(){if(!canvas)return;ctx.clearRect(0,0,canvas.offsetWidth,220);writeXPclaimed=false;}
+function claimWriteXP(){if(writeXPclaimed){toast('Keep practicing!');return;}writeXPclaimed=true;S.writeSessions=(S.writeSessions||0)+1;addXP(10);addCoins(2);save();checkAch();toast('✍️ Great writing! +10 XP +2🪙');}
+let rqDoneFlag=false;
+function nextRQ(){rqDoneFlag=false;if(!rqQueue.length)rqQueue=shuf(FIDEL.flatMap(fam=>fam.forms.map((f,vi)=>({fam,vi,ch:f}))));const item=rqQueue.pop();if(!item)return;document.getElementById('rq-ge').textContent=item.ch;const askSound=Math.random()>0.4;document.getElementById('rq-prompt').textContent=askSound?'What sound does this character make?':'Which consonant family does this belong to?';document.getElementById('rq-result').innerHTML='';const correct=askSound?(item.fam.name+(VOWEL_LABELS[item.vi]==='ə'?'ä':VOWEL_LABELS[item.vi])):item.fam.name;const wrongFams=shuf(FIDEL.filter(f=>f.name!==item.fam.name)).slice(0,3);const opts=shuf([correct,...wrongFams.map(f=>askSound?(f.name+(VOWEL_LABELS[item.vi]==='ə'?'ä':VOWEL_LABELS[item.vi])):f.name)]);const wrap=document.getElementById('rq-opts');wrap.innerHTML='';opts.forEach(o=>{const btn=document.createElement('button');btn.className='rq-opt';btn.textContent=o;btn.onclick=()=>ansRQ(o,correct,item,btn);wrap.appendChild(btn);});}
+function ansRQ(chosen,correct,item,btn){if(rqDoneFlag)return;rqDoneFlag=true;const ok=chosen===correct;document.querySelectorAll('.rq-opt').forEach(b=>{b.disabled=true;if(b.textContent===correct)b.classList.add('c');else if(b===btn&&!ok)b.classList.add('w');});S.tot++;if(ok){S.cor++;S.streak++;if(S.streak>S.best)S.best=S.streak;S.rqCorrect=(S.rqCorrect||0)+1;addXP(8);addCoins(2);checkAch();}else S.streak=0;save();document.getElementById('rq-result').innerHTML='<div class="result-box '+(ok?'rc':'rw')+'" style="margin:0.75rem 1rem 0"><div class="rv">'+(ok?'✓ Correct!':'✗ It was: '+correct)+'</div><div class="rn">'+item.fam.note+'</div></div><button class="next-btn" onclick="nextRQ()">Next →</button>';}
 
-  function getPos(e){
-    const rect=canvas.getBoundingClientRect();
-    const src=e.touches?e.touches[0]:e;
-    return{x:src.clientX-rect.left,y:src.clientY-rect.top};
-  }
-  canvas.addEventListener('pointerdown',e=>{drawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault();});
-  canvas.addEventListener('pointermove',e=>{if(!drawing)return;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault();});
-  canvas.addEventListener('pointerup',()=>{drawing=false;ctx.beginPath();});
-  canvas.addEventListener('pointerleave',()=>{drawing=false;ctx.beginPath();});
+/* ═══ GRAMMAR ═══ */
+function switchGrammar(idx){
+  currentGrammarTab=idx;
+  document.querySelectorAll('.gtab').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  renderGrammar(idx);
 }
-
-function clearCanvas(){
-  if(!canvas)return;
-  ctx.clearRect(0,0,canvas.offsetWidth,220);
-  writeXPclaimed=false;
+function renderGrammar(idx){
+  const content=document.getElementById('grammar-content');
+  const lesson=GRAMMAR_LESSONS[idx];
+  let html='<div class="lesson-card"><div class="lesson-hdr"><div class="lesson-title">'+lesson.title+'</div><div class="lesson-subtitle">'+lesson.subtitle+'</div></div><div class="lesson-body">'+lesson.content+'</div></div>';
+  // Add sentence builder for all grammar tabs
+  html+=renderSentenceBuilder();
+  content.innerHTML=html;
+  attachSBListeners();
 }
-
-function claimWriteXP(){
-  if(writeXPclaimed){toast('Keep tracing for more practice!');return;}
-  writeXPclaimed=true;
-  S.writeSessions=(S.writeSessions||0)+1;
-  addXP(10);save();checkAch();
-  toast('✍️ Great writing! +10 XP');
+let sbExIdx=0,sbPlacedArr=[],sbDoneFlag=false;
+function renderSentenceBuilder(){
+  const ex=SB_EXERCISES[sbExIdx%SB_EXERCISES.length];
+  const shuffled=shuf([...ex.words]);
+  window._sbCurrent=ex;
+  window._sbShuffled=shuffled;
+  window._sbPlaced=[];
+  return '<div style="margin:0 1rem;"><div class="sec-label" style="margin:0 0 0.5rem">Sentence Builder</div><div class="sb-counter">Exercise '+(sbExIdx%SB_EXERCISES.length+1)+' / '+SB_EXERCISES.length+'</div><div class="sb-eng">Build: "'+ex.eng+'"</div><div class="sb-target" id="sb-target"><span class="sb-hint">Tap words in order below →</span></div><div class="sb-bank" id="sb-bank">'+shuffled.map((w,i)=>'<button class="sb-word" id="sbw-'+i+'" onclick="sbTap('+i+')"><span class="ge">'+w+'</span></button>').join('')+'</div><div class="sb-actions"><button class="sb-btn sb-check" onclick="sbCheck()">✓ Check</button><button class="sb-btn sb-reset" onclick="sbReset()">↺ Reset</button></div><div class="sb-result" id="sb-result"></div></div>';
 }
+function attachSBListeners(){}
+function sbTap(i){const w=window._sbShuffled[i];const btn=document.getElementById('sbw-'+i);if(btn.classList.contains('placed'))return;window._sbPlaced.push({word:w,idx:i});btn.classList.add('placed');const target=document.getElementById('sb-target');if(window._sbPlaced.length===1)target.innerHTML='';const placed=document.createElement('span');placed.className='sb-placed ge';placed.textContent=w;placed.onclick=()=>sbRemove(i,placed);target.appendChild(placed);}
+function sbRemove(i,el){window._sbPlaced=window._sbPlaced.filter(p=>p.idx!==i);document.getElementById('sbw-'+i)?.classList.remove('placed');el.remove();if(!window._sbPlaced.length){const target=document.getElementById('sb-target');target.innerHTML='<span class="sb-hint">Tap words in order below →</span>';}}
+function sbCheck(){const answer=window._sbCurrent.answer;const placed=window._sbPlaced.map(p=>p.word);const ok=placed.length===answer.length&&placed.every((w,i)=>w===answer[i]);const res=document.getElementById('sb-result');res.className='sb-result show '+(ok?'ok':'bad');if(ok){res.innerHTML='✓ Correct! Well done.';S.sbCorrect=(S.sbCorrect||0)+1;addXP(10);addCoins(3);save();checkAch();setTimeout(()=>{sbExIdx++;renderGrammar(currentGrammarTab);},1500);}else{res.innerHTML='✗ Not quite. Hint: '+window._sbCurrent.hint+'<br><span style="font-family:\'Noto Serif Ethiopic\',serif">'+answer.join(' ')+'</span>';}}
+function sbReset(){window._sbPlaced=[];document.querySelectorAll('.sb-word').forEach(b=>b.classList.remove('placed'));const target=document.getElementById('sb-target');target.innerHTML='<span class="sb-hint">Tap words in order below →</span>';const res=document.getElementById('sb-result');res.className='sb-result';}
 
-/* ═══════════════════════════════════════════
-   RECOGNITION QUIZ
-═══════════════════════════════════════════ */
-let rqQueue=[];
-function nextRQ(){
-  rqDone=false;
-  if(!rqQueue.length){
-    // Build fresh shuffled queue of all fidel chars
-    rqQueue=shuf(FIDEL.flatMap(fam=>fam.forms.map((f,vi)=>({fam,vi,ch:f}))));
+/* ═══ TRADING CARDS ═══ */
+function switchCardsTab(tab){currentCardsTab=tab;document.getElementById('ctab-shop').classList.toggle('active',tab==='shop');document.getElementById('ctab-collection').classList.toggle('active',tab==='collection');renderCards();}
+function renderCards(){
+  document.getElementById('cards-coins').textContent=S.coins;
+  const content=document.getElementById('cards-content');
+  if(currentCardsTab==='shop'){
+    let html='<div class="sec-label">Buy a Pack</div><div class="pack-row">';
+    PACKS.forEach(p=>{html+='<div class="pack-card '+p.color+' '+p.glow+'" onclick="buyPack(\''+p.id+'\')"><div class="pack-ico">'+p.ico+'</div><div class="pack-name">'+p.name+'</div><div class="pack-cost">🪙 '+p.cost+'</div><div class="pack-desc">'+p.desc+'</div></div>';});
+    html+='</div>';
+    html+='<div class="sec-label" style="margin-top:0.5rem">How to earn coins 🪙</div>';
+    html+='<div style="margin:0 1rem;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem;font-size:0.78rem;color:var(--smoke);line-height:2">';
+    html+='✅ Quiz correct answer: <strong style="color:var(--gold)">+3🪙</strong><br>';
+    html+='🃏 Flashcard "Got It": <strong style="color:var(--gold)">+1🪙</strong><br>';
+    html+='🔗 Complete Match round: <strong style="color:var(--gold)">+5🪙</strong><br>';
+    html+='🔎 Word Hunt find: <strong style="color:var(--gold)">+2🪙</strong><br>';
+    html+='📝 Sentence Builder: <strong style="color:var(--gold)">+3🪙</strong><br>';
+    html+='✍️ Writing practice: <strong style="color:var(--gold)">+2🪙</strong>';
+    html+='</div><div class="section-gap"></div>';
+    content.innerHTML=html;
+  } else {
+    const owned=S.collection||[];
+    if(!owned.length){content.innerHTML='<div class="empty-collection">No cards yet!<br>Buy packs in the Shop tab<br>to start your collection. 🃏</div>';return;}
+    // Count duplicates
+    const counts={};owned.forEach(id=>{counts[id]=(counts[id]||0)+1;});
+    const unique=[...new Set(owned)];
+    let html='<div style="padding:0 1rem 0.5rem;font-size:0.72rem;color:var(--smoke)">'+unique.length+' unique · '+owned.length+' total</div><div class="card-grid">';
+    // Sort: legendary > rare > common
+    const sorted=unique.sort((a,b)=>{const ra=ALL_CARDS.find(c=>c.id===a)?.rarity;const rb=ALL_CARDS.find(c=>c.id===b)?.rarity;const order={legendary:0,rare:1,common:2};return (order[ra]||2)-(order[rb]||2);});
+    sorted.forEach(id=>{const card=ALL_CARDS.find(c=>c.id===id);if(!card)return;const cls='card-'+card.rarity;html+='<div class="card-item '+cls+'"><div class="card-rarity">'+card.rarity+'</div><div class="card-art">'+card.art+'</div><div class="card-ge ge">'+card.g+'</div><div class="card-en">'+card.e+'</div><div class="card-tr">'+card.t+'</div>'+(counts[id]>1?'<div class="card-count">×'+counts[id]+'</div>':'')+'</div>';});
+    html+='</div><div class="section-gap"></div>';
+    content.innerHTML=html;
   }
-  const item=rqQueue.pop();
-  if(!item)return;
-  document.getElementById('rq-ge').textContent=item.ch;
-  // Determine question type
-  const askSound=Math.random()>0.4;
-  document.getElementById('rq-prompt').textContent=askSound
-    ?'What sound does this character make?'
-    :'Which consonant family does this belong to?';
-  document.getElementById('rq-result').innerHTML='';
-
-  // Build options
-  const correct=askSound
-    ?(item.fam.name+(VOWEL_LABELS[item.vi]==='ə'?'ä':VOWEL_LABELS[item.vi]))
-    :item.fam.name;
-  const wrongFams=shuf(FIDEL.filter(f=>f.name!==item.fam.name)).slice(0,3);
-  const wrongOpts=wrongFams.map(f=>askSound
-    ?(f.name+(VOWEL_LABELS[item.vi]==='ə'?'ä':VOWEL_LABELS[item.vi]))
-    :f.name);
-  const opts=shuf([correct,...wrongOpts]);
-
-  const wrap=document.getElementById('rq-opts');wrap.innerHTML='';
-  opts.forEach(o=>{
-    const btn=document.createElement('button');btn.className='rq-opt';btn.textContent=o;
-    btn.onclick=()=>ansRQ(o,correct,item,btn);
-    wrap.appendChild(btn);
+}
+function buyPack(packId){
+  const pack=PACKS.find(p=>p.id===packId);
+  if(S.coins<pack.cost){toast('Not enough coins! Need 🪙'+pack.cost);return;}
+  S.coins-=pack.cost;S.packsOpened=(S.packsOpened||0)+1;
+  // Draw 3 cards based on pack type
+  const drawn=[];
+  for(let i=0;i<3;i++){
+    let pool;
+    if(packId==='basic') pool=ALL_CARDS.filter(c=>c.rarity==='common');
+    else if(packId==='rare') pool=i===0?ALL_CARDS.filter(c=>c.rarity==='rare'):ALL_CARDS.filter(c=>c.rarity==='common');
+    else { // legend
+      const r=Math.random();
+      if(i===0&&r<0.3) pool=ALL_CARDS.filter(c=>c.rarity==='legendary');
+      else if(r<0.5) pool=ALL_CARDS.filter(c=>c.rarity==='rare');
+      else pool=ALL_CARDS.filter(c=>c.rarity==='common');
+    }
+    drawn.push(pool[Math.floor(Math.random()*pool.length)]);
+  }
+  drawn.forEach(card=>{S.collection=S.collection||[];S.collection.push(card.id);});
+  save();updateHome();checkAch();
+  // Show overlay
+  const overlay=document.getElementById('pack-overlay');
+  const revealWrap=document.getElementById('pack-cards-reveal');
+  revealWrap.innerHTML='';
+  drawn.forEach((card,i)=>{
+    const div=document.createElement('div');
+    div.className='reveal-card card-'+card.rarity;
+    div.innerHTML='<div class="reveal-rarity" style="color:'+{common:'var(--smoke)',rare:'var(--rare)',legendary:'var(--legend)'}[card.rarity]+'">'+card.rarity+'</div><div class="reveal-art">'+card.art+'</div><div class="card-ge ge">'+card.g+'</div><div class="card-en">'+card.e+'</div><div class="card-tr">'+card.t+'</div>';
+    revealWrap.appendChild(div);
+    setTimeout(()=>div.classList.add('show'),(i+1)*300);
   });
+  overlay.classList.remove('hidden');
 }
+function closePackOverlay(){document.getElementById('pack-overlay').classList.add('hidden');renderCards();}
 
-function ansRQ(chosen,correct,item,btn){
-  if(rqDone)return;rqDone=true;
-  const ok=chosen===correct;
-  document.querySelectorAll('.rq-opt').forEach(b=>{
-    b.disabled=true;
-    if(b.textContent===correct)b.classList.add('c');
-    else if(b===btn&&!ok)b.classList.add('w');
-  });
-  S.tot++;
-  if(ok){S.cor++;S.streak++;if(S.streak>S.best)S.best=S.streak;S.rqCorrect=(S.rqCorrect||0)+1;addXP(8);checkAch();}
-  else{S.streak=0;}
-  save();
-  // Mark fidel family as seen
-  const famKey='f:'+FIDEL.indexOf(item.fam);
-  if(!S.fidelSeen)S.fidelSeen=[];
-  if(!S.fidelSeen.includes(famKey)){S.fidelSeen.push(famKey);S.fidelLearned=S.fidelSeen.length;save();}
-
-  const res=document.getElementById('rq-result');
-  res.innerHTML='<div class="result-box '+(ok?'rc':'rw')+'" style="margin:0.75rem 1rem 0"><div class="rv">'+(ok?'✓ Correct!':'✗ It was: '+correct)+'</div><div class="rn">'+item.fam.note+'</div></div><button class="next-btn" onclick="nextRQ()">Next →</button>';
-}
-
-/* ACHIEVEMENTS / PROGRESS */
-function renderAch(){const g=document.getElementById('ach-grid');g.innerHTML='';ACHS.forEach(a=>{const ok=S.wl.includes('A:'+a.id);const el=document.createElement('div');el.className='ach-card'+(ok?' ok':'');el.innerHTML='<div class="ach-ico">'+a.ico+'</div><div class="ach-name">'+a.nm+'</div><div class="ach-ge ge">'+a.ge+'</div><div class="ach-desc">'+a.d+'</div><div class="ach-xp">'+(ok?'✓ +'+a.xp+' XP earned':'+'+a.xp+' XP')+'</div>';g.appendChild(el);});}
-function renderProg(){const list=document.getElementById('prog-list');list.innerHTML='';CATS.forEach(c=>{const d=V[c],learned=S.cw?.[c]||0,total=d.words.length,pct=Math.round(learned/total*100);const el=document.createElement('div');el.className='prog-item';el.innerHTML='<div class="prog-hdr"><div class="prog-cat">'+d.icon+' '+d.label+'</div><div class="prog-ct">'+learned+' / '+total+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%"></div></div>';list.appendChild(el);});const fidelPct=Math.round((S.fidelLearned||0)/FIDEL.length*100);const fel=document.createElement('div');fel.className='prog-item';fel.innerHTML='<div class="prog-hdr"><div class="prog-cat">✍️ Fidel Script</div><div class="prog-ct">'+(S.fidelLearned||0)+' / '+FIDEL.length+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+fidelPct+'%"></div></div>';list.appendChild(fel);const totL=S.wl.filter(k=>!k.startsWith('A:')).length;const totW=CATS.reduce((s,c)=>s+V[c].words.length,0);const el=document.createElement('div');el.className='prog-item prog-total';el.innerHTML='<div class="prog-hdr"><div class="prog-cat" style="color:var(--gold)">🌟 All Vocabulary</div><div class="prog-ct">'+totL+' / '+totW+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+Math.round(totL/totW*100)+'%"></div></div>';list.appendChild(el);}
+/* PROGRESS */
+function renderProg(){const list=document.getElementById('prog-list');list.innerHTML='';CATS.forEach(c=>{const d=V[c],learned=S.cw?.[c]||0,total=d.words.length,pct=Math.round(learned/total*100);const el=document.createElement('div');el.className='prog-item';el.innerHTML='<div class="prog-hdr"><div class="prog-cat">'+d.icon+' '+d.label+'</div><div class="prog-ct">'+learned+'/'+total+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%"></div></div>';list.appendChild(el);});const fidelPct=Math.round((S.fidelLearned||0)/FIDEL.length*100);const fel=document.createElement('div');fel.className='prog-item';fel.innerHTML='<div class="prog-hdr"><div class="prog-cat">✍️ Fidel Script</div><div class="prog-ct">'+(S.fidelLearned||0)+'/'+FIDEL.length+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+fidelPct+'%"></div></div>';list.appendChild(fel);const sbPct=Math.min(100,Math.round((S.sbCorrect||0)/SB_EXERCISES.length*100));const sel=document.createElement('div');sel.className='prog-item';sel.innerHTML='<div class="prog-hdr"><div class="prog-cat">📝 Grammar Exercises</div><div class="prog-ct">'+(S.sbCorrect||0)+' correct</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+sbPct+'%"></div></div>';list.appendChild(sel);const cardPct=Math.round(([...new Set(S.collection||[])].length/ALL_CARDS.length)*100);const cel=document.createElement('div');cel.className='prog-item';cel.innerHTML='<div class="prog-hdr"><div class="prog-cat">🃏 Card Collection</div><div class="prog-ct">'+[...new Set(S.collection||[])].length+'/'+ALL_CARDS.length+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+cardPct+'%"></div></div>';list.appendChild(cel);}
 
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 updateHome();
