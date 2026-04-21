@@ -8,12 +8,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a06;color:#f0e6d3;overflow:hidden;height:100%;height:100dvh}
-:root{
-  --bg:#0e0a06;--bg2:#1a1009;--card:#221509;--card2:#2c1c0d;
-  --border:rgba(240,230,211,0.07);--accent:#c1440e;--gold:#d4a017;--gold2:#f0c040;
-  --sand:#f0e6d3;--smoke:#8a7a6a;--green:#4a7c59;--red:#9b2335;
-  --coin:#f0c040;--rare:#4a90d9;--legend:#b44fd4;
-}
+:root{--bg:#0e0a06;--bg2:#1a1009;--card:#221509;--card2:#2c1c0d;--border:rgba(240,230,211,0.07);--accent:#c1440e;--gold:#d4a017;--gold2:#f0c040;--sand:#f0e6d3;--smoke:#8a7a6a;--green:#4a7c59;--red:#9b2335;--coin:#f0c040;--rare:#4a90d9;--legend:#b44fd4}
 .screen{display:none;flex-direction:column;height:100%;height:100dvh;overflow:hidden}
 .screen.active{display:flex}
 .scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:74px}
@@ -21,8 +16,8 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 
 /* NAV */
 .nav{position:fixed;bottom:0;left:0;right:0;height:62px;padding-bottom:env(safe-area-inset-bottom,0);background:#160e06;border-top:1px solid var(--border);display:flex;z-index:200}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;color:var(--smoke);font-family:inherit;font-size:0.5rem;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:color 0.2s}
-.nav-btn span:first-child{font-size:1.1rem;line-height:1}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;color:var(--smoke);font-family:inherit;font-size:0.48rem;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:color 0.2s}
+.nav-btn span:first-child{font-size:1rem;line-height:1}
 .nav-btn.active{color:var(--gold)}
 
 /* HOME */
@@ -30,46 +25,44 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .home-hero::before{content:'ሀ ለ ሐ መ ሰ ረ';position:absolute;inset:0;font-family:'Noto Serif Ethiopic',serif;font-size:4rem;color:rgba(212,160,23,0.04);letter-spacing:1rem;line-height:1;display:flex;align-items:center;justify-content:center;pointer-events:none}
 .hero-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.85rem;letter-spacing:0.3em;color:var(--smoke);margin-bottom:0.3rem}
 .hero-title{font-size:2rem;font-weight:800;color:var(--sand);letter-spacing:-0.02em}
-.hero-sub{font-size:0.65rem;letter-spacing:0.2em;color:var(--smoke);text-transform:uppercase;margin-top:0.3rem}
-.level-card{margin:0.9rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.1rem 1.25rem}
-.lv-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.7rem}
+.hero-sub{font-size:0.6rem;letter-spacing:0.18em;color:var(--smoke);text-transform:uppercase;margin-top:0.3rem}
+.level-card{margin:0.75rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1rem 1.25rem}
+.lv-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.6rem}
 .lv-badge{background:var(--accent);color:#fff;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.7rem;border-radius:50px}
 .lv-xp{font-size:0.72rem;color:var(--smoke)}
 .xp-bar{height:5px;background:rgba(240,230,211,0.08);border-radius:3px;overflow:hidden}
 .xp-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:3px;transition:width 0.6s ease}
-.stats-row{display:flex;gap:0.5rem;margin:0 1rem 0.9rem}
-.stat{flex:1;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.75rem 0.3rem;text-align:center}
-.stat-n{font-size:1.5rem;font-weight:800;color:var(--gold);line-height:1}
-.stat-l{font-size:0.52rem;letter-spacing:0.08em;color:var(--smoke);text-transform:uppercase;margin-top:0.2rem}
+.stats-row{display:flex;gap:0.4rem;margin:0 1rem 0.75rem}
+.stat{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:0.65rem 0.3rem;text-align:center}
+.stat-n{font-size:1.35rem;font-weight:800;color:var(--gold);line-height:1}
+.stat-l{font-size:0.48rem;letter-spacing:0.08em;color:var(--smoke);text-transform:uppercase;margin-top:0.2rem}
 .sec-label{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--smoke);margin:0 1rem 0.6rem}
-.mode-list{display:flex;flex-direction:column;gap:0.55rem;margin:0 1rem}
-.mode-row{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:0.9rem 1rem;display:flex;align-items:center;gap:0.9rem;cursor:pointer;transition:border-color 0.2s,background 0.2s}
+.mode-list{display:flex;flex-direction:column;gap:0.5rem;margin:0 1rem}
+.mode-row{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:0.85rem 1rem;display:flex;align-items:center;gap:0.9rem;cursor:pointer;transition:border-color 0.2s,background 0.2s}
 .mode-row:active{border-color:var(--accent);background:rgba(193,68,14,0.07)}
-.mode-ico{font-size:1.7rem}
+.mode-ico{font-size:1.6rem}
 .mode-txt{flex:1}
-.mode-name{font-weight:700;font-size:0.92rem;color:var(--sand)}
-.mode-desc{font-size:0.68rem;color:var(--smoke);margin-top:0.1rem}
+.mode-name{font-weight:700;font-size:0.9rem;color:var(--sand)}
+.mode-desc{font-size:0.66rem;color:var(--smoke);margin-top:0.1rem}
 .mode-arr{color:var(--smoke);font-size:1.1rem}
 
 /* PAGE HEADER */
 .page-header{display:flex;align-items:center;gap:0.75rem;padding:calc(env(safe-area-inset-top,0px) + 1rem) 1rem 0.75rem}
 .back{background:var(--card);border:1px solid var(--border);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;color:var(--sand);flex-shrink:0}
 .page-title{font-size:1rem;font-weight:700;color:var(--sand)}
-
-/* CAT GRID */
-.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;padding:0.5rem 1rem}
-.cat-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.1rem 0.7rem;text-align:center;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;padding:0.5rem 1rem}
+.cat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:0.9rem 0.6rem;text-align:center;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
 .cat-card:active{border-color:var(--gold);transform:scale(0.97)}
-.cat-ico{font-size:1.8rem;margin-bottom:0.4rem}
-.cat-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.95rem;color:var(--sand);display:block;margin-bottom:0.2rem}
-.cat-en{font-size:0.6rem;letter-spacing:0.1em;color:var(--smoke);text-transform:uppercase}
-.cat-pbar{height:3px;background:rgba(240,230,211,0.07);border-radius:2px;margin-top:0.6rem;overflow:hidden}
+.cat-ico{font-size:1.6rem;margin-bottom:0.35rem}
+.cat-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.88rem;color:var(--sand);display:block;margin-bottom:0.15rem}
+.cat-en{font-size:0.58rem;letter-spacing:0.08em;color:var(--smoke);text-transform:uppercase}
+.cat-pbar{height:3px;background:rgba(240,230,211,0.07);border-radius:2px;margin-top:0.5rem;overflow:hidden}
 .cat-pfill{height:100%;background:var(--gold);border-radius:2px}
 
 /* GAME HDR */
 .game-hdr{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 0.75rem) 1rem 0.5rem;flex-shrink:0}
-.g-streak{font-size:0.78rem;color:var(--gold);font-weight:700}
-.g-prog{font-size:0.72rem;color:var(--smoke)}
+.g-streak{font-size:0.75rem;color:var(--gold);font-weight:700}
+.g-prog{font-size:0.7rem;color:var(--smoke)}
 
 /* FLASHCARD */
 .fc-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0.5rem 1rem;gap:1rem}
@@ -79,237 +72,235 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .fc-face{position:absolute;inset:0;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem 1.25rem;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .fc-front{background:radial-gradient(ellipse at 30% 25%,rgba(212,160,23,0.1),transparent 60%),var(--card2);border:1px solid rgba(212,160,23,0.2)}
 .fc-back{background:radial-gradient(ellipse at 70% 70%,rgba(74,124,89,0.15),transparent 60%),#1a2e22;border:1px solid rgba(74,124,89,0.35);transform:rotateY(180deg)}
-.fc-ge{font-family:'Noto Serif Ethiopic',serif;font-size:3.2rem;color:var(--sand);text-align:center}
-.fc-tap{font-size:0.62rem;letter-spacing:0.15em;color:var(--smoke);text-transform:uppercase;margin-top:1rem}
-.fc-en{font-size:1.35rem;font-weight:700;color:var(--sand);text-align:center}
-.fc-tr{font-size:0.85rem;font-style:italic;color:var(--gold);margin-top:0.3rem}
-.fc-tip{font-size:0.7rem;color:rgba(240,230,211,0.5);margin-top:0.2rem}
-.fc-note{font-size:0.68rem;color:rgba(240,230,211,0.45);text-align:center;margin-top:0.6rem;line-height:1.5}
+.fc-ge{font-family:'Noto Serif Ethiopic',serif;font-size:3rem;color:var(--sand);text-align:center}
+.fc-tap{font-size:0.6rem;letter-spacing:0.15em;color:var(--smoke);text-transform:uppercase;margin-top:0.75rem}
+.fc-en{font-size:1.25rem;font-weight:700;color:var(--sand);text-align:center}
+.fc-tr{font-size:0.82rem;font-style:italic;color:var(--gold);margin-top:0.25rem}
+.fc-tip{font-size:0.68rem;color:rgba(240,230,211,0.5);margin-top:0.15rem}
+.fc-note{font-size:0.65rem;color:rgba(240,230,211,0.4);text-align:center;margin-top:0.5rem;line-height:1.5}
 .fc-btns{display:flex;gap:0.65rem;width:100%;max-width:360px}
-.fc-btn{flex:1;padding:0.9rem;border:none;border-radius:13px;font-family:inherit;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
+.fc-btn{flex:1;padding:0.85rem;border:none;border-radius:13px;font-family:inherit;font-size:0.76rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
 .fc-again{background:rgba(155,35,53,0.18);color:#e05565;border:1px solid rgba(155,35,53,0.25)}
 .fc-got{background:rgba(74,124,89,0.2);color:#6ab387;border:1px solid rgba(74,124,89,0.3)}
 
+/* TTS BUTTON */
+.tts-btn{background:rgba(212,160,23,0.12);border:1px solid rgba(212,160,23,0.25);border-radius:50px;padding:0.3rem 0.75rem;font-size:0.7rem;color:var(--gold);cursor:pointer;display:inline-flex;align-items:center;gap:0.3rem;margin-top:0.5rem;transition:background 0.15s}
+.tts-btn:active{background:rgba(212,160,23,0.25)}
+.tts-btn.speaking{animation:pulse 0.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+
 /* QUIZ */
 .quiz-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:80px}
-.quiz-word{margin:0 1rem 0.85rem;background:radial-gradient(ellipse at 30% 30%,rgba(212,160,23,0.1),transparent 60%),var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:20px;padding:1.5rem 1.25rem;text-align:center}
-.q-ge{font-family:'Noto Serif Ethiopic',serif;font-size:2.8rem;color:var(--sand)}
-.q-tr{font-size:0.85rem;font-style:italic;color:var(--gold);margin-top:0.35rem}
-.q-prompt{font-size:0.9rem;color:var(--smoke);text-align:center;margin:0 1rem 0.75rem}
-.opts{display:flex;flex-direction:column;gap:0.55rem;padding:0 1rem}
-.opt{background:var(--card);border:2px solid var(--border);border-radius:13px;padding:0.9rem 1rem;display:flex;align-items:center;gap:0.7rem;cursor:pointer;font-family:inherit;font-size:0.88rem;color:var(--sand);transition:border-color 0.15s,background 0.15s;text-align:left;width:100%}
-.opt-ltr{width:28px;height:28px;border-radius:50%;background:rgba(240,230,211,0.07);display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;color:var(--smoke);flex-shrink:0}
+.quiz-word{margin:0 1rem 0.75rem;background:radial-gradient(ellipse at 30% 30%,rgba(212,160,23,0.1),transparent 60%),var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:20px;padding:1.25rem;text-align:center}
+.q-ge{font-family:'Noto Serif Ethiopic',serif;font-size:2.6rem;color:var(--sand)}
+.q-tr{font-size:0.82rem;font-style:italic;color:var(--gold);margin-top:0.3rem}
+.q-prompt{font-size:0.85rem;color:var(--smoke);text-align:center;margin:0 1rem 0.65rem}
+.opts{display:flex;flex-direction:column;gap:0.5rem;padding:0 1rem}
+.opt{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:0.85rem 1rem;display:flex;align-items:center;gap:0.7rem;cursor:pointer;font-family:inherit;font-size:0.85rem;color:var(--sand);transition:border-color 0.15s,background 0.15s;text-align:left;width:100%}
+.opt-ltr{width:26px;height:26px;border-radius:50%;background:rgba(240,230,211,0.07);display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:var(--smoke);flex-shrink:0}
 .opt.c{border-color:var(--green);background:rgba(74,124,89,0.12)}
 .opt.c .opt-ltr{background:var(--green);color:#fff}
 .opt.w{border-color:var(--red);background:rgba(155,35,53,0.1)}
 .opt.w .opt-ltr{background:var(--red);color:#fff}
-.q-result{margin:0.75rem 1rem 0}
-.result-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:0.95rem 1.1rem;animation:popIn 0.28s cubic-bezier(0.34,1.56,0.64,1)}
+.q-result{margin:0.65rem 1rem 0}
+.result-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.85rem 1rem;animation:popIn 0.28s cubic-bezier(0.34,1.56,0.64,1)}
 @keyframes popIn{from{opacity:0;transform:scale(0.94) translateY(8px)}to{opacity:1;transform:none}}
 .result-box.rc{border-color:var(--green)}
 .result-box.rw{border-color:var(--red)}
-.rv{font-weight:700;font-size:0.95rem;margin-bottom:0.45rem}
+.rv{font-weight:700;font-size:0.9rem;margin-bottom:0.4rem}
 .rc .rv{color:#6ab387}
 .rw .rv{color:#e05565}
-.rn{font-size:0.75rem;color:var(--smoke);line-height:1.55}
-.next-btn{display:block;width:calc(100% - 2rem);margin:0.65rem 1rem 0;padding:0.95rem;background:var(--accent);border:none;border-radius:13px;color:#fff;font-family:inherit;font-weight:700;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
+.rn{font-size:0.72rem;color:var(--smoke);line-height:1.55}
+.next-btn{display:block;width:calc(100% - 2rem);margin:0.6rem 1rem 0;padding:0.9rem;background:var(--accent);border:none;border-radius:13px;color:#fff;font-family:inherit;font-weight:700;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
 
 /* MATCH */
-.match-info{text-align:center;font-size:0.72rem;color:var(--smoke);padding:0.3rem 1rem 0.5rem}
-.match-timer-big{font-size:1.6rem;font-weight:800;color:var(--gold);text-align:center}
-.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;padding:0 1rem}
-.mc{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:0.85rem 0.6rem;text-align:center;cursor:pointer;min-height:68px;display:flex;align-items:center;justify-content:center;transition:border-color 0.15s,background 0.15s,opacity 0.2s;font-size:0.85rem;color:var(--sand);line-height:1.3;word-break:break-word}
-.mc.ge-mc{font-family:'Noto Serif Ethiopic',serif;font-size:1.3rem}
+.match-info{text-align:center;font-size:0.7rem;color:var(--smoke);padding:0.25rem 1rem 0.4rem}
+.match-timer-big{font-size:1.5rem;font-weight:800;color:var(--gold);text-align:center}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.55rem;padding:0 1rem}
+.mc{background:var(--card);border:2px solid var(--border);border-radius:13px;padding:0.8rem 0.55rem;text-align:center;cursor:pointer;min-height:64px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;font-size:0.82rem;color:var(--sand);line-height:1.3;word-break:break-word}
+.mc.ge-mc{font-family:'Noto Serif Ethiopic',serif;font-size:1.25rem}
 .mc.sel{border-color:var(--gold);background:rgba(212,160,23,0.1)}
-.mc.mat{border-color:rgba(74,124,89,0.4);background:rgba(74,124,89,0.1);opacity:0.45;cursor:default}
+.mc.mat{border-color:rgba(74,124,89,0.4);background:rgba(74,124,89,0.1);opacity:0.4;cursor:default}
 .mc.bad{border-color:var(--red);background:rgba(155,35,53,0.12);animation:shake 0.4s}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-.match-done{text-align:center;padding:1.25rem 1rem}
-.match-done-ico{font-size:2.5rem}
-.match-done-title{font-size:1.15rem;font-weight:800;color:var(--sand);margin:0.4rem 0 0.2rem}
-.match-done-xp{font-size:0.85rem;color:var(--gold);margin-bottom:0.9rem}
-.play-again{display:inline-block;padding:0.75rem 2rem;background:var(--accent);border:none;border-radius:12px;color:#fff;font-family:inherit;font-weight:700;font-size:0.8rem;cursor:pointer}
+.match-done{text-align:center;padding:1rem}
+.match-done-ico{font-size:2.2rem}
+.match-done-title{font-size:1.1rem;font-weight:800;color:var(--sand);margin:0.35rem 0 0.15rem}
+.match-done-xp{font-size:0.82rem;color:var(--gold);margin-bottom:0.75rem}
+.play-again{display:inline-block;padding:0.7rem 1.8rem;background:var(--accent);border:none;border-radius:12px;color:#fff;font-family:inherit;font-weight:700;font-size:0.78rem;cursor:pointer}
 
 /* WORD HUNT */
-.ws-grid{display:grid;gap:0;padding:0 1rem;overflow:hidden}
-.ws-cell{flex:1;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif Ethiopic',serif;font-size:1.05rem;color:var(--sand);cursor:pointer;border:1px solid rgba(240,230,211,0.05);border-radius:6px;margin:1px;background:var(--card2);transition:background 0.15s,color 0.15s;user-select:none}
+.ws-grid{display:grid;padding:0 1rem}
+.ws-cell{flex:1;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif Ethiopic',serif;font-size:1rem;color:var(--sand);cursor:pointer;border:1px solid rgba(240,230,211,0.05);border-radius:5px;margin:1px;background:var(--card2);transition:background 0.15s,color 0.15s;user-select:none}
 .ws-cell.sel{background:rgba(212,160,23,0.25);color:var(--gold)}
 .ws-cell.found{background:rgba(74,124,89,0.2);color:#6ab387;border-color:rgba(74,124,89,0.3)}
-.ws-words{display:flex;flex-wrap:wrap;gap:0.5rem;padding:0.75rem 1rem}
-.ws-word{font-family:'Noto Serif Ethiopic',serif;font-size:0.9rem;color:var(--smoke);padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:6px}
+.ws-words{display:flex;flex-wrap:wrap;gap:0.4rem;padding:0.6rem 1rem}
+.ws-word{font-family:'Noto Serif Ethiopic',serif;font-size:0.88rem;color:var(--smoke);padding:0.18rem 0.45rem;border:1px solid var(--border);border-radius:6px}
 .ws-word.found{text-decoration:line-through;color:rgba(240,230,211,0.2);border-color:transparent}
 
-/* SCRIPT */
-.script-tabs{display:flex;gap:0.5rem;padding:0 1rem 0.75rem}
-.stab{flex:1;padding:0.6rem 0.4rem;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--smoke);cursor:pointer;text-align:center;transition:all 0.2s}
+/* ═══ SCRIPT ═══ */
+.script-tabs{display:flex;gap:0.4rem;padding:0 1rem 0.65rem}
+.stab{flex:1;padding:0.55rem 0.35rem;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--smoke);cursor:pointer;text-align:center;transition:all 0.2s}
 .stab.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.fidel-intro{margin:0 1rem 0.75rem;background:var(--card);border:1px solid rgba(212,160,23,0.15);border-radius:16px;padding:0.9rem 1rem}
-.fidel-intro-title{font-size:0.75rem;font-weight:700;color:var(--gold);margin-bottom:0.35rem;letter-spacing:0.1em;text-transform:uppercase}
-.fidel-intro-text{font-size:0.72rem;color:var(--smoke);line-height:1.6}
-.vowel-hdr{display:flex;gap:2px;padding:0 1rem 0.3rem}
-.vowel-hdr-cell{flex:1;text-align:center;font-size:0.55rem;color:var(--gold);letter-spacing:0.05em;font-weight:700}
+.fidel-intro{margin:0 1rem 0.65rem;background:var(--card);border:1px solid rgba(212,160,23,0.15);border-radius:14px;padding:0.8rem 0.9rem}
+.fidel-intro-title{font-size:0.72rem;font-weight:700;color:var(--gold);margin-bottom:0.3rem;letter-spacing:0.1em;text-transform:uppercase}
+.fidel-intro-text{font-size:0.7rem;color:var(--smoke);line-height:1.6}
+.vowel-hdr{display:flex;gap:2px;padding:0 1rem 0.25rem}
+.vowel-hdr-cell{flex:1;text-align:center;font-size:0.5rem;color:var(--gold);letter-spacing:0.04em;font-weight:700}
 .fidel-family{display:flex;gap:2px;padding:0 1rem;margin-bottom:2px;align-items:center}
-.fidel-name{width:28px;font-size:0.55rem;color:var(--smoke);flex-shrink:0;text-align:right;padding-right:4px;line-height:1.2}
-.fidel-cell{flex:1;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:background 0.15s,border-color 0.15s}
-.fidel-cell:active,.fidel-cell.sel{background:rgba(212,160,23,0.15);border-color:var(--gold)}
-.fidel-cell .ge{font-size:1.1rem;color:var(--sand)}
-.fidel-detail{margin:0.75rem 1rem;background:var(--card2);border:1px solid rgba(212,160,23,0.2);border-radius:18px;padding:1.1rem 1.25rem;animation:popIn 0.25s ease;display:none}
+.fidel-name{width:26px;font-size:0.5rem;color:var(--smoke);flex-shrink:0;text-align:right;padding-right:3px;line-height:1.2}
+.fidel-cell{flex:1;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--border);border-radius:5px;cursor:pointer;transition:all 0.15s}
+.fidel-cell.sel{background:rgba(212,160,23,0.15);border-color:var(--gold)}
+.fidel-cell .ge{font-size:1rem;color:var(--sand)}
+.fidel-detail{margin:0.65rem 1rem;background:var(--card2);border:1px solid rgba(212,160,23,0.2);border-radius:16px;padding:1rem 1.1rem;animation:popIn 0.25s ease;display:none}
 .fidel-detail.show{display:block}
-.fd-char{font-family:'Noto Serif Ethiopic',serif;font-size:3.5rem;color:var(--sand);text-align:center}
-.fd-row{display:flex;align-items:center;justify-content:space-between;margin-top:0.5rem}
-.fd-label{font-size:0.62rem;color:var(--smoke);text-transform:uppercase;letter-spacing:0.1em}
-.fd-val{font-size:0.88rem;color:var(--sand);font-weight:600}
-.fd-family-row{display:flex;gap:0.4rem;margin-top:0.9rem;flex-wrap:wrap;justify-content:center}
-.fd-sib{display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.5rem 0.4rem;min-width:38px;cursor:pointer;transition:border-color 0.15s}
-.fd-sib .ge{font-size:1.2rem;color:var(--sand)}
-.fd-sib-tr{font-size:0.55rem;color:var(--smoke)}
-.fd-note{font-size:0.7rem;color:var(--smoke);margin-top:0.75rem;line-height:1.55;border-top:1px solid var(--border);padding-top:0.65rem}
-.write-intro{margin:0 1rem 0.6rem;font-size:0.72rem;color:var(--smoke);line-height:1.6}
-.write-char-pick{display:flex;flex-wrap:wrap;gap:0.4rem;padding:0 1rem 0.75rem}
-.wcp{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:0.4rem 0.5rem;font-family:'Noto Serif Ethiopic',serif;font-size:1.1rem;color:var(--sand);cursor:pointer;transition:border-color 0.15s}
+.fd-char{font-family:'Noto Serif Ethiopic',serif;font-size:3rem;color:var(--sand);text-align:center}
+.fd-row{display:flex;align-items:center;justify-content:space-between;margin-top:0.45rem}
+.fd-label{font-size:0.6rem;color:var(--smoke);text-transform:uppercase;letter-spacing:0.08em}
+.fd-val{font-size:0.85rem;color:var(--sand);font-weight:600}
+.fd-family-row{display:flex;gap:0.35rem;margin-top:0.8rem;flex-wrap:wrap;justify-content:center}
+.fd-sib{display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:0.45rem 0.35rem;min-width:36px;cursor:pointer;transition:border-color 0.15s}
+.fd-sib .ge{font-size:1.15rem;color:var(--sand)}
+.fd-sib-tr{font-size:0.5rem;color:var(--smoke)}
+.fd-note{font-size:0.68rem;color:var(--smoke);margin-top:0.65rem;line-height:1.55;border-top:1px solid var(--border);padding-top:0.6rem}
+
+/* WRITE TAB */
+.write-char-pick{display:flex;flex-wrap:wrap;gap:0.35rem;padding:0 1rem 0.65rem}
+.wcp{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:0.35rem 0.45rem;font-family:'Noto Serif Ethiopic',serif;font-size:1rem;color:var(--sand);cursor:pointer;transition:border-color 0.15s}
 .wcp.active{border-color:var(--gold);background:rgba(212,160,23,0.1);color:var(--gold)}
-.canvas-wrap{margin:0 1rem 0.75rem;position:relative}
-.canvas-label{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.4rem}
-.trace-char{position:absolute;font-family:'Noto Serif Ethiopic',serif;top:50%;left:50%;transform:translate(-50%,-50%);font-size:7rem;color:rgba(212,160,23,0.08);pointer-events:none;user-select:none;line-height:1}
-#writeCanvas{display:block;width:100%;border-radius:16px;border:1px solid rgba(212,160,23,0.18);background:#1a1009;cursor:crosshair;touch-action:none}
-.canvas-btns{display:flex;gap:0.6rem;margin:0 1rem 0.75rem}
-.cbtn{flex:1;padding:0.75rem;border:none;border-radius:12px;font-family:inherit;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer}
+.canvas-wrap{margin:0 1rem 0.5rem;position:relative}
+.canvas-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.35rem}
+.trace-char{position:absolute;font-family:'Noto Serif Ethiopic',serif;top:50%;left:50%;transform:translate(-50%,-50%);font-size:7rem;color:rgba(212,160,23,0.07);pointer-events:none;user-select:none;line-height:1}
+#writeCanvas{display:block;width:100%;border-radius:14px;border:3px solid rgba(212,160,23,0.18);background:#1a1009;cursor:crosshair;touch-action:none;transition:border-color 0.4s}
+#writeCanvas.acc-great{border-color:rgba(74,124,89,0.7)}
+#writeCanvas.acc-good{border-color:rgba(212,160,23,0.7)}
+#writeCanvas.acc-low{border-color:rgba(155,35,53,0.6)}
+.accuracy-badge{text-align:center;font-size:0.8rem;font-weight:700;padding:0.3rem;height:1.8rem}
+.canvas-btns{display:flex;gap:0.55rem;margin:0 1rem 0.65rem}
+.cbtn{flex:1;padding:0.7rem;border:none;border-radius:11px;font-family:inherit;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer}
 .cbtn-clear{background:rgba(155,35,53,0.15);color:#e05565;border:1px solid rgba(155,35,53,0.25)}
 .cbtn-xp{background:rgba(74,124,89,0.15);color:#6ab387;border:1px solid rgba(74,124,89,0.25)}
-.write-tip{margin:0 1rem 1rem;background:var(--card);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:0.7rem 0.9rem;font-size:0.72rem;color:var(--smoke);line-height:1.55}
-.write-tip strong{color:var(--gold);display:block;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.25rem}
-.rq-card{margin:0 1rem 0.85rem;background:var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:20px;padding:1.5rem;text-align:center}
-.rq-ge{font-family:'Noto Serif Ethiopic',serif;font-size:4rem;color:var(--sand)}
-.rq-prompt{font-size:0.8rem;color:var(--smoke);margin-top:0.5rem}
-.rq-opts{display:grid;grid-template-columns:1fr 1fr;gap:0.55rem;padding:0 1rem}
-.rq-opt{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:0.8rem 0.5rem;text-align:center;cursor:pointer;font-family:inherit;font-size:0.82rem;color:var(--sand);transition:border-color 0.15s;width:100%}
+.write-tip{margin:0 1rem 1rem;background:var(--card);border-left:3px solid var(--gold);border-radius:0 11px 11px 0;padding:0.65rem 0.85rem;font-size:0.7rem;color:var(--smoke);line-height:1.55}
+.write-tip strong{color:var(--gold);display:block;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.2rem}
+.rq-card{margin:0 1rem 0.75rem;background:var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:18px;padding:1.25rem;text-align:center}
+.rq-ge{font-family:'Noto Serif Ethiopic',serif;font-size:3.8rem;color:var(--sand)}
+.rq-prompt{font-size:0.78rem;color:var(--smoke);margin-top:0.4rem}
+.rq-opts{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;padding:0 1rem}
+.rq-opt{background:var(--card);border:2px solid var(--border);border-radius:11px;padding:0.75rem 0.45rem;text-align:center;cursor:pointer;font-family:inherit;font-size:0.8rem;color:var(--sand);transition:border-color 0.15s;width:100%}
 .rq-opt.c{border-color:var(--green);background:rgba(74,124,89,0.12);color:#6ab387}
 .rq-opt.w{border-color:var(--red);background:rgba(155,35,53,0.1);color:#e05565}
 
-/* ═══ CARDS ═══ */
-.coin-bar{display:flex;align-items:center;justify-content:center;gap:0.4rem;background:var(--card);border:1px solid rgba(240,192,64,0.2);border-radius:50px;padding:0.45rem 1rem;margin:0 1rem 0.9rem;font-size:0.85rem;font-weight:800;color:var(--coin)}
-.coin-ico{font-size:1.1rem}
-.pack-row{display:flex;gap:0.65rem;padding:0 1rem;margin-bottom:1rem;overflow-x:auto;padding-bottom:0.25rem}
-.pack-card{flex-shrink:0;width:110px;background:var(--card2);border-radius:16px;padding:0.85rem 0.6rem;text-align:center;cursor:pointer;transition:transform 0.15s,border-color 0.15s;position:relative;overflow:hidden}
-.pack-card:active{transform:scale(0.96)}
-.pack-common{border:2px solid rgba(240,230,211,0.2)}
-.pack-rare{border:2px solid rgba(74,144,217,0.5)}
-.pack-legend{border:2px solid rgba(180,79,212,0.6)}
-.pack-glow-rare{box-shadow:0 0 18px rgba(74,144,217,0.25)}
-.pack-glow-legend{box-shadow:0 0 22px rgba(180,79,212,0.3)}
-.pack-ico{font-size:2.2rem;margin-bottom:0.35rem}
-.pack-name{font-size:0.72rem;font-weight:800;color:var(--sand);margin-bottom:0.2rem}
-.pack-cost{font-size:0.7rem;color:var(--coin);font-weight:700}
-.pack-desc{font-size:0.58rem;color:var(--smoke);margin-top:0.2rem;line-height:1.4}
-.cards-tabs{display:flex;gap:0.5rem;padding:0 1rem 0.75rem}
-.ctab{flex:1;padding:0.5rem;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--smoke);cursor:pointer;text-align:center;transition:all 0.2s}
-.ctab.active{background:var(--accent);border-color:var(--accent);color:#fff}
-
-/* Card item */
-.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;padding:0 1rem}
-.card-item{border-radius:14px;padding:0.9rem 0.65rem;text-align:center;position:relative;overflow:hidden;cursor:pointer;transition:transform 0.15s}
-.card-item:active{transform:scale(0.97)}
-.card-common{background:linear-gradient(145deg,#2a1c0e,#1a1009);border:1px solid rgba(240,230,211,0.15)}
-.card-rare{background:linear-gradient(145deg,#0d2040,#091428);border:1px solid rgba(74,144,217,0.4);box-shadow:0 0 12px rgba(74,144,217,0.1)}
-.card-legend{background:linear-gradient(145deg,#25083a,#130520);border:1px solid rgba(180,79,212,0.5);box-shadow:0 0 16px rgba(180,79,212,0.15)}
-.card-rarity{font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.3rem;font-weight:700}
-.card-common .card-rarity{color:var(--smoke)}
-.card-rare .card-rarity{color:var(--rare)}
-.card-legend .card-rarity{color:var(--legend)}
-.card-art{font-size:2rem;margin-bottom:0.4rem;line-height:1}
-.card-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.4rem;color:var(--sand);margin-bottom:0.2rem}
-.card-en{font-size:0.72rem;color:var(--smoke);margin-bottom:0.15rem}
-.card-tr{font-size:0.62rem;font-style:italic;color:var(--gold)}
-.card-count{position:absolute;top:6px;right:7px;background:rgba(0,0,0,0.5);border-radius:50px;font-size:0.58rem;color:var(--sand);padding:0.1rem 0.35rem;font-weight:700}
-.empty-collection{text-align:center;padding:3rem 1rem;color:var(--smoke);font-size:0.85rem;line-height:1.8}
-
-/* Pack opening overlay */
-.pack-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem}
-.pack-overlay.hidden{display:none}
-.pack-open-title{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--smoke);margin-bottom:1.5rem}
-.pack-cards-reveal{display:flex;flex-direction:column;gap:0.75rem;width:100%;max-width:320px}
-.reveal-card{background:var(--card2);border-radius:18px;padding:1.2rem 1rem;text-align:center;opacity:0;transform:translateY(20px) scale(0.95);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1)}
-.reveal-card.show{opacity:1;transform:none}
-.reveal-card .card-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.8rem;color:var(--sand)}
-.reveal-card .card-en{font-size:0.88rem;color:var(--smoke);margin-top:0.25rem}
-.reveal-card .card-tr{font-size:0.75rem;font-style:italic;color:var(--gold);margin-top:0.15rem}
-.reveal-rarity{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:0.5rem}
-.reveal-art{font-size:2.5rem;margin-bottom:0.5rem}
-.pack-close-btn{margin-top:1.5rem;padding:0.85rem 2.5rem;background:var(--accent);border:none;border-radius:50px;color:#fff;font-family:inherit;font-weight:700;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
-
 /* ═══ GRAMMAR ═══ */
-.grammar-tabs{display:flex;gap:0.5rem;padding:0 1rem 0.75rem;overflow-x:auto}
-.gtab{flex-shrink:0;padding:0.55rem 0.85rem;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--smoke);cursor:pointer;text-align:center;transition:all 0.2s;white-space:nowrap}
+.grammar-tabs{display:flex;gap:0.4rem;padding:0 1rem 0.65rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.gtab{flex-shrink:0;padding:0.5rem 0.8rem;background:var(--card);border:1px solid var(--border);border-radius:9px;font-size:0.62rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--smoke);cursor:pointer;white-space:nowrap;transition:all 0.2s}
 .gtab.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.lesson-card{margin:0 1rem 0.75rem;background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden}
-.lesson-hdr{background:linear-gradient(135deg,rgba(193,68,14,0.2),rgba(212,160,23,0.1));padding:1rem 1.1rem;border-bottom:1px solid var(--border)}
-.lesson-title{font-size:0.95rem;font-weight:800;color:var(--sand)}
-.lesson-subtitle{font-size:0.68rem;color:var(--smoke);margin-top:0.2rem}
-.lesson-body{padding:1rem 1.1rem;display:flex;flex-direction:column;gap:0.75rem}
-.lesson-section{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.15rem;font-weight:700}
-.lesson-text{font-size:0.8rem;color:var(--smoke);line-height:1.65}
+.lesson-card{margin:0 1rem 0.65rem;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.lesson-hdr{background:linear-gradient(135deg,rgba(193,68,14,0.2),rgba(212,160,23,0.1));padding:0.9rem 1rem;border-bottom:1px solid var(--border)}
+.lesson-title{font-size:0.92rem;font-weight:800;color:var(--sand)}
+.lesson-subtitle{font-size:0.65rem;color:var(--smoke);margin-top:0.15rem}
+.lesson-body{padding:0.9rem 1rem;display:flex;flex-direction:column;gap:0.65rem}
+.lesson-text{font-size:0.78rem;color:var(--smoke);line-height:1.65}
 .lesson-text strong{color:var(--sand)}
-.example-row{background:var(--card2);border-radius:12px;padding:0.75rem 0.9rem;border-left:3px solid var(--gold)}
-.ex-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.2rem;color:var(--sand);margin-bottom:0.25rem}
-.ex-tr{font-size:0.75rem;font-style:italic;color:var(--gold)}
-.ex-en{font-size:0.75rem;color:var(--smoke);margin-top:0.15rem}
-.ex-note{font-size:0.68rem;color:rgba(240,230,211,0.35);margin-top:0.2rem}
-.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border)}
-.gram-table{width:100%;border-collapse:collapse;font-size:0.75rem}
-.gram-table th{background:rgba(212,160,23,0.1);color:var(--gold);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.55rem 0.6rem;text-align:left;font-weight:700}
-.gram-table td{padding:0.5rem 0.6rem;border-top:1px solid var(--border);color:var(--sand);vertical-align:top}
-.gram-table td:first-child{color:var(--smoke);font-size:0.7rem}
-.td-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1rem}
-.td-tr{font-size:0.68rem;font-style:italic;color:var(--gold);margin-top:0.1rem}
-
-/* Sentence Builder */
-.sb-wrap{margin:0 1rem;padding:0 0 1rem}
-.sb-target{background:var(--card2);border:1px solid rgba(212,160,23,0.2);border-radius:14px;padding:1rem;min-height:60px;margin-bottom:0.75rem;display:flex;flex-wrap:wrap;gap:0.4rem;align-items:flex-start}
-.sb-hint{font-size:0.72rem;color:var(--smoke);font-style:italic}
-.sb-word{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:0.45rem 0.7rem;font-family:'Noto Serif Ethiopic',serif;font-size:0.95rem;cursor:pointer;transition:opacity 0.15s}
-.sb-word.placed{background:rgba(193,68,14,0.3);color:rgba(240,230,211,0.5);cursor:default}
-.sb-placed{background:rgba(212,160,23,0.12);border:1px solid rgba(212,160,23,0.2);border-radius:8px;padding:0.45rem 0.7rem;font-family:'Noto Serif Ethiopic',serif;font-size:0.95rem;color:var(--gold);cursor:pointer}
-.sb-bank{display:flex;flex-wrap:wrap;gap:0.4rem;padding:0 0 0.75rem}
-.sb-eng{font-size:0.82rem;color:var(--smoke);margin-bottom:0.6rem;font-style:italic}
-.sb-actions{display:flex;gap:0.5rem;margin-top:0.5rem}
-.sb-btn{flex:1;padding:0.75rem;border:none;border-radius:12px;font-family:inherit;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer}
+.example-row{background:var(--card2);border-radius:11px;padding:0.7rem 0.85rem;border-left:3px solid var(--gold)}
+.ex-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.15rem;color:var(--sand);margin-bottom:0.2rem}
+.ex-tr{font-size:0.72rem;font-style:italic;color:var(--gold)}
+.ex-en{font-size:0.72rem;color:var(--smoke);margin-top:0.12rem}
+.ex-note{font-size:0.65rem;color:rgba(240,230,211,0.3);margin-top:0.15rem}
+.table-wrap{overflow-x:auto;border-radius:11px;border:1px solid var(--border)}
+.gram-table{width:100%;border-collapse:collapse;font-size:0.72rem}
+.gram-table th{background:rgba(212,160,23,0.1);color:var(--gold);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.5rem 0.55rem;text-align:left;font-weight:700}
+.gram-table td{padding:0.45rem 0.55rem;border-top:1px solid var(--border);color:var(--sand);vertical-align:top}
+.gram-table td:first-child{color:var(--smoke);font-size:0.68rem}
+.td-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.95rem}
+.td-tr{font-size:0.62rem;font-style:italic;color:var(--gold);margin-top:0.08rem}
+.sb-wrap{margin:0 1rem;padding:0 0 0.75rem}
+.sb-target{background:var(--card2);border:1px solid rgba(212,160,23,0.2);border-radius:12px;padding:0.85rem;min-height:56px;margin-bottom:0.65rem;display:flex;flex-wrap:wrap;gap:0.35rem;align-items:flex-start}
+.sb-hint{font-size:0.7rem;color:var(--smoke);font-style:italic}
+.sb-word{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:0.4rem 0.65rem;font-family:'Noto Serif Ethiopic',serif;font-size:0.9rem;cursor:pointer;transition:opacity 0.15s}
+.sb-word.placed{background:rgba(193,68,14,0.25);color:rgba(240,230,211,0.4);cursor:default}
+.sb-placed{background:rgba(212,160,23,0.12);border:1px solid rgba(212,160,23,0.2);border-radius:7px;padding:0.4rem 0.65rem;font-family:'Noto Serif Ethiopic',serif;font-size:0.9rem;color:var(--gold);cursor:pointer}
+.sb-bank{display:flex;flex-wrap:wrap;gap:0.35rem;padding-bottom:0.65rem}
+.sb-eng{font-size:0.8rem;color:var(--smoke);margin-bottom:0.5rem;font-style:italic}
+.sb-actions{display:flex;gap:0.45rem;margin-top:0.4rem}
+.sb-btn{flex:1;padding:0.7rem;border:none;border-radius:11px;font-family:inherit;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer}
 .sb-check{background:var(--green);color:#fff}
 .sb-reset{background:rgba(240,230,211,0.07);color:var(--smoke);border:1px solid var(--border)}
-.sb-result{background:var(--card);border-radius:12px;padding:0.75rem 0.9rem;margin-top:0.5rem;font-size:0.8rem;line-height:1.5;display:none}
+.sb-result{background:var(--card);border-radius:11px;padding:0.7rem 0.85rem;margin-top:0.45rem;font-size:0.78rem;line-height:1.5;display:none}
 .sb-result.show{display:block}
 .sb-result.ok{border-left:3px solid var(--green);color:#6ab387}
 .sb-result.bad{border-left:3px solid var(--red);color:#e05565}
-.sb-counter{font-size:0.62rem;color:var(--smoke);text-align:right;margin-bottom:0.5rem}
+.sb-counter{font-size:0.6rem;color:var(--smoke);text-align:right;margin-bottom:0.4rem}
+
+/* ═══ CARDS ═══ */
+.coin-bar{display:flex;align-items:center;justify-content:center;gap:0.35rem;background:var(--card);border:1px solid rgba(240,192,64,0.2);border-radius:50px;padding:0.4rem 0.9rem;margin:0 1rem 0.75rem;font-size:0.82rem;font-weight:800;color:var(--coin)}
+.pack-row{display:flex;gap:0.55rem;padding:0 1rem;margin-bottom:0.75rem;overflow-x:auto;padding-bottom:0.5rem}
+.pack-card{flex-shrink:0;width:100px;border-radius:14px;padding:0.75rem 0.5rem;text-align:center;cursor:pointer;transition:transform 0.15s}
+.pack-card:active{transform:scale(0.95)}
+.pack-common{background:var(--card2);border:2px solid rgba(240,230,211,0.2)}
+.pack-rare{background:linear-gradient(160deg,#0d2040,#091428);border:2px solid rgba(74,144,217,0.5);box-shadow:0 0 16px rgba(74,144,217,0.15)}
+.pack-legend{background:linear-gradient(160deg,#25083a,#130520);border:2px solid rgba(180,79,212,0.6);box-shadow:0 0 20px rgba(180,79,212,0.2)}
+.pack-ico{font-size:2rem;margin-bottom:0.3rem}
+.pack-name{font-size:0.65rem;font-weight:800;color:var(--sand);margin-bottom:0.15rem}
+.pack-cost{font-size:0.68rem;color:var(--coin);font-weight:700}
+.pack-desc{font-size:0.54rem;color:var(--smoke);margin-top:0.15rem;line-height:1.4}
+.cards-tabs{display:flex;gap:0.45rem;padding:0 1rem 0.65rem}
+.ctab{flex:1;padding:0.5rem;background:var(--card);border:1px solid var(--border);border-radius:9px;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--smoke);cursor:pointer;text-align:center;transition:all 0.2s}
+.ctab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;padding:0 1rem}
+.card-item{border-radius:13px;padding:0.85rem 0.6rem;text-align:center;position:relative;overflow:hidden;cursor:pointer;transition:transform 0.15s}
+.card-item:active{transform:scale(0.97)}
+.card-common{background:linear-gradient(145deg,#2a1c0e,#1a1009);border:1px solid rgba(240,230,211,0.15)}
+.card-rare{background:linear-gradient(145deg,#0d2040,#091428);border:1px solid rgba(74,144,217,0.4);box-shadow:0 0 10px rgba(74,144,217,0.1)}
+.card-legend{background:linear-gradient(145deg,#25083a,#130520);border:1px solid rgba(180,79,212,0.5);box-shadow:0 0 14px rgba(180,79,212,0.12)}
+.card-rarity{font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.25rem;font-weight:700}
+.card-common .card-rarity{color:var(--smoke)}
+.card-rare .card-rarity{color:var(--rare)}
+.card-legend .card-rarity{color:var(--legend)}
+.card-art{font-size:1.9rem;margin-bottom:0.35rem;line-height:1}
+.card-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.3rem;color:var(--sand);margin-bottom:0.15rem}
+.card-en{font-size:0.68rem;color:var(--smoke);margin-bottom:0.12rem}
+.card-tr{font-size:0.58rem;font-style:italic;color:var(--gold)}
+.card-count{position:absolute;top:5px;right:6px;background:rgba(0,0,0,0.5);border-radius:50px;font-size:0.55rem;color:var(--sand);padding:0.08rem 0.3rem;font-weight:700}
+.empty-collection{text-align:center;padding:3rem 1rem;color:var(--smoke);font-size:0.82rem;line-height:1.8}
+.pack-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem}
+.pack-overlay.hidden{display:none}
+.pack-open-title{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--smoke);margin-bottom:1.25rem}
+.pack-cards-reveal{display:flex;flex-direction:column;gap:0.65rem;width:100%;max-width:300px;max-height:70vh;overflow-y:auto}
+.reveal-card{border-radius:16px;padding:1rem 0.9rem;text-align:center;opacity:0;transform:translateY(20px) scale(0.95);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+.reveal-card.show{opacity:1;transform:none}
+.reveal-rarity{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;margin-bottom:0.4rem}
+.reveal-art{font-size:2.2rem;margin-bottom:0.4rem}
+.pack-close-btn{margin-top:1.25rem;padding:0.8rem 2.2rem;background:var(--accent);border:none;border-radius:50px;color:#fff;font-family:inherit;font-weight:700;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
 
 /* ACHIEVEMENTS */
-.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;padding:0.5rem 1rem}
-.ach-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem 0.7rem;text-align:center}
+.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;padding:0.5rem 1rem}
+.ach-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.9rem 0.65rem;text-align:center}
 .ach-card.ok{border-color:rgba(212,160,23,0.3)}
-.ach-ico{font-size:1.9rem;margin-bottom:0.35rem}
+.ach-ico{font-size:1.8rem;margin-bottom:0.3rem}
 .ach-card:not(.ok) .ach-ico{filter:grayscale(1);opacity:0.2}
-.ach-name{font-size:0.78rem;font-weight:700;color:var(--sand)}
+.ach-name{font-size:0.75rem;font-weight:700;color:var(--sand)}
 .ach-card:not(.ok) .ach-name{color:var(--smoke)}
-.ach-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.7rem;color:var(--smoke);margin-top:0.1rem}
-.ach-desc{font-size:0.63rem;color:var(--smoke);margin-top:0.25rem;line-height:1.4}
-.ach-xp{font-size:0.62rem;color:var(--gold);margin-top:0.35rem}
+.ach-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.68rem;color:var(--smoke);margin-top:0.08rem}
+.ach-desc{font-size:0.6rem;color:var(--smoke);margin-top:0.2rem;line-height:1.4}
+.ach-xp{font-size:0.6rem;color:var(--gold);margin-top:0.3rem}
 
 /* PROGRESS */
-.prog-list{display:flex;flex-direction:column;gap:0.6rem;padding:0.5rem 1rem}
-.prog-item{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:1rem 1.1rem}
-.prog-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem}
-.prog-cat{font-size:0.88rem;font-weight:700;color:var(--sand)}
-.prog-ct{font-size:0.78rem;color:var(--gold);font-weight:700}
-.prog-bar{height:7px;background:rgba(240,230,211,0.07);border-radius:4px;overflow:hidden}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:4px;transition:width 0.8s cubic-bezier(0.23,1,0.32,1)}
+.prog-list{display:flex;flex-direction:column;gap:0.55rem;padding:0.5rem 1rem}
+.prog-item{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:0.9rem 1rem}
+.prog-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem}
+.prog-cat{font-size:0.85rem;font-weight:700;color:var(--sand)}
+.prog-ct{font-size:0.75rem;color:var(--gold);font-weight:700}
+.prog-bar{height:6px;background:rgba(240,230,211,0.07);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:3px;transition:width 0.8s cubic-bezier(0.23,1,0.32,1)}
 .prog-total{border-color:rgba(212,160,23,0.25)!important}
 
 /* TOAST */
-.toast{position:fixed;top:1rem;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--card2);border:1px solid rgba(212,160,23,0.4);border-radius:50px;padding:0.55rem 1.2rem;font-size:0.8rem;color:var(--sand);z-index:500;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);white-space:nowrap;max-width:88vw;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.toast{position:fixed;top:1rem;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--card2);border:1px solid rgba(212,160,23,0.4);border-radius:50px;padding:0.5rem 1.1rem;font-size:0.78rem;color:var(--sand);z-index:500;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);white-space:nowrap;max-width:88vw;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.4)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .xp-pop{position:fixed;font-size:1rem;font-weight:800;color:var(--gold);pointer-events:none;z-index:400;animation:xpFloat 1.1s ease-out forwards}
-.coin-pop{position:fixed;font-size:1rem;font-weight:800;color:var(--coin);pointer-events:none;z-index:400;animation:xpFloat 1.1s ease-out forwards}
+.coin-pop{position:fixed;font-size:0.9rem;font-weight:800;color:var(--coin);pointer-events:none;z-index:400;animation:xpFloat 1.1s ease-out forwards}
 @keyframes xpFloat{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-55px) scale(1.15)}}
-.section-gap{height:0.8rem}
+.sgap{height:0.75rem}
 </style>
 </head>
 <body>
@@ -327,7 +318,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
   <button class="nav-btn" id="nb-script" onclick="goNav('script')"><span>✍️</span><span>Script</span></button>
   <button class="nav-btn" id="nb-grammar" onclick="goNav('grammar')"><span>📝</span><span>Grammar</span></button>
   <button class="nav-btn" id="nb-cards" onclick="goNav('cards')"><span>🃏</span><span>Cards</span></button>
-  <button class="nav-btn" id="nb-prog" onclick="goNav('prog')"><span>📊</span><span>Progress</span></button>
+  <button class="nav-btn" id="nb-prog" onclick="goNav('prog')"><span>📊</span><span>Stats</span></button>
 </nav>
 
 <!-- HOME -->
@@ -336,7 +327,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
     <div class="home-hero">
       <div class="hero-ge">ትግርኛ ተምሃር</div>
       <div class="hero-title">Learn Tigrinya</div>
-      <div class="hero-sub">Ge'ez Script · Grammar · Cards · Games</div>
+      <div class="hero-sub">Ge'ez · Grammar · Cards · TTS</div>
     </div>
     <div class="level-card">
       <div class="lv-row"><div class="lv-badge" id="h-level">Level 1</div><div class="lv-xp" id="h-xp">0 / 100 XP</div></div>
@@ -348,23 +339,24 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
       <div class="stat"><div class="stat-n" id="h-coins">0</div><div class="stat-l">🪙 Coins</div></div>
       <div class="stat"><div class="stat-n" id="h-cards-ct">0</div><div class="stat-l">🃏 Cards</div></div>
     </div>
-    <div class="sec-label">Quick Access</div>
+    <div class="sec-label">Games</div>
     <div class="mode-list">
-      <div class="mode-row" onclick="startMode('quiz')"><div class="mode-ico">❓</div><div class="mode-txt"><div class="mode-name">Quiz</div><div class="mode-desc">+15 XP · +3 🪙 per correct answer</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="startMode('match')"><div class="mode-ico">🔗</div><div class="mode-txt"><div class="mode-name">Match Pairs</div><div class="mode-desc">+25 XP · +5 🪙 per round</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="goNav('grammar')"><div class="mode-ico">📝</div><div class="mode-txt"><div class="mode-name">Grammar</div><div class="mode-desc">Lessons + sentence builder · +10 🪙</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="goNav('cards')"><div class="mode-ico">🃏</div><div class="mode-txt"><div class="mode-name">Card Shop</div><div class="mode-desc">Spend coins · collect Tigrinya cards</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="startMode('flash')"><div class="mode-ico">🃏</div><div class="mode-txt"><div class="mode-name">Flashcards</div><div class="mode-desc">+5 XP · +1 🪙 per card</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="goNav('script')"><div class="mode-ico">✍️</div><div class="mode-txt"><div class="mode-name">Read &amp; Write Script</div><div class="mode-desc">Learn the Ge'ez fidel alphabet</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="startMode('quiz')"><div class="mode-ico">❓</div><div class="mode-txt"><div class="mode-name">Quiz</div><div class="mode-desc">+15 XP · +3🪙 per correct</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="startMode('flash')"><div class="mode-ico">🃏</div><div class="mode-txt"><div class="mode-name">Flashcards</div><div class="mode-desc">+5 XP · +1🪙 per card · tap 🔊 to hear</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="startMode('match')"><div class="mode-ico">🔗</div><div class="mode-txt"><div class="mode-name">Match Pairs</div><div class="mode-desc">+25 XP · +5🪙 per round</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="startMode('search')"><div class="mode-ico">🔎</div><div class="mode-txt"><div class="mode-name">Word Hunt</div><div class="mode-desc">Find Ge'ez words in the grid</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="goNav('grammar')"><div class="mode-ico">📝</div><div class="mode-txt"><div class="mode-name">Grammar + Sentence Builder</div><div class="mode-desc">10 lessons · +3🪙 per exercise</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="goNav('script')"><div class="mode-ico">✍️</div><div class="mode-txt"><div class="mode-name">Script — Read &amp; Write</div><div class="mode-desc">Fidel chart · stroke tracing · recognition</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="goNav('cards')"><div class="mode-ico">🃏</div><div class="mode-txt"><div class="mode-name">Card Shop</div><div class="mode-desc">8 pack types · 60+ collectible cards</div></div><div class="mode-arr">›</div></div>
     </div>
-    <div class="section-gap"></div>
+    <div class="sgap"></div>
   </div>
 </div>
 
 <!-- PLAY / CAT -->
 <div class="screen" id="screen-play">
   <div class="page-header"><div class="back" onclick="goNav('home')">←</div><div class="page-title" id="play-title">Choose Category</div></div>
-  <div class="scroll-area" style="padding-bottom:80px;"><div class="cat-grid" id="cat-grid"></div></div>
+  <div class="scroll-area" style="padding-bottom:80px"><div class="cat-grid" id="cat-grid"></div></div>
 </div>
 
 <!-- FLASHCARD -->
@@ -373,8 +365,17 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
   <div class="fc-area">
     <div class="flashcard" id="flashcard" onclick="fcFlip()">
       <div class="fc-inner">
-        <div class="fc-face fc-front"><div class="fc-ge ge" id="fc-ge"></div><div class="fc-tap">tap to reveal</div></div>
-        <div class="fc-face fc-back"><div class="fc-en" id="fc-en"></div><div class="fc-tr" id="fc-tr"></div><div class="fc-tip" id="fc-tip"></div><div class="fc-note" id="fc-note"></div></div>
+        <div class="fc-face fc-front">
+          <div class="fc-ge ge" id="fc-ge"></div>
+          <button class="tts-btn" id="fc-tts" onclick="event.stopPropagation();speakCurrent()">🔊 Listen</button>
+          <div class="fc-tap">tap card to reveal</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-en" id="fc-en"></div>
+          <div class="fc-tr" id="fc-tr"></div>
+          <div class="fc-tip" id="fc-tip"></div>
+          <div class="fc-note" id="fc-note"></div>
+        </div>
       </div>
     </div>
     <div class="fc-btns" id="fc-btns" style="display:none">
@@ -388,7 +389,11 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 <div class="screen" id="screen-quiz">
   <div class="game-hdr"><div class="back" onclick="goNav('play')">←</div><div class="g-prog" id="qz-prog">Q 1</div><div class="g-streak" id="qz-str">🔥 0</div></div>
   <div class="quiz-scroll">
-    <div class="quiz-word"><div class="q-ge ge" id="q-ge"></div><div class="q-tr" id="q-tr"></div></div>
+    <div class="quiz-word">
+      <div class="q-ge ge" id="q-ge"></div>
+      <div class="q-tr" id="q-tr"></div>
+      <button class="tts-btn" id="q-tts" onclick="speakCurrent()">🔊 Listen</button>
+    </div>
     <div class="q-prompt" id="q-prompt"></div>
     <div class="opts" id="opts"></div>
     <div class="q-result" id="q-result"></div>
@@ -399,7 +404,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 <!-- MATCH -->
 <div class="screen" id="screen-match">
   <div class="game-hdr"><div class="back" onclick="stopMatch();goNav('play')">←</div><div class="match-timer-big" id="m-timer">0:00</div><div class="g-streak" id="m-str">🔥 0</div></div>
-  <div class="match-info" id="m-info">Tap Tigrinya, then its English match</div>
+  <div class="match-info" id="m-info">Tap Tigrinya word then its English match</div>
   <div class="match-grid" id="m-grid"></div>
   <div id="m-result"></div>
 </div>
@@ -407,7 +412,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 <!-- WORD HUNT -->
 <div class="screen" id="screen-search">
   <div class="game-hdr"><div class="back" onclick="goNav('play')">←</div><div class="g-prog" id="ws-found">0/5</div><div class="g-streak" id="ws-str">🔥 0</div></div>
-  <div class="scroll-area" style="padding-bottom:80px;">
+  <div class="scroll-area" style="padding-bottom:80px">
     <div class="ws-grid" id="ws-grid"></div>
     <div class="ws-words" id="ws-words"></div>
     <div id="ws-result"></div>
@@ -416,84 +421,118 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 
 <!-- SCRIPT -->
 <div class="screen" id="screen-script">
-  <div class="page-header"><div class="page-title">✍️ Read &amp; Write — Ge'ez Fidel</div></div>
+  <div class="page-header"><div class="page-title">✍️ Ge'ez Fidel Script</div></div>
   <div class="script-tabs">
     <button class="stab active" id="stab-chart" onclick="switchScriptTab('chart')">Chart</button>
-    <button class="stab" id="stab-write" onclick="switchScriptTab('write')">Write</button>
-    <button class="stab" id="stab-rquiz" onclick="switchScriptTab('rquiz')">Recognize</button>
+    <button class="stab" id="stab-write" onclick="switchScriptTab('write')">Trace</button>
+    <button class="stab" id="stab-rquiz" onclick="switchScriptTab('rquiz')">Quiz</button>
   </div>
-  <div id="stab-chart-pane" class="scroll-area" style="padding-bottom:80px;">
-    <div class="fidel-intro"><div class="fidel-intro-title">The Ge'ez Fidel (ፊደል)</div><div class="fidel-intro-text">Tigrinya uses the ancient <strong style="color:var(--sand)">Ge'ez script</strong> — one of the world's oldest writing systems. Each symbol is called a <em>fidel</em>. The script is an <strong style="color:var(--sand)">abugida</strong>: each character is a consonant + vowel pair. There are 7 vowel orders and ~22 consonant families. Tap any character to explore it.</div></div>
+  <div id="stab-chart-pane" class="scroll-area" style="padding-bottom:80px">
+    <div class="fidel-intro"><div class="fidel-intro-title">The Ge'ez Fidel (ፊደል)</div><div class="fidel-intro-text">Tigrinya uses the ancient <strong style="color:var(--sand)">Ge'ez script</strong> — an <strong style="color:var(--sand)">abugida</strong> where each character is a consonant+vowel pair. 7 vowel orders · 22 consonant families. Tap any character to explore it and hear it pronounced.</div></div>
     <div class="vowel-hdr" id="vowel-hdr"></div>
     <div id="fidel-chart"></div>
     <div class="fidel-detail" id="fidel-detail"></div>
-    <div class="section-gap"></div>
+    <div class="sgap"></div>
   </div>
   <div id="stab-write-pane" class="scroll-area" style="padding-bottom:80px;display:none">
-    <p class="write-intro">Trace the glowing character on the canvas. Build muscle memory for writing Ge'ez.</p>
-    <div style="padding:0 1rem 0.5rem;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke)">Pick a character</div>
+    <div style="padding:0 1rem 0.5rem;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke)">Pick a character to trace</div>
     <div class="write-char-pick" id="write-char-pick"></div>
     <div class="canvas-wrap">
-      <div class="canvas-label">Trace the character below</div>
+      <div class="canvas-label">Trace the ghost character — stroke accuracy measured</div>
       <div class="trace-char ge" id="trace-char">ሀ</div>
       <canvas id="writeCanvas" height="220"></canvas>
     </div>
+    <div class="accuracy-badge" id="accuracy-badge"></div>
     <div class="canvas-btns">
       <button class="cbtn cbtn-clear" onclick="clearCanvas()">🗑 Clear</button>
       <button class="cbtn cbtn-xp" onclick="claimWriteXP()">✓ Done! +10 XP</button>
     </div>
-    <div class="write-tip"><strong>How to write Ge'ez</strong>Written <strong style="color:var(--sand)">left to right</strong>. Each fidel is a single character — the small extensions change the vowel sound. Focus on overall shape first.</div>
-    <div class="section-gap"></div>
+    <div class="write-tip"><strong>How to write Ge'ez</strong>Written <strong style="color:var(--sand)">left to right</strong>. Each fidel is a single character. The ghost shows the target — try to cover it with your strokes. Accuracy is measured by how well your strokes overlap the character.</div>
+    <div class="sgap"></div>
   </div>
   <div id="stab-rquiz-pane" style="display:none;flex:1;overflow-y:auto;padding-bottom:80px">
-    <div class="rq-card"><div class="rq-ge ge" id="rq-ge">ሀ</div><div class="rq-prompt" id="rq-prompt">What sound does this character make?</div></div>
+    <div class="rq-card">
+      <div class="rq-ge ge" id="rq-ge">ሀ</div>
+      <button class="tts-btn" onclick="speakFidel()">🔊 Listen</button>
+      <div class="rq-prompt" id="rq-prompt">What sound does this make?</div>
+    </div>
     <div class="rq-opts" id="rq-opts"></div>
     <div class="q-result" id="rq-result"></div>
   </div>
 </div>
 
-<!-- ═══════════ GRAMMAR ═══════════ -->
+<!-- GRAMMAR -->
 <div class="screen" id="screen-grammar">
   <div class="page-header"><div class="page-title">📝 Grammar</div></div>
-  <div class="grammar-tabs">
-    <button class="gtab active" id="gtab-0" onclick="switchGrammar(0)">Structure</button>
-    <button class="gtab" id="gtab-1" onclick="switchGrammar(1)">Pronouns</button>
-    <button class="gtab" id="gtab-2" onclick="switchGrammar(2)">To Be</button>
-    <button class="gtab" id="gtab-3" onclick="switchGrammar(3)">Verbs</button>
-    <button class="gtab" id="gtab-4" onclick="switchGrammar(4)">Questions</button>
-    <button class="gtab" id="gtab-5" onclick="switchGrammar(5)">Negation</button>
-  </div>
-  <div class="scroll-area" style="padding-bottom:80px;" id="grammar-content"></div>
+  <div class="grammar-tabs" id="grammar-tabs"></div>
+  <div class="scroll-area" style="padding-bottom:80px" id="grammar-content"></div>
 </div>
 
-<!-- ═══════════ CARDS ═══════════ -->
+<!-- CARDS -->
 <div class="screen" id="screen-cards">
   <div class="page-header"><div class="page-title">🃏 Card Collection</div></div>
-  <div class="coin-bar"><span class="coin-ico">🪙</span><span id="cards-coins">0</span><span style="color:var(--smoke);font-size:0.72rem;font-weight:400;margin-left:0.3rem">coins</span></div>
+  <div class="coin-bar"><span>🪙</span><span id="cards-coins">0</span><span style="color:var(--smoke);font-size:0.7rem;font-weight:400;margin-left:0.25rem">coins</span></div>
   <div class="cards-tabs">
     <button class="ctab active" id="ctab-shop" onclick="switchCardsTab('shop')">Shop</button>
     <button class="ctab" id="ctab-collection" onclick="switchCardsTab('collection')">Collection</button>
   </div>
-  <div class="scroll-area" style="padding-bottom:80px;" id="cards-content"></div>
+  <div class="scroll-area" style="padding-bottom:80px" id="cards-content"></div>
 </div>
 
 <!-- PROGRESS -->
 <div class="screen" id="screen-prog">
-  <div class="page-header"><div class="page-title">📊 Your Progress</div></div>
-  <div class="scroll-area" style="padding-bottom:80px;"><div class="prog-list" id="prog-list"></div></div>
+  <div class="page-header"><div class="page-title">📊 Progress</div></div>
+  <div class="scroll-area" style="padding-bottom:80px"><div class="prog-list" id="prog-list"></div></div>
 </div>
 
 <script>
-/* ═══════════════════════════════════
-   VOCABULARY
-═══════════════════════════════════ */
-const V={
+/* ═══════════════════════════
+   TEXT-TO-SPEECH ENGINE
+═══════════════════════════ */
+let ttsSupported = 'speechSynthesis' in window;
+let currentWord = null;
+let currentFidelChar = null;
+
+function speak(geezText, romanization) {
+  if (!ttsSupported) return;
+  window.speechSynthesis.cancel();
+  // Try Tigrinya first
+  const voices = window.speechSynthesis.getVoices();
+  const tiVoice = voices.find(v => v.lang.startsWith('ti') || v.lang.startsWith('am'));
+  const u = new SpeechSynthesisUtterance(tiVoice ? geezText : romanization);
+  u.lang = tiVoice ? (tiVoice.lang) : 'en-US';
+  if (tiVoice) u.voice = tiVoice;
+  u.rate = 0.8;
+  u.pitch = 1.0;
+  u.onstart = () => {
+    document.querySelectorAll('.tts-btn').forEach(b => b.classList.add('speaking'));
+  };
+  u.onend = u.onerror = () => {
+    document.querySelectorAll('.tts-btn').forEach(b => b.classList.remove('speaking'));
+  };
+  window.speechSynthesis.speak(u);
+}
+
+function speakCurrent() {
+  if (currentWord) speak(currentWord.g, currentWord.t);
+}
+function speakFidel() {
+  if (currentFidelChar) speak(currentFidelChar.ch, currentFidelChar.fam.name + (currentFidelChar.vi > 0 ? VOWEL_LABELS[currentFidelChar.vi] : ''));
+}
+
+// Load voices async (required on some browsers)
+if (ttsSupported) window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+
+/* ═══════════════════════════
+   VOCABULARY — 14 categories
+═══════════════════════════ */
+const V = {
   greetings:{label:'Greetings',icon:'🤝',ge:'ሰላምታ',words:[
     {g:'ሰላም',t:'selam',e:'hello / peace',p:'sel-AM',n:'Used any time of day. Also means peace.'},
     {g:'ጽቡቕ',t:'tsbuk',e:'good / fine',p:'tsBUK',n:'Most common reply to "how are you?".'},
     {g:'የቐንየለይ',t:'yeqenyeley',e:'thank you',p:'ye-QEN-ye-ley',n:'A heartfelt expression of gratitude.'},
-    {g:'በጃኻ',t:'bejaka',e:'please (to a male)',p:'be-JA-ka',n:'Change to "bejaki" when speaking to a female.'},
-    {g:'ይቕረ',t:'yiqre',e:'excuse me / sorry',p:'YIQ-re',n:'Used both for apologies and to get attention.'},
+    {g:'በጃኻ',t:'bejaka',e:'please (to a male)',p:'be-JA-ka',n:'Change to "bejaki" for a female.'},
+    {g:'ይቕረ',t:'yiqre',e:'excuse me / sorry',p:'YIQ-re',n:'Used for apologies and to get attention.'},
     {g:'እወ',t:'iwe',e:'yes',p:'IH-we',n:'Short and clear.'},
     {g:'ኣይፋልን',t:'ayfalen',e:'no',p:'ay-FA-len',n:'A polite and clear way to decline.'},
     {g:'ሰናይ ጽባሕ',t:'senay tsbah',e:'good morning',p:'se-NAY tsBEH',n:'"Senay" means good or beautiful.'},
@@ -504,41 +543,41 @@ const V={
   ]},
   numbers:{label:'Numbers',icon:'🔢',ge:'ቁጽሪ',words:[
     {g:'ሓደ',t:'hade',e:'one',p:'HA-de',n:'The beginning of all counting.'},
-    {g:'ክልተ',t:'kilte',e:'two',p:'KIL-te',n:'Tigrinya has gendered forms for numbers in certain contexts.'},
+    {g:'ክልተ',t:'kilte',e:'two',p:'KIL-te',n:'Tigrinya has gendered forms in certain contexts.'},
     {g:'ሰለስተ',t:'seleste',e:'three',p:'se-LES-te',n:'Three is an auspicious number in Eritrean culture.'},
     {g:'ኣርባዕተ',t:'arbaete',e:'four',p:'ar-BAE-te',n:'Note the glottal "ae" sound.'},
     {g:'ሓሙሽተ',t:'hamushte',e:'five',p:'ha-MUSH-te',n:'Five fingers on one hand.'},
     {g:'ሽድሽተ',t:'shdshte',e:'six',p:'shd-SHTE',n:'A complex consonant cluster.'},
     {g:'ሸውዓተ',t:'shewaete',e:'seven',p:'she-WAE-te',n:'Seven days of the week.'},
-    {g:'ሸሞንተ',t:'shemonte',e:'eight',p:'she-MON-te',n:'Eight is a balanced, symmetrical number.'},
+    {g:'ሸሞንተ',t:'shemonte',e:'eight',p:'she-MON-te',n:'Eight is a balanced number.'},
     {g:'ትሸዓተ',t:'tsheaete',e:'nine',p:'tshe-AE-te',n:'Almost at ten!'},
     {g:'ዓሰርተ',t:'aserte',e:'ten',p:'a-SER-te',n:'The base of decimal counting.'},
     {g:'ዕስራ',t:'isra',e:'twenty',p:'IS-ra',n:'Multiples of ten follow a distinct pattern.'},
-    {g:'ሚእቲ',t:'miti',e:'one hundred',p:'MIH-ti',n:'Used constantly in markets across Eritrea.'},
+    {g:'ሚእቲ',t:'miti',e:'one hundred',p:'MIH-ti',n:'Used constantly in markets.'},
   ]},
   food:{label:'Food & Drink',icon:'🍞',ge:'መግቢ',words:[
     {g:'እንጀራ',t:'injera',e:'injera (flatbread)',p:'in-JE-ra',n:'The cornerstone of Eritrean cuisine.'},
-    {g:'ሽሮ',t:'shiro',e:'chickpea stew',p:'SHEE-ro',n:'A beloved spiced chickpea stew.'},
+    {g:'ሽሮ',t:'shiro',e:'chickpea stew',p:'SHEE-ro',n:'A beloved spiced chickpea stew eaten daily.'},
     {g:'ማይ',t:'may',e:'water',p:'MAY',n:'The first thing offered to a guest — a sacred act.'},
     {g:'ጸባ',t:'tseba',e:'milk',p:'TSE-ba',n:'Fresh milk is a traditional offering of welcome.'},
     {g:'ስጋ',t:'sga',e:'meat',p:'SGA',n:'Often reserved for celebrations and honored guests.'},
     {g:'ዓሳ',t:'asa',e:'fish',p:'A-sa',n:'Common in coastal Eritrea near Massawa.'},
     {g:'ዳቦ',t:'dabo',e:'wheat bread',p:'DA-bo',n:'Distinct from the fermented injera.'},
     {g:'ቡን',t:'bun',e:'coffee',p:'BOON',n:'The coffee ceremony is a sacred social ritual.'},
-    {g:'ሻሂ',t:'shahi',e:'tea',p:'SHA-hi',n:'Often spiced with cardamom and served very sweet.'},
+    {g:'ሻሂ',t:'shahi',e:'tea',p:'SHA-hi',n:'Often spiced with cardamom and served sweet.'},
     {g:'ጨው',t:'chew',e:'salt',p:'CHEW',n:'Historically used as currency.'},
     {g:'ፍሩታ',t:'fruta',e:'fruit',p:'FRU-ta',n:'A borrowed word adapted into modern Tigrinya.'},
-    {g:'ኣሕምልቲ',t:'ahmilti',e:'vegetables',p:'ah-MIL-ti',n:'Central to fasting dishes in the Orthodox calendar.'},
+    {g:'ኣሕምልቲ',t:'ahmilti',e:'vegetables',p:'ah-MIL-ti',n:'Central to fasting dishes.'},
   ]},
   family:{label:'Family',icon:'👨‍👩‍👧',ge:'ስድራ',words:[
-    {g:'ኣደ',t:'ade',e:'mother',p:'A-de',n:'Mothers hold a deeply revered role in Eritrean society.'},
+    {g:'ኣደ',t:'ade',e:'mother',p:'A-de',n:'Mothers hold a deeply revered role.'},
     {g:'ኣቦ',t:'abo',e:'father',p:'A-bo',n:'The traditional head of the household.'},
     {g:'ሓው',t:'haw',e:'brother',p:'HAW',n:'Used as a term of solidarity even for non-relatives.'},
     {g:'ሓብቲ',t:'habti',e:'sister',p:'HAB-ti',n:'Sisters play central roles in family ceremonies.'},
     {g:'ወዲ',t:'wedi',e:'son / boy',p:'WE-di',n:'"Wedi" is also a term of endearment.'},
     {g:'ጓል',t:'gwal',e:'daughter / girl',p:'GWAL',n:'Also appears in many Eritrean place names.'},
-    {g:'ሰበይቲ',t:'sebeyti',e:'wife / woman',p:'se-BEY-ti',n:'Can refer to a woman generally or to a wife.'},
-    {g:'ሰብኣይ',t:'sebay',e:'husband / man',p:'se-BAY',n:'Can refer to a man generally or to a husband.'},
+    {g:'ሰበይቲ',t:'sebeyti',e:'wife / woman',p:'se-BEY-ti',n:'Can refer to a woman generally or a wife.'},
+    {g:'ሰብኣይ',t:'sebay',e:'husband / man',p:'se-BAY',n:'Can refer to a man generally or a husband.'},
     {g:'ኣያ',t:'aya',e:'grandfather',p:'A-ya',n:'Elders are deeply revered in Tigrinya culture.'},
     {g:'እዮ',t:'iyo',e:'grandmother',p:'IH-yo',n:'Grandmothers are keepers of family stories.'},
     {g:'ቆልዓ',t:'qolaa',e:'child',p:'QO-laa',n:'Children are considered a great blessing.'},
@@ -556,62 +595,170 @@ const V={
     {g:'ብርቱዕ',t:'brtue',e:'orange',p:'br-TUE',n:'Can also mean strong or intense.'},
     {g:'ወርቃዊ',t:'worqawi',e:'golden',p:'wor-QA-wi',n:'From worqi (gold).'},
     {g:'ሕምብርቲ',t:'hmbrti',e:'purple',p:'hmb-RTI',n:'Associated with royalty and religious vestments.'},
-    {g:'ብሩህ',t:'bruh',e:'bright / light',p:'BRU-h',n:'"Bruh" describes light and metaphorically intelligence.'},
+    {g:'ብሩህ',t:'bruh',e:'bright / light',p:'BRU-h',n:'"Bruh" also means intelligence metaphorically.'},
   ]},
   phrases:{label:'Daily Phrases',icon:'💬',ge:'ዕለታዊ',words:[
     {g:'ስምካ መን ዩ?',t:'smka men yu?',e:'What is your name? (male)',p:'SMKA men YU',n:'Say "smki men yu?" to a female.'},
     {g:'ስመይ ... ዩ',t:'smey ... yu',e:'My name is ...',p:'SME-y ... yu',n:'Fill your name in the middle.'},
     {g:'ካብ ኣበይ ኢኻ?',t:'kab abey ika?',e:'Where are you from? (male)',p:'KAB a-BEY IH-ka',n:'Eritreans identify closely with their homeland.'},
-    {g:'ኣይፈልጥን',t:'ayfeltn',e:'I don\'t know',p:'ay-FEL-tn',n:'An honest and humble answer.'},
-    {g:'ሓጊዝካኒ',t:'hagizakni',e:'Help me (asking a male)',p:'ha-GI-zak-ni',n:'A direct and clear request for help.'},
+    {g:'ኣይፈልጥን',t:'ayfeltn',e:"I don't know",p:'ay-FEL-tn',n:'An honest and humble answer.'},
+    {g:'ሓጊዝካኒ',t:'hagizakni',e:'Help me (to a male)',p:'ha-GI-zak-ni',n:'A direct and clear request for help.'},
     {g:'ክንደይ ዋጋ?',t:'kindey waga?',e:'How much does it cost?',p:'KIN-dey WA-ga',n:'Essential for shopping at Eritrean markets.'},
     {g:'ኣበይ ዩ?',t:'abey yu?',e:'Where is it?',p:'a-BEY yu',n:'Useful for navigating Eritrean towns.'},
-    {g:'ኣይተረደኣንን',t:'aytereadean',e:'I don\'t understand',p:'ay-te-re-DE-an',n:'Locals appreciate honesty from learners.'},
+    {g:'ኣይተረደኣንን',t:'aytereadean',e:"I don't understand",p:'ay-te-re-DE-an',n:'Locals appreciate honesty from learners.'},
     {g:'ብቐስ ተዛረብ',t:'bqes tzerab',e:'Please speak slowly',p:'bQES tze-RAB',n:'A vital phrase for learners!'},
     {g:'ናቕፋ',t:'naqfa',e:'Nakfa (Eritrean currency)',p:'NAQ-fa',n:'Named after Nakfa city.'},
     {g:'ቤተክርስቲያን',t:'betekrstyan',e:'church',p:'be-te-krs-TI-yan',n:'Christianity in Eritrea dates to the 4th century AD.'},
     {g:'ዕዳጋ',t:'idaga',e:'market / bazaar',p:'IH-da-ga',n:'Markets are the heartbeat of Eritrean towns.'},
   ]},
+  body:{label:'Body Parts',icon:'🫀',ge:'ኣካላት',words:[
+    {g:'ርእሲ',t:'resi',e:'head',p:'RE-si',n:'"Resi" also means "chief" or "leader" — a head in both senses.'},
+    {g:'ዓይኒ',t:'ayni',e:'eye',p:'AY-ni',n:'"Eyni" also means "same" — a beautiful double meaning.'},
+    {g:'ኣእዛን',t:'aezan',e:'ear',p:'ae-ZAN',n:'The Ge'ez script has specific characters for the sounds in this word.'},
+    {g:'ኣፍ',t:'af',e:'mouth',p:'AF',n:'"Af" also means language in some contexts — you speak through your mouth.'},
+    {g:'ኢድ',t:'id',e:'hand / arm',p:'ID',n:'One word covers both hand and arm — context determines which.'},
+    {g:'ኣእጋር',t:'aegar',e:'leg / foot',p:'ae-GAR',n:'Like hand/arm, one word covers both leg and foot.'},
+    {g:'ልቢ',t:'lbi',e:'heart',p:'LBI',n:'"Lbi" also means "mind" or "thought" — the heart as seat of wisdom.'},
+    {g:'ቆርበት',t:'qorbet',e:'skin',p:'QOR-bet',n:'Skin is described in Tigrinya poetry as the body\'s first language.'},
+    {g:'ጸጉሪ',t:'tseguri',e:'hair',p:'tse-GU-ri',n:'Traditional Eritrean hairstyles carry deep cultural meaning.'},
+    {g:'ኣፍ ልቢ',t:'af lbi',e:'stomach',p:'AF LBI',n:'Literally "mouth of the heart" — a poetic way to describe the stomach.'},
+    {g:'ሑቀ',t:'huqe',e:'back',p:'HU-qe',n:'Often used in proverbs about carrying burdens.'},
+    {g:'ሕቖ',t:'hqo',e:'waist',p:'HQO',n:'Important in traditional Eritrean dance and posture.'},
+  ]},
+  animals:{label:'Animals',icon:'🦁',ge:'እንስሳ',words:[
+    {g:'ንስሪ',t:'nsri',e:'eagle',p:'ns-RI',n:'The eagle is a symbol of freedom and strength in Eritrean culture.'},
+    {g:'ኣንበሳ',t:'anbesa',e:'lion',p:'an-BE-sa',n:'Symbol of bravery across East African cultures.'},
+    {g:'ፈረስ',t:'feres',e:'horse',p:'FE-res',n:'Horses played a key role in Eritrean history and warfare.'},
+    {g:'ላም',t:'lam',e:'cow',p:'LAM',n:'Cattle are central to agricultural life in Eritrea.'},
+    {g:'ኣባጊዕ',t:'abagi',e:'sheep',p:'a-BA-gi',n:'Sheep are sacrificed at major celebrations and feasts.'},
+    {g:'ድሙ',t:'dmu',e:'cat',p:'DMU',n:'Cats have lived alongside Eritreans for thousands of years.'},
+    {g:'ከልቢ',t:'kelbi',e:'dog',p:'KEL-bi',n:'Dogs have been used as working animals across the highlands.'},
+    {g:'ዑፍ',t:'uf',e:'bird',p:'UF',n:'"Uf" is the general word for bird — specific species have their own names.'},
+    {g:'ዓሳ',t:'asa',e:'fish',p:'A-sa',n:'Massawa on the Red Sea is famous for its abundant fish.'},
+    {g:'ዝምቢ',t:'zmbi',e:'fly / insect',p:'ZM-bi',n:'Used broadly for small flying insects.'},
+    {g:'ኣጋም',t:'agam',e:'snake',p:'A-gam',n:'Snakes appear in Tigrinya proverbs about wisdom and deception.'},
+    {g:'ደነቋሪ',t:'deneqwari',e:'monkey',p:'de-ne-QWA-ri',n:'Found in the highlands of Eritrea and northern Ethiopia.'},
+  ]},
+  nature:{label:'Nature',icon:'🌿',ge:'ተፈጥሮ',words:[
+    {g:'ጸሓይ',t:'tsehay',e:'sun',p:'TSE-hay',n:'"Tsehay" is also a popular Tigrinya name meaning "sunshine".'},
+    {g:'ወርሒ',t:'werhi',e:'moon / month',p:'WER-hi',n:'One word for both moon and month — the moon marks time.'},
+    {g:'ኮኾብ',t:'kokhob',e:'star',p:'KO-khob',n:'"Kokhob" is used in poetry and names to mean shining one.'},
+    {g:'ማይ',t:'may',e:'water / river',p:'MAY',n:'"May" means both water and river — water is life.'},
+    {g:'ደብሪ',t:'debri',e:'mountain',p:'DEB-ri',n:'Eritrea is known for its dramatic highland mountains.'},
+    {g:'ባሕሪ',t:'bahri',e:'sea / ocean',p:'BAH-ri',n:'Eritrea has 1,200 km of Red Sea coastline.'},
+    {g:'ሰማይ',t:'semay',e:'sky',p:'SE-may',n:'"Semay" also means heaven — the sky is a sacred space.'},
+    {g:'ምድሪ',t:'mdri',e:'earth / land',p:'MD-ri',n:'Eritrea\'s name comes from Greek "Erythraia" meaning Red Sea.'},
+    {g:'ዓወል',t:'awel',e:'wind',p:'A-wel',n:'Highland winds are celebrated in Tigrinya folk songs.'},
+    {g:'ዝናም',t:'znam',e:'rain',p:'Z-nam',n:'Rain is celebrated — Eritrea has distinct rainy and dry seasons.'},
+    {g:'ሓዊ',t:'hawi',e:'fire',p:'HA-wi',n:'"Hawi" also means passion and intensity in Tigrinya poetry.'},
+    {g:'ዕፅ',t:'ets',e:'tree / wood',p:'ETS',n:'Deforestation and reforestation are major environmental issues in Eritrea.'},
+  ]},
+  time:{label:'Time & Days',icon:'📅',ge:'ግዜ',words:[
+    {g:'ሎሚ',t:'lomi',e:'today',p:'LO-mi',n:'"Lomi" can also mean "now" in casual speech.'},
+    {g:'ጽባሕ',t:'tsbah',e:'tomorrow / morning',p:'tsBAH',n:'Context determines whether it means tomorrow or morning.'},
+    {g:'ትማሊ',t:'tmali',e:'yesterday',p:'TMA-li',n:'The past is referred to gently in Tigrinya culture.'},
+    {g:'ሰንበት',t:'senbet',e:'Sunday',p:'SEN-bet',n:'Sunday is a holy day for Eritrean Orthodox Christians.'},
+    {g:'ሰኑይ',t:'senuy',e:'Monday',p:'SE-nuy',n:'The first working day — market days often start here.'},
+    {g:'ሰሉስ',t:'selus',e:'Tuesday',p:'SE-lus',n:'Named from an ancient Ge\'ez counting system.'},
+    {g:'ረቡዕ',t:'rebue',e:'Wednesday',p:'re-BUE',n:'Mid-week — often a secondary market day.'},
+    {g:'ሓሙስ',t:'hamus',e:'Thursday',p:'HA-mus',n:'From "hamushte" (five) — the fifth day.'},
+    {g:'ዓርቢ',t:'arbi',e:'Friday',p:'AR-bi',n:'A holy day for Eritrean Muslims. Markets are busy.'},
+    {g:'ቀዳም',t:'qedam',e:'Saturday',p:'QE-dam',n:'A major market day across much of Eritrea.'},
+    {g:'ሰዓት',t:'saat',e:'hour / time',p:'SA-at',n:'From Arabic — Tigrinya absorbed many loanwords.'},
+    {g:'ዓመት',t:'amet',e:'year',p:'A-met',n:'Eritrea uses the Ge\'ez calendar — about 7-8 years behind Gregorian.'},
+  ]},
+  places:{label:'Places',icon:'🗺️',ge:'ቦታ',words:[
+    {g:'ኣስመራ',t:'asmera',e:'Asmara (capital)',p:'as-ME-ra',n:'Eritrea\'s capital is known for its stunning Italian art-deco architecture.'},
+    {g:'ምጽዋ',t:'mitswa',e:'Massawa (port city)',p:'mits-WA',n:'One of the hottest cities on Earth, on the Red Sea coast.'},
+    {g:'ቤት',t:'bet',e:'house / home',p:'BET',n:'"Bet" also means "family" — home is family.'},
+    {g:'ቤተ ክርስቲያን',t:'bete krstyan',e:'church',p:'BE-te krs-TI-yan',n:'The Orthodox church is central to highland Eritrean identity.'},
+    {g:'ሕክምና',t:'hkimna',e:'hospital / clinic',p:'hk-IMna',n:'Healthcare access has been a major development goal in Eritrea.'},
+    {g:'ቤት ትምህርቲ',t:'bet tmhrti',e:'school',p:'BET tmh-RTI',n:'Education is highly valued — literacy rates have grown dramatically.'},
+    {g:'ዕዳጋ',t:'idaga',e:'market',p:'IH-da-ga',n:'Markets are the economic and social heartbeat of towns.'},
+    {g:'ጎደና',t:'godena',e:'road / street',p:'go-DE-na',n:'Asmara has some of the best-preserved colonial-era streets in Africa.'},
+    {g:'ሃገር',t:'hager',e:'country / homeland',p:'HA-ger',n:'"Hager" carries deep emotional weight — homeland and identity are one.'},
+    {g:'ከተማ',t:'ketema',e:'city / town',p:'ke-TE-ma',n:'Eritrea has several major cities beyond its capital.'},
+    {g:'ዓዲ',t:'adi',e:'village',p:'A-di',n:'Most Eritreans trace their roots to a village — "adi" is sacred.'},
+    {g:'ባሕሪ',t:'bahri',e:'sea / Red Sea',p:'BAH-ri',n:'The Red Sea coast is central to Eritrean trade and culture.'},
+  ]},
+  emotions:{label:'Emotions',icon:'❤️',ge:'ስምዒት',words:[
+    {g:'ፍቕሪ',t:'fiqri',e:'love',p:'fiq-RI',n:'"Fiqri" is one of the most beautiful words in Tigrinya.'},
+    {g:'ሓጎስ',t:'hagos',e:'happiness / joy',p:'HA-gos',n:'"Hagos" is also a popular Tigrinya name meaning joyful.'},
+    {g:'ሓዘን',t:'hazen',e:'sadness / grief',p:'HA-zen',n:'Tigrinya has rich vocabulary for expressing grief.'},
+    {g:'ፍርሒ',t:'firhi',e:'fear',p:'FIR-hi',n:'A natural human emotion acknowledged in Tigrinya culture.'},
+    {g:'ቁጠዐ',t:'qutae',e:'anger',p:'qu-TAE',n:'Anger is expressed but quickly tempered — patience is valued.'},
+    {g:'ሓፍነት',t:'hafnet',e:'shame / embarrassment',p:'HAF-net',n:'An important social emotion in Eritrean culture.'},
+    {g:'ተስፋ',t:'tesfa',e:'hope',p:'TES-fa',n:'"Tesfa" is also a popular name meaning hope.'},
+    {g:'ሰላም ልቢ',t:'selam lbi',e:'peace of mind',p:'SE-lam LBI',n:'Literally "peace of heart" — inner peace.'},
+    {g:'ምስጋና',t:'mzgana',e:'gratitude',p:'mz-GA-na',n:'Gratitude is a central value in Tigrinya culture.'},
+    {g:'ምሕዝነት',t:'mhznet',e:'friendship / solidarity',p:'mhz-NET',n:'Community solidarity is the foundation of Eritrean society.'},
+    {g:'ናፍቖት',t:'nafqot',e:'longing / nostalgia',p:'naf-QOT',n:'A feeling many diaspora Eritreans know deeply.'},
+    {g:'ሓበን',t:'haben',e:'pride',p:'HA-ben',n:'"Haben" is also a popular female name meaning pride.'},
+  ]},
+  clothing:{label:'Clothing',icon:'👘',ge:'ክዳን',words:[
+    {g:'ክዳን',t:'kdan',e:'clothing / dress',p:'KDA-n',n:'The general word for any garment or clothing.'},
+    {g:'ቀሚስ',t:'qemis',e:'shirt / dress',p:'QE-mis',n:'A versatile word for the main upper garment.'},
+    {g:'ሱሪ',t:'suri',e:'trousers / pants',p:'SU-ri',n:'Modern garment adopted across Eritrean society.'},
+    {g:'ሸሚዝ',t:'shemiz',e:'traditional dress',p:'she-MIZ',n:'The traditional white cotton dress worn by women.'},
+    {g:'ጫቃ',t:'chaqa',e:'shoes',p:'CHA-qa',n:'Footwear became common across Eritrea in the modern era.'},
+    {g:'ቆቢዕ',t:'qobie',e:'hat / cap',p:'qo-BIE',n:'Traditional Eritrean caps have distinct regional styles.'},
+    {g:'ቀፎ',t:'qefo',e:'traditional headwrap',p:'QE-fo',n:'Worn by women — the style varies by region and occasion.'},
+    {g:'ክራባት',t:'krabat',e:'tie / necktie',p:'kra-BAT',n:'A borrowed word from the word "Croat" — Croatian soldiers wore them.'},
+    {g:'ሻርፕ',t:'sharp',e:'scarf',p:'SHARP',n:'Scarves are worn for both warmth and modesty across Eritrea.'},
+    {g:'ኳፕ',t:'kwap',e:'coat / jacket',p:'KWAP',n:'The highland climate makes jackets essential in the evenings.'},
+    {g:'ቀዳሕ',t:'qedah',e:'belt',p:'QE-dah',n:'Traditional belts are often elaborately decorated leather.'},
+    {g:'ኣርሻ',t:'arsha',e:'jewelry',p:'AR-sha',n:'Gold and silver jewelry are important in Eritrean cultural ceremonies.'},
+  ]},
+  actions:{label:'Actions',icon:'🏃',ge:'ተግባር',words:[
+    {g:'ይዛረብ',t:'yzereb',e:'he speaks',p:'yze-REB',n:'Masculine present tense of "to speak". Feminine: ትዛረብ (tzereb).'},
+    {g:'ይበልዕ',t:'ybele',e:'he eats',p:'ybe-LE',n:'Masculine present tense of "to eat". Feminine: ትበልዕ (tbele).'},
+    {g:'ይሰቲ',t:'ysti',e:'he drinks',p:'ys-TI',n:'Masculine present tense of "to drink". Feminine: ትሰቲ (tsti).'},
+    {g:'ይኸይድ',t:'ykheyid',e:'he goes',p:'ykhe-YID',n:'Masculine present tense of "to go". Feminine: ትኸይድ (tkheyid).'},
+    {g:'ይርኢ',t:'yri',e:'he sees',p:'yr-I',n:'Masculine present tense of "to see". Feminine: ትርኢ (tri).'},
+    {g:'ይስምዕ',t:'ysmae',e:'he hears',p:'ysm-AE',n:'Masculine present tense of "to hear". Feminine: ትስምዕ (tsmae).'},
+    {g:'ይደቅስ',t:'ydeqs',e:'he sleeps',p:'yde-QS',n:'Masculine present tense of "to sleep".'},
+    {g:'ይነብር',t:'ynebr',e:'he lives / stays',p:'yne-BR',n:'Masculine present tense of "to live". Also means "he stays".'},
+    {g:'ይጽሕፍ',t:'ytshf',e:'he writes',p:'ytsh-F',n:'Masculine present tense of "to write".'},
+    {g:'ይቐትል',t:'yqetl',e:'he works',p:'yqe-TL',n:'Also means "he kills" — context determines which!'},
+    {g:'ይፈልጥ',t:'yfelṭ',e:'he knows',p:'yfel-T',n:'Masculine present. The negative: ኣይፈልጥን (ayfeltn).'},
+    {g:'ይፈቱ',t:'yfetu',e:'he loves / likes',p:'yfe-TU',n:'Masculine present tense of "to love". A beautiful verb.'},
+  ]},
 };
-const CATS=Object.keys(V);
+const CATS = Object.keys(V);
 
-/* ═══════════════════════════════════
-   FIDEL DATA
-═══════════════════════════════════ */
+/* FIDEL */
 const VOWEL_LABELS=['ä','u','i','a','e','ə','o'];
 const VOWEL_NAMES=['1st (ä)','2nd (u)','3rd (i)','4th (a)','5th (e)','6th (ə)','7th (o)'];
 const FIDEL=[
-  {name:'h', sound:'like English "h"', forms:['ሀ','ሁ','ሂ','ሃ','ሄ','ህ','ሆ'],note:'One of the softest consonants. "ሃ" (ha) appears in many greetings.'},
-  {name:'l', sound:'like English "l"', forms:['ለ','ሉ','ሊ','ላ','ሌ','ል','ሎ'],note:'"ል" is one of the most common final consonants in Tigrinya words.'},
-  {name:'ḥ', sound:'breathy "h" from throat', forms:['ሐ','ሑ','ሒ','ሓ','ሔ','ሕ','ሖ'],note:'A pharyngeal sound — deeper than regular "h". Common in Semitic languages.'},
-  {name:'m', sound:'like English "m"', forms:['መ','ሙ','ሚ','ማ','ሜ','ም','ሞ'],note:'"መ" starts many important words including "ማይ" (water).'},
-  {name:'s', sound:'like English "s"', forms:['ሰ','ሱ','ሲ','ሳ','ሴ','ስ','ሶ'],note:'"ሰ" begins "ሰላም" (selam/peace) — one of the most beautiful Tigrinya words.'},
-  {name:'r', sound:'rolled "r"', forms:['ረ','ሩ','ሪ','ራ','ሬ','ር','ሮ'],note:'Always rolled, like Spanish "r". Never the English "r" sound.'},
-  {name:'sh',sound:'like English "sh"', forms:['ሸ','ሹ','ሺ','ሻ','ሼ','ሽ','ሾ'],note:'"ሽሮ" (shiro) — the beloved chickpea stew — starts with this sound.'},
-  {name:'q', sound:'deep "k" from back of throat', forms:['ቀ','ቁ','ቂ','ቃ','ቄ','ቅ','ቆ'],note:'A uvular stop — said from the very back of the throat. Unique to Semitic languages.'},
-  {name:'b', sound:'like English "b"', forms:['በ','ቡ','ቢ','ባ','ቤ','ብ','ቦ'],note:'"ብ" (bə) means "with" or "by" in Tigrinya.'},
-  {name:'t', sound:'like English "t"', forms:['ተ','ቱ','ቲ','ታ','ቴ','ት','ቶ'],note:'"ትግርኛ" (Tigrinya) itself begins with this character!'},
-  {name:'n', sound:'like English "n"', forms:['ነ','ኑ','ኒ','ና','ኔ','ን','ኖ'],note:'"ን" is one of Tigrinya\'s most common conjunctions, meaning "and".'},
-  {name:'ʾ', sound:'glottal stop', forms:['አ','ኡ','ኢ','ኣ','ኤ','እ','ኦ'],note:'A brief catch in the throat. "ኣ" (a) begins "ኣደ" (mother).'},
-  {name:'k', sound:'like English "k"', forms:['ከ','ኩ','ኪ','ካ','ኬ','ክ','ኮ'],note:'"ካ" and "ኪ" are common suffixes meaning "your" (masculine/feminine).'},
-  {name:'w', sound:'like English "w"', forms:['ወ','ዉ','ዊ','ዋ','ዌ','ው','ዎ'],note:'"ወ" begins "ወዲ" (son) and "ወርቂ" (gold).'},
-  {name:'z', sound:'like English "z"', forms:['ዘ','ዙ','ዚ','ዛ','ዜ','ዝ','ዞ'],note:'"ዝ" is a relative pronoun, similar to "who/which" in English.'},
-  {name:'y', sound:'like English "y"', forms:['የ','ዩ','ዪ','ያ','ዬ','ይ','ዮ'],note:'"ይ" appears in many verb forms as a subject marker.'},
-  {name:'d', sound:'like English "d"', forms:['ደ','ዱ','ዲ','ዳ','ዴ','ድ','ዶ'],note:'"ዳቦ" (dabo/bread) starts with this character.'},
-  {name:'j', sound:'like English "j"', forms:['ጀ','ጁ','ጂ','ጃ','ጄ','ጅ','ጆ'],note:'Less common but important in loanwords and some native terms.'},
-  {name:'g', sound:'like English "g"', forms:['ገ','ጉ','ጊ','ጋ','ጌ','ግ','ጎ'],note:'"ጓል" (gwal/daughter) begins with this character.'},
-  {name:'ṭ', sound:'emphatic "t"', forms:['ጠ','ጡ','ጢ','ጣ','ጤ','ጥ','ጦ'],note:'An emphatic consonant — said with more tension in the throat than regular "t".'},
-  {name:'f', sound:'like English "f"', forms:['ፈ','ፉ','ፊ','ፋ','ፌ','ፍ','ፎ'],note:'"ፊደል" (fidel/alphabet) itself starts with this character!'},
-  {name:'p', sound:'like English "p"', forms:['ፐ','ፑ','ፒ','ፓ','ፔ','ፕ','ፖ'],note:'Rare in native Tigrinya — mainly used in loanwords.'},
+  {name:'h',sound:'like English "h"',forms:['ሀ','ሁ','ሂ','ሃ','ሄ','ህ','ሆ'],note:'One of the softest consonants. "ሃ" appears in many greetings.'},
+  {name:'l',sound:'like English "l"',forms:['ለ','ሉ','ሊ','ላ','ሌ','ል','ሎ'],note:'"ል" is one of the most common final consonants in Tigrinya.'},
+  {name:'ḥ',sound:'breathy "h" from throat',forms:['ሐ','ሑ','ሒ','ሓ','ሔ','ሕ','ሖ'],note:'A pharyngeal sound — deeper than regular "h". Common in Semitic languages.'},
+  {name:'m',sound:'like English "m"',forms:['መ','ሙ','ሚ','ማ','ሜ','ም','ሞ'],note:'"መ" starts many important words including "ማይ" (water).'},
+  {name:'s',sound:'like English "s"',forms:['ሰ','ሱ','ሲ','ሳ','ሴ','ስ','ሶ'],note:'"ሰ" begins "ሰላም" (selam/peace) — one of the most beautiful Tigrinya words.'},
+  {name:'r',sound:'rolled "r"',forms:['ረ','ሩ','ሪ','ራ','ሬ','ር','ሮ'],note:'Always rolled, like Spanish "r". Never the flat English "r".'},
+  {name:'sh',sound:'like English "sh"',forms:['ሸ','ሹ','ሺ','ሻ','ሼ','ሽ','ሾ'],note:'"ሽሮ" (shiro — the beloved stew) starts with this sound.'},
+  {name:'q',sound:'deep "k" from back of throat',forms:['ቀ','ቁ','ቂ','ቃ','ቄ','ቅ','ቆ'],note:'A uvular stop — said from the very back of the throat.'},
+  {name:'b',sound:'like English "b"',forms:['በ','ቡ','ቢ','ባ','ቤ','ብ','ቦ'],note:'"ብ" means "with" or "by" in Tigrinya.'},
+  {name:'t',sound:'like English "t"',forms:['ተ','ቱ','ቲ','ታ','ቴ','ት','ቶ'],note:'"ትግርኛ" (Tigrinya) itself begins with this character!'},
+  {name:'n',sound:'like English "n"',forms:['ነ','ኑ','ኒ','ና','ኔ','ን','ኖ'],note:'"ን" is a common conjunction meaning "and".'},
+  {name:'ʾ',sound:'glottal stop',forms:['አ','ኡ','ኢ','ኣ','ኤ','እ','ኦ'],note:'A brief catch in the throat. "ኣ" begins "ኣደ" (mother).'},
+  {name:'k',sound:'like English "k"',forms:['ከ','ኩ','ኪ','ካ','ኬ','ክ','ኮ'],note:'"ካ" and "ኪ" are common suffixes meaning "your".'},
+  {name:'w',sound:'like English "w"',forms:['ወ','ዉ','ዊ','ዋ','ዌ','ው','ዎ'],note:'"ወ" begins "ወዲ" (son) and "ወርቂ" (gold).'},
+  {name:'z',sound:'like English "z"',forms:['ዘ','ዙ','ዚ','ዛ','ዜ','ዝ','ዞ'],note:'"ዝ" is a relative pronoun meaning "who/which".'},
+  {name:'y',sound:'like English "y"',forms:['የ','ዩ','ዪ','ያ','ዬ','ይ','ዮ'],note:'"ይ" appears in many verb forms as a subject marker.'},
+  {name:'d',sound:'like English "d"',forms:['ደ','ዱ','ዲ','ዳ','ዴ','ድ','ዶ'],note:'"ዳቦ" (dabo/bread) starts with this character.'},
+  {name:'j',sound:'like English "j"',forms:['ጀ','ጁ','ጂ','ጃ','ጄ','ጅ','ጆ'],note:'Less common but important in loanwords.'},
+  {name:'g',sound:'like English "g"',forms:['ገ','ጉ','ጊ','ጋ','ጌ','ግ','ጎ'],note:'"ጓል" (gwal/daughter) begins with this character.'},
+  {name:'ṭ',sound:'emphatic "t"',forms:['ጠ','ጡ','ጢ','ጣ','ጤ','ጥ','ጦ'],note:'Said with more tension in the throat than regular "t".'},
+  {name:'f',sound:'like English "f"',forms:['ፈ','ፉ','ፊ','ፋ','ፌ','ፍ','ፎ'],note:'"ፊደል" (fidel/alphabet) starts with this character!'},
+  {name:'p',sound:'like English "p"',forms:['ፐ','ፑ','ፒ','ፓ','ፔ','ፕ','ፖ'],note:'Rare in native Tigrinya — mainly used in loanwords.'},
 ];
 
-/* ═══════════════════════════════════
-   TRADING CARDS DATA
-═══════════════════════════════════ */
+/* ═══ TRADING CARDS — 60+ cards, 8 pack types ═══ */
 const ALL_CARDS = [
-  // Common — vocabulary
-  {id:'c01',rarity:'common',art:'🌿',g:'ሰላም',t:'selam',e:'hello / peace',cat:'Vocabulary'},
-  {id:'c02',rarity:'common',art:'🔢',g:'ሓደ',t:'hade',e:'one',cat:'Numbers'},
+  // COMMON — Vocabulary (20)
+  {id:'c01',rarity:'common',art:'🕊️',g:'ሰላም',t:'selam',e:'hello / peace',cat:'Greetings'},
+  {id:'c02',rarity:'common',art:'1️⃣',g:'ሓደ',t:'hade',e:'one',cat:'Numbers'},
   {id:'c03',rarity:'common',art:'🍞',g:'እንጀራ',t:'injera',e:'flatbread',cat:'Food'},
   {id:'c04',rarity:'common',art:'👩',g:'ኣደ',t:'ade',e:'mother',cat:'Family'},
   {id:'c05',rarity:'common',art:'❤️',g:'ቀይሕ',t:'qeyh',e:'red',cat:'Colors'},
@@ -620,188 +767,138 @@ const ALL_CARDS = [
   {id:'c08',rarity:'common',art:'👨',g:'ኣቦ',t:'abo',e:'father',cat:'Family'},
   {id:'c09',rarity:'common',art:'🌿',g:'ሓምላይ',t:'hamlay',e:'green',cat:'Colors'},
   {id:'c10',rarity:'common',art:'🔢',g:'ዓሰርተ',t:'aserte',e:'ten',cat:'Numbers'},
-  {id:'c11',rarity:'common',art:'🌅',g:'ጽባሕ',t:'tsbah',e:'morning',cat:'Time'},
-  {id:'c12',rarity:'common',art:'🌙',g:'ምሸት',t:'mshet',e:'evening',cat:'Time'},
-  // Rare — phrases + cultural
-  {id:'r01',rarity:'rare',art:'🕊️',g:'የቐንየለይ',t:'yeqenyeley',e:'thank you',cat:'Phrases'},
-  {id:'r02',rarity:'rare',art:'☕',g:'ቡን ስነ-ስርዓት',t:'bun sne-sriate',e:'coffee ceremony',cat:'Culture'},
-  {id:'r03',rarity:'rare',art:'🏔️',g:'ኤርትራ',t:'eritrea',e:'Eritrea',cat:'Places'},
+  {id:'c11',rarity:'common',art:'🌅',g:'ጽባሕ',t:'tsbah',e:'morning/tomorrow',cat:'Time'},
+  {id:'c12',rarity:'common',art:'🏠',g:'ቤት',t:'bet',e:'home / house',cat:'Places'},
+  {id:'c13',rarity:'common',art:'🦁',g:'ኣንበሳ',t:'anbesa',e:'lion',cat:'Animals'},
+  {id:'c14',rarity:'common',art:'🌞',g:'ጸሓይ',t:'tsehay',e:'sun',cat:'Nature'},
+  {id:'c15',rarity:'common',art:'👁️',g:'ዓይኒ',t:'ayni',e:'eye',cat:'Body'},
+  {id:'c16',rarity:'common',art:'❤️',g:'ፍቕሪ',t:'fiqri',e:'love',cat:'Emotions'},
+  {id:'c17',rarity:'common',art:'👗',g:'ክዳን',t:'kdan',e:'clothing',cat:'Clothing'},
+  {id:'c18',rarity:'common',art:'🏃',g:'ይኸይድ',t:'ykheyid',e:'he goes',cat:'Actions'},
+  {id:'c19',rarity:'common',art:'🌙',g:'ወርሒ',t:'werhi',e:'moon / month',cat:'Nature'},
+  {id:'c20',rarity:'common',art:'😊',g:'ሓጎስ',t:'hagos',e:'happiness',cat:'Emotions'},
+  // COMMON — extra (5)
+  {id:'c21',rarity:'common',art:'🐴',g:'ፈረስ',t:'feres',e:'horse',cat:'Animals'},
+  {id:'c22',rarity:'common',art:'⭐',g:'ኮኾብ',t:'kokhob',e:'star',cat:'Nature'},
+  {id:'c23',rarity:'common',art:'🗺️',g:'ሃገር',t:'hager',e:'homeland',cat:'Places'},
+  {id:'c24',rarity:'common',art:'🗓️',g:'ሰሉስ',t:'selus',e:'Tuesday',cat:'Time'},
+  {id:'c25',rarity:'common',art:'✍️',g:'ይጽሕፍ',t:'ytshf',e:'he writes',cat:'Actions'},
+  // RARE — Phrases, Culture, Grammar (18)
+  {id:'r01',rarity:'rare',art:'🙏',g:'የቐንየለይ',t:'yeqenyeley',e:'thank you',cat:'Phrases'},
+  {id:'r02',rarity:'rare',art:'☕',g:'ቡን ስነ-ስርዓት',t:'bun ceremony',e:'coffee ceremony',cat:'Culture'},
+  {id:'r03',rarity:'rare',art:'🏔️',g:'ደብሪ',t:'debri',e:'mountain',cat:'Nature'},
   {id:'r04',rarity:'rare',art:'🌟',g:'ጽቡቕ',t:'tsbuk',e:'good / fine',cat:'Phrases'},
   {id:'r05',rarity:'rare',art:'🎶',g:'ዜማ',t:'zema',e:'music / melody',cat:'Culture'},
   {id:'r06',rarity:'rare',art:'🤝',g:'ምሕዝነት',t:'mhznet',e:'friendship / unity',cat:'Culture'},
   {id:'r07',rarity:'rare',art:'🏛️',g:'ኣስመራ',t:'asmera',e:'Asmara (capital)',cat:'Places'},
-  {id:'r08',rarity:'rare',art:'⛵',g:'ምጽዋ',t:'mitswa',e:'Massawa (Red Sea port)',cat:'Places'},
-  // Legendary — wisdom + proverbs
+  {id:'r08',rarity:'rare',art:'⛵',g:'ምጽዋ',t:'mitswa',e:'Massawa',cat:'Places'},
+  {id:'r09',rarity:'rare',art:'📖',g:'ቤት ትምህርቲ',t:'bet tmhrti',e:'school',cat:'Places'},
+  {id:'r10',rarity:'rare',art:'🌧️',g:'ዝናም',t:'znam',e:'rain',cat:'Nature'},
+  {id:'r11',rarity:'rare',art:'🦅',g:'ንስሪ',t:'nsri',e:'eagle',cat:'Animals'},
+  {id:'r12',rarity:'rare',art:'💪',g:'ተስፋ',t:'tesfa',e:'hope',cat:'Emotions'},
+  {id:'r13',rarity:'rare',art:'👑',g:'ሰናይ ፍጠር',t:'senay fter',e:'go in peace',cat:'Phrases'},
+  {id:'r14',rarity:'rare',art:'🌊',g:'ባሕሪ',t:'bahri',e:'sea',cat:'Nature'},
+  {id:'r15',rarity:'rare',art:'📅',g:'ሰሉስ→ዓርቢ',t:'selus-arbi',e:'Days of the Week',cat:'Grammar'},
+  {id:'r16',rarity:'rare',art:'💬',g:'ትዛረብ',t:'tzereb',e:'she speaks',cat:'Grammar'},
+  {id:'r17',rarity:'rare',art:'🏺',g:'ናፍቖት',t:'nafqot',e:'longing / nostalgia',cat:'Emotions'},
+  {id:'r18',rarity:'rare',art:'🧡',g:'ምስጋና',t:'mzgana',e:'gratitude',cat:'Emotions'},
+  // LEGENDARY — Proverbs, History (12)
   {id:'l01',rarity:'legendary',art:'✨',g:'ሰላም ዘይብሉ ሃብቲ የለን',t:'selam zeyblu habti yelen',e:'Without peace there is no wealth',cat:'Proverb'},
   {id:'l02',rarity:'legendary',art:'🌍',g:'ሓቂ ትዕወት',t:'haqi titwet',e:'Truth prevails',cat:'Proverb'},
-  {id:'l03',rarity:'legendary',art:'🔥',g:'ሓደ ሰብ ዓለም ኣይቅይርን',t:'hade seb alem ayqeyrn',e:'One person cannot change the world alone',cat:'Proverb'},
+  {id:'l03',rarity:'legendary',art:'🔥',g:'ሰብ ዘይጸዓሮ ሓዊ ዘይሓቅቅ',t:'seb zeytsearo hawi zeyhaqq',e:'Fire that no one tends will not burn forever',cat:'Proverb'},
   {id:'l04',rarity:'legendary',art:'🌟',g:'ፍልጠት ሃብቲ እዩ',t:'fltset habti eyu',e:'Knowledge is wealth',cat:'Proverb'},
+  {id:'l05',rarity:'legendary',art:'🏛️',g:'ኤርትራ ሃገርና',t:'eritrea hagerna',e:'Eritrea our homeland',cat:'History'},
+  {id:'l06',rarity:'legendary',art:'🌺',g:'ናቕፋ',t:'naqfa',e:'Nakfa — city of resistance',cat:'History'},
+  {id:'l07',rarity:'legendary',art:'💎',g:'ሓደ ሕብረተ-ሰብ',t:'hade hbrete-seb',e:'One community (national motto)',cat:'History'},
+  {id:'l08',rarity:'legendary',art:'🕊️',g:'ምሓር ሰላም',t:'mhar selam',e:'Seek peace',cat:'Proverb'},
+  {id:'l09',rarity:'legendary',art:'🌱',g:'ቆልዓ ናይ ጽባሕ',t:'qolaa nay tsbah',e:'Children are tomorrow',cat:'Proverb'},
+  {id:'l10',rarity:'legendary',art:'⚡',g:'ዓወት ንሓፋሽ',t:'awet nhafash',e:'Victory to the masses',cat:'History'},
+  {id:'l11',rarity:'legendary',art:'🎭',g:'ትግርኛ ቋንቋ ልቢ',t:'tigrinya quanqa lbi',e:'Tigrinya is the language of the heart',cat:'Culture'},
+  {id:'l12',rarity:'legendary',art:'🏆',g:'ምቕዳም ቋንቋ ኣዲኻ',t:'mqdm quanqa adika',e:'Master your mother tongue first',cat:'Proverb'},
 ];
 
 const PACKS = [
-  {id:'basic',name:'Basic Pack',ico:'📦',cost:30,rarity:'common',desc:'3 cards · Common only',color:'pack-common',glow:''},
-  {id:'rare',name:'Rare Pack',ico:'💎',cost:75,rarity:'rare',desc:'3 cards · Rare guaranteed',color:'pack-rare',glow:'pack-glow-rare'},
-  {id:'legend',name:'Legend Pack',ico:'🌟',cost:150,rarity:'legendary',desc:'3 cards · Legendary possible',color:'pack-legend',glow:'pack-glow-legend'},
+  {id:'starter',name:'Starter',ico:'🎁',cost:15,desc:'5 cards · all common',color:'pack-common',draw:(i)=>ALL_CARDS.filter(c=>c.rarity==='common')},
+  {id:'basic',name:'Basic',ico:'📦',cost:30,desc:'3 cards · common',color:'pack-common',draw:(i)=>ALL_CARDS.filter(c=>c.rarity==='common')},
+  {id:'culture',name:'Culture',ico:'🏛️',cost:45,desc:'3 cards · culture theme',color:'pack-common',draw:(i)=>ALL_CARDS.filter(c=>['Culture','History','Places'].includes(c.cat))},
+  {id:'nature',name:'Nature',ico:'🌿',cost:50,desc:'3 cards · nature & animals',color:'pack-common',draw:(i)=>ALL_CARDS.filter(c=>['Nature','Animals'].includes(c.cat))},
+  {id:'emotion',name:'Feelings',ico:'❤️',cost:55,desc:'3 cards · emotions focus',color:'pack-common',draw:(i)=>ALL_CARDS.filter(c=>['Emotions','Phrases'].includes(c.cat))},
+  {id:'rare',name:'Rare',ico:'💎',cost:80,desc:'3 cards · rare guaranteed',color:'pack-rare',guaranteed:'rare'},
+  {id:'proverb',name:'Proverb',ico:'📜',cost:100,desc:'3 cards · proverb focus',color:'pack-rare',draw:(i)=>ALL_CARDS.filter(c=>c.cat==='Proverb'||c.rarity==='rare')},
+  {id:'legend',name:'Legend',ico:'🌟',cost:150,desc:'3 cards · legendary possible',color:'pack-legend'},
 ];
 
-/* ═══════════════════════════════════
-   GRAMMAR DATA
-═══════════════════════════════════ */
+/* GRAMMAR LESSONS */
 const GRAMMAR_LESSONS = [
-  {
-    title:'Sentence Structure',subtitle:'SOV — Subject · Object · Verb',
-    content:`
-    <div class="lesson-text">Tigrinya follows <strong>SOV order</strong> — Subject first, Object second, Verb last. This is different from English (SVO).<br><br>In English: "I drink water"<br>In Tigrinya: "I water drink" → <strong>ኣነ ማይ እሰቲ</strong></div>
-    <div class="example-row"><div class="ex-ge ge">ኣነ ማይ እሰቲ።</div><div class="ex-tr">ane may isti.</div><div class="ex-en">I drink water.</div><div class="ex-note">Literally: I · water · drink</div></div>
-    <div class="example-row"><div class="ex-ge ge">ሳሙኤል እንጀራ ይበልዕ።</div><div class="ex-tr">samuel injera ybele.</div><div class="ex-en">Samuel eats injera.</div><div class="ex-note">Literally: Samuel · injera · eats</div></div>
-    <div class="example-row"><div class="ex-ge ge">ሳራ ቡን ትሰቲ።</div><div class="ex-tr">sara bun tisti.</div><div class="ex-en">Sara drinks coffee.</div><div class="ex-note">Note: verb changes based on subject gender</div></div>
-    <div class="lesson-text"><strong>Key rule:</strong> The verb always comes at the end of the sentence. The verb also agrees in gender and number with the subject.</div>
-    `
-  },
-  {
-    title:'Pronouns',subtitle:'Subject pronouns — who is doing the action',
-    content:`
-    <div class="lesson-text">Tigrinya pronouns are <strong>gendered</strong> — "you" has separate forms for addressing a male (masculine) or female (feminine). This is a key feature of the language.</div>
-    <div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>Ge'ez</th><th>Romanization</th></tr>
-    <tr><td>I</td><td><span class="td-ge ge">ኣነ</span><div class="td-tr">ane</div></td><td>ane</td></tr>
-    <tr><td>You (male)</td><td><span class="td-ge ge">ንስኻ</span><div class="td-tr">nsikha</div></td><td>nsikha</td></tr>
-    <tr><td>You (female)</td><td><span class="td-ge ge">ንስኺ</span><div class="td-tr">nski</div></td><td>nski</td></tr>
-    <tr><td>He</td><td><span class="td-ge ge">ንሱ</span><div class="td-tr">nsu</div></td><td>nsu</td></tr>
-    <tr><td>She</td><td><span class="td-ge ge">ንሳ</span><div class="td-tr">nsa</div></td><td>nsa</td></tr>
-    <tr><td>We</td><td><span class="td-ge ge">ንሕና</span><div class="td-tr">nhna</div></td><td>nhna</td></tr>
-    <tr><td>You (plural)</td><td><span class="td-ge ge">ንስኹም</span><div class="td-tr">nskum</div></td><td>nskum</td></tr>
-    <tr><td>They</td><td><span class="td-ge ge">ንሳቶም</span><div class="td-tr">nsatom</div></td><td>nsatom</td></tr>
-    </table></div>
-    <div class="example-row"><div class="ex-ge ge">ንሱ ሓው እዩ።</div><div class="ex-tr">nsu haw eyu.</div><div class="ex-en">He is a brother.</div></div>
-    <div class="example-row"><div class="ex-ge ge">ንሳ ኣደ እያ።</div><div class="ex-tr">nsa ade eya.</div><div class="ex-en">She is a mother.</div></div>
-    `
-  },
-  {
-    title:'Verb "To Be"',subtitle:'እዩ / እያ / እዩም — expressing existence',
-    content:`
-    <div class="lesson-text">The verb "to be" in Tigrinya changes based on the gender and number of the subject. It always comes at the <strong>end of the sentence</strong>.</div>
-    <div class="table-wrap"><table class="gram-table"><tr><th>Subject</th><th>Ge'ez</th><th>Meaning</th></tr>
-    <tr><td>I am</td><td><span class="td-ge ge">እየ</span><div class="td-tr">eye</div></td><td>I am</td></tr>
-    <tr><td>He is</td><td><span class="td-ge ge">እዩ</span><div class="td-tr">eyu</div></td><td>He is / It is (masc.)</td></tr>
-    <tr><td>She is</td><td><span class="td-ge ge">እያ</span><div class="td-tr">eya</div></td><td>She is / It is (fem.)</td></tr>
-    <tr><td>We are</td><td><span class="td-ge ge">ኢና</span><div class="td-tr">ina</div></td><td>We are</td></tr>
-    <tr><td>They are</td><td><span class="td-ge ge">እዮም</span><div class="td-tr">eyom</div></td><td>They are</td></tr>
-    </table></div>
-    <div class="example-row"><div class="ex-ge ge">ኣነ ተምሃራይ እየ።</div><div class="ex-tr">ane temharay eye.</div><div class="ex-en">I am a student.</div></div>
-    <div class="example-row"><div class="ex-ge ge">ንሱ ሓኪም እዩ።</div><div class="ex-tr">nsu hakim eyu.</div><div class="ex-en">He is a doctor.</div></div>
-    <div class="example-row"><div class="ex-ge ge">ንሳ ምምህርቲ እያ።</div><div class="ex-tr">nsa mmhrti eya.</div><div class="ex-en">She is a teacher.</div></div>
-    <div class="lesson-text"><strong>Pattern:</strong> [Subject] + [noun/adjective] + [to be]. The "to be" verb at the end always matches the subject's gender.</div>
-    `
-  },
-  {
-    title:'Simple Verbs',subtitle:'Present tense — actions happening now',
-    content:`
-    <div class="lesson-text">Tigrinya verbs are conjugated (changed) based on both the <strong>subject's gender</strong> and the <strong>number</strong> of people. The root verb changes its prefix and/or suffix. Here are common verbs in the present tense:</div>
-    <div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>He (masc.)</th><th>She (fem.)</th></tr>
-    <tr><td>eats</td><td><span class="td-ge ge">ይበልዕ</span><div class="td-tr">ybele</div></td><td><span class="td-ge ge">ትበልዕ</span><div class="td-tr">tbele</div></td></tr>
-    <tr><td>drinks</td><td><span class="td-ge ge">ይሰቲ</span><div class="td-tr">ysti</div></td><td><span class="td-ge ge">ትሰቲ</span><div class="td-tr">tsti</div></td></tr>
-    <tr><td>speaks</td><td><span class="td-ge ge">ይዛረብ</span><div class="td-tr">yzereb</div></td><td><span class="td-ge ge">ትዛረብ</span><div class="td-tr">tzereb</div></td></tr>
-    <tr><td>goes</td><td><span class="td-ge ge">ይኸይድ</span><div class="td-tr">ykheyid</div></td><td><span class="td-ge ge">ትኸይድ</span><div class="td-tr">tkheyid</div></td></tr>
-    <tr><td>sees</td><td><span class="td-ge ge">ይርኢ</span><div class="td-tr">yri</div></td><td><span class="td-ge ge">ትርኢ</span><div class="td-tr">tri</div></td></tr>
-    </table></div>
-    <div class="lesson-text"><strong>Key pattern:</strong> Masculine verbs use the prefix <strong style="color:var(--gold)">ይ-</strong> (y-). Feminine verbs use <strong style="color:var(--gold)">ት-</strong> (t-). "I" uses <strong style="color:var(--gold)">እ-</strong> (e-).</div>
-    <div class="example-row"><div class="ex-ge ge">ኣነ ትግርኛ እዛረብ።</div><div class="ex-tr">ane tigrinya ezereb.</div><div class="ex-en">I speak Tigrinya.</div></div>
-    `
-  },
-  {
-    title:'Questions',subtitle:'How to ask questions in Tigrinya',
-    content:`
-    <div class="lesson-text">Tigrinya has several question words. Yes/no questions are often formed by adding <strong>-ዶ</strong> (-do) or changing intonation.</div>
-    <div class="table-wrap"><table class="gram-table"><tr><th>Question word</th><th>Ge'ez</th><th>Romanization</th></tr>
-    <tr><td>What?</td><td><span class="td-ge ge">እንታይ?</span><div class="td-tr">entay?</div></td><td>entay?</td></tr>
-    <tr><td>Who?</td><td><span class="td-ge ge">መን?</span><div class="td-tr">men?</div></td><td>men?</td></tr>
-    <tr><td>Where?</td><td><span class="td-ge ge">ኣበይ?</span><div class="td-tr">abey?</div></td><td>abey?</td></tr>
-    <tr><td>When?</td><td><span class="td-ge ge">መዓስ?</span><div class="td-tr">meas?</div></td><td>meas?</td></tr>
-    <tr><td>How?</td><td><span class="td-ge ge">ከመይ?</span><div class="td-tr">kemey?</div></td><td>kemey?</td></tr>
-    <tr><td>How many?</td><td><span class="td-ge ge">ክንደይ?</span><div class="td-tr">kindey?</div></td><td>kindey?</td></tr>
-    <tr><td>Why?</td><td><span class="td-ge ge">ስለምንታይ?</span><div class="td-tr">slemntay?</div></td><td>slemntay?</td></tr>
-    </table></div>
-    <div class="example-row"><div class="ex-ge ge">ስምካ መን ዩ?</div><div class="ex-tr">smka men yu?</div><div class="ex-en">What is your name? (to a male)</div></div>
-    <div class="example-row"><div class="ex-ge ge">ከመይ ኣለካ?</div><div class="ex-tr">kemey aleka?</div><div class="ex-en">How are you? (to a male)</div></div>
-    <div class="example-row"><div class="ex-ge ge">ዕዳጋ ኣበይ ዩ?</div><div class="ex-tr">idaga abey yu?</div><div class="ex-en">Where is the market?</div></div>
-    `
-  },
-  {
-    title:'Negation',subtitle:'How to say "no", "not", and "never"',
-    content:`
-    <div class="lesson-text">To negate a verb in Tigrinya, add the prefix <strong style="color:var(--gold)">ኣይ-</strong> (ay-) before the verb and the suffix <strong style="color:var(--gold)">-ን</strong> (-n) at the end. It wraps around the verb like a sandwich.</div>
-    <div class="table-wrap"><table class="gram-table"><tr><th>Positive</th><th>Negative</th><th>Meaning</th></tr>
-    <tr><td><span class="td-ge ge">ይፈልጥ</span><div class="td-tr">yfelṭ (he knows)</div></td><td><span class="td-ge ge">ኣይፈልጥን</span><div class="td-tr">ayfelṭn</div></td><td>he doesn't know</td></tr>
-    <tr><td><span class="td-ge ge">ይሰቲ</span><div class="td-tr">ysti (he drinks)</div></td><td><span class="td-ge ge">ኣይሰትን</span><div class="td-tr">aystn</div></td><td>he doesn't drink</td></tr>
-    <tr><td><span class="td-ge ge">ይዛረብ</span><div class="td-tr">yzereb (he speaks)</div></td><td><span class="td-ge ge">ኣይዛረብን</span><div class="td-tr">ayzerebbn</div></td><td>he doesn't speak</td></tr>
-    </table></div>
-    <div class="lesson-text"><strong>Formula:</strong> <span style="color:var(--gold)">ኣይ</span> + verb root + <span style="color:var(--gold)">ን</span></div>
-    <div class="example-row"><div class="ex-ge ge">ኣነ ኣይፈልጥን።</div><div class="ex-tr">ane ayfeltn.</div><div class="ex-en">I don't know.</div></div>
-    <div class="example-row"><div class="ex-ge ge">ኣነ ቡን ኣይሰትን።</div><div class="ex-tr">ane bun aystn.</div><div class="ex-en">I don't drink coffee.</div></div>
-    <div class="example-row"><div class="ex-ge ge">ኣይፋልን።</div><div class="ex-tr">ayfalen.</div><div class="ex-en">No. (standalone refusal)</div></div>
-    `
-  },
+  {title:'Sentence Structure',sub:'SOV — Subject · Object · Verb',content:`<div class="lesson-text">Tigrinya follows <strong>SOV order</strong> — Subject first, Object second, Verb last. This differs from English (SVO).</div><div class="example-row"><div class="ex-ge ge">ኣነ ማይ እሰቲ።</div><div class="ex-tr">ane may isti.</div><div class="ex-en">I drink water.</div><div class="ex-note">Literally: I · water · drink</div></div><div class="example-row"><div class="ex-ge ge">ሳሙኤል እንጀራ ይበልዕ።</div><div class="ex-tr">samuel injera ybele.</div><div class="ex-en">Samuel eats injera.</div></div><div class="example-row"><div class="ex-ge ge">ሳራ ቡን ትሰቲ።</div><div class="ex-tr">sara bun tisti.</div><div class="ex-en">Sara drinks coffee.</div><div class="ex-note">Note: verb changes based on subject gender</div></div><div class="lesson-text"><strong>Key rule:</strong> The verb ALWAYS comes at the end. It also agrees in gender and number with the subject.</div>`},
+  {title:'Pronouns',sub:'Subject pronouns — who is doing the action',content:`<div class="lesson-text">Tigrinya pronouns are <strong>gendered</strong> — "you" has separate forms for male and female. This is a key feature of the language.</div><div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>Ge'ez</th><th>Roman</th></tr><tr><td>I</td><td><span class="td-ge ge">ኣነ</span></td><td>ane</td></tr><tr><td>You (m)</td><td><span class="td-ge ge">ንስኻ</span></td><td>nsikha</td></tr><tr><td>You (f)</td><td><span class="td-ge ge">ንስኺ</span></td><td>nski</td></tr><tr><td>He</td><td><span class="td-ge ge">ንሱ</span></td><td>nsu</td></tr><tr><td>She</td><td><span class="td-ge ge">ንሳ</span></td><td>nsa</td></tr><tr><td>We</td><td><span class="td-ge ge">ንሕና</span></td><td>nhna</td></tr><tr><td>You (pl)</td><td><span class="td-ge ge">ንስኹም</span></td><td>nskum</td></tr><tr><td>They</td><td><span class="td-ge ge">ንሳቶም</span></td><td>nsatom</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ንሱ ሓው እዩ።</div><div class="ex-tr">nsu haw eyu.</div><div class="ex-en">He is a brother.</div></div>`},
+  {title:'Verb "To Be"',sub:'እዩ / እያ / እዩም — expressing existence',content:`<div class="lesson-text">The verb "to be" changes based on <strong>gender and number</strong> of the subject. Always at the <strong>end</strong>.</div><div class="table-wrap"><table class="gram-table"><tr><th>Subject</th><th>Ge'ez</th><th>Roman</th></tr><tr><td>I am</td><td><span class="td-ge ge">እየ</span></td><td>eye</td></tr><tr><td>He is</td><td><span class="td-ge ge">እዩ</span></td><td>eyu</td></tr><tr><td>She is</td><td><span class="td-ge ge">እያ</span></td><td>eya</td></tr><tr><td>We are</td><td><span class="td-ge ge">ኢና</span></td><td>ina</td></tr><tr><td>They are</td><td><span class="td-ge ge">እዮም</span></td><td>eyom</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ኣነ ተምሃራይ እየ።</div><div class="ex-tr">ane temharay eye.</div><div class="ex-en">I am a student.</div></div><div class="example-row"><div class="ex-ge ge">ንሳ ምምህርቲ እያ።</div><div class="ex-tr">nsa mmhrti eya.</div><div class="ex-en">She is a teacher.</div></div>`},
+  {title:'Verbs',sub:'Present tense — actions happening now',content:`<div class="lesson-text">Tigrinya verbs conjugate based on <strong>subject gender and number</strong>. Masculine uses prefix <strong style="color:var(--gold)">ይ-</strong>, Feminine uses <strong style="color:var(--gold)">ት-</strong>, I uses <strong style="color:var(--gold)">እ-</strong>.</div><div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>He (m)</th><th>She (f)</th></tr><tr><td>eats</td><td><span class="td-ge ge">ይበልዕ</span><div class="td-tr">ybele</div></td><td><span class="td-ge ge">ትበልዕ</span><div class="td-tr">tbele</div></td></tr><tr><td>drinks</td><td><span class="td-ge ge">ይሰቲ</span><div class="td-tr">ysti</div></td><td><span class="td-ge ge">ትሰቲ</span><div class="td-tr">tsti</div></td></tr><tr><td>speaks</td><td><span class="td-ge ge">ይዛረብ</span><div class="td-tr">yzereb</div></td><td><span class="td-ge ge">ትዛረብ</span><div class="td-tr">tzereb</div></td></tr><tr><td>goes</td><td><span class="td-ge ge">ይኸይድ</span><div class="td-tr">ykheyid</div></td><td><span class="td-ge ge">ትኸይድ</span><div class="td-tr">tkheyid</div></td></tr></table></div><div class="example-row"><div class="ex-ge ge">ኣነ ትግርኛ እዛረብ።</div><div class="ex-tr">ane tigrinya ezereb.</div><div class="ex-en">I speak Tigrinya.</div></div>`},
+  {title:'Questions',sub:'How to ask questions in Tigrinya',content:`<div class="lesson-text">Question words go <strong>at or near the start</strong> of the question. Yes/no questions add <strong style="color:var(--gold)">-ዶ</strong> (-do) or change intonation.</div><div class="table-wrap"><table class="gram-table"><tr><th>Question</th><th>Ge'ez</th><th>Roman</th></tr><tr><td>What?</td><td><span class="td-ge ge">እንታይ?</span></td><td>entay?</td></tr><tr><td>Who?</td><td><span class="td-ge ge">መን?</span></td><td>men?</td></tr><tr><td>Where?</td><td><span class="td-ge ge">ኣበይ?</span></td><td>abey?</td></tr><tr><td>When?</td><td><span class="td-ge ge">መዓስ?</span></td><td>meas?</td></tr><tr><td>How?</td><td><span class="td-ge ge">ከመይ?</span></td><td>kemey?</td></tr><tr><td>How many?</td><td><span class="td-ge ge">ክንደይ?</span></td><td>kindey?</td></tr><tr><td>Why?</td><td><span class="td-ge ge">ስለምንታይ?</span></td><td>slemntay?</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ከመይ ኣለካ?</div><div class="ex-tr">kemey aleka?</div><div class="ex-en">How are you? (to a male)</div></div>`},
+  {title:'Negation',sub:'How to say "not" — the ኣይ-...-ን sandwich',content:`<div class="lesson-text">To negate a verb, wrap it: <strong style="color:var(--gold)">ኣይ-</strong> (ay-) before + <strong style="color:var(--gold)">-ን</strong> (-n) after.</div><div class="table-wrap"><table class="gram-table"><tr><th>Positive</th><th>Negative</th><th>Meaning</th></tr><tr><td><span class="td-ge ge">ይፈልጥ</span><div class="td-tr">he knows</div></td><td><span class="td-ge ge">ኣይፈልጥን</span><div class="td-tr">ayfeltn</div></td><td>he doesn't know</td></tr><tr><td><span class="td-ge ge">ይሰቲ</span><div class="td-tr">he drinks</div></td><td><span class="td-ge ge">ኣይሰትን</span><div class="td-tr">aystn</div></td><td>he doesn't drink</td></tr><tr><td><span class="td-ge ge">ይዛረብ</span><div class="td-tr">he speaks</div></td><td><span class="td-ge ge">ኣይዛረብን</span><div class="td-tr">ayzerebbn</div></td><td>he doesn't speak</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ኣነ ቡን ኣይሰትን።</div><div class="ex-tr">ane bun aystn.</div><div class="ex-en">I don't drink coffee.</div></div>`},
+  {title:'Adjectives',sub:'Describing nouns — adjectives come before the noun',content:`<div class="lesson-text">In Tigrinya, adjectives typically come <strong>before</strong> the noun they describe. They also agree in gender with the noun they modify.</div><div class="table-wrap"><table class="gram-table"><tr><th>Adjective</th><th>Ge'ez</th><th>Roman</th></tr><tr><td>big</td><td><span class="td-ge ge">ዓቢ (m) / ዓባይ (f)</span><div class="td-tr">abi / abay</div></td><td>abi / abay</td></tr><tr><td>small</td><td><span class="td-ge ge">ንኣሽቱ</span><div class="td-tr">neshtu</div></td><td>neshtu</td></tr><tr><td>good</td><td><span class="td-ge ge">ጽቡቕ (m) / ጽብቕቲ (f)</span><div class="td-tr">tsbuk / tsbqti</div></td><td>tsbuk / tsbqti</td></tr><tr><td>new</td><td><span class="td-ge ge">ሓዲሽ</span><div class="td-tr">hadish</div></td><td>hadish</td></tr><tr><td>old</td><td><span class="td-ge ge">ኣረጊት</span><div class="td-tr">aregit</div></td><td>aregit</td></tr><tr><td>beautiful</td><td><span class="td-ge ge">ጸብቕ</span><div class="td-tr">tsebq</div></td><td>tsebq</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ዓቢ ቤት</div><div class="ex-tr">abi bet</div><div class="ex-en">big house</div></div><div class="example-row"><div class="ex-ge ge">ጽቡቕ ሰብ</div><div class="ex-tr">tsbuk seb</div><div class="ex-en">a good person</div></div>`},
+  {title:'Possession',sub:'My, your, his, her — possessive suffixes',content:`<div class="lesson-text">In Tigrinya, possession is shown by <strong>attaching suffixes</strong> to the noun. The suffix changes based on the gender of the <em>owner</em> (not the object).</div><div class="table-wrap"><table class="gram-table"><tr><th>Owner</th><th>Suffix</th><th>Example (house = ቤት)</th></tr><tr><td>my</td><td>-ey</td><td><span class="td-ge ge">ቤተይ</span><div class="td-tr">betey — my house</div></td></tr><tr><td>your (m)</td><td>-ka</td><td><span class="td-ge ge">ቤትካ</span><div class="td-tr">betka — your house</div></td></tr><tr><td>your (f)</td><td>-ki</td><td><span class="td-ge ge">ቤትኪ</span><div class="td-tr">betki — your house</div></td></tr><tr><td>his</td><td>-u</td><td><span class="td-ge ge">ቤቱ</span><div class="td-tr">betu — his house</div></td></tr><tr><td>her</td><td>-a</td><td><span class="td-ge ge">ቤታ</span><div class="td-tr">beta — her house</div></td></tr><tr><td>our</td><td>-na</td><td><span class="td-ge ge">ቤትና</span><div class="td-tr">betna — our house</div></td></tr></table></div><div class="example-row"><div class="ex-ge ge">ኣደይ ጽብቕቲ እያ።</div><div class="ex-tr">adey tsbqti eya.</div><div class="ex-en">My mother is beautiful.</div></div>`},
+  {title:'Past Tense',sub:'Actions that already happened',content:`<div class="lesson-text">The past tense in Tigrinya is formed by <strong>modifying the verb root</strong>. The pattern changes based on gender. Note: there is no separate "was" verb — context makes it clear.</div><div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>He (past)</th><th>She (past)</th></tr><tr><td>ate</td><td><span class="td-ge ge">በልዔ</span><div class="td-tr">bele'e</div></td><td><span class="td-ge ge">በልዔት</span><div class="td-tr">bele'et</div></td></tr><tr><td>drank</td><td><span class="td-ge ge">ሰተየ</span><div class="td-tr">seteye</div></td><td><span class="td-ge ge">ሰተየት</span><div class="td-tr">seteyaet</div></td></tr><tr><td>went</td><td><span class="td-ge ge">ከደ</span><div class="td-tr">kede</div></td><td><span class="td-ge ge">ከደት</span><div class="td-tr">kedet</div></td></tr><tr><td>spoke</td><td><span class="td-ge ge">ተዛረበ</span><div class="td-tr">tezarebe</div></td><td><span class="td-ge ge">ተዛረበት</span><div class="td-tr">tezarebet</div></td></tr></table></div><div class="example-row"><div class="ex-ge ge">ንሱ ማይ ሰተየ።</div><div class="ex-tr">nsu may seteye.</div><div class="ex-en">He drank water.</div></div><div class="lesson-text"><strong>Pattern:</strong> Past tense feminine adds <strong style="color:var(--gold)">-ት (-t)</strong> to the masculine past form.</div>`},
+  {title:'Prepositions',sub:'ካብ, ናብ, ምስ, ብ — location and direction',content:`<div class="lesson-text">Tigrinya prepositions come <strong>before</strong> the noun, similar to English. They indicate location, direction, and relationships.</div><div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>Ge'ez</th><th>Roman</th></tr><tr><td>from</td><td><span class="td-ge ge">ካብ</span></td><td>kab</td></tr><tr><td>to / towards</td><td><span class="td-ge ge">ናብ</span></td><td>nab</td></tr><tr><td>with</td><td><span class="td-ge ge">ምስ</span></td><td>ms</td></tr><tr><td>in / by / with</td><td><span class="td-ge ge">ብ</span></td><td>b</td></tr><tr><td>at / in</td><td><span class="td-ge ge">ኣብ</span></td><td>ab</td></tr><tr><td>for / because of</td><td><span class="td-ge ge">ንምኽንያት</span></td><td>nmknyat</td></tr><tr><td>until / up to</td><td><span class="td-ge ge">ክሳብ</span></td><td>ksab</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ካብ ኣስመራ ናብ ምጽዋ</div><div class="ex-tr">kab asmera nab mitswa</div><div class="ex-en">from Asmara to Massawa</div></div><div class="example-row"><div class="ex-ge ge">ኣብ ቤት ኣለኹ።</div><div class="ex-tr">ab bet aleku.</div><div class="ex-en">I am at home.</div></div>`},
 ];
 
-/* Sentence Builder exercises */
 const SB_EXERCISES = [
-  {eng:'I drink water.',words:['ኣነ','ማይ','እሰቲ','።'],answer:['ኣነ','ማይ','እሰቲ','።'],hint:'I · water · drink'},
-  {eng:'She is a teacher.',words:['ንሳ','ምምህርቲ','እያ','።'],answer:['ንሳ','ምምህርቲ','እያ','።'],hint:'She · teacher · is'},
+  {eng:'I drink water.',words:['ኣነ','ማይ','እሰቲ','።'],answer:['ኣነ','ማይ','እሰቲ','།'],hint:'I · water · drink'},
+  {eng:'She is a teacher.',words:['ንሳ','ምምህርቲ','እያ','།'],answer:['ንሳ','ምምህርቲ','እያ','།'],hint:'She · teacher · is'},
   {eng:'Samuel eats injera.',words:['ሳሙኤል','ይበልዕ','እንጀራ','།'],answer:['ሳሙኤል','እንጀራ','ይበልዕ','།'],hint:'Samuel · injera · eats'},
   {eng:'He is a doctor.',words:['ንሱ','ሓኪም','እዩ','།'],answer:['ንሱ','ሓኪም','እዩ','།'],hint:'He · doctor · is'},
   {eng:"I don't know.",words:['ኣነ','ኣይፈልጥን','།'],answer:['ኣነ','ኣይፈልጥን','།'],hint:'I · (neg.)know'},
   {eng:'Where is the market?',words:['ዕዳጋ','ኣበይ','ዩ','?'],answer:['ዕዳጋ','ኣበይ','ዩ','?'],hint:'market · where · is'},
   {eng:'We speak Tigrinya.',words:['ንሕና','ትግርኛ','ንዛረብ','།'],answer:['ንሕና','ትግርኛ','ንዛረብ','།'],hint:'We · Tigrinya · speak'},
-  {eng:'How are you? (to a male)',words:['ከመይ','ኣለካ','?'],answer:['ከመይ','ኣለካ','?'],hint:'How · are-you'},
+  {eng:'My house is big.',words:['ቤተይ','ዓቢ','እዩ','།'],answer:['ቤተይ','ዓቢ','እዩ','།'],hint:'My-house · big · is'},
+  {eng:'He drank water.',words:['ንሱ','ማይ','ሰተየ','།'],answer:['ንሱ','ማይ','ሰተየ','།'],hint:'He · water · drank'},
+  {eng:'From Asmara to Massawa.',words:['ካብ','ኣስመራ','ናብ','ምጽዋ'],answer:['ካብ','ኣስመራ','ናብ','ምጽዋ'],hint:'from · Asmara · to · Massawa'},
+  {eng:'The sun is beautiful.',words:['ጸሓይ','ጽብቕቲ','እያ','།'],answer:['ጸሓይ','ጽብቕቲ','እያ','།'],hint:'Sun · beautiful · is'},
+  {eng:'I am at home.',words:['ኣብ','ቤት','ኣለኹ','།'],answer:['ኣብ','ቤት','ኣለኹ','།'],hint:'at · home · I-am'},
 ];
 
-/* ═══════════════════════════════════
-   ACHIEVEMENTS
-═══════════════════════════════════ */
+/* ACHIEVEMENTS */
 const ACHS=[
-  {id:'first',  nm:'First Steps',     ge:'ቀዳማይ ስጉምቲ',d:'Answer your first question',         ico:'🌱',xp:10, ok:s=>s.tot>=1},
-  {id:'str3',   nm:'On a Roll',       ge:'ቀጻሊ',        d:'Get 3 correct in a row',             ico:'🔥',xp:15, ok:s=>s.best>=3},
-  {id:'str5',   nm:'Hot Streak',      ge:'ሓዊ',          d:'Get 5 correct in a row',             ico:'⚡',xp:25, ok:s=>s.best>=5},
-  {id:'str10',  nm:'Unstoppable',     ge:'ዘይቆጠን',      d:'Get 10 correct in a row',            ico:'🌪️',xp:50,ok:s=>s.best>=10},
-  {id:'c50',    nm:'Word Master',     ge:'ሊቅ ቃላት',     d:'Get 50 correct answers',             ico:'📚',xp:50, ok:s=>s.cor>=50},
-  {id:'fidel5', nm:'Script Student',  ge:'ተምሃራይ ፊደል', d:'Explore 5 fidel character families', ico:'📜',xp:25, ok:s=>(s.fidelLearned||0)>=5},
-  {id:'fidel22',nm:'Fidel Master',    ge:'ሊቅ ፊደል',     d:'Explore all 22 fidel families',      ico:'🏛️',xp:100,ok:s=>(s.fidelLearned||0)>=22},
-  {id:'write5', nm:'First Strokes',   ge:'ቀዳሞት ጽሑፍ',  d:'Practice writing 5 times',           ico:'✍️',xp:20,ok:s=>(s.writeSessions||0)>=5},
-  {id:'gram3',  nm:'Grammar Nerd',    ge:'ሊቅ ሰዋስው',    d:'Complete 3 sentence builder exercises',ico:'📝',xp:30,ok:s=>(s.sbCorrect||0)>=3},
-  {id:'gram10', nm:'Sentence Builder',ge:'ሰራሒ ሓሳብ',    d:'Complete 10 sentence builder exercises',ico:'🏗️',xp:60,ok:s=>(s.sbCorrect||0)>=10},
-  {id:'pack1',  nm:'Card Collector',  ge:'ኣኻብቢ ካርድ',   d:'Open your first pack',               ico:'📦',xp:20, ok:s=>(s.packsOpened||0)>=1},
-  {id:'pack10', nm:'Pack Addict',     ge:'ሓጋዚ ካርድ',    d:'Open 10 packs',                      ico:'🎁',xp:60, ok:s=>(s.packsOpened||0)>=10},
-  {id:'legend', nm:'Legendary',       ge:'ዓቢ ዝናን',      d:'Collect a Legendary card',           ico:'🌟',xp:100,ok:s=>(s.collection||[]).some(id=>ALL_CARDS.find(c=>c.id===id)?.rarity==='legendary')},
-  {id:'allcat', nm:'Well-Rounded',    ge:'ምሉእ ትምህርቲ',  d:'Play all 6 vocabulary categories',   ico:'🌍',xp:60, ok:s=>(s.visited||[]).length>=6},
-  {id:'lv5',    nm:'Rising Star',     ge:'ደይቦ ኮኾብ',    d:'Reach Level 5',                      ico:'⭐',xp:75, ok:s=>lv(s.xp)>=5},
-  {id:'lv10',   nm:'Tigrinya Adept',  ge:'ፈላጢ ትግርኛ',   d:'Reach Level 10',                     ico:'🌟',xp:150,ok:s=>lv(s.xp)>=10},
+  {id:'first',nm:'First Steps',ge:'ቀዳማይ ስጉምቲ',d:'Answer your first question',ico:'🌱',xp:10,ok:s=>s.tot>=1},
+  {id:'str5',nm:'Hot Streak',ge:'ሓዊ',d:'Get 5 correct in a row',ico:'⚡',xp:25,ok:s=>s.best>=5},
+  {id:'str10',nm:'Unstoppable',ge:'ዘይቆጠን',d:'Get 10 correct in a row',ico:'🌪️',xp:50,ok:s=>s.best>=10},
+  {id:'c50',nm:'Word Master',ge:'ሊቅ ቃላት',d:'Get 50 correct answers',ico:'📚',xp:50,ok:s=>s.cor>=50},
+  {id:'c100',nm:'Scholar',ge:'ሊቅ',d:'Get 100 correct answers',ico:'🎓',xp:100,ok:s=>s.cor>=100},
+  {id:'fidel5',nm:'Script Student',ge:'ተምሃራይ ፊደል',d:'Explore 5 fidel families',ico:'📜',xp:25,ok:s=>(s.fidelLearned||0)>=5},
+  {id:'fidel22',nm:'Fidel Master',ge:'ሊቅ ፊደል',d:'Explore all 22 families',ico:'🏛️',xp:100,ok:s=>(s.fidelLearned||0)>=22},
+  {id:'write5',nm:'First Strokes',ge:'ቀዳሞት ጽሑፍ',d:'Practice writing 5 times',ico:'✍️',xp:20,ok:s=>(s.writeSessions||0)>=5},
+  {id:'acc80',nm:'Precise Strokes',ge:'ልክዕ ጽሑፍ',d:'Get 80%+ accuracy while tracing',ico:'🎯',xp:30,ok:s=>(s.bestAccuracy||0)>=80},
+  {id:'gram5',nm:'Sentence Builder',ge:'ሰራሒ ሓሳብ',d:'Complete 5 sentence exercises',ico:'🏗️',xp:30,ok:s=>(s.sbCorrect||0)>=5},
+  {id:'gram10',nm:'Grammar Expert',ge:'ሊቅ ሰዋስው',d:'Complete 10 sentence exercises',ico:'📝',xp:60,ok:s=>(s.sbCorrect||0)>=10},
+  {id:'pack1',nm:'Card Collector',ge:'ኣኻብቢ ካርድ',d:'Open your first pack',ico:'📦',xp:20,ok:s=>(s.packsOpened||0)>=1},
+  {id:'pack10',nm:'Pack Addict',ge:'ሓጋዚ ካርድ',d:'Open 10 packs',ico:'🎁',xp:60,ok:s=>(s.packsOpened||0)>=10},
+  {id:'legend',nm:'Legendary',ge:'ዓቢ ዝናን',d:'Collect a Legendary card',ico:'🌟',xp:100,ok:s=>(s.collection||[]).some(id=>ALL_CARDS.find(c=>c.id===id)?.rarity==='legendary')},
+  {id:'allcat',nm:'Completionist',ge:'ምሉእ ትምህርቲ',d:'Play all 14 word categories',ico:'🌍',xp:80,ok:s=>(s.visited||[]).length>=14},
+  {id:'lv5',nm:'Rising Star',ge:'ደይቦ ኮኾብ',d:'Reach Level 5',ico:'⭐',xp:75,ok:s=>lv(s.xp)>=5},
+  {id:'lv10',nm:'Tigrinya Adept',ge:'ፈላጢ ትግርኛ',d:'Reach Level 10',ico:'🌟',xp:150,ok:s=>lv(s.xp)>=10},
+  {id:'tts10',nm:'Good Listener',ge:'ሰሚዒ',d:'Use TTS to listen 10 times',ico:'🔊',xp:20,ok:s=>(s.ttsCount||0)>=10},
 ];
 
-/* ═══════════════════════════════════
-   STATE
-═══════════════════════════════════ */
-const SK='tigrinya_v4';
+/* STATE */
+const SK='tigrinya_v5';
 let S=(()=>{try{const r=localStorage.getItem(SK);if(r)return JSON.parse(r);}catch(e){}
-  return{xp:0,cor:0,tot:0,streak:0,best:0,matches:0,hunts:0,perfectQuiz:0,visited:[],wl:[],cw:{},
-    coins:0,collection:[],packsOpened:0,fidelLearned:0,fidelSeen:[],writeSessions:0,rqCorrect:0,sbCorrect:0};
+  return{xp:0,cor:0,tot:0,streak:0,best:0,matches:0,hunts:0,perfectQuiz:0,visited:[],wl:[],cw:{},coins:0,collection:[],packsOpened:0,fidelLearned:0,fidelSeen:[],writeSessions:0,rqCorrect:0,sbCorrect:0,ttsCount:0,bestAccuracy:0};
 })();
 let mode=null,cat=null,currentGrammarTab=0,currentCardsTab='shop',currentScriptTab='chart';
 let fcDeck=[],fcIdx=0,fcFlipped=false,fcReview=[];
 let qDeck=[],qIdx=0,qDone=false,qSesErr=0;
 let mPairs=[],mSel=null,mFound=0,mTI=null,mSecs=0;
 let wsGrid=[],wsTarget=[],wsSel=[],wsFound=[],wsDragging=false,wsPlaced=[];
-let sbIdx=0,sbPlaced=[],sbDone=false,writeXPclaimed=false,rqDone=false,rqQueue=[];
+let sbExIdx=0,writeXPclaimed=false,rqDoneFlag=false,rqQueue=[];
+let canvas,ctx,drawing=false,strokePoints=[],targetPixelSet=null;
 
 function save(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
-
-/* XP/LEVEL/COINS */
 function lv(xp){return Math.max(1,Math.floor(1+Math.sqrt(xp/50)));}
 function lvXP(l){return Math.pow(l-1,2)*50;}
-function addXP(amt,x,y){const pl=lv(S.xp);S.xp+=amt;save();updateHome();showPop('+'+amt+' XP',x,y,'xp-pop');if(lv(S.xp)>pl)setTimeout(()=>toast('🎉 Level Up! Now Level '+lv(S.xp)+'!'),400);}
-function addCoins(amt,x,y){S.coins+=amt;save();updateHome();showPop('+'+amt+'🪙',x,y,'coin-pop');}
+function addXP(amt,x,y){const pl=lv(S.xp);S.xp+=amt;save();updateHome();showPop('+'+amt+' XP',x,y,'xp-pop');if(lv(S.xp)>pl)setTimeout(()=>toast('🎉 Level Up! Level '+lv(S.xp)+'!'),400);}
+function addCoins(amt,x,y){S.coins=Math.max(0,(S.coins||0)+amt);save();updateHome();if(amt>0)showPop('+'+amt+'🪙',x,y,'coin-pop');}
 function showPop(txt,x,y,cls){const el=document.createElement('div');el.className=cls;el.textContent=txt;el.style.left=(x||window.innerWidth/2-20)+'px';el.style.top=(y||window.innerHeight*0.55)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),1200);}
-
-function checkAch(){ACHS.forEach(a=>{if(!S.wl.includes('A:'+a.id)&&a.ok(S)){S.wl.push('A:'+a.id);S.xp+=a.xp;save();updateHome();setTimeout(()=>toast('🏆 '+a.nm+'! +'+a.xp+' XP'),500);}});}
+function checkAch(){ACHS.forEach(a=>{if(!S.wl.includes('A:'+a.id)&&a.ok(S)){S.wl.push('A:'+a.id);S.xp+=a.xp;save();updateHome();setTimeout(()=>toast('🏆 '+a.nm+'! +'+a.xp+' XP'),600);}});}
 function markWord(c,word){const k=c+':'+word.t;if(!S.wl.includes(k)){S.wl.push(k);S.cw=S.cw||{};S.cw[c]=(S.cw[c]||0)+1;save();}}
 function visitCat(c){if(!(S.visited||[]).includes(c)){S.visited=S.visited||[];S.visited.push(c);save();}}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);}
@@ -812,12 +909,11 @@ function goNav(id){
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   const nb=document.getElementById('nb-'+id);if(nb)nb.classList.add('active');
   if(id==='home')updateHome();
-  if(id==='grammar'){renderGrammar(currentGrammarTab);}
+  if(id==='grammar'){buildGrammarTabs();renderGrammar(currentGrammarTab);}
   if(id==='cards'){renderCards();}
   if(id==='script')initScript();
   if(id==='prog')renderProg();
 }
-
 function updateHome(){
   const level=lv(S.xp),lxp=lvXP(level),nxp=lvXP(level+1);
   const pct=Math.min(100,((S.xp-lxp)/(nxp-lxp))*100);
@@ -825,13 +921,23 @@ function updateHome(){
   document.getElementById('h-xp').textContent=(S.xp-lxp)+' / '+(nxp-lxp)+' XP';
   document.getElementById('h-xpbar').style.width=pct+'%';
   document.getElementById('h-streak').textContent=S.streak;
-  const learned=S.wl.filter(k=>!k.startsWith('A:')).length;
-  document.getElementById('h-words').textContent=learned;
+  document.getElementById('h-words').textContent=S.wl.filter(k=>!k.startsWith('A:')).length;
   document.getElementById('h-coins').textContent=S.coins;
   document.getElementById('h-cards-ct').textContent=(S.collection||[]).length;
 }
 
-/* ═══ GAME MODES ═══ */
+/* TTS */
+function speakCurrent(){
+  if(!currentWord)return;
+  S.ttsCount=(S.ttsCount||0)+1;save();checkAch();
+  speak(currentWord.g,currentWord.t);
+}
+function speakFidel(){
+  if(!currentFidelChar)return;
+  speak(currentFidelChar.ch,currentFidelChar.fam.name);
+}
+
+/* MODES */
 function startMode(m){
   mode=m;
   const titles={flash:'Flashcards',quiz:'Quiz',match:'Match Pairs',search:'Word Hunt'};
@@ -845,158 +951,340 @@ function startMode(m){
   });
   goNav('play');
 }
-function launch(m,c){cat=c;visitCat(c);if(m==='flash')startFlash(c);else if(m==='quiz')startQuiz(c);else if(m==='match')startMatch(c);else if(m==='search')startSearch(c);}
+function launch(m,c){cat=c;visitCat(c);currentWord=null;if(m==='flash')startFlash(c);else if(m==='quiz')startQuiz(c);else if(m==='match')startMatch(c);else if(m==='search')startSearch(c);}
 
 /* FLASHCARD */
 function startFlash(c){fcDeck=shuf([...V[c].words]);fcReview=[];fcIdx=0;fcFlipped=false;showFC();goNav('flash');}
-function showFC(){const w=fcDeck[fcIdx];document.getElementById('fc-ge').textContent=w.g;document.getElementById('fc-en').textContent=w.e;document.getElementById('fc-tr').textContent=w.t;document.getElementById('fc-tip').textContent='🔊 '+w.p;document.getElementById('fc-note').textContent=w.n;document.getElementById('fc-prog').textContent=(fcIdx+1)+'/'+fcDeck.length;document.getElementById('fc-str').textContent='🔥 '+S.streak;document.getElementById('fc-btns').style.display='none';fcFlipped=false;document.getElementById('flashcard').classList.remove('flipped');}
+function showFC(){
+  const w=fcDeck[fcIdx];currentWord=w;
+  document.getElementById('fc-ge').textContent=w.g;
+  document.getElementById('fc-en').textContent=w.e;
+  document.getElementById('fc-tr').textContent=w.t;
+  document.getElementById('fc-tip').textContent='🔊 '+w.p;
+  document.getElementById('fc-note').textContent=w.n;
+  document.getElementById('fc-prog').textContent=(fcIdx+1)+'/'+fcDeck.length;
+  document.getElementById('fc-str').textContent='🔥 '+S.streak;
+  document.getElementById('fc-btns').style.display='none';
+  fcFlipped=false;document.getElementById('flashcard').classList.remove('flipped');
+}
 function fcFlip(){if(!fcFlipped){fcFlipped=true;document.getElementById('flashcard').classList.add('flipped');document.getElementById('fc-btns').style.display='flex';}}
-function fcAns(knew){const w=fcDeck[fcIdx];if(knew){markWord(cat,w);S.cor++;S.tot++;S.streak++;if(S.streak>S.best)S.best=S.streak;addXP(5);addCoins(1);checkAch();}else{fcReview.push(w);S.streak=0;S.tot++;}save();fcIdx++;if(fcIdx>=fcDeck.length){if(fcReview.length){fcDeck=shuf(fcReview);fcReview=[];fcIdx=0;toast('Reviewing '+fcDeck.length+' more 💪');showFC();}else{addXP(15);toast('🌟 Deck complete!');setTimeout(()=>goNav('play'),1600);}}else showFC();}
+function fcAns(knew){
+  const w=fcDeck[fcIdx];
+  if(knew){markWord(cat,w);S.cor++;S.tot++;S.streak++;if(S.streak>S.best)S.best=S.streak;addXP(5);addCoins(1);checkAch();}
+  else{fcReview.push(w);S.streak=0;S.tot++;}
+  save();fcIdx++;
+  if(fcIdx>=fcDeck.length){if(fcReview.length){fcDeck=shuf(fcReview);fcReview=[];fcIdx=0;toast('Reviewing '+fcDeck.length+' more 💪');showFC();}else{addXP(15);toast('🌟 Deck complete!');setTimeout(()=>goNav('play'),1500);}}
+  else showFC();
+}
 
 /* QUIZ */
 function startQuiz(c){qDeck=shuf([...V[c].words]);qIdx=0;qDone=false;qSesErr=0;showQ();goNav('quiz');}
-function showQ(){qDone=false;const w=qDeck[qIdx%qDeck.length];const geToEn=Math.random()>0.35;document.getElementById('q-ge').textContent=w.g;document.getElementById('q-tr').textContent=geToEn?w.t:'';document.getElementById('q-prompt').textContent=geToEn?'What does this Tigrinya word mean?':'Which Tigrinya word means "'+w.e+'"?';document.getElementById('qz-prog').textContent='Q '+(qIdx+1);document.getElementById('qz-str').textContent='🔥 '+S.streak;document.getElementById('q-result').innerHTML='';const wrong=shuf(V[cat].words.filter(x=>x.t!==w.t)).slice(0,3);const opts=shuf([w,...wrong]);const ci=opts.indexOf(w);const wrap=document.getElementById('opts');wrap.innerHTML='';opts.forEach((o,i)=>{const btn=document.createElement('button');btn.className='opt';const txt=geToEn?o.e:'<span class="ge">'+o.g+'</span>';btn.innerHTML='<span class="opt-ltr">'+['A','B','C','D'][i]+'</span>'+txt;btn.onclick=ev=>ansQ(i,ci,opts,w,ev,geToEn);wrap.appendChild(btn);});}
-function ansQ(chosen,correct,opts,word,ev){if(qDone)return;qDone=true;document.querySelectorAll('.opt').forEach((b,i)=>{b.disabled=true;if(i===correct)b.classList.add('c');else if(i===chosen)b.classList.add('w');b.querySelector('.opt-ltr').textContent=i===correct?'✓':(i===chosen?'✗':['A','B','C','D'][i]);});const ok=chosen===correct;S.tot++;if(ok){S.cor++;S.streak++;if(S.streak>S.best)S.best=S.streak;markWord(cat,word);addXP(15+(S.streak>=5?5:0),ev.clientX,ev.clientY);addCoins(3,ev.clientX,ev.clientY-30);checkAch();}else{S.streak=0;qSesErr++;}save();document.getElementById('qz-str').textContent='🔥 '+S.streak;document.getElementById('q-result').innerHTML='<div class="result-box '+(ok?'rc':'rw')+'"><div class="rv">'+(ok?'✓ Correct!':'✗ Answer: '+opts[correct].e)+'</div><div class="rn">'+word.n+'</div></div><button class="next-btn" onclick="nextQ()">Next →</button>';}
+function showQ(){
+  qDone=false;const w=qDeck[qIdx%qDeck.length];currentWord=w;
+  const geToEn=Math.random()>0.35;
+  document.getElementById('q-ge').textContent=w.g;
+  document.getElementById('q-tr').textContent=geToEn?w.t:'';
+  document.getElementById('q-prompt').textContent=geToEn?'What does this mean in English?':'Which Tigrinya word means "'+w.e+'"?';
+  document.getElementById('qz-prog').textContent='Q '+(qIdx+1);
+  document.getElementById('qz-str').textContent='🔥 '+S.streak;
+  document.getElementById('q-result').innerHTML='';
+  const wrong=shuf(V[cat].words.filter(x=>x.t!==w.t)).slice(0,3);
+  const opts=shuf([w,...wrong]);const ci=opts.indexOf(w);
+  const wrap=document.getElementById('opts');wrap.innerHTML='';
+  opts.forEach((o,i)=>{const btn=document.createElement('button');btn.className='opt';const txt=geToEn?o.e:'<span class="ge">'+o.g+'</span>';btn.innerHTML='<span class="opt-ltr">'+['A','B','C','D'][i]+'</span>'+txt;btn.onclick=ev=>ansQ(i,ci,opts,w,ev);wrap.appendChild(btn);});
+}
+function ansQ(chosen,correct,opts,word,ev){
+  if(qDone)return;qDone=true;
+  document.querySelectorAll('.opt').forEach((b,i)=>{b.disabled=true;if(i===correct)b.classList.add('c');else if(i===chosen)b.classList.add('w');b.querySelector('.opt-ltr').textContent=i===correct?'✓':(i===chosen?'✗':['A','B','C','D'][i]);});
+  const ok=chosen===correct;S.tot++;
+  if(ok){S.cor++;S.streak++;if(S.streak>S.best)S.best=S.streak;markWord(cat,word);addXP(15+(S.streak>=5?5:0),ev.clientX,ev.clientY);addCoins(3,ev.clientX,ev.clientY-30);checkAch();}
+  else{S.streak=0;qSesErr++;}
+  save();document.getElementById('qz-str').textContent='🔥 '+S.streak;
+  document.getElementById('q-result').innerHTML='<div class="result-box '+(ok?'rc':'rw')+'"><div class="rv">'+(ok?'✓ Correct!':'✗ Answer: '+opts[correct].e)+'</div><div class="rn">'+word.n+'</div></div><button class="next-btn" onclick="nextQ()">Next →</button>';
+}
 function nextQ(){qIdx++;if(qIdx>0&&qIdx%qDeck.length===0){if(qSesErr===0){S.perfectQuiz++;save();checkAch();toast('💎 Perfect round!');}qDeck=shuf([...V[cat].words]);qSesErr=0;}showQ();}
 
 /* MATCH */
-function startMatch(c){const words=shuf([...V[c].words]).slice(0,4);mSel=null;mFound=0;mSecs=0;const ge=shuf(words.map((w,i)=>({id:i,type:'g',txt:w.g,w})));const en=shuf(words.map((w,i)=>({id:i,type:'e',txt:w.e,w})));mPairs=[];for(let i=0;i<4;i++){mPairs.push(ge[i],en[i]);}renderMatch();goNav('match');stopMatch();mTI=setInterval(()=>{mSecs++;const m=Math.floor(mSecs/60),s=mSecs%60;document.getElementById('m-timer').textContent=m+':'+(s<10?'0':'')+s;},1000);document.getElementById('m-str').textContent='🔥 '+S.streak;document.getElementById('m-result').innerHTML='';}
+function startMatch(c){
+  const words=shuf([...V[c].words]).slice(0,4);mSel=null;mFound=0;mSecs=0;
+  const ge=shuf(words.map((w,i)=>({id:i,type:'g',txt:w.g,w})));
+  const en=shuf(words.map((w,i)=>({id:i,type:'e',txt:w.e,w})));
+  mPairs=[];for(let i=0;i<4;i++){mPairs.push(ge[i],en[i]);}
+  renderMatch();goNav('match');stopMatch();
+  mTI=setInterval(()=>{mSecs++;const m=Math.floor(mSecs/60),s=mSecs%60;document.getElementById('m-timer').textContent=m+':'+(s<10?'0':'')+s;},1000);
+  document.getElementById('m-str').textContent='🔥 '+S.streak;document.getElementById('m-result').innerHTML='';
+}
 function stopMatch(){if(mTI){clearInterval(mTI);mTI=null;}}
 function renderMatch(){const g=document.getElementById('m-grid');g.innerHTML='';mPairs.forEach((c,i)=>{const el=document.createElement('div');el.className='mc'+(c.type==='g'?' ge-mc':'');el.textContent=c.txt;el.dataset.i=i;el.onclick=()=>tapMatch(i);g.appendChild(el);});}
-function tapMatch(i){const p=mPairs[i];if(p.matched)return;const els=[...document.querySelectorAll('.mc')];if(mSel===null){mSel=i;els[i].classList.add('sel');return;}if(mSel===i){els[i].classList.remove('sel');mSel=null;return;}const prev=mPairs[mSel];const hit=prev.id===p.id&&prev.type!==p.type;if(hit){prev.matched=p.matched=true;els[mSel].classList.remove('sel');els[mSel].classList.add('mat');els[i].classList.add('mat');mFound++;mSel=null;S.streak++;if(S.streak>S.best)S.best=S.streak;if(mFound===4){stopMatch();S.matches++;S.cor+=4;S.tot+=4;mPairs.filter(c=>c.type==='g').forEach(c=>markWord(cat,c.w));const tb=Math.max(0,60-mSecs);addXP(25+tb);addCoins(5);save();checkAch();document.getElementById('m-result').innerHTML='<div class="match-done"><div class="match-done-ico">🎉</div><div class="match-done-title">All Matched!</div><div class="match-done-xp">+5 🪙 earned!</div><button class="play-again" onclick="startMatch(\''+cat+'\')">Play Again</button></div>';}}else{S.streak=0;S.tot++;els[mSel].classList.remove('sel');[els[mSel],els[i]].forEach(e=>{e.classList.add('bad');setTimeout(()=>e.classList.remove('bad'),420);});mSel=null;save();}document.getElementById('m-str').textContent='🔥 '+S.streak;}
+function tapMatch(i){
+  const p=mPairs[i];if(p.matched)return;
+  const els=[...document.querySelectorAll('.mc')];
+  if(mSel===null){mSel=i;els[i].classList.add('sel');return;}
+  if(mSel===i){els[i].classList.remove('sel');mSel=null;return;}
+  const prev=mPairs[mSel],hit=prev.id===p.id&&prev.type!==p.type;
+  if(hit){
+    prev.matched=p.matched=true;
+    els[mSel].classList.remove('sel');els[mSel].classList.add('mat');els[i].classList.add('mat');
+    mFound++;mSel=null;S.streak++;if(S.streak>S.best)S.best=S.streak;
+    if(mFound===4){
+      stopMatch();S.matches++;S.cor+=4;S.tot+=4;
+      mPairs.filter(c=>c.type==='g').forEach(c=>markWord(cat,c.w));
+      const tb=Math.max(0,60-mSecs);addXP(25+tb);addCoins(5);save();checkAch();
+      document.getElementById('m-result').innerHTML='<div class="match-done"><div class="match-done-ico">🎉</div><div class="match-done-title">All Matched!</div><div class="match-done-xp">+5🪙 earned!</div><button class="play-again" onclick="startMatch(\''+cat+'\')">Play Again</button></div>';
+    }
+  }else{
+    S.streak=0;S.tot++;els[mSel].classList.remove('sel');
+    [els[mSel],els[i]].forEach(e=>{e.classList.add('bad');setTimeout(()=>e.classList.remove('bad'),420);});
+    mSel=null;save();
+  }
+  document.getElementById('m-str').textContent='🔥 '+S.streak;
+}
 
 /* WORD HUNT */
-const GE_LETTERS=['ሀ','ሁ','ሂ','ሃ','ለ','ሉ','ሊ','ላ','ሐ','ሑ','ሒ','ሓ','መ','ሙ','ሚ','ማ','ሰ','ሱ','ሲ','ሳ','ረ','ሩ','ሪ','ራ','ቀ','ቁ','ቂ','ቃ','በ','ቡ','ቢ','ባ','ተ','ቱ','ቲ','ታ','ነ','ኑ','ኒ','ና','አ','ኡ','ኢ','ኣ','ከ','ኩ','ኪ','ካ','ወ','ዉ','ዊ','ዋ','ዘ','ዙ','ዚ','ዛ','የ','ዩ','ዪ','ያ','ደ','ዱ','ዲ','ዳ'];
+const GE_LETTERS=['ሀ','ሁ','ሂ','ሃ','ለ','ሉ','ሊ','ላ','ሐ','ሑ','ሒ','ሓ','መ','ሙ','ሚ','ማ','ሰ','ሱ','ሲ','ሳ','ረ','ሩ','ሪ','ራ','ቀ','ቁ','ቂ','ቃ','በ','ቡ','ቢ','ባ','ተ','ቱ','ቲ','ታ','ነ','ኑ','ኒ','ና','አ','ኡ','ኢ','ኣ','ከ','ኩ','ኪ','ካ','ወ','ዉ','ዊ','ዋ'];
 const GRID_SIZE=7;
 function startSearch(c){const words=shuf([...V[c].words]).filter(w=>w.g.length<=4).slice(0,5);wsTarget=words;wsFound=[];wsSel=[];wsDragging=false;buildWSGrid(words);renderWSWords();document.getElementById('ws-found').textContent='0/'+words.length;document.getElementById('ws-str').textContent='🔥 '+S.streak;document.getElementById('ws-result').innerHTML='';goNav('search');}
-function buildWSGrid(words){wsGrid=Array.from({length:GRID_SIZE},()=>Array(GRID_SIZE).fill(''));wsPlaced=[];words.forEach(w=>{const chars=[...w.g];let tries=0;while(tries<60){const horiz=Math.random()>0.5;const maxR=horiz?GRID_SIZE:GRID_SIZE-chars.length;const maxC=horiz?GRID_SIZE-chars.length:GRID_SIZE;if(maxR<=0||maxC<=0){tries++;continue;}const r=Math.floor(Math.random()*maxR);const c=Math.floor(Math.random()*maxC);let ok=true;chars.forEach((ch,i)=>{const rr=r+(horiz?0:i),cc=c+(horiz?i:0);if(wsGrid[rr][cc]&&wsGrid[rr][cc]!==ch)ok=false;});if(ok){chars.forEach((ch,i)=>{wsGrid[r+(horiz?0:i)][c+(horiz?i:0)]=ch;});wsPlaced.push({word:w,r,c,horiz,len:chars.length});break;}tries++;}});for(let r=0;r<GRID_SIZE;r++)for(let c=0;c<GRID_SIZE;c++)if(!wsGrid[r][c])wsGrid[r][c]=GE_LETTERS[Math.floor(Math.random()*GE_LETTERS.length)];const g=document.getElementById('ws-grid');g.style.gridTemplateColumns='repeat('+GRID_SIZE+',1fr)';g.innerHTML='';for(let r=0;r<GRID_SIZE;r++){for(let c=0;c<GRID_SIZE;c++){const el=document.createElement('div');el.className='ws-cell';el.textContent=wsGrid[r][c];el.dataset.r=r;el.dataset.c=c;el.addEventListener('pointerdown',e=>{wsDragging=true;wsSel=[[r,c]];renderWSsel();e.preventDefault();});el.addEventListener('pointerenter',()=>{if(wsDragging){addWSsel(r,c);renderWSsel();}});g.appendChild(el);}}document.getElementById('ws-grid').addEventListener('pointerup',checkWSsel);}
+function buildWSGrid(words){
+  wsGrid=Array.from({length:GRID_SIZE},()=>Array(GRID_SIZE).fill(''));wsPlaced=[];
+  words.forEach(w=>{const chars=[...w.g];let tries=0;while(tries<60){const horiz=Math.random()>0.5;const maxR=horiz?GRID_SIZE:GRID_SIZE-chars.length;const maxC=horiz?GRID_SIZE-chars.length:GRID_SIZE;if(maxR<=0||maxC<=0){tries++;continue;}const r=Math.floor(Math.random()*maxR);const c=Math.floor(Math.random()*maxC);let ok=true;chars.forEach((ch,i)=>{const rr=r+(horiz?0:i),cc=c+(horiz?i:0);if(wsGrid[rr][cc]&&wsGrid[rr][cc]!==ch)ok=false;});if(ok){chars.forEach((ch,i)=>{wsGrid[r+(horiz?0:i)][c+(horiz?i:0)]=ch;});wsPlaced.push({word:w,r,c,horiz,len:chars.length});break;}tries++;}});
+  for(let r=0;r<GRID_SIZE;r++)for(let c=0;c<GRID_SIZE;c++)if(!wsGrid[r][c])wsGrid[r][c]=GE_LETTERS[Math.floor(Math.random()*GE_LETTERS.length)];
+  const g=document.getElementById('ws-grid');g.style.gridTemplateColumns='repeat('+GRID_SIZE+',1fr)';g.innerHTML='';
+  for(let r=0;r<GRID_SIZE;r++){for(let c=0;c<GRID_SIZE;c++){const el=document.createElement('div');el.className='ws-cell';el.textContent=wsGrid[r][c];el.dataset.r=r;el.dataset.c=c;el.addEventListener('pointerdown',e=>{wsDragging=true;wsSel=[[r,c]];renderWSsel();e.preventDefault();});el.addEventListener('pointerenter',()=>{if(wsDragging){addWSsel(r,c);renderWSsel();}});g.appendChild(el);}}
+  document.getElementById('ws-grid').addEventListener('pointerup',checkWSsel);
+}
 function addWSsel(r,c){if(!wsSel.length){wsSel=[[r,c]];return;}const[fr,fc]=wsSel[0],[lr,lc]=wsSel[wsSel.length-1];const dr=Math.sign(r-fr),dc=Math.sign(c-fc);if(!dr&&!dc)return;const nr=lr+dr,nc=lc+dc;if(nr===r&&nc===c&&!wsSel.some(([a,b])=>a===r&&b===c))wsSel.push([r,c]);}
 function renderWSsel(){document.querySelectorAll('.ws-cell').forEach(el=>{const r=+el.dataset.r,c=+el.dataset.c;el.classList.toggle('sel',wsSel.some(([a,b])=>a===r&&b===c));});}
-function checkWSsel(){wsDragging=false;const selStr=wsSel.map(([r,c])=>wsGrid[r][c]).join('');const match=wsPlaced.find(p=>p.word.g===selStr&&!wsFound.includes(p.word.t));if(match){wsFound.push(match.word.t);markWord(cat,match.word);S.cor++;S.tot++;S.streak++;if(S.streak>S.best)S.best=S.streak;addXP(8);addCoins(2);wsSel.forEach(([r,c])=>{document.querySelectorAll('.ws-cell').forEach(el=>{if(+el.dataset.r===r&&+el.dataset.c===c)el.classList.add('found');});});const cnt=wsFound.length,tot=wsTarget.length;document.getElementById('ws-found').textContent=cnt+'/'+tot;document.getElementById('ws-str').textContent='🔥 '+S.streak;renderWSWords();if(cnt===tot){S.hunts++;addXP(12);addCoins(5);save();checkAch();document.getElementById('ws-result').innerHTML='<div class="match-done"><div class="match-done-ico">🌟</div><div class="match-done-title">All Found!</div><div class="match-done-xp">+5 🪙 bonus!</div><button class="play-again" onclick="startSearch(\''+cat+'\')">Play Again</button></div>';}}wsSel=[];document.querySelectorAll('.ws-cell:not(.found)').forEach(el=>el.classList.remove('sel'));save();checkAch();}
+function checkWSsel(){
+  wsDragging=false;const selStr=wsSel.map(([r,c])=>wsGrid[r][c]).join('');
+  const match=wsPlaced.find(p=>p.word.g===selStr&&!wsFound.includes(p.word.t));
+  if(match){wsFound.push(match.word.t);markWord(cat,match.word);S.cor++;S.tot++;S.streak++;if(S.streak>S.best)S.best=S.streak;addXP(8);addCoins(2);wsSel.forEach(([r,c])=>{document.querySelectorAll('.ws-cell').forEach(el=>{if(+el.dataset.r===r&&+el.dataset.c===c)el.classList.add('found');});});const cnt=wsFound.length,tot=wsTarget.length;document.getElementById('ws-found').textContent=cnt+'/'+tot;document.getElementById('ws-str').textContent='🔥 '+S.streak;renderWSWords();if(cnt===tot){S.hunts++;addXP(12);addCoins(5);save();checkAch();document.getElementById('ws-result').innerHTML='<div class="match-done"><div class="match-done-ico">🌟</div><div class="match-done-title">All Found!</div><div class="match-done-xp">+5🪙 bonus!</div><button class="play-again" onclick="startSearch(\''+cat+'\')">Play Again</button></div>';}}
+  wsSel=[];document.querySelectorAll('.ws-cell:not(.found)').forEach(el=>el.classList.remove('sel'));save();checkAch();
+}
 function renderWSWords(){const w=document.getElementById('ws-words');w.innerHTML='';wsTarget.forEach(word=>{const el=document.createElement('div');el.className='ws-word ge'+(wsFound.includes(word.t)?' found':'');el.textContent=word.g;w.appendChild(el);});}
 
-/* ═══ SCRIPT ═══ */
+/* ═══════════════════════════
+   SCRIPT
+═══════════════════════════ */
 function initScript(){
   const vh=document.getElementById('vowel-hdr');
-  if(!vh.children.length){vh.innerHTML='<div style="width:32px;flex-shrink:0"></div>'+VOWEL_LABELS.map(v=>'<div class="vowel-hdr-cell">'+v+'</div>').join('');}
+  if(!vh.children.length){vh.innerHTML='<div style="width:28px;flex-shrink:0"></div>'+VOWEL_LABELS.map(v=>'<div class="vowel-hdr-cell">'+v+'</div>').join('');}
   const chart=document.getElementById('fidel-chart');
   if(!chart.children.length){FIDEL.forEach((fam,fi)=>{const row=document.createElement('div');row.className='fidel-family';row.innerHTML='<div class="fidel-name">'+fam.name+'</div>';fam.forms.forEach((ch,vi)=>{const cell=document.createElement('div');cell.className='fidel-cell';cell.innerHTML='<span class="ge">'+ch+'</span>';cell.onclick=()=>showFidelDetail(fi,vi,cell);row.appendChild(cell);});chart.appendChild(row);});}
   const picker=document.getElementById('write-char-pick');
-  if(!picker.children.length){FIDEL.forEach((fam,fi)=>{const btn=document.createElement('button');btn.className='wcp';btn.textContent=fam.forms[0];btn.onclick=()=>{document.querySelectorAll('.wcp').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('trace-char').textContent=fam.forms[0];writeXPclaimed=false;clearCanvas();};picker.appendChild(btn);});picker.children[0]?.classList.add('active');}
+  if(!picker.children.length){FIDEL.forEach((fam,fi)=>{const btn=document.createElement('button');btn.className='wcp';btn.textContent=fam.forms[0];btn.onclick=()=>{document.querySelectorAll('.wcp').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('trace-char').textContent=fam.forms[0];currentFidelChar={fam,vi:0,ch:fam.forms[0]};writeXPclaimed=false;clearCanvas();};picker.appendChild(btn);});picker.children[0]?.classList.add('active');currentFidelChar={fam:FIDEL[0],vi:0,ch:FIDEL[0].forms[0]};}
   initCanvas();
   switchScriptTab(currentScriptTab);
   if(!rqQueue.length)nextRQ();
 }
-function showFidelDetail(fi,vi,cell){const fam=FIDEL[fi];const ch=fam.forms[vi];if(!S.fidelSeen)S.fidelSeen=[];const famKey='f:'+fi;if(!S.fidelSeen.includes(famKey)){S.fidelSeen.push(famKey);S.fidelLearned=S.fidelSeen.length;addXP(3);addCoins(1);save();checkAch();}document.querySelectorAll('.fidel-cell').forEach(c=>c.classList.remove('sel'));cell.classList.add('sel');const det=document.getElementById('fidel-detail');det.classList.add('show');det.innerHTML='<div class="fd-char ge">'+ch+'</div><div class="fd-row"><span class="fd-label">Family</span><span class="fd-val">'+fam.name+'</span></div><div class="fd-row"><span class="fd-label">Vowel order</span><span class="fd-val">'+VOWEL_NAMES[vi]+'</span></div><div class="fd-row"><span class="fd-label">Sound</span><span class="fd-val">'+fam.sound+'</span></div><div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);margin:0.75rem 0 0.3rem">All 7 forms</div><div class="fd-family-row">'+fam.forms.map((f,i)=>'<div class="fd-sib" onclick="showFidelDetail('+fi+','+i+',this)"><span class="ge">'+f+'</span><span class="fd-sib-tr">'+fam.name+(VOWEL_LABELS[i]==='ə'?'':VOWEL_LABELS[i])+'</span></div>').join('')+'</div><div class="fd-note">'+fam.note+'</div>';setTimeout(()=>det.scrollIntoView({behavior:'smooth',block:'nearest'}),100);}
-function switchScriptTab(tab){currentScriptTab=tab;['chart','write','rquiz'].forEach(t=>{document.getElementById('stab-'+t).classList.toggle('active',t===tab);const pane=document.getElementById('stab-'+t+'-pane');pane.style.display=t===tab?'block':'none';});}
-let canvas,ctx,drawing=false;
-function initCanvas(){canvas=document.getElementById('writeCanvas');if(!canvas||canvas._init)return;canvas._init=true;function resize(){const w=canvas.offsetWidth;canvas.width=w*window.devicePixelRatio;canvas.height=220*window.devicePixelRatio;canvas.style.height='220px';ctx=canvas.getContext('2d');ctx.scale(window.devicePixelRatio,window.devicePixelRatio);ctx.strokeStyle='#f0c040';ctx.lineWidth=4;ctx.lineCap='round';ctx.lineJoin='round';}resize();window.addEventListener('resize',resize);function getPos(e){const rect=canvas.getBoundingClientRect();const src=e.touches?e.touches[0]:e;return{x:src.clientX-rect.left,y:src.clientY-rect.top};}canvas.addEventListener('pointerdown',e=>{drawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault();});canvas.addEventListener('pointermove',e=>{if(!drawing)return;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault();});canvas.addEventListener('pointerup',()=>{drawing=false;ctx.beginPath();});canvas.addEventListener('pointerleave',()=>{drawing=false;ctx.beginPath();});}
-function clearCanvas(){if(!canvas)return;ctx.clearRect(0,0,canvas.offsetWidth,220);writeXPclaimed=false;}
-function claimWriteXP(){if(writeXPclaimed){toast('Keep practicing!');return;}writeXPclaimed=true;S.writeSessions=(S.writeSessions||0)+1;addXP(10);addCoins(2);save();checkAch();toast('✍️ Great writing! +10 XP +2🪙');}
-let rqDoneFlag=false;
-function nextRQ(){rqDoneFlag=false;if(!rqQueue.length)rqQueue=shuf(FIDEL.flatMap(fam=>fam.forms.map((f,vi)=>({fam,vi,ch:f}))));const item=rqQueue.pop();if(!item)return;document.getElementById('rq-ge').textContent=item.ch;const askSound=Math.random()>0.4;document.getElementById('rq-prompt').textContent=askSound?'What sound does this character make?':'Which consonant family does this belong to?';document.getElementById('rq-result').innerHTML='';const correct=askSound?(item.fam.name+(VOWEL_LABELS[item.vi]==='ə'?'ä':VOWEL_LABELS[item.vi])):item.fam.name;const wrongFams=shuf(FIDEL.filter(f=>f.name!==item.fam.name)).slice(0,3);const opts=shuf([correct,...wrongFams.map(f=>askSound?(f.name+(VOWEL_LABELS[item.vi]==='ə'?'ä':VOWEL_LABELS[item.vi])):f.name)]);const wrap=document.getElementById('rq-opts');wrap.innerHTML='';opts.forEach(o=>{const btn=document.createElement('button');btn.className='rq-opt';btn.textContent=o;btn.onclick=()=>ansRQ(o,correct,item,btn);wrap.appendChild(btn);});}
-function ansRQ(chosen,correct,item,btn){if(rqDoneFlag)return;rqDoneFlag=true;const ok=chosen===correct;document.querySelectorAll('.rq-opt').forEach(b=>{b.disabled=true;if(b.textContent===correct)b.classList.add('c');else if(b===btn&&!ok)b.classList.add('w');});S.tot++;if(ok){S.cor++;S.streak++;if(S.streak>S.best)S.best=S.streak;S.rqCorrect=(S.rqCorrect||0)+1;addXP(8);addCoins(2);checkAch();}else S.streak=0;save();document.getElementById('rq-result').innerHTML='<div class="result-box '+(ok?'rc':'rw')+'" style="margin:0.75rem 1rem 0"><div class="rv">'+(ok?'✓ Correct!':'✗ It was: '+correct)+'</div><div class="rn">'+item.fam.note+'</div></div><button class="next-btn" onclick="nextRQ()">Next →</button>';}
 
-/* ═══ GRAMMAR ═══ */
+function showFidelDetail(fi,vi,cell){
+  const fam=FIDEL[fi];const ch=fam.forms[vi];
+  currentFidelChar={fam,vi,ch};
+  if(!S.fidelSeen)S.fidelSeen=[];const famKey='f:'+fi;
+  if(!S.fidelSeen.includes(famKey)){S.fidelSeen.push(famKey);S.fidelLearned=S.fidelSeen.length;addXP(3);addCoins(1);save();checkAch();}
+  document.querySelectorAll('.fidel-cell').forEach(c=>c.classList.remove('sel'));cell.classList.add('sel');
+  const det=document.getElementById('fidel-detail');det.classList.add('show');
+  det.innerHTML='<div class="fd-char ge">'+ch+'</div><button class="tts-btn" onclick="speakFidel()" style="display:block;margin:0.4rem auto">🔊 Listen</button><div class="fd-row"><span class="fd-label">Family</span><span class="fd-val">'+fam.name+'</span></div><div class="fd-row"><span class="fd-label">Vowel</span><span class="fd-val">'+VOWEL_NAMES[vi]+'</span></div><div class="fd-row"><span class="fd-label">Sound</span><span class="fd-val">'+fam.sound+'</span></div><div style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);margin:0.7rem 0 0.25rem">All 7 forms</div><div class="fd-family-row">'+fam.forms.map((f,i)=>'<div class="fd-sib" onclick="showFidelDetail('+fi+','+i+',this)"><span class="ge">'+f+'</span><span class="fd-sib-tr">'+fam.name+(VOWEL_LABELS[i]==='ə'?'':VOWEL_LABELS[i])+'</span></div>').join('')+'</div><div class="fd-note">'+fam.note+'</div>';
+  setTimeout(()=>det.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+}
+
+function switchScriptTab(tab){
+  currentScriptTab=tab;
+  ['chart','write','rquiz'].forEach(t=>{
+    document.getElementById('stab-'+t).classList.toggle('active',t===tab);
+    document.getElementById('stab-'+t+'-pane').style.display=t===tab?'block':'none';
+  });
+}
+
+/* ═══════════════════════════
+   CANVAS WITH STROKE ACCURACY
+═══════════════════════════ */
+function initCanvas(){
+  canvas=document.getElementById('writeCanvas');if(!canvas||canvas._init)return;canvas._init=true;
+  function resize(){
+    const dpr=window.devicePixelRatio||1;const w=canvas.offsetWidth;
+    canvas.width=w*dpr;canvas.height=220*dpr;canvas.style.height='220px';
+    ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+    ctx.strokeStyle='#f0c040';ctx.lineWidth=4;ctx.lineCap='round';ctx.lineJoin='round';
+  }
+  resize();window.addEventListener('resize',()=>{resize();strokePoints=[];});
+  function getPos(e){const rect=canvas.getBoundingClientRect();const src=e.touches?e.touches[0]:e;return{x:(src.clientX-rect.left),y:(src.clientY-rect.top)};}
+  canvas.addEventListener('pointerdown',e=>{drawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);strokePoints.push(p);e.preventDefault();});
+  canvas.addEventListener('pointermove',e=>{if(!drawing)return;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();ctx.beginPath();ctx.moveTo(p.x,p.y);strokePoints.push(p);e.preventDefault();});
+  canvas.addEventListener('pointerup',()=>{drawing=false;ctx.beginPath();updateAccuracy();});
+  canvas.addEventListener('pointerleave',()=>{if(drawing){drawing=false;ctx.beginPath();updateAccuracy();}});
+}
+
+function buildTargetMask(){
+  const ch=document.getElementById('trace-char').textContent;
+  const dpr=1;const w=canvas.offsetWidth,h=220;
+  const offCanvas=document.createElement('canvas');offCanvas.width=w*dpr;offCanvas.height=h*dpr;
+  const offCtx=offCanvas.getContext('2d');offCtx.scale(dpr,dpr);
+  const fs=Math.min(w,h)*0.55;
+  offCtx.font=fs+'px "Noto Serif Ethiopic",Ethiopic,serif';
+  offCtx.fillStyle='#fff';offCtx.textAlign='center';offCtx.textBaseline='middle';
+  offCtx.fillText(ch,w/2,h/2);
+  const data=offCtx.getImageData(0,0,w*dpr,h*dpr).data;
+  const pixels=new Set();
+  for(let i=0;i<data.length;i+=4){if(data[i+3]>40)pixels.add(Math.floor(i/4));}
+  return {pixels,w:w*dpr,h:h*dpr,dpr};
+}
+
+function updateAccuracy(){
+  if(strokePoints.length<5)return;
+  let mask;try{mask=buildTargetMask();}catch(e){return;}
+  const {pixels:targetPixels,w:mw,h:mh,dpr}=mask;
+  if(!targetPixels.size)return;
+  // Check how many user stroke points fall on target pixels
+  let hits=0;
+  strokePoints.forEach(p=>{
+    // Check a small radius around each stroke point
+    for(let dx=-3;dx<=3;dx++){for(let dy=-3;dy<=3;dy++){
+      const px=Math.round(p.x*dpr+dx),py=Math.round(p.y*dpr+dy);
+      if(px>=0&&px<mw&&py>=0&&py<mh&&targetPixels.has(py*mw+px))hits++;
+    }}
+  });
+  const maxHits=strokePoints.length*49; // 7x7 radius per point
+  const rawAcc=Math.min(100,Math.round((hits/Math.min(maxHits,targetPixels.size*2))*100*2.5));
+  const acc=Math.min(100,rawAcc);
+  // Update UI
+  const badge=document.getElementById('accuracy-badge');
+  const cv=document.getElementById('writeCanvas');
+  cv.classList.remove('acc-great','acc-good','acc-low');
+  if(acc>=75){badge.textContent='🎯 Accuracy: '+acc+'% — Great trace!';badge.style.color='#6ab387';cv.classList.add('acc-great');}
+  else if(acc>=45){badge.textContent='✏️ Accuracy: '+acc+'% — Good effort!';badge.style.color='var(--gold)';cv.classList.add('acc-good');}
+  else{badge.textContent='↺ Accuracy: '+acc+'% — Try tracing the ghost';badge.style.color='#e05565';cv.classList.add('acc-low');}
+  // Track best accuracy for achievement
+  if(acc>(S.bestAccuracy||0)){S.bestAccuracy=acc;save();checkAch();}
+}
+
+function clearCanvas(){
+  if(!canvas)return;const dpr=window.devicePixelRatio||1;
+  ctx.clearRect(0,0,canvas.offsetWidth,220);strokePoints=[];writeXPclaimed=false;
+  const badge=document.getElementById('accuracy-badge');badge.textContent='';
+  const cv=document.getElementById('writeCanvas');cv.classList.remove('acc-great','acc-good','acc-low');
+}
+function claimWriteXP(){
+  if(writeXPclaimed){toast('Clear and try again for more XP!');return;}
+  writeXPclaimed=true;S.writeSessions=(S.writeSessions||0)+1;addXP(10);addCoins(2);save();checkAch();
+  toast('✍️ Practice saved! +10 XP +2🪙');
+}
+
+/* RECOGNIZE QUIZ */
+function nextRQ(){
+  rqDoneFlag=false;if(!rqQueue.length)rqQueue=shuf(FIDEL.flatMap(fam=>fam.forms.map((f,vi)=>({fam,vi,ch:f}))));
+  const item=rqQueue.pop();if(!item)return;
+  currentFidelChar=item;
+  document.getElementById('rq-ge').textContent=item.ch;
+  const askSound=Math.random()>0.4;
+  document.getElementById('rq-prompt').textContent=askSound?'What sound does this character make?':'Which consonant family is this?';
+  document.getElementById('rq-result').innerHTML='';
+  const correct=askSound?(item.fam.name+(VOWEL_LABELS[item.vi]==='ə'?'ä':VOWEL_LABELS[item.vi])):item.fam.name;
+  const wrongFams=shuf(FIDEL.filter(f=>f.name!==item.fam.name)).slice(0,3);
+  const opts=shuf([correct,...wrongFams.map(f=>askSound?(f.name+(VOWEL_LABELS[item.vi]==='ə'?'ä':VOWEL_LABELS[item.vi])):f.name)]);
+  const wrap=document.getElementById('rq-opts');wrap.innerHTML='';
+  opts.forEach(o=>{const btn=document.createElement('button');btn.className='rq-opt';btn.textContent=o;btn.onclick=()=>ansRQ(o,correct,item,btn);wrap.appendChild(btn);});
+}
+function ansRQ(chosen,correct,item,btn){
+  if(rqDoneFlag)return;rqDoneFlag=true;const ok=chosen===correct;
+  document.querySelectorAll('.rq-opt').forEach(b=>{b.disabled=true;if(b.textContent===correct)b.classList.add('c');else if(b===btn&&!ok)b.classList.add('w');});
+  S.tot++;if(ok){S.cor++;S.streak++;if(S.streak>S.best)S.best=S.streak;S.rqCorrect=(S.rqCorrect||0)+1;addXP(8);addCoins(2);checkAch();}else S.streak=0;
+  if(!S.fidelSeen)S.fidelSeen=[];const famKey='f:'+FIDEL.indexOf(item.fam);if(!S.fidelSeen.includes(famKey)){S.fidelSeen.push(famKey);S.fidelLearned=S.fidelSeen.length;save();}
+  save();document.getElementById('rq-result').innerHTML='<div class="result-box '+(ok?'rc':'rw')+'" style="margin:0.65rem 1rem 0"><div class="rv">'+(ok?'✓ Correct!':'✗ It was: '+correct)+'</div><div class="rn">'+item.fam.note+'</div></div><button class="next-btn" onclick="nextRQ()">Next →</button>';
+}
+
+/* ═══════════════════════════
+   GRAMMAR
+═══════════════════════════ */
+function buildGrammarTabs(){
+  const wrap=document.getElementById('grammar-tabs');if(wrap.children.length)return;
+  GRAMMAR_LESSONS.forEach((l,i)=>{const b=document.createElement('button');b.className='gtab'+(i===0?' active':'');b.textContent=l.title;b.onclick=()=>switchGrammar(i);wrap.appendChild(b);});
+}
 function switchGrammar(idx){
   currentGrammarTab=idx;
   document.querySelectorAll('.gtab').forEach((b,i)=>b.classList.toggle('active',i===idx));
   renderGrammar(idx);
 }
 function renderGrammar(idx){
-  const content=document.getElementById('grammar-content');
   const lesson=GRAMMAR_LESSONS[idx];
-  let html='<div class="lesson-card"><div class="lesson-hdr"><div class="lesson-title">'+lesson.title+'</div><div class="lesson-subtitle">'+lesson.subtitle+'</div></div><div class="lesson-body">'+lesson.content+'</div></div>';
-  // Add sentence builder for all grammar tabs
-  html+=renderSentenceBuilder();
-  content.innerHTML=html;
-  attachSBListeners();
-}
-let sbExIdx=0,sbPlacedArr=[],sbDoneFlag=false;
-function renderSentenceBuilder(){
   const ex=SB_EXERCISES[sbExIdx%SB_EXERCISES.length];
-  const shuffled=shuf([...ex.words]);
-  window._sbCurrent=ex;
-  window._sbShuffled=shuffled;
-  window._sbPlaced=[];
-  return '<div style="margin:0 1rem;"><div class="sec-label" style="margin:0 0 0.5rem">Sentence Builder</div><div class="sb-counter">Exercise '+(sbExIdx%SB_EXERCISES.length+1)+' / '+SB_EXERCISES.length+'</div><div class="sb-eng">Build: "'+ex.eng+'"</div><div class="sb-target" id="sb-target"><span class="sb-hint">Tap words in order below →</span></div><div class="sb-bank" id="sb-bank">'+shuffled.map((w,i)=>'<button class="sb-word" id="sbw-'+i+'" onclick="sbTap('+i+')"><span class="ge">'+w+'</span></button>').join('')+'</div><div class="sb-actions"><button class="sb-btn sb-check" onclick="sbCheck()">✓ Check</button><button class="sb-btn sb-reset" onclick="sbReset()">↺ Reset</button></div><div class="sb-result" id="sb-result"></div></div>';
+  window._sbCurrent=ex;window._sbShuffled=shuf([...ex.words]);window._sbPlaced=[];
+  document.getElementById('grammar-content').innerHTML=
+    '<div class="lesson-card"><div class="lesson-hdr"><div class="lesson-title">'+lesson.title+'</div><div class="lesson-subtitle">'+lesson.sub+'</div></div><div class="lesson-body">'+lesson.content+'</div></div>'+
+    '<div style="margin:0 1rem"><div class="sec-label" style="margin:0 0 0.4rem">Sentence Builder</div><div class="sb-counter">Exercise '+(sbExIdx%SB_EXERCISES.length+1)+' / '+SB_EXERCISES.length+'</div><div class="sb-eng">Build: "'+ex.eng+'"</div></div>'+
+    '<div class="sb-wrap"><div class="sb-target" id="sb-target"><span class="sb-hint">Tap words below in order →</span></div><div class="sb-bank" id="sb-bank">'+window._sbShuffled.map((w,i)=>'<button class="sb-word" id="sbw-'+i+'" onclick="sbTap('+i+')"><span class="ge">'+w+'</span></button>').join('')+'</div><div class="sb-actions"><button class="sb-btn sb-check" onclick="sbCheck()">✓ Check</button><button class="sb-btn sb-reset" onclick="sbReset()">↺ Reset</button></div><div class="sb-result" id="sb-result"></div></div><div class="sgap"></div>';
 }
-function attachSBListeners(){}
 function sbTap(i){const w=window._sbShuffled[i];const btn=document.getElementById('sbw-'+i);if(btn.classList.contains('placed'))return;window._sbPlaced.push({word:w,idx:i});btn.classList.add('placed');const target=document.getElementById('sb-target');if(window._sbPlaced.length===1)target.innerHTML='';const placed=document.createElement('span');placed.className='sb-placed ge';placed.textContent=w;placed.onclick=()=>sbRemove(i,placed);target.appendChild(placed);}
-function sbRemove(i,el){window._sbPlaced=window._sbPlaced.filter(p=>p.idx!==i);document.getElementById('sbw-'+i)?.classList.remove('placed');el.remove();if(!window._sbPlaced.length){const target=document.getElementById('sb-target');target.innerHTML='<span class="sb-hint">Tap words in order below →</span>';}}
-function sbCheck(){const answer=window._sbCurrent.answer;const placed=window._sbPlaced.map(p=>p.word);const ok=placed.length===answer.length&&placed.every((w,i)=>w===answer[i]);const res=document.getElementById('sb-result');res.className='sb-result show '+(ok?'ok':'bad');if(ok){res.innerHTML='✓ Correct! Well done.';S.sbCorrect=(S.sbCorrect||0)+1;addXP(10);addCoins(3);save();checkAch();setTimeout(()=>{sbExIdx++;renderGrammar(currentGrammarTab);},1500);}else{res.innerHTML='✗ Not quite. Hint: '+window._sbCurrent.hint+'<br><span style="font-family:\'Noto Serif Ethiopic\',serif">'+answer.join(' ')+'</span>';}}
-function sbReset(){window._sbPlaced=[];document.querySelectorAll('.sb-word').forEach(b=>b.classList.remove('placed'));const target=document.getElementById('sb-target');target.innerHTML='<span class="sb-hint">Tap words in order below →</span>';const res=document.getElementById('sb-result');res.className='sb-result';}
+function sbRemove(i,el){window._sbPlaced=window._sbPlaced.filter(p=>p.idx!==i);document.getElementById('sbw-'+i)?.classList.remove('placed');el.remove();if(!window._sbPlaced.length){document.getElementById('sb-target').innerHTML='<span class="sb-hint">Tap words below in order →</span>';}}
+function sbCheck(){
+  const answer=window._sbCurrent.answer;const placed=window._sbPlaced.map(p=>p.word);
+  const ok=placed.length===answer.length&&placed.every((w,i)=>w===answer[i]);
+  const res=document.getElementById('sb-result');res.className='sb-result show '+(ok?'ok':'bad');
+  if(ok){res.innerHTML='✓ Correct! Well done! +10 XP +3🪙';S.sbCorrect=(S.sbCorrect||0)+1;addXP(10);addCoins(3);save();checkAch();setTimeout(()=>{sbExIdx++;renderGrammar(currentGrammarTab);},1600);}
+  else res.innerHTML='✗ Not quite. Hint: '+window._sbCurrent.hint+'<br><span style="font-family:\'Noto Serif Ethiopic\',serif;font-size:1rem">'+answer.join(' ')+'</span>';
+}
+function sbReset(){window._sbPlaced=[];document.querySelectorAll('.sb-word').forEach(b=>b.classList.remove('placed'));document.getElementById('sb-target').innerHTML='<span class="sb-hint">Tap words below in order →</span>';document.getElementById('sb-result').className='sb-result';}
 
-/* ═══ TRADING CARDS ═══ */
+/* ═══════════════════════════
+   TRADING CARDS
+═══════════════════════════ */
 function switchCardsTab(tab){currentCardsTab=tab;document.getElementById('ctab-shop').classList.toggle('active',tab==='shop');document.getElementById('ctab-collection').classList.toggle('active',tab==='collection');renderCards();}
 function renderCards(){
   document.getElementById('cards-coins').textContent=S.coins;
   const content=document.getElementById('cards-content');
   if(currentCardsTab==='shop'){
     let html='<div class="sec-label">Buy a Pack</div><div class="pack-row">';
-    PACKS.forEach(p=>{html+='<div class="pack-card '+p.color+' '+p.glow+'" onclick="buyPack(\''+p.id+'\')"><div class="pack-ico">'+p.ico+'</div><div class="pack-name">'+p.name+'</div><div class="pack-cost">🪙 '+p.cost+'</div><div class="pack-desc">'+p.desc+'</div></div>';});
-    html+='</div>';
-    html+='<div class="sec-label" style="margin-top:0.5rem">How to earn coins 🪙</div>';
-    html+='<div style="margin:0 1rem;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem;font-size:0.78rem;color:var(--smoke);line-height:2">';
-    html+='✅ Quiz correct answer: <strong style="color:var(--gold)">+3🪙</strong><br>';
-    html+='🃏 Flashcard "Got It": <strong style="color:var(--gold)">+1🪙</strong><br>';
-    html+='🔗 Complete Match round: <strong style="color:var(--gold)">+5🪙</strong><br>';
-    html+='🔎 Word Hunt find: <strong style="color:var(--gold)">+2🪙</strong><br>';
-    html+='📝 Sentence Builder: <strong style="color:var(--gold)">+3🪙</strong><br>';
-    html+='✍️ Writing practice: <strong style="color:var(--gold)">+2🪙</strong>';
-    html+='</div><div class="section-gap"></div>';
+    PACKS.forEach(p=>{html+='<div class="pack-card '+p.color+'" onclick="buyPack(\''+p.id+'\')"><div class="pack-ico">'+p.ico+'</div><div class="pack-name">'+p.name+'</div><div class="pack-cost">🪙 '+p.cost+'</div><div class="pack-desc">'+p.desc+'</div></div>';});
+    html+='</div><div class="sec-label" style="margin-top:0.4rem">Earn Coins 🪙</div><div style="margin:0 1rem 0.75rem;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0.85rem;font-size:0.75rem;color:var(--smoke);line-height:2.1">✅ Quiz correct: <strong style="color:var(--gold)">+3🪙</strong> · 🃏 Flashcard: <strong style="color:var(--gold)">+1🪙</strong><br>🔗 Match round: <strong style="color:var(--gold)">+5🪙</strong> · 🔎 Word Hunt: <strong style="color:var(--gold)">+2🪙</strong><br>📝 Sentence Builder: <strong style="color:var(--gold)">+3🪙</strong> · ✍️ Writing: <strong style="color:var(--gold)">+2🪙</strong><br>📜 Fidel explore: <strong style="color:var(--gold)">+1🪙</strong> · 👁️ Recognition: <strong style="color:var(--gold)">+2🪙</strong></div><div class="sgap"></div>';
     content.innerHTML=html;
-  } else {
+  }else{
     const owned=S.collection||[];
-    if(!owned.length){content.innerHTML='<div class="empty-collection">No cards yet!<br>Buy packs in the Shop tab<br>to start your collection. 🃏</div>';return;}
-    // Count duplicates
+    if(!owned.length){content.innerHTML='<div class="empty-collection">No cards yet!<br>Buy packs in the Shop tab. 🃏</div>';return;}
     const counts={};owned.forEach(id=>{counts[id]=(counts[id]||0)+1;});
-    const unique=[...new Set(owned)];
-    let html='<div style="padding:0 1rem 0.5rem;font-size:0.72rem;color:var(--smoke)">'+unique.length+' unique · '+owned.length+' total</div><div class="card-grid">';
-    // Sort: legendary > rare > common
-    const sorted=unique.sort((a,b)=>{const ra=ALL_CARDS.find(c=>c.id===a)?.rarity;const rb=ALL_CARDS.find(c=>c.id===b)?.rarity;const order={legendary:0,rare:1,common:2};return (order[ra]||2)-(order[rb]||2);});
-    sorted.forEach(id=>{const card=ALL_CARDS.find(c=>c.id===id);if(!card)return;const cls='card-'+card.rarity;html+='<div class="card-item '+cls+'"><div class="card-rarity">'+card.rarity+'</div><div class="card-art">'+card.art+'</div><div class="card-ge ge">'+card.g+'</div><div class="card-en">'+card.e+'</div><div class="card-tr">'+card.t+'</div>'+(counts[id]>1?'<div class="card-count">×'+counts[id]+'</div>':'')+'</div>';});
-    html+='</div><div class="section-gap"></div>';
-    content.innerHTML=html;
+    const unique=[...new Set(owned)].sort((a,b)=>{const order={legendary:0,rare:1,common:2};return (order[ALL_CARDS.find(c=>c.id===a)?.rarity]||2)-(order[ALL_CARDS.find(c=>c.id===b)?.rarity]||2);});
+    let html='<div style="padding:0 1rem 0.4rem;font-size:0.7rem;color:var(--smoke)">'+unique.length+' unique · '+owned.length+' total · '+ALL_CARDS.length+' collectible</div><div class="card-grid">';
+    unique.forEach(id=>{const card=ALL_CARDS.find(c=>c.id===id);if(!card)return;html+='<div class="card-item card-'+card.rarity+'"><div class="card-rarity">'+card.rarity+'</div><div class="card-art">'+card.art+'</div><div class="card-ge ge">'+card.g+'</div><div class="card-en">'+card.e+'</div><div class="card-tr">'+card.t+'</div>'+(counts[id]>1?'<div class="card-count">×'+counts[id]+'</div>':'')+'</div>';});
+    html+='</div><div class="sgap"></div>';content.innerHTML=html;
   }
 }
 function buyPack(packId){
   const pack=PACKS.find(p=>p.id===packId);
-  if(S.coins<pack.cost){toast('Not enough coins! Need 🪙'+pack.cost);return;}
+  if((S.coins||0)<pack.cost){toast('Need 🪙'+pack.cost+' — keep playing to earn more!');return;}
   S.coins-=pack.cost;S.packsOpened=(S.packsOpened||0)+1;
-  // Draw 3 cards based on pack type
-  const drawn=[];
-  for(let i=0;i<3;i++){
+  const count=packId==='starter'?5:3;const drawn=[];
+  for(let i=0;i<count;i++){
     let pool;
-    if(packId==='basic') pool=ALL_CARDS.filter(c=>c.rarity==='common');
-    else if(packId==='rare') pool=i===0?ALL_CARDS.filter(c=>c.rarity==='rare'):ALL_CARDS.filter(c=>c.rarity==='common');
-    else { // legend
-      const r=Math.random();
-      if(i===0&&r<0.3) pool=ALL_CARDS.filter(c=>c.rarity==='legendary');
-      else if(r<0.5) pool=ALL_CARDS.filter(c=>c.rarity==='rare');
-      else pool=ALL_CARDS.filter(c=>c.rarity==='common');
-    }
+    if(pack.guaranteed==='rare'&&i===0)pool=ALL_CARDS.filter(c=>c.rarity==='rare');
+    else if(packId==='legend'){const r=Math.random();if(i===0&&r<0.25)pool=ALL_CARDS.filter(c=>c.rarity==='legendary');else if(r<0.5)pool=ALL_CARDS.filter(c=>c.rarity==='rare');else pool=ALL_CARDS.filter(c=>c.rarity==='common');}
+    else if(pack.draw)pool=pack.draw(i);
+    else pool=ALL_CARDS.filter(c=>c.rarity==='common');
+    if(!pool.length)pool=ALL_CARDS.filter(c=>c.rarity==='common');
     drawn.push(pool[Math.floor(Math.random()*pool.length)]);
   }
   drawn.forEach(card=>{S.collection=S.collection||[];S.collection.push(card.id);});
   save();updateHome();checkAch();
-  // Show overlay
   const overlay=document.getElementById('pack-overlay');
-  const revealWrap=document.getElementById('pack-cards-reveal');
-  revealWrap.innerHTML='';
+  const revealWrap=document.getElementById('pack-cards-reveal');revealWrap.innerHTML='';
+  const rarityColors={common:'var(--smoke)',rare:'var(--rare)',legendary:'var(--legend)'};
   drawn.forEach((card,i)=>{
-    const div=document.createElement('div');
-    div.className='reveal-card card-'+card.rarity;
-    div.innerHTML='<div class="reveal-rarity" style="color:'+{common:'var(--smoke)',rare:'var(--rare)',legendary:'var(--legend)'}[card.rarity]+'">'+card.rarity+'</div><div class="reveal-art">'+card.art+'</div><div class="card-ge ge">'+card.g+'</div><div class="card-en">'+card.e+'</div><div class="card-tr">'+card.t+'</div>';
-    revealWrap.appendChild(div);
-    setTimeout(()=>div.classList.add('show'),(i+1)*300);
+    const div=document.createElement('div');div.className='reveal-card card-'+card.rarity;
+    div.innerHTML='<div class="reveal-rarity" style="color:'+rarityColors[card.rarity]+'">★ '+card.rarity+'</div><div class="reveal-art">'+card.art+'</div><div class="card-ge ge" style="font-size:1.6rem">'+card.g+'</div><div style="font-size:0.82rem;color:var(--smoke);margin-top:0.2rem">'+card.e+'</div><div style="font-size:0.7rem;font-style:italic;color:var(--gold)">'+card.t+'</div>';
+    revealWrap.appendChild(div);setTimeout(()=>div.classList.add('show'),(i+1)*350);
   });
   overlay.classList.remove('hidden');
 }
 function closePackOverlay(){document.getElementById('pack-overlay').classList.add('hidden');renderCards();}
 
 /* PROGRESS */
-function renderProg(){const list=document.getElementById('prog-list');list.innerHTML='';CATS.forEach(c=>{const d=V[c],learned=S.cw?.[c]||0,total=d.words.length,pct=Math.round(learned/total*100);const el=document.createElement('div');el.className='prog-item';el.innerHTML='<div class="prog-hdr"><div class="prog-cat">'+d.icon+' '+d.label+'</div><div class="prog-ct">'+learned+'/'+total+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%"></div></div>';list.appendChild(el);});const fidelPct=Math.round((S.fidelLearned||0)/FIDEL.length*100);const fel=document.createElement('div');fel.className='prog-item';fel.innerHTML='<div class="prog-hdr"><div class="prog-cat">✍️ Fidel Script</div><div class="prog-ct">'+(S.fidelLearned||0)+'/'+FIDEL.length+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+fidelPct+'%"></div></div>';list.appendChild(fel);const sbPct=Math.min(100,Math.round((S.sbCorrect||0)/SB_EXERCISES.length*100));const sel=document.createElement('div');sel.className='prog-item';sel.innerHTML='<div class="prog-hdr"><div class="prog-cat">📝 Grammar Exercises</div><div class="prog-ct">'+(S.sbCorrect||0)+' correct</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+sbPct+'%"></div></div>';list.appendChild(sel);const cardPct=Math.round(([...new Set(S.collection||[])].length/ALL_CARDS.length)*100);const cel=document.createElement('div');cel.className='prog-item';cel.innerHTML='<div class="prog-hdr"><div class="prog-cat">🃏 Card Collection</div><div class="prog-ct">'+[...new Set(S.collection||[])].length+'/'+ALL_CARDS.length+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+cardPct+'%"></div></div>';list.appendChild(cel);}
+function renderProg(){
+  const list=document.getElementById('prog-list');list.innerHTML='';
+  CATS.forEach(c=>{const d=V[c],learned=S.cw?.[c]||0,total=d.words.length,pct=Math.round(learned/total*100);const el=document.createElement('div');el.className='prog-item';el.innerHTML='<div class="prog-hdr"><div class="prog-cat">'+d.icon+' '+d.label+'</div><div class="prog-ct">'+learned+'/'+total+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%"></div></div>';list.appendChild(el);});
+  [{cat:'✍️ Fidel Script',ct:(S.fidelLearned||0)+'/'+FIDEL.length,pct:Math.round((S.fidelLearned||0)/FIDEL.length*100)},{cat:'📝 Grammar Exercises',ct:(S.sbCorrect||0)+' done',pct:Math.min(100,Math.round((S.sbCorrect||0)/SB_EXERCISES.length*100))},{cat:'🃏 Card Collection',ct:[...new Set(S.collection||[])].length+'/'+ALL_CARDS.length,pct:Math.round([...new Set(S.collection||[])].length/ALL_CARDS.length*100)},{cat:'🔊 TTS Listens',ct:(S.ttsCount||0)+' times',pct:Math.min(100,(S.ttsCount||0)*5)}].forEach(({cat,ct,pct})=>{const el=document.createElement('div');el.className='prog-item';el.innerHTML='<div class="prog-hdr"><div class="prog-cat">'+cat+'</div><div class="prog-ct">'+ct+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%"></div></div>';list.appendChild(el);});
+  const el=document.createElement('div');el.className='prog-item prog-total';const totW=CATS.reduce((s,c)=>s+V[c].words.length,0);const totL=S.wl.filter(k=>!k.startsWith('A:')).length;el.innerHTML='<div class="prog-hdr"><div class="prog-cat" style="color:var(--gold)">🌟 All Vocabulary</div><div class="prog-ct">'+totL+'/'+totW+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+Math.round(totL/totW*100)+'%"></div></div>';list.appendChild(el);
+  // Achievements summary
+  const unlocked=ACHS.filter(a=>S.wl.includes('A:'+a.id));
+  const achEl=document.createElement('div');achEl.className='prog-item';achEl.innerHTML='<div class="prog-hdr"><div class="prog-cat">🏆 Achievements</div><div class="prog-ct">'+unlocked.length+'/'+ACHS.length+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+Math.round(unlocked.length/ACHS.length*100)+'%"></div></div>';list.appendChild(achEl);
+}
 
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 updateHome();
