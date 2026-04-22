@@ -348,6 +348,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
       <div class="mode-row" onclick="goNav('grammar')"><div class="mode-ico">📝</div><div class="mode-txt"><div class="mode-name">Grammar + Sentence Builder</div><div class="mode-desc">10 lessons · +3🪙 per exercise</div></div><div class="mode-arr">›</div></div>
       <div class="mode-row" onclick="goNav('script')"><div class="mode-ico">✍️</div><div class="mode-txt"><div class="mode-name">Script — Read &amp; Write</div><div class="mode-desc">Fidel chart · stroke tracing · recognition</div></div><div class="mode-arr">›</div></div>
       <div class="mode-row" onclick="goNav('cards')"><div class="mode-ico">🃏</div><div class="mode-txt"><div class="mode-name">Card Shop</div><div class="mode-desc">8 pack types · 60+ collectible cards</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="goNav('build')"><div class="mode-ico">🔤</div><div class="mode-txt"><div class="mode-name">Word Builder</div><div class="mode-desc">Assemble sentences · +10 XP · +4🪙 each</div></div><div class="mode-arr">›</div></div>
     </div>
     <div class="sgap"></div>
   </div>
@@ -485,6 +486,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
   <div class="scroll-area" style="padding-bottom:80px"><div class="prog-list" id="prog-list"></div></div>
 </div>
 
+<!-- BUILD SCREEN --><div class="screen" id="screen-build">  <div class="game-hdr">    <div class="back" onclick="goNav('home')">←</div>    <div class="g-prog" id="bd-prog">1 / 20</div>    <div class="g-streak" id="bd-str">🔥 0</div>  </div>  <div class="scroll-area" style="padding-bottom:80px">    <div style="margin:0 1rem 0.65rem">      <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.35rem" id="bd-type-label">Build the sentence</div>      <div style="background:var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:14px;padding:0.9rem 1rem;margin-bottom:0.65rem">        <div style="font-size:0.75rem;color:var(--smoke);margin-bottom:0.3rem" id="bd-english"></div>        <div style="font-size:0.62rem;font-style:italic;color:rgba(240,230,211,0.35)" id="bd-hint"></div>      </div>      <!-- Drop zone -->      <div id="bd-zone" style="background:rgba(212,160,23,0.05);border:2px dashed rgba(212,160,23,0.2);border-radius:14px;min-height:56px;padding:0.6rem;display:flex;flex-wrap:wrap;gap:0.35rem;align-items:center;margin-bottom:0.65rem;transition:border-color 0.2s">        <span style="font-size:0.7rem;color:rgba(240,230,211,0.25);font-style:italic" id="bd-zone-hint">Tap words below to place them here</span>      </div>      <!-- Word bank -->      <div id="bd-bank" style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem"></div>      <!-- Actions -->      <div style="display:flex;gap:0.5rem;margin-bottom:0.65rem">        <button onclick="bdCheck()" style="flex:1;padding:0.8rem;background:var(--green);border:none;border-radius:12px;color:#fff;font-family:inherit;font-weight:700;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">✓ Check</button>        <button onclick="bdReset()" style="flex:0 0 80px;padding:0.8rem;background:rgba(240,230,211,0.07);border:1px solid var(--border);border-radius:12px;color:var(--smoke);font-family:inherit;font-weight:700;font-size:0.78rem;cursor:pointer">↺ Reset</button>        <button onclick="bdSpeak()" style="flex:0 0 52px;padding:0.8rem;background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.2);border-radius:12px;color:var(--gold);font-family:inherit;font-size:1rem;cursor:pointer">🔊</button>      </div>      <div id="bd-result" style="display:none;border-radius:12px;padding:0.75rem 0.9rem;font-size:0.8rem;line-height:1.6;margin-bottom:0.5rem"></div>    </div>    <!-- Progress mini-list -->    <div style="margin:0 1rem">      <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.4rem">All Exercises</div>      <div id="bd-list" style="display:flex;flex-direction:column;gap:0.4rem"></div>    </div>    <div class="sgap"></div>  </div></div>
 <script>
 /* ═══════════════════════════
    TEXT-TO-SPEECH ENGINE
@@ -614,7 +616,7 @@ const V = {
   body:{label:'Body Parts',icon:'🫀',ge:'ኣካላት',words:[
     {g:'ርእሲ',t:'resi',e:'head',p:'RE-si',n:'"Resi" also means "chief" or "leader" — a head in both senses.'},
     {g:'ዓይኒ',t:'ayni',e:'eye',p:'AY-ni',n:'"Eyni" also means "same" — a beautiful double meaning.'},
-    {g:'ኣእዛን',t:'aezan',e:'ear',p:'ae-ZAN',n:'The Ge'ez script has specific characters for the sounds in this word.'},
+    {g:'ኣእዛን',t:'aezan',e:'ear',p:'ae-ZAN',n:'This word uses sounds unique to the Geez script — a great listening exercise.'},
     {g:'ኣፍ',t:'af',e:'mouth',p:'AF',n:'"Af" also means language in some contexts — you speak through your mouth.'},
     {g:'ኢድ',t:'id',e:'hand / arm',p:'ID',n:'One word covers both hand and arm — context determines which.'},
     {g:'ኣእጋር',t:'aegar',e:'leg / foot',p:'ae-GAR',n:'Like hand/arm, one word covers both leg and foot.'},
@@ -709,7 +711,21 @@ const V = {
     {g:'ቀዳሕ',t:'qedah',e:'belt',p:'QE-dah',n:'Traditional belts are often elaborately decorated leather.'},
     {g:'ኣርሻ',t:'arsha',e:'jewelry',p:'AR-sha',n:'Gold and silver jewelry are important in Eritrean cultural ceremonies.'},
   ]},
-  actions:{label:'Actions',icon:'🏃',ge:'ተግባር',words:[
+  sentences:{label:'Sentences',icon:'🗣️',ge:'ሓሳብ',words:[
+    {g:'ከመይ ኣለካ?',t:'kemey aleka?',e:'How are you? (to a male)',p:'ke-MEY a-LE-ka',n:'The most common greeting after hello. Change to aleki for a female.'},
+    {g:'ጽቡቕ ኣለኹ።',t:'tsbuk aleku.',e:'I am fine.',p:'tsBUK a-LE-ku',n:'The standard reply to how are you.'},
+    {g:'ኣነ ካብ ኤርትራ እየ።',t:'ane kab eritrea eye.',e:'I am from Eritrea.',p:'A-ne kab e-ri-TRE-a EYE',n:'Eritreans feel deep pride in saying where they are from.'},
+    {g:'ትግርኛ ትዛረብ ዶ?',t:'tigrinya tzereb do?',e:'Do you speak Tigrinya?',p:'tig-RI-nya tze-REB do',n:'The do particle at the end turns a statement into a yes or no question.'},
+    {g:'ፍቕሪ እዩ።',t:'fiqri eyu.',e:'It is love.',p:'fiq-RI EYU',n:'A simple but powerful sentence.'},
+    {g:'ኣደይ ጽብቕቲ እያ።',t:'adey tsbqti eya.',e:'My mother is beautiful.',p:'A-dey tsbq-TI EYA',n:'Uses the possessive suffix ey (my) and the feminine to-be form eya.'},
+    {g:'ቤትና ዓቢ እዩ።',t:'betna abi eyu.',e:'Our house is big.',p:'BET-na A-bi EYU',n:'Uses na (our) possessive suffix. Abi is the masculine form of big.'},
+    {g:'ማይ ይስተኻ?',t:'may ysteka?',e:'Would you like water?',p:'MAY ys-TE-ka',n:'Offering water to a guest is a sacred act of Eritrean hospitality.'},
+    {g:'ሰናይ ጉዕዞ!',t:'senay guzo!',e:'Have a good journey!',p:'se-NAY GU-zo',n:'Said warmly to someone about to travel.'},
+    {g:'ናብ ዕዳጋ ይኸይድ ኣለኹ።',t:'nab idaga ykheyid aleku.',e:'I am going to the market.',p:'NAB IH-da-ga a-LE-ku',n:'Uses the preposition nab (towards) and present continuous tense.'},
+    {g:'ቡን ይፈቱ ኔረ።',t:'bun yfetu nere.',e:'I used to love coffee.',p:'BOON yfe-TU NE-re',n:'Nere indicates a past habitual action - something you used to do.'},
+    {g:'ኤርትራ ሃገርና እያ።',t:'eritrea hagerna eya.',e:'Eritrea is our homeland.',p:'e-ri-TRE-a ha-GER-na EYA',n:'A deeply emotional sentence - homeland identity is central to Tigrinya culture.'},
+  ]},
+  actions:{label:'Actions',icon:'🏃',ge:'ተግባር',words:[,icon:'🏃',ge:'ተግባር',words:[
     {g:'ይዛረብ',t:'yzereb',e:'he speaks',p:'yze-REB',n:'Masculine present tense of "to speak". Feminine: ትዛረብ (tzereb).'},
     {g:'ይበልዕ',t:'ybele',e:'he eats',p:'ybe-LE',n:'Masculine present tense of "to eat". Feminine: ትበልዕ (tbele).'},
     {g:'ይሰቲ',t:'ysti',e:'he drinks',p:'ys-TI',n:'Masculine present tense of "to drink". Feminine: ትሰቲ (tsti).'},
@@ -913,6 +929,7 @@ function goNav(id){
   if(id==='cards'){renderCards();}
   if(id==='script')initScript();
   if(id==='prog')renderProg();
+  if(id==='build')initBuild();
 }
 function updateHome(){
   const level=lv(S.xp),lxp=lvXP(level),nxp=lvXP(level+1);
@@ -1284,6 +1301,186 @@ function renderProg(){
   // Achievements summary
   const unlocked=ACHS.filter(a=>S.wl.includes('A:'+a.id));
   const achEl=document.createElement('div');achEl.className='prog-item';achEl.innerHTML='<div class="prog-hdr"><div class="prog-cat">🏆 Achievements</div><div class="prog-ct">'+unlocked.length+'/'+ACHS.length+'</div></div><div class="prog-bar"><div class="prog-fill" style="width:'+Math.round(unlocked.length/ACHS.length*100)+'%"></div></div>';list.appendChild(achEl);
+}
+
+
+/* ═══════════════════════════
+   WORD BUILDER GAME
+═══════════════════════════ */
+const BD_EXERCISES = [
+  // BEGINNER — simple SOV sentences
+  {level:'Beginner',eng:'Hello.',tigrinya:'ሰላም።',words:['ሰላም','།'],answer:['ሰላም','།'],tr:'selam.',tip:'The simplest and most important Tigrinya word.'},
+  {level:'Beginner',eng:'I am fine.',tigrinya:'ጽቡቕ ኣለኹ።',words:['ጽቡቕ','ኣለኹ','།'],answer:['ጽቡቕ','ኣለኹ','།'],tr:'tsbuk aleku.',tip:'Literally "good I-am" — adjective before verb.'},
+  {level:'Beginner',eng:'Thank you.',tigrinya:'የቐንየለይ።',words:['የቐንየለይ','།'],answer:['የቐንየለይ','།'],tr:'yeqenyeley.',tip:'A single beautiful word for "thank you".'},
+  {level:'Beginner',eng:'I drink water.',tigrinya:'ኣነ ማይ እሰቲ።',words:['ኣነ','ማይ','እሰቲ','།'],answer:['ኣነ','ማይ','እሰቲ','།'],tr:'ane may isti.',tip:'SOV: I (subject) · water (object) · drink (verb).'},
+  {level:'Beginner',eng:'He is a doctor.',tigrinya:'ንሱ ሓኪም እዩ።',words:['ንሱ','ሓኪም','እዩ','།'],answer:['ንሱ','ሓኪም','እዩ','།'],tr:'nsu hakim eyu.',tip:'Masculine "to be" = እዩ (eyu). Always at end.'},
+  {level:'Beginner',eng:'She is a teacher.',tigrinya:'ንሳ ምምህርቲ እያ።',words:['ንሳ','ምምህርቲ','እያ','།'],answer:['ንሳ','ምምህርቲ','እያ','།'],tr:'nsa mmhrti eya.',tip:'Feminine "to be" = እያ (eya). Note the gender change!'},
+  {level:'Beginner',eng:'Good morning.',tigrinya:'ሰናይ ጽባሕ።',words:['ሰናይ','ጽባሕ','།'],answer:['ሰናይ','ጽባሕ','།'],tr:'senay tsbah.',tip:'Senay means good/beautiful. Tsbah means morning.'},
+  // INTERMEDIATE
+  {level:'Intermediate',eng:'Samuel eats injera.',tigrinya:'ሳሙኤል እንጀራ ይበልዕ።',words:['ሳሙኤል','ይበልዕ','እንጀራ','།'],answer:['ሳሙኤል','እንጀራ','ይበልዕ','།'],tr:'samuel injera ybele.',tip:'Object comes before verb! Samuel · injera · eats.'},
+  {level:'Intermediate',eng:'How are you?',tigrinya:'ከመይ ኣለካ?',words:['ኣለካ','ከመይ','?'],answer:['ከመይ','ኣለካ','?'],tr:'kemey aleka?',tip:'Question words come first. Aleka = you are (male).'},
+  {level:'Intermediate',eng:'Where is the market?',tigrinya:'ዕዳጋ ኣበይ ዩ?',words:['ዕዳጋ','ዩ','ኣበይ','?'],answer:['ዕዳጋ','ኣበይ','ዩ','?'],tr:'idaga abey yu?',tip:'Subject first, question word second, verb last.'},
+  {level:'Intermediate',eng:'My mother is beautiful.',tigrinya:'ኣደይ ጽብቕቲ እያ።',words:['ጽብቕቲ','ኣደይ','እያ','།'],answer:['ኣደይ','ጽብቕቲ','እያ','།'],tr:'adey tsbqti eya.',tip:'Adey = my mother (ade + ey suffix). Adjective before verb.'},
+  {level:'Intermediate',eng:'I am going to the market.',tigrinya:'ናብ ዕዳጋ ይኸይድ ኣለኹ።',words:['ናብ','ዕዳጋ','ኣለኹ','ይኸይድ','།'],answer:['ናብ','ዕዳጋ','ይኸይድ','ኣለኹ','།'],tr:'nab idaga ykheyid aleku.',tip:'Nab = to/towards. Present continuous: verb + aleku.'},
+  {level:'Intermediate',eng:"I don't know.",tigrinya:'ኣነ ኣይፈልጥን።',words:['ኣይፈልጥን','ኣነ','།'],answer:['ኣነ','ኣይፈልጥን','།'],tr:'ane ayfeltn.',tip:'Negation: ኣይ- prefix + verb + -ን suffix.'},
+  {level:'Intermediate',eng:'Our house is big.',tigrinya:'ቤትና ዓቢ እዩ።',words:['ቤትና','እዩ','ዓቢ','།'],answer:['ቤትና','ዓቢ','እዩ','།'],tr:'betna abi eyu.',tip:'Betna = our house (bet + na suffix). Adjective then verb.'},
+  {level:'Intermediate',eng:'We speak Tigrinya.',tigrinya:'ንሕና ትግርኛ ንዛረብ።',words:['ትግርኛ','ንዛረብ','ንሕና','།'],answer:['ንሕና','ትግርኛ','ንዛረብ','།'],tr:'nhna tigrinya nzereb.',tip:'We = ንሕና. We-speak = ንዛረብ (n- prefix for we).'},
+  // ADVANCED
+  {level:'Advanced',eng:'From Asmara to Massawa.',tigrinya:'ካብ ኣስመራ ናብ ምጽዋ።',words:['ናብ','ምጽዋ','ካብ','ኣስመራ','།'],answer:['ካብ','ኣስመራ','ናብ','ምጽዋ','།'],tr:'kab asmera nab mitswa.',tip:'Kab = from. Nab = to. Prepositions before their nouns.'},
+  {level:'Advanced',eng:'Eritrea is our homeland.',tigrinya:'ኤርትራ ሃገርና እያ።',words:['ሃገርና','ኤርትራ','እያ','།'],answer:['ኤርትራ','ሃገርና','እያ','།'],tr:'eritrea hagerna eya.',tip:'Hager = homeland/country. -na suffix = our.'},
+  {level:'Advanced',eng:'He drank water.',tigrinya:'ንሱ ማይ ሰተየ።',words:['ሰተየ','ንሱ','ማይ','།'],answer:['ንሱ','ማይ','ሰተየ','།'],tr:'nsu may seteye.',tip:'Past tense: verb root changes. Seteye = he drank.'},
+  {level:'Advanced',eng:'Knowledge is wealth.',tigrinya:'ፍልጠት ሃብቲ እዩ።',words:['ሃብቲ','ፍልጠት','እዩ','།'],answer:['ፍልጠት','ሃብቲ','እዩ','།'],tr:'fltset habti eyu.',tip:'A famous Tigrinya proverb. Subject + predicate + is.'},
+  {level:'Advanced',eng:'Without peace there is no wealth.',tigrinya:'ሰላም ዘይብሉ ሃብቲ የለን።',words:['ሃብቲ','ዘይብሉ','ሰላም','የለን','།'],answer:['ሰላም','ዘይብሉ','ሃብቲ','የለን','།'],tr:'selam zeyblu habti yelen.',tip:'A proverb. Zeyblu = without. Yelen = there is not.'},
+];
+
+let bdIdx=0, bdPlaced=[], bdDone=false, bdCompleted=[];
+
+function initBuild(){
+  bdCompleted = S.bdCompleted || [];
+  bdIdx = bdCompleted.length < BD_EXERCISES.length ? bdCompleted.length : 0;
+  bdDone = false;
+  renderBuildExercise();
+  renderBuildList();
+}
+
+function renderBuildExercise(){
+  bdPlaced=[];bdDone=false;
+  const ex=BD_EXERCISES[bdIdx];
+  if(!ex) return;
+  // Header
+  document.getElementById('bd-prog').textContent=(bdIdx+1)+' / '+BD_EXERCISES.length;
+  document.getElementById('bd-str').textContent='🔥 '+S.streak;
+  // Level label
+  const levelColors={Beginner:'#6ab387',Intermediate:var_gold(),Advanced:'#e05565'};
+  document.getElementById('bd-type-label').textContent=ex.level+' · Build the sentence';
+  document.getElementById('bd-type-label').style.color=levelColors[ex.level]||'var(--smoke)';
+  // English prompt
+  document.getElementById('bd-english').textContent='"'+ex.eng+'"';
+  document.getElementById('bd-hint').textContent='Hint: '+ex.tip;
+  // Reset zone
+  const zone=document.getElementById('bd-zone');
+  zone.innerHTML='<span style="font-size:0.7rem;color:rgba(240,230,211,0.25);font-style:italic" id="bd-zone-hint">Tap words below to place them here →</span>';
+  zone.style.borderColor='rgba(212,160,23,0.2)';
+  // Word bank
+  const bank=document.getElementById('bd-bank');
+  const shuffled=shuf([...ex.words]);
+  bank.innerHTML='';
+  shuffled.forEach((w,i)=>{
+    const btn=document.createElement('button');
+    btn.id='bdbtn-'+i;
+    btn.setAttribute('data-word',w);
+    btn.style.cssText='background:var(--accent);color:#fff;border:none;border-radius:8px;padding:0.45rem 0.75rem;font-family:"Noto Serif Ethiopic",Ethiopic,serif,system-ui;font-size:1rem;cursor:pointer;transition:opacity 0.2s;';
+    btn.textContent=w;
+    btn.onclick=()=>bdTapWord(i,w,btn);
+    bank.appendChild(btn);
+  });
+  // Result
+  const res=document.getElementById('bd-result');
+  res.style.display='none';res.innerHTML='';
+}
+
+function var_gold(){ return '#d4a017'; }
+
+function bdTapWord(i,w,btn){
+  if(btn.style.opacity==='0.3') return; // already placed
+  bdPlaced.push({i,w,btn});
+  btn.style.opacity='0.3';
+  btn.style.cursor='default';
+  const zone=document.getElementById('bd-zone');
+  // Remove hint text
+  const hint=document.getElementById('bd-zone-hint');
+  if(hint)hint.remove();
+  const chip=document.createElement('span');
+  chip.style.cssText='background:rgba(212,160,23,0.18);border:1px solid rgba(212,160,23,0.3);border-radius:8px;padding:0.4rem 0.65rem;font-family:"Noto Serif Ethiopic",Ethiopic,serif,system-ui;font-size:1rem;color:var(--gold);cursor:pointer;';
+  chip.textContent=w;
+  chip.onclick=()=>bdRemoveChip(i,btn,chip);
+  zone.appendChild(chip);
+}
+
+function bdRemoveChip(i,btn,chip){
+  if(bdDone)return;
+  bdPlaced=bdPlaced.filter(p=>p.i!==i);
+  btn.style.opacity='1';btn.style.cursor='pointer';
+  chip.remove();
+  const zone=document.getElementById('bd-zone');
+  if(!zone.children.length){
+    zone.innerHTML='<span style="font-size:0.7rem;color:rgba(240,230,211,0.25);font-style:italic" id="bd-zone-hint">Tap words below to place them here →</span>';
+  }
+}
+
+function bdCheck(){
+  if(bdDone)return;
+  const ex=BD_EXERCISES[bdIdx];
+  const placed=bdPlaced.map(p=>p.w);
+  const ok=placed.length===ex.answer.length&&placed.every((w,i)=>w===ex.answer[i]);
+  bdDone=true;
+  const zone=document.getElementById('bd-zone');
+  zone.style.borderColor=ok?'rgba(74,124,89,0.6)':'rgba(155,35,53,0.5)';
+  const res=document.getElementById('bd-result');
+  res.style.display='block';
+  if(ok){
+    res.style.cssText='display:block;border-radius:12px;padding:0.75rem 0.9rem;font-size:0.8rem;line-height:1.6;margin-bottom:0.5rem;background:rgba(74,124,89,0.12);border-left:3px solid var(--green);color:#6ab387;';
+    res.innerHTML='<strong>✓ Correct!</strong> '+ex.tr+'<br><span style="font-size:0.72rem;color:var(--smoke)">'+ex.tip+'</span><br><button onclick="bdNext()" style="margin-top:0.6rem;padding:0.65rem 1.5rem;background:var(--accent);border:none;border-radius:10px;color:#fff;font-family:inherit;font-weight:700;font-size:0.75rem;cursor:pointer">Next Exercise →</button>';
+    S.cor++;S.tot++;S.streak++;if(S.streak>S.best)S.best=S.streak;
+    S.bdCompleted=S.bdCompleted||[];
+    if(!S.bdCompleted.includes(bdIdx))S.bdCompleted.push(bdIdx);
+    S.sbCorrect=(S.sbCorrect||0)+1;
+    addXP(10);addCoins(4);save();checkAch();
+    renderBuildList();
+  } else {
+    res.style.cssText='display:block;border-radius:12px;padding:0.75rem 0.9rem;font-size:0.8rem;line-height:1.6;margin-bottom:0.5rem;background:rgba(155,35,53,0.1);border-left:3px solid var(--red);color:#e05565;';
+    const correct_str=ex.answer.join(' ');
+    res.innerHTML='<strong>✗ Not quite.</strong><br><span style="font-size:0.72rem;color:var(--smoke)">Correct order: </span><span style="font-family:\"Noto Serif Ethiopic\",serif;font-size:0.95rem;color:var(--sand)">'+correct_str+'</span><br><span style="font-size:0.7rem;color:rgba(240,230,211,0.45)">'+ex.tip+'</span><br><button onclick="bdReset()" style="margin-top:0.6rem;padding:0.65rem 1.5rem;background:rgba(240,230,211,0.1);border:1px solid var(--border);border-radius:10px;color:var(--sand);font-family:inherit;font-weight:700;font-size:0.75rem;cursor:pointer">↺ Try Again</button>';
+    S.streak=0;S.tot++;save();
+  }
+  document.getElementById('bd-str').textContent='🔥 '+S.streak;
+}
+
+function bdReset(){
+  bdPlaced=[];bdDone=false;
+  const zone=document.getElementById('bd-zone');
+  zone.innerHTML='<span style="font-size:0.7rem;color:rgba(240,230,211,0.25);font-style:italic" id="bd-zone-hint">Tap words below to place them here →</span>';
+  zone.style.borderColor='rgba(212,160,23,0.2)';
+  document.getElementById('bd-bank').querySelectorAll('button').forEach(b=>{b.style.opacity='1';b.style.cursor='pointer';});
+  const res=document.getElementById('bd-result');res.style.display='none';res.innerHTML='';
+}
+
+function bdNext(){
+  bdIdx=(bdIdx+1)%BD_EXERCISES.length;
+  renderBuildExercise();
+  renderBuildList();
+}
+
+function bdSpeak(){
+  const ex=BD_EXERCISES[bdIdx];
+  if(ex) speak(ex.tigrinya,ex.tr);
+}
+
+function bdJump(i){
+  bdIdx=i;
+  renderBuildExercise();
+  renderBuildList();
+  // Scroll to top
+  document.querySelector('#screen-build .scroll-area').scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderBuildList(){
+  const completed=S.bdCompleted||[];
+  const list=document.getElementById('bd-list');
+  list.innerHTML='';
+  BD_EXERCISES.forEach((ex,i)=>{
+    const done=completed.includes(i);
+    const active=i===bdIdx;
+    const el=document.createElement('div');
+    el.style.cssText='background:var(--card);border:1px solid '+(active?'rgba(193,68,14,0.5)':done?'rgba(74,124,89,0.3)':'var(--border)')+';border-radius:12px;padding:0.7rem 0.85rem;display:flex;align-items:center;gap:0.7rem;cursor:pointer;transition:border-color 0.15s;';
+    const levelColors={Beginner:'#6ab387',Intermediate:'#d4a017',Advanced:'#e05565'};
+    el.innerHTML='<span style="font-size:1.1rem">'+(done?'✅':active?'▶️':'⭕')+'</span>'
+      +'<div style="flex:1"><div style="font-size:0.78rem;color:var(--sand);font-weight:700">'+ex.eng+'</div>'
+      +'<div style="font-size:0.62rem;color:'+levelColors[ex.level]+';margin-top:0.1rem">'+ex.level+'</div></div>'
+      +'<span style="font-family:\"Noto Serif Ethiopic\",serif;font-size:0.8rem;color:var(--smoke)">'+ex.tigrinya+'</span>';
+    el.onclick=()=>bdJump(i);
+    list.appendChild(el);
+  });
 }
 
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
