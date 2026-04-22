@@ -348,7 +348,8 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
       <div class="mode-row" onclick="goNav('grammar')"><div class="mode-ico">📝</div><div class="mode-txt"><div class="mode-name">Grammar + Sentence Builder</div><div class="mode-desc">10 lessons · +3🪙 per exercise</div></div><div class="mode-arr">›</div></div>
       <div class="mode-row" onclick="goNav('script')"><div class="mode-ico">✍️</div><div class="mode-txt"><div class="mode-name">Script — Read &amp; Write</div><div class="mode-desc">Fidel chart · stroke tracing · recognition</div></div><div class="mode-arr">›</div></div>
       <div class="mode-row" onclick="goNav('cards')"><div class="mode-ico">🃏</div><div class="mode-txt"><div class="mode-name">Card Shop</div><div class="mode-desc">8 pack types · 60+ collectible cards</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="goNav('build')"><div class="mode-ico">🔤</div><div class="mode-txt"><div class="mode-name">Word Builder</div><div class="mode-desc">Assemble sentences · +10 XP · +4🪙 each</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="goNav('build')"><div class="mode-ico">🔤</div><div class="mode-txt"><div class="mode-name">Sentence Builder</div><div class="mode-desc">Assemble real sentences · +10 XP · +4🪙 each</div></div><div class="mode-arr">›</div></div>
+      <div class="mode-row" onclick="goNav('wordbuild')"><div class="mode-ico">🔡</div><div class="mode-txt"><div class="mode-name">Word Builder</div><div class="mode-desc">Spell words by tapping Ge'ez syllables · +8 XP</div></div><div class="mode-arr">›</div></div>
     </div>
     <div class="sgap"></div>
   </div>
@@ -438,17 +439,28 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
   <div id="stab-write-pane" class="scroll-area" style="padding-bottom:80px;display:none">
     <div style="padding:0 1rem 0.5rem;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke)">Pick a character to trace</div>
     <div class="write-char-pick" id="write-char-pick"></div>
+    <!-- Info row -->
+    <div style="margin:0 1rem 0.45rem;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--smoke)">Draw on the canvas · trace the ghost</div>
+      <button onclick="showGuideAnim()" style="background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);border-radius:8px;padding:0.3rem 0.65rem;font-size:0.65rem;color:var(--gold);cursor:pointer;font-family:inherit">▶ Show Guide</button>
+    </div>
     <div class="canvas-wrap">
-      <div class="canvas-label">Trace the ghost character — stroke accuracy measured</div>
       <div class="trace-char ge" id="trace-char">ሀ</div>
+      <!-- Overlay canvas for guide animation -->
+      <canvas id="guideCanvas" height="220" style="display:block;width:100%;position:absolute;top:0;left:0;border-radius:14px;pointer-events:none;opacity:0;transition:opacity 0.3s"></canvas>
       <canvas id="writeCanvas" height="220"></canvas>
     </div>
-    <div class="accuracy-badge" id="accuracy-badge"></div>
+    <!-- Accuracy + stroke count -->
+    <div style="display:flex;gap:0.5rem;margin:0 1rem 0.45rem;align-items:center">
+      <div class="accuracy-badge" id="accuracy-badge" style="flex:1;text-align:left"></div>
+      <div id="stroke-count" style="font-size:0.65rem;color:var(--smoke)"></div>
+    </div>
     <div class="canvas-btns">
       <button class="cbtn cbtn-clear" onclick="clearCanvas()">🗑 Clear</button>
-      <button class="cbtn cbtn-xp" onclick="claimWriteXP()">✓ Done! +10 XP</button>
+      <button onclick="undoStroke()" style="flex:0 0 72px;padding:0.7rem;border:none;border-radius:11px;font-family:inherit;font-size:0.72rem;font-weight:700;background:rgba(212,160,23,0.1);color:var(--gold);border:1px solid rgba(212,160,23,0.2);cursor:pointer">↩ Undo</button>
+      <button class="cbtn cbtn-xp" onclick="claimWriteXP()">✓ Done +10XP</button>
     </div>
-    <div class="write-tip"><strong>How to write Ge'ez</strong>Written <strong style="color:var(--sand)">left to right</strong>. Each fidel is a single character. The ghost shows the target — try to cover it with your strokes. Accuracy is measured by how well your strokes overlap the character.</div>
+    <div class="write-tip"><strong>How to write Ge'ez</strong>Trace the glowing ghost character with your finger. Press <strong style="color:var(--gold)">▶ Show Guide</strong> to see an animated example. Use Undo to remove your last stroke. Accuracy score shows how well you covered the character shape.</div>
     <div class="sgap"></div>
   </div>
   <div id="stab-rquiz-pane" style="display:none;flex:1;overflow-y:auto;padding-bottom:80px">
@@ -481,6 +493,42 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 </div>
 
 <!-- PROGRESS -->
+<div class="screen" id="screen-wordbuild">
+  <div class="game-hdr">
+    <div class="back" onclick="goNav('home')">←</div>
+    <div class="g-prog" id="wb-prog">1 / 24</div>
+    <div class="g-streak" id="wb-str">🔥 0</div>
+  </div>
+  <div class="scroll-area" style="padding-bottom:80px">
+    <div style="margin:0 1rem 0.65rem">
+      <!-- Word display card -->
+      <div style="background:var(--card2);border:1px solid rgba(212,160,23,0.2);border-radius:18px;padding:1.25rem;text-align:center;margin-bottom:0.75rem">
+        <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.5rem" id="wb-cat-label">Greetings</div>
+        <div style="font-size:1.5rem;font-weight:800;color:var(--sand);margin-bottom:0.25rem" id="wb-english">hello / peace</div>
+        <div style="font-size:0.78rem;font-style:italic;color:var(--gold);margin-bottom:0.5rem" id="wb-roman">selam</div>
+        <button onclick="speakWB()" class="tts-btn">🔊 Listen</button>
+      </div>
+      <!-- Assembly zone -->
+      <div style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.35rem">Tap syllables in order to spell the word</div>
+      <div id="wb-zone" style="background:rgba(212,160,23,0.04);border:2px dashed rgba(212,160,23,0.25);border-radius:14px;min-height:60px;padding:0.75rem;display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;margin-bottom:0.65rem">
+        <span id="wb-zone-hint" style="font-size:0.72rem;color:rgba(240,230,211,0.25);font-style:italic">Tap syllable tiles below →</span>
+      </div>
+      <!-- Syllable bank -->
+      <div id="wb-bank" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;justify-content:center"></div>
+      <!-- Actions -->
+      <div style="display:flex;gap:0.5rem;margin-bottom:0.65rem">
+        <button onclick="wbCheck()" style="flex:1;padding:0.85rem;background:var(--green);border:none;border-radius:12px;color:#fff;font-family:inherit;font-weight:700;font-size:0.8rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">✓ Check</button>
+        <button onclick="wbReset()" style="flex:0 0 80px;padding:0.85rem;background:rgba(240,230,211,0.07);border:1px solid var(--border);border-radius:12px;color:var(--smoke);font-family:inherit;font-weight:700;font-size:0.78rem;cursor:pointer">↺ Clear</button>
+      </div>
+      <!-- Result box -->
+      <div id="wb-result" style="display:none;border-radius:12px;padding:0.8rem 0.9rem;font-size:0.8rem;line-height:1.6;margin-bottom:0.5rem"></div>
+      <!-- Progress dots -->
+      <div id="wb-dots" style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.75rem"></div>
+    </div>
+    <div class="sgap"></div>
+  </div>
+</div>
+
 <div class="screen" id="screen-prog">
   <div class="page-header"><div class="page-title">📊 Progress</div></div>
   <div class="scroll-area" style="padding-bottom:80px"><div class="prog-list" id="prog-list"></div></div>
@@ -496,23 +544,34 @@ let currentWord = null;
 let currentFidelChar = null;
 
 function speak(geezText, romanization) {
-  if (!ttsSupported) return;
+  if (!ttsSupported) { toast('Audio not supported on this device'); return; }
   window.speechSynthesis.cancel();
-  // Try Tigrinya first
-  const voices = window.speechSynthesis.getVoices();
-  const tiVoice = voices.find(v => v.lang.startsWith('ti') || v.lang.startsWith('am'));
-  const u = new SpeechSynthesisUtterance(tiVoice ? geezText : romanization);
-  u.lang = tiVoice ? (tiVoice.lang) : 'en-US';
-  if (tiVoice) u.voice = tiVoice;
-  u.rate = 0.8;
-  u.pitch = 1.0;
-  u.onstart = () => {
-    document.querySelectorAll('.tts-btn').forEach(b => b.classList.add('speaking'));
-  };
-  u.onend = u.onerror = () => {
-    document.querySelectorAll('.tts-btn').forEach(b => b.classList.remove('speaking'));
-  };
-  window.speechSynthesis.speak(u);
+  const text = romanization || geezText;
+  function doSpeak() {
+    const voices = window.speechSynthesis.getVoices();
+    const u = new SpeechSynthesisUtterance(text);
+    // Prefer Tigrinya/Amharic voice; fall back to any English
+    const v = voices.find(v=>v.lang.startsWith('ti'))
+           || voices.find(v=>v.lang.startsWith('am'))
+           || voices.find(v=>v.lang.startsWith('en-'))
+           || (voices.length ? voices[0] : null);
+    if (v) u.voice = v;
+    u.lang = (v && v.lang) || 'en-US';
+    u.rate = 0.72;
+    u.pitch = 1.05;
+    u.onstart = () => document.querySelectorAll('.tts-btn').forEach(b=>b.classList.add('speaking'));
+    u.onend = () => document.querySelectorAll('.tts-btn').forEach(b=>b.classList.remove('speaking'));
+    u.onerror = () => document.querySelectorAll('.tts-btn').forEach(b=>b.classList.remove('speaking'));
+    window.speechSynthesis.speak(u);
+  }
+  // Voices may not be loaded yet on Android WebView — trigger load then speak
+  if (window.speechSynthesis.getVoices().length > 0) {
+    doSpeak();
+  } else {
+    window.speechSynthesis.onvoiceschanged = () => { doSpeak(); window.speechSynthesis.onvoiceschanged = null; };
+    // Safety fallback: speak anyway after 400ms even if event never fires
+    setTimeout(() => { if (!window.speechSynthesis.speaking) doSpeak(); }, 400);
+  }
 }
 
 function speakCurrent() {
@@ -930,6 +989,7 @@ function goNav(id){
   if(id==='script')initScript();
   if(id==='prog')renderProg();
   if(id==='build')initBuild();
+  if(id==='wordbuild')initWB();
 }
 function updateHome(){
   const level=lv(S.xp),lxp=lvXP(level),nxp=lvXP(level+1);
@@ -1088,7 +1148,7 @@ function initScript(){
   const chart=document.getElementById('fidel-chart');
   if(!chart.children.length){FIDEL.forEach((fam,fi)=>{const row=document.createElement('div');row.className='fidel-family';row.innerHTML='<div class="fidel-name">'+fam.name+'</div>';fam.forms.forEach((ch,vi)=>{const cell=document.createElement('div');cell.className='fidel-cell';cell.innerHTML='<span class="ge">'+ch+'</span>';cell.onclick=()=>showFidelDetail(fi,vi,cell);row.appendChild(cell);});chart.appendChild(row);});}
   const picker=document.getElementById('write-char-pick');
-  if(!picker.children.length){FIDEL.forEach((fam,fi)=>{const btn=document.createElement('button');btn.className='wcp';btn.textContent=fam.forms[0];btn.onclick=()=>{document.querySelectorAll('.wcp').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('trace-char').textContent=fam.forms[0];currentFidelChar={fam,vi:0,ch:fam.forms[0]};writeXPclaimed=false;clearCanvas();};picker.appendChild(btn);});picker.children[0]?.classList.add('active');currentFidelChar={fam:FIDEL[0],vi:0,ch:FIDEL[0].forms[0]};}
+  if(!picker.children.length){FIDEL.forEach((fam,fi)=>{const btn=document.createElement('button');btn.className='wcp';btn.textContent=fam.forms[0];btn.onclick=()=>{document.querySelectorAll('.wcp').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('trace-char').textContent=fam.forms[0];currentFidelChar={fam,vi:0,ch:fam.forms[0]};writeXPclaimed=false;allStrokes=[];strokePoints=[];currentStroke=[];clearCanvas();};picker.appendChild(btn);});picker.children[0]?.classList.add('active');currentFidelChar={fam:FIDEL[0],vi:0,ch:FIDEL[0].forms[0]};}
   initCanvas();
   switchScriptTab(currentScriptTab);
   if(!rqQueue.length)nextRQ();
@@ -1116,20 +1176,137 @@ function switchScriptTab(tab){
 /* ═══════════════════════════
    CANVAS WITH STROKE ACCURACY
 ═══════════════════════════ */
+let allStrokes = []; // array of point arrays, one per stroke
+let currentStroke = [];
+
 function initCanvas(){
   canvas=document.getElementById('writeCanvas');if(!canvas||canvas._init)return;canvas._init=true;
+  const dpr=window.devicePixelRatio||1;
   function resize(){
-    const dpr=window.devicePixelRatio||1;const w=canvas.offsetWidth;
+    const w=canvas.offsetWidth;
     canvas.width=w*dpr;canvas.height=220*dpr;canvas.style.height='220px';
     ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
-    ctx.strokeStyle='#f0c040';ctx.lineWidth=4;ctx.lineCap='round';ctx.lineJoin='round';
+    redrawAllStrokes();
   }
-  resize();window.addEventListener('resize',()=>{resize();strokePoints=[];});
-  function getPos(e){const rect=canvas.getBoundingClientRect();const src=e.touches?e.touches[0]:e;return{x:(src.clientX-rect.left),y:(src.clientY-rect.top)};}
-  canvas.addEventListener('pointerdown',e=>{drawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);strokePoints.push(p);e.preventDefault();});
-  canvas.addEventListener('pointermove',e=>{if(!drawing)return;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.stroke();ctx.beginPath();ctx.moveTo(p.x,p.y);strokePoints.push(p);e.preventDefault();});
-  canvas.addEventListener('pointerup',()=>{drawing=false;ctx.beginPath();updateAccuracy();});
-  canvas.addEventListener('pointerleave',()=>{if(drawing){drawing=false;ctx.beginPath();updateAccuracy();}});
+  resize();
+  window.addEventListener('resize',()=>{resize();});
+  function getPos(e){
+    const rect=canvas.getBoundingClientRect();
+    const src=e.touches?e.touches[0]:e;
+    return{x:(src.clientX-rect.left),y:(src.clientY-rect.top)};
+  }
+  canvas.addEventListener('pointerdown',e=>{
+    drawing=true;currentStroke=[];
+    const p=getPos(e);
+    ctx.strokeStyle='#f0c040';ctx.lineWidth=4;ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.beginPath();ctx.moveTo(p.x,p.y);
+    currentStroke.push(p);strokePoints.push(p);
+    e.preventDefault();
+  });
+  canvas.addEventListener('pointermove',e=>{
+    if(!drawing)return;
+    const p=getPos(e);
+    ctx.lineTo(p.x,p.y);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(p.x,p.y);
+    currentStroke.push(p);strokePoints.push(p);
+    e.preventDefault();
+  });
+  canvas.addEventListener('pointerup',()=>{
+    if(drawing&&currentStroke.length>1){allStrokes.push([...currentStroke]);}
+    drawing=false;ctx.beginPath();
+    updateAccuracy();
+    updateStrokeCount();
+  });
+  canvas.addEventListener('pointerleave',()=>{
+    if(drawing){
+      if(currentStroke.length>1)allStrokes.push([...currentStroke]);
+      drawing=false;ctx.beginPath();updateAccuracy();updateStrokeCount();
+    }
+  });
+}
+
+function redrawAllStrokes(){
+  if(!ctx)return;
+  ctx.clearRect(0,0,canvas.offsetWidth,220);
+  ctx.strokeStyle='#f0c040';ctx.lineWidth=4;ctx.lineCap='round';ctx.lineJoin='round';
+  allStrokes.forEach(stroke=>{
+    if(stroke.length<2)return;
+    ctx.beginPath();ctx.moveTo(stroke[0].x,stroke[0].y);
+    stroke.forEach(p=>ctx.lineTo(p.x,p.y));
+    ctx.stroke();
+  });
+}
+
+function undoStroke(){
+  if(!allStrokes.length)return;
+  allStrokes.pop();
+  strokePoints=allStrokes.flat();
+  redrawAllStrokes();
+  updateAccuracy();
+  updateStrokeCount();
+}
+
+function updateStrokeCount(){
+  const el=document.getElementById('stroke-count');
+  if(el) el.textContent=allStrokes.length+' stroke'+(allStrokes.length!==1?'s':'');
+}
+
+function showGuideAnim(){
+  // Draw animated dots along the ghost character's bounding box to guide stroke direction
+  const gc=document.getElementById('guideCanvas');
+  if(!gc)return;
+  const ch=document.getElementById('trace-char').textContent;
+  gc.width=canvas.width;gc.height=canvas.height;
+  gc.style.height='220px';
+  const gCtx=gc.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  gCtx.scale(dpr,dpr);
+  const w=gc.offsetWidth,h=220;
+  gc.style.opacity='1';
+  // Draw animated start dot (top-left area of character - typical Ge'ez start point)
+  const cx=w/2,cy=h/2;
+  let frame=0;
+  const totalFrames=60;
+  function animFrame(){
+    gCtx.clearRect(0,0,w,h);
+    const t=frame/totalFrames;
+    // Draw pulsing start dot
+    const pulse=0.7+0.3*Math.sin(frame*0.3);
+    gCtx.beginPath();
+    gCtx.arc(cx-w*0.15, cy-h*0.2, 10*pulse, 0, Math.PI*2);
+    gCtx.fillStyle='rgba(193,68,14,'+pulse+')';
+    gCtx.fill();
+    // Draw arrow suggesting downward then right motion
+    if(t<0.5){
+      // Phase 1: vertical arrow
+      const prog=t*2;
+      gCtx.strokeStyle='rgba(212,160,23,0.7)';
+      gCtx.lineWidth=3;gCtx.lineCap='round';
+      gCtx.beginPath();
+      gCtx.moveTo(cx-w*0.15,cy-h*0.15);
+      gCtx.lineTo(cx-w*0.15,cy-h*0.15+prog*h*0.3);
+      gCtx.stroke();
+    } else {
+      // Phase 2: horizontal arrow
+      const prog=(t-0.5)*2;
+      gCtx.strokeStyle='rgba(212,160,23,0.7)';
+      gCtx.lineWidth=3;gCtx.lineCap='round';
+      gCtx.beginPath();
+      gCtx.moveTo(cx-w*0.15,cy+h*0.15);
+      gCtx.lineTo(cx-w*0.15+prog*w*0.3,cy+h*0.15);
+      gCtx.stroke();
+    }
+    // Label
+    gCtx.font='bold 11px system-ui';
+    gCtx.fillStyle='rgba(240,230,211,0.6)';
+    gCtx.fillText('Start here',cx-w*0.35,cy-h*0.25);
+    frame++;
+    if(frame<totalFrames*2) requestAnimationFrame(animFrame);
+    else{
+      setTimeout(()=>{gc.style.opacity='0';},500);
+    }
+  }
+  requestAnimationFrame(animFrame);
 }
 
 function buildTargetMask(){
@@ -1176,10 +1353,13 @@ function updateAccuracy(){
 }
 
 function clearCanvas(){
-  if(!canvas)return;const dpr=window.devicePixelRatio||1;
-  ctx.clearRect(0,0,canvas.offsetWidth,220);strokePoints=[];writeXPclaimed=false;
-  const badge=document.getElementById('accuracy-badge');badge.textContent='';
+  if(!canvas)return;
+  allStrokes=[];strokePoints=[];currentStroke=[];writeXPclaimed=false;
+  ctx.clearRect(0,0,canvas.offsetWidth,220);
+  const badge=document.getElementById('accuracy-badge');if(badge)badge.textContent='';
+  const sc=document.getElementById('stroke-count');if(sc)sc.textContent='';
   const cv=document.getElementById('writeCanvas');cv.classList.remove('acc-great','acc-good','acc-low');
+  cv.style.borderColor='rgba(212,160,23,0.18)';
 }
 function claimWriteXP(){
   if(writeXPclaimed){toast('Clear and try again for more XP!');return;}
@@ -1363,7 +1543,8 @@ function renderBuildExercise(){
   zone.style.borderColor='rgba(212,160,23,0.2)';
   // Word bank
   const bank=document.getElementById('bd-bank');
-  const shuffled=shuf([...ex.words]);
+  const BDPUNCT=new Set(['།','།','?','!','።','།']);
+  const shuffled=shuf([...ex.words].filter(w=>!BDPUNCT.has(w)));
   bank.innerHTML='';
   shuffled.forEach((w,i)=>{
     const btn=document.createElement('button');
@@ -1411,8 +1592,11 @@ function bdRemoveChip(i,btn,chip){
 function bdCheck(){
   if(bdDone)return;
   const ex=BD_EXERCISES[bdIdx];
-  const placed=bdPlaced.map(p=>p.w);
-  const ok=placed.length===ex.answer.length&&placed.every((w,i)=>w===ex.answer[i]);
+  // Strip punctuation tokens before comparing so ། and ? don't cause false failures
+  const PUNCT=new Set(['།','།','?','!','።','።','.','،',',']);
+  const placed=bdPlaced.map(p=>p.w).filter(w=>!PUNCT.has(w));
+  const answer=ex.answer.filter(w=>!PUNCT.has(w));
+  const ok=placed.length===answer.length&&placed.every((w,i)=>w===answer[i]);
   bdDone=true;
   const zone=document.getElementById('bd-zone');
   zone.style.borderColor=ok?'rgba(74,124,89,0.6)':'rgba(155,35,53,0.5)';
@@ -1483,6 +1667,185 @@ function renderBuildList(){
   });
 }
 
+
+/* ═══════════════════════════════════════════
+   WORD BUILDER — tap syllables to spell words
+═══════════════════════════════════════════ */
+const WB_WORDS = [
+  // greetings
+  {ge:'ሰላም',  roman:'selam',    eng:'hello / peace',      cat:'Greetings'},
+  {ge:'የቐንየለይ',roman:'yeqenyeley',eng:'thank you',         cat:'Greetings'},
+  {ge:'ጽቡቕ',  roman:'tsbuk',    eng:'good / fine',         cat:'Greetings'},
+  {ge:'ይቕረ',  roman:'yiqre',   eng:'sorry / excuse me',   cat:'Greetings'},
+  // family
+  {ge:'ኣደ',   roman:'ade',     eng:'mother',               cat:'Family'},
+  {ge:'ኣቦ',   roman:'abo',     eng:'father',               cat:'Family'},
+  {ge:'ሓው',   roman:'haw',     eng:'brother',              cat:'Family'},
+  {ge:'ቆልዓ',  roman:'qolaa',   eng:'child',                cat:'Family'},
+  // food
+  {ge:'እንጀራ', roman:'injera',  eng:'injera flatbread',     cat:'Food'},
+  {ge:'ሽሮ',   roman:'shiro',   eng:'chickpea stew',        cat:'Food'},
+  {ge:'ማይ',   roman:'may',     eng:'water',                cat:'Food'},
+  {ge:'ቡን',   roman:'bun',     eng:'coffee',               cat:'Food'},
+  // nature
+  {ge:'ጸሓይ',  roman:'tsehay',  eng:'sun',                  cat:'Nature'},
+  {ge:'ወርሒ',  roman:'werhi',   eng:'moon / month',         cat:'Nature'},
+  {ge:'ባሕሪ',  roman:'bahri',   eng:'sea / ocean',          cat:'Nature'},
+  {ge:'ሓዊ',   roman:'hawi',    eng:'fire',                 cat:'Nature'},
+  // emotions
+  {ge:'ፍቕሪ',  roman:'fiqri',   eng:'love',                 cat:'Emotions'},
+  {ge:'ሓጎስ',  roman:'hagos',   eng:'happiness',            cat:'Emotions'},
+  {ge:'ተስፋ',  roman:'tesfa',   eng:'hope',                 cat:'Emotions'},
+  {ge:'ናፍቖት', roman:'nafqot',  eng:'longing / nostalgia',  cat:'Emotions'},
+  // places
+  {ge:'ሃገር',  roman:'hager',   eng:'homeland / country',   cat:'Places'},
+  {ge:'ከተማ',  roman:'ketema',  eng:'city / town',          cat:'Places'},
+  {ge:'ዓዲ',   roman:'adi',     eng:'village',              cat:'Places'},
+  {ge:'ቤት',   roman:'bet',     eng:'house / home',         cat:'Places'},
+];
+
+let wbIdx=0, wbPlaced=[], wbDone=false, wbCompleted=[];
+
+function initWB(){
+  wbCompleted = S.wbCompleted || [];
+  // Find first uncompleted, or loop
+  wbIdx = WB_WORDS.findIndex((_,i)=>!wbCompleted.includes(i));
+  if(wbIdx<0) wbIdx=0;
+  wbDone=false;
+  renderWBWord();
+  renderWBDots();
+}
+
+// Split Ge'ez word into array of Unicode characters (each is one syllable)
+function splitGe(word){ return [...word]; }
+
+function renderWBWord(){
+  wbPlaced=[];wbDone=false;
+  const w=WB_WORDS[wbIdx];
+  document.getElementById('wb-prog').textContent=(wbIdx+1)+' / '+WB_WORDS.length;
+  document.getElementById('wb-str').textContent='🔥 '+S.streak;
+  document.getElementById('wb-cat-label').textContent=w.cat;
+  document.getElementById('wb-english').textContent=w.eng;
+  document.getElementById('wb-roman').textContent=w.roman;
+  // Set current word for TTS
+  currentWord={g:w.ge,t:w.roman,e:w.eng};
+  // Zone reset
+  const zone=document.getElementById('wb-zone');
+  zone.style.borderColor='rgba(212,160,23,0.25)';
+  zone.innerHTML='<span id="wb-zone-hint" style="font-size:0.72rem;color:rgba(240,230,211,0.25);font-style:italic">Tap syllable tiles below →</span>';
+  // Build shuffled syllable bank
+  const syllables=splitGe(w.ge);
+  // Add 1-2 distractor syllables from other words
+  const allSyl=[...new Set(WB_WORDS.flatMap(x=>splitGe(x.ge)).filter(s=>!syllables.includes(s)))];
+  const distractors=shuf(allSyl).slice(0,Math.min(2,syllables.length));
+  const bank_items=shuf([...syllables.map((s,i)=>({s,idx:i,real:true})),
+                          ...distractors.map((s,i)=>({s,idx:syllables.length+i,real:false}))]);
+  const bank=document.getElementById('wb-bank');bank.innerHTML='';
+  bank_items.forEach(item=>{
+    const btn=document.createElement('button');
+    btn.id='wbbtn-'+item.idx;
+    btn.style.cssText='font-family:"Noto Serif Ethiopic",Ethiopic,serif;font-size:1.8rem;background:var(--card2);border:2px solid rgba(212,160,23,0.3);border-radius:12px;padding:0.5rem 0.65rem;color:var(--sand);cursor:pointer;transition:all 0.15s;min-width:52px;';
+    btn.textContent=item.s;
+    btn.onclick=()=>wbTap(item,btn);
+    bank.appendChild(btn);
+  });
+  // Result
+  const res=document.getElementById('wb-result');res.style.display='none';res.innerHTML='';
+}
+
+function speakWB(){
+  const w=WB_WORDS[wbIdx];
+  if(w) speak(w.ge,w.roman);
+}
+
+function wbTap(item,btn){
+  if(btn.style.opacity==='0.25'||wbDone) return;
+  btn.style.opacity='0.25';btn.style.cursor='default';
+  wbPlaced.push({...item,btn});
+  const zone=document.getElementById('wb-zone');
+  const hint=document.getElementById('wb-zone-hint');if(hint)hint.remove();
+  const chip=document.createElement('span');
+  chip.style.cssText='font-family:"Noto Serif Ethiopic",Ethiopic,serif;font-size:1.8rem;background:rgba(212,160,23,0.15);border:2px solid rgba(212,160,23,0.4);border-radius:12px;padding:0.45rem 0.6rem;color:var(--gold);cursor:pointer;min-width:52px;text-align:center;display:inline-flex;align-items:center;justify-content:center;';
+  chip.textContent=item.s;
+  chip.onclick=()=>wbRemove(item,btn,chip);
+  zone.appendChild(chip);
+}
+
+function wbRemove(item,btn,chip){
+  if(wbDone)return;
+  wbPlaced=wbPlaced.filter(p=>p.idx!==item.idx);
+  btn.style.opacity='1';btn.style.cursor='pointer';
+  chip.remove();
+  const zone=document.getElementById('wb-zone');
+  if(!zone.children.length)zone.innerHTML='<span id="wb-zone-hint" style="font-size:0.72rem;color:rgba(240,230,211,0.25);font-style:italic">Tap syllable tiles below →</span>';
+}
+
+function wbCheck(){
+  if(wbDone)return;
+  const w=WB_WORDS[wbIdx];
+  const target=splitGe(w.ge);
+  const placed=wbPlaced.map(p=>p.s);
+  const ok=placed.join('')===w.ge;
+  wbDone=true;
+  const zone=document.getElementById('wb-zone');
+  zone.style.borderColor=ok?'rgba(74,124,89,0.6)':'rgba(155,35,53,0.5)';
+  const res=document.getElementById('wb-result');
+  res.style.display='block';
+  if(ok){
+    res.style.cssText='display:block;border-radius:12px;padding:0.8rem 0.9rem;font-size:0.8rem;line-height:1.7;background:rgba(74,124,89,0.12);border-left:3px solid var(--green);color:#6ab387;';
+    res.innerHTML='<strong>✅ Correct!</strong> You spelled <span style="font-family:\"Noto Serif Ethiopic\",serif;font-size:1rem;color:var(--sand)">'+w.ge+'</span> perfectly!<br>'
+      +'<span style="font-size:0.72rem;color:var(--smoke)">'+w.roman+' — '+w.eng+'</span><br>'
+      +'<button onclick="wbNext()" style="margin-top:0.55rem;padding:0.6rem 1.4rem;background:var(--accent);border:none;border-radius:10px;color:#fff;font-family:inherit;font-weight:700;font-size:0.75rem;cursor:pointer">Next Word →</button>';
+    S.cor++;S.tot++;S.streak++;if(S.streak>S.best)S.best=S.streak;
+    S.wbCompleted=S.wbCompleted||[];
+    if(!S.wbCompleted.includes(wbIdx))S.wbCompleted.push(wbIdx);
+    addXP(8);addCoins(3);save();checkAch();
+    renderWBDots();
+    document.getElementById('wb-str').textContent='🔥 '+S.streak;
+  } else {
+    res.style.cssText='display:block;border-radius:12px;padding:0.8rem 0.9rem;font-size:0.8rem;line-height:1.7;background:rgba(155,35,53,0.1);border-left:3px solid var(--red);color:#e05565;';
+    res.innerHTML='<strong>✗ Not quite!</strong> You placed: <span style="font-family:\"Noto Serif Ethiopic\",serif;font-size:1rem">'+placed.join('')+'</span><br>'
+      +'<span style="font-size:0.72rem;color:var(--smoke)">The word is: <span style="font-family:\"Noto Serif Ethiopic\",serif;font-size:0.95rem;color:var(--sand)">'+w.ge+'</span> ('+w.roman+')</span><br>'
+      +'<button onclick="wbReset()" style="margin-top:0.55rem;padding:0.6rem 1.4rem;background:rgba(240,230,211,0.1);border:1px solid var(--border);border-radius:10px;color:var(--sand);font-family:inherit;font-weight:700;font-size:0.75rem;cursor:pointer">↺ Try Again</button>';
+    S.streak=0;S.tot++;save();
+    document.getElementById('wb-str').textContent='🔥 '+S.streak;
+  }
+}
+
+function wbReset(){
+  wbPlaced=[];wbDone=false;
+  const zone=document.getElementById('wb-zone');
+  zone.style.borderColor='rgba(212,160,23,0.25)';
+  zone.innerHTML='<span id="wb-zone-hint" style="font-size:0.72rem;color:rgba(240,230,211,0.25);font-style:italic">Tap syllable tiles below →</span>';
+  document.getElementById('wb-bank').querySelectorAll('button').forEach(b=>{b.style.opacity='1';b.style.cursor='pointer';});
+  const res=document.getElementById('wb-result');res.style.display='none';
+}
+
+function wbNext(){
+  wbIdx=(wbIdx+1)%WB_WORDS.length;
+  renderWBWord();renderWBDots();
+  document.querySelector('#screen-wordbuild .scroll-area').scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderWBDots(){
+  const completed=S.wbCompleted||[];
+  const dots=document.getElementById('wb-dots');if(!dots)return;
+  dots.innerHTML='';
+  WB_WORDS.forEach((_,i)=>{
+    const dot=document.createElement('div');
+    dot.style.cssText='width:10px;height:10px;border-radius:50%;cursor:pointer;transition:all 0.2s;'
+      +(i===wbIdx?'background:var(--accent);transform:scale(1.4);':
+        completed.includes(i)?'background:var(--green);opacity:0.7;':
+        'background:rgba(240,230,211,0.15);');
+    dot.title=WB_WORDS[i].eng;
+    dot.onclick=()=>{wbIdx=i;renderWBWord();renderWBDots();document.querySelector('#screen-wordbuild .scroll-area').scrollTo({top:0,behavior:'smooth'});};
+    dots.appendChild(dot);
+  });
+}
+
+/* ═══════════════════════════════════════════
+   CANVAS — stroke tracing with guide + undo
+═══════════════════════════════════════════ */
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 updateHome();
 </script>
