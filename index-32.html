@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ትግርኛ — Tigrinya Learning App</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Noto+Sans+Ethiopic:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold: #D4A017;
+    --gold-light: #F5C842;
+    --amber: #C97B1A;
+    --deep: #1A0E05;
+    --dark: #2B1A0D;
+    --mid: #3E2A12;
+    --surface: #4F3520;
+    --panel: #F9F3EA;
+    --text: #F9F3EA;
+    --muted: #C8B49A;
+    --accent: #E05C2A;
+    --green: #4CAF50;
+    --blue: #3A7BD5;
+    --purple: #8B5CF6;
+    --red: #E53935;
+    --coin: #FFD700;
+    --r: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--deep);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── SPLASH ── */
+  #splash {
+    position: fixed; inset: 0; z-index: 999;
+    background: radial-gradient(ellipse at 50% 30%, #3E2A12 0%, #1A0E05 70%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px;
+    transition: opacity 0.6s;
+  }
+  #splash .logo-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(24px, 7vw, 42px);
+    color: var(--gold);
+    text-shadow: 0 0 40px #D4A01788;
+    text-align: center;
+  }
+  #splash .sub { font-size: 15px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; }
+  #splash .pattern {
+    font-size: 48px; line-height: 1;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  #splash .start-btn {
+    margin-top: 32px;
+    background: linear-gradient(135deg, var(--gold), var(--amber));
+    color: var(--deep);
+    border: none; border-radius: 50px;
+    padding: 14px 48px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px; font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 24px #D4A01744;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  #splash .start-btn:hover { transform: scale(1.05); box-shadow: 0 8px 32px #D4A01766; }
+
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+
+  /* ── LAYOUT ── */
+  #app { display: none; flex-direction: column; min-height: 100vh; }
+  #app.active { display: flex; }
+
+  /* ── TOP BAR ── */
+  #topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: linear-gradient(to bottom, #2B1A0D, #2B1A0Dcc);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #ffffff15;
+    padding: 10px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  #topbar .brand { font-family: 'Cinzel Decorative', serif; font-size: 16px; color: var(--gold); }
+  .stat-pill {
+    display: flex; align-items: center; gap: 5px;
+    background: #ffffff10; border-radius: 50px;
+    padding: 5px 12px; font-size: 13px; font-weight: 600;
+  }
+  .coin-icon { font-size: 16px; }
+  .streak-icon { font-size: 16px; }
+
+  /* ── NAV ── */
+  #nav {
+    position: sticky; bottom: 0; z-index: 100;
+    background: var(--dark);
+    border-top: 1px solid #ffffff15;
+    display: flex; justify-content: space-around;
+    padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+  }
+  .nav-btn {
+    background: none; border: none; color: var(--muted);
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    font-size: 10px; font-weight: 500; cursor: pointer;
+    padding: 4px 8px; border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+    min-width: 52px;
+  }
+  .nav-btn .nav-icon { font-size: 20px; line-height: 1; }
+  .nav-btn.active { color: var(--gold); }
+  .nav-btn.active .nav-icon { filter: drop-shadow(0 0 6px var(--gold)); }
+
+  /* ── CONTENT ── */
+  #content { flex: 1; overflow-y: auto; padding-bottom: 80px; }
+
+  /* ── SCREENS ── */
+  .screen { display: none; padding: 16px; animation: fadeIn 0.3s; }
+  .screen.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+
+  /* ── HOME ── */
+  .home-hero {
+    background: linear-gradient(135deg, #3E2A12, #2B1A0D);
+    border: 1px solid #ffffff15;
+    border-radius: var(--r);
+    padding: 20px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .home-hero h2 { font-family: 'Cinzel Decorative', serif; font-size: 18px; color: var(--gold); margin-bottom: 6px; }
+  .home-hero p { color: var(--muted); font-size: 14px; }
+
+  .wotd-card {
+    background: linear-gradient(135deg, #4F3520, #3E2A12);
+    border: 1px solid var(--gold)44;
+    border-radius: var(--r);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .wotd-label { font-size: 11px; color: var(--gold); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .wotd-tigrinya { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 32px; color: var(--gold-light); line-height: 1.2; }
+  .wotd-latin { font-size: 16px; color: var(--muted); margin-top: 4px; }
+  .wotd-meaning { font-size: 18px; font-weight: 600; margin-top: 8px; }
+  .wotd-example { font-size: 13px; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+  .section-title { font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .quick-card {
+    background: var(--mid);
+    border: 1px solid #ffffff10;
+    border-radius: var(--r);
+    padding: 16px 12px;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s;
+    text-align: center;
+  }
+  .quick-card:hover, .quick-card:active { transform: scale(0.97); border-color: var(--gold)66; }
+  .quick-card .qc-icon { font-size: 28px; margin-bottom: 6px; }
+  .quick-card .qc-label { font-size: 13px; font-weight: 600; }
+  .quick-card .qc-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .progress-bar-wrap { background: #ffffff15; border-radius: 50px; height: 8px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--accent)); border-radius: 50px; transition: width 0.5s; }
+
+  /* ── LEARN (WORDS) ── */
+  .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cat-card {
+    background: var(--mid);
+    border: 1px solid #ffffff10;
+    border-radius: var(--r);
+    padding: 16px;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .cat-card:hover { transform: scale(0.97); border-color: var(--gold)66; }
+  .cat-card .cat-icon { font-size: 32px; }
+  .cat-card .cat-name { font-size: 14px; font-weight: 700; }
+  .cat-card .cat-count { font-size: 11px; color: var(--muted); }
+  .cat-card .cat-bar { margin-top: 4px; }
+
+  /* word list */
+  .word-list { display: flex; flex-direction: column; gap: 8px; }
+  .word-item {
+    background: var(--mid);
+    border: 1px solid #ffffff10;
+    border-radius: var(--r);
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .word-item:hover { border-color: var(--gold)55; }
+  .word-tigrinya { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 22px; color: var(--gold-light); min-width: 70px; }
+  .word-meta { flex: 1; }
+  .word-latin { font-size: 13px; color: var(--muted); }
+  .word-english { font-size: 15px; font-weight: 600; }
+  .word-mastery { font-size: 11px; }
+  .mastery-dots { display: flex; gap: 4px; margin-top: 4px; }
+  .mastery-dot { width: 8px; height: 8px; border-radius: 50%; background: #ffffff20; }
+  .mastery-dot.filled { background: var(--gold); }
+
+  /* ── QUIZ ── */
+  .quiz-wrap { max-width: 500px; margin: 0 auto; }
+  .quiz-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .quiz-progress { font-size: 13px; color: var(--muted); }
+  .quiz-score { font-size: 13px; font-weight: 700; color: var(--gold); }
+  .quiz-card {
+    background: linear-gradient(135deg, #4F3520, #3E2A12);
+    border: 1px solid var(--gold)33;
+    border-radius: 16px;
+    padding: 32px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    min-height: 160px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .quiz-prompt-tigrinya { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 44px; color: var(--gold-light); line-height: 1.2; }
+  .quiz-prompt-en { font-size: 22px; font-weight: 600; }
+  .quiz-prompt-sub { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .quiz-opt {
+    background: var(--mid);
+    border: 2px solid #ffffff15;
+    border-radius: var(--r);
+    padding: 14px 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    color: var(--text);
+  }
+  .quiz-opt:hover { border-color: var(--gold)66; }
+  .quiz-opt.correct { border-color: var(--green); background: #4CAF5022; color: #A5D6A7; }
+  .quiz-opt.wrong { border-color: var(--red); background: #E5393522; color: #EF9A9A; }
+  .quiz-opt.tigrinya-opt { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 18px; }
+  .quiz-feedback {
+    background: var(--mid); border-radius: var(--r);
+    padding: 16px; text-align: center; margin-top: 12px;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct-fb { border: 1px solid var(--green); }
+  .quiz-feedback.wrong-fb { border: 1px solid var(--red); }
+  .quiz-next-btn {
+    margin-top: 16px;
+    background: linear-gradient(135deg, var(--gold), var(--amber));
+    color: var(--deep); border: none; border-radius: 50px;
+    padding: 14px 40px; font-size: 16px; font-weight: 700;
+    cursor: pointer; display: none; width: 100%;
+  }
+  .quiz-next-btn.show { display: block; }
+
+  /* ── FLASHCARDS ── */
+  .flashcard-wrap { perspective: 1000px; cursor: pointer; user-select: none; }
+  .flashcard {
+    background: linear-gradient(135deg, #4F3520, #3E2A12);
+    border: 1px solid var(--gold)44;
+    border-radius: 20px;
+    min-height: 260px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 32px 20px; text-align: center;
+    margin-bottom: 20px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    position: relative;
+  }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .card-face { backface-visibility: hidden; width: 100%; text-align: center; }
+  .card-back { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 32px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotateY(180deg); backface-visibility: hidden; }
+  .fc-tigrinya { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 52px; color: var(--gold-light); }
+  .fc-hint { font-size: 12px; color: var(--muted); margin-top: 12px; }
+  .fc-english { font-size: 28px; font-weight: 700; }
+  .fc-latin { font-size: 16px; color: var(--muted); margin-top: 4px; }
+  .fc-example { font-size: 13px; color: var(--muted); margin-top: 12px; font-style: italic; max-width: 280px; }
+  .fc-actions { display: flex; gap: 12px; }
+  .fc-btn {
+    flex: 1; padding: 14px; border: none; border-radius: var(--r);
+    font-size: 15px; font-weight: 700; cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .fc-btn:active { transform: scale(0.96); }
+  .fc-btn.hard { background: #E5393522; color: #EF9A9A; border: 1px solid var(--red); }
+  .fc-btn.good { background: #FFA72622; color: #FFCC80; border: 1px solid #FFA726; }
+  .fc-btn.easy { background: #4CAF5022; color: #A5D6A7; border: 1px solid var(--green); }
+
+  /* ── WORD / SENTENCE BUILDER ── */
+  .builder-prompt {
+    background: var(--mid);
+    border: 1px solid var(--gold)33;
+    border-radius: var(--r);
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .builder-target { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .builder-target-tig { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 28px; color: var(--gold-light); }
+  .builder-slots {
+    min-height: 56px;
+    background: #ffffff08;
+    border: 2px dashed #ffffff20;
+    border-radius: var(--r);
+    padding: 10px;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    margin-bottom: 16px;
+  }
+  .builder-slot-word {
+    background: var(--gold);
+    color: var(--deep);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 14px; font-weight: 700;
+    cursor: pointer;
+    font-family: 'Noto Sans Ethiopic', sans-serif;
+    transition: transform 0.15s;
+  }
+  .builder-slot-word:active { transform: scale(0.95); }
+  .builder-choices { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .builder-choice {
+    background: var(--surface);
+    border: 1px solid #ffffff20;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer;
+    font-family: 'Noto Sans Ethiopic', sans-serif;
+    transition: all 0.15s;
+  }
+  .builder-choice:hover { border-color: var(--gold); color: var(--gold); }
+  .builder-choice.used { opacity: 0.3; pointer-events: none; }
+  .builder-check {
+    background: linear-gradient(135deg, var(--gold), var(--amber));
+    color: var(--deep); border: none; border-radius: 50px;
+    padding: 14px; font-size: 16px; font-weight: 700;
+    cursor: pointer; width: 100%;
+  }
+  .builder-result {
+    border-radius: var(--r); padding: 14px; text-align: center;
+    margin-top: 12px; font-weight: 600; display: none;
+  }
+  .builder-result.show { display: block; }
+  .builder-result.ok { background: #4CAF5022; border: 1px solid var(--green); }
+  .builder-result.fail { background: #E5393522; border: 1px solid var(--red); }
+
+  /* ── GRAMMAR ── */
+  .grammar-card {
+    background: var(--mid);
+    border: 1px solid #ffffff15;
+    border-radius: var(--r);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .grammar-header {
+    padding: 14px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer;
+  }
+  .grammar-header h3 { font-size: 15px; font-weight: 700; }
+  .grammar-header .badge { font-size: 11px; background: var(--gold)22; color: var(--gold); padding: 3px 8px; border-radius: 20px; }
+  .grammar-body {
+    padding: 0 16px;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s, padding 0.3s;
+  }
+  .grammar-body.open { max-height: 600px; padding: 0 16px 16px; }
+  .grammar-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+  .grammar-table th { background: #ffffff08; padding: 8px 10px; text-align: left; color: var(--gold); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+  .grammar-table td { padding: 8px 10px; border-bottom: 1px solid #ffffff08; }
+  .tig-cell { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 18px; color: var(--gold-light); }
+  .grammar-note { background: #ffffff08; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
+
+  /* ── STORIES ── */
+  .story-list { display: flex; flex-direction: column; gap: 12px; }
+  .story-card {
+    background: var(--mid);
+    border: 1px solid #ffffff15;
+    border-radius: var(--r);
+    padding: 16px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    display: flex; gap: 14px; align-items: center;
+  }
+  .story-card:hover { border-color: var(--gold)55; }
+  .story-thumb { font-size: 44px; min-width: 56px; text-align: center; }
+  .story-meta { flex: 1; }
+  .story-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .story-desc { font-size: 13px; color: var(--muted); }
+  .story-tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .story-tag { font-size: 11px; background: #ffffff10; padding: 3px 8px; border-radius: 20px; color: var(--muted); }
+
+  /* story reading */
+  .story-reader { display: none; }
+  .story-reader.open { display: block; }
+  .story-text-wrap { line-height: 2; font-size: 16px; }
+  .story-text-wrap span.tigrinya { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 20px; color: var(--gold-light); cursor: pointer; border-bottom: 1px dotted var(--gold)66; transition: color 0.15s; }
+  .story-text-wrap span.tigrinya:hover, .story-text-wrap span.tigrinya.tapped { color: var(--gold); }
+  .word-tooltip {
+    position: fixed; background: var(--dark); border: 1px solid var(--gold)88;
+    border-radius: 10px; padding: 10px 14px; z-index: 200;
+    font-size: 13px; min-width: 140px; box-shadow: 0 4px 20px #00000066;
+    pointer-events: none; transition: opacity 0.15s;
+  }
+  .word-tooltip .tt-tig { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 20px; color: var(--gold-light); }
+  .word-tooltip .tt-en { font-size: 14px; font-weight: 600; margin-top: 2px; }
+  .word-tooltip .tt-latin { font-size: 12px; color: var(--muted); }
+
+  /* ── CONVERSATION SIM ── */
+  .convo-scene {
+    background: var(--mid);
+    border-radius: var(--r);
+    padding: 16px;
+    margin-bottom: 16px;
+    font-size: 14px; color: var(--muted);
+  }
+  .convo-scene strong { color: var(--text); }
+  .convo-log { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; min-height: 100px; }
+  .convo-bubble {
+    max-width: 80%; padding: 10px 14px;
+    border-radius: 16px; font-size: 14px; line-height: 1.5;
+  }
+  .convo-bubble.npc {
+    background: var(--surface);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+  .convo-bubble.player {
+    background: linear-gradient(135deg, #3A7BD5, #2563C2);
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    text-align: right;
+  }
+  .convo-bubble .bubble-tig { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 18px; color: var(--gold-light); }
+  .convo-bubble .bubble-en { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .convo-choices { display: flex; flex-direction: column; gap: 8px; }
+  .convo-choice {
+    background: var(--surface);
+    border: 1px solid #ffffff15;
+    border-radius: var(--r);
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .convo-choice:hover { border-color: var(--blue); }
+  .convo-choice .cc-tig { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 17px; color: var(--gold-light); }
+  .convo-choice .cc-en { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .convo-result {
+    background: var(--mid); border-radius: var(--r); padding: 14px;
+    text-align: center; display: none;
+  }
+  .convo-result.show { display: block; }
+
+  /* ── CULTURE ── */
+  .culture-card {
+    background: var(--mid);
+    border: 1px solid #ffffff15;
+    border-radius: var(--r);
+    overflow: hidden;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .culture-card:hover { border-color: var(--gold)55; }
+  .culture-thumb { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 72px; background: linear-gradient(135deg, #3E2A12, #2B1A0D); }
+  .culture-info { padding: 14px; }
+  .culture-title { font-size: 16px; font-weight: 700; }
+  .culture-preview { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  .culture-detail { display: none; }
+  .culture-detail.open { display: block; }
+  .culture-detail h2 { font-family: 'Cinzel Decorative', serif; font-size: 20px; color: var(--gold); margin-bottom: 14px; }
+  .culture-detail p { font-size: 15px; line-height: 1.8; color: var(--muted); margin-bottom: 14px; }
+  .culture-detail .vocab-box { background: var(--mid); border-radius: var(--r); padding: 14px; }
+  .culture-detail .vocab-box h4 { font-size: 12px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+
+  /* ── CARDS COLLECTION ── */
+  .cards-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .shop-btn {
+    background: linear-gradient(135deg, var(--gold), var(--amber));
+    color: var(--deep); border: none; border-radius: 50px;
+    padding: 8px 20px; font-size: 14px; font-weight: 700;
+    cursor: pointer;
+  }
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .collect-card {
+    background: var(--mid);
+    border: 1px solid #ffffff15;
+    border-radius: 12px;
+    padding: 12px 8px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s;
+  }
+  .collect-card:hover { transform: scale(1.03); }
+  .collect-card.locked { opacity: 0.4; filter: grayscale(1); }
+  .collect-card.rare { border-color: var(--purple)88; background: linear-gradient(135deg, #2d1b4e, #3E2A12); }
+  .collect-card.legendary { border-color: var(--gold)88; background: linear-gradient(135deg, #4F3520, #2d1b0d); }
+  .collect-card .card-rarity { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .collect-card.rare .card-rarity { color: var(--purple); }
+  .collect-card.legendary .card-rarity { color: var(--gold); }
+  .collect-card.common .card-rarity { color: var(--muted); }
+  .collect-card .card-art { font-size: 36px; margin-bottom: 6px; }
+  .collect-card .card-name { font-size: 11px; font-weight: 700; }
+  .collect-card .card-tig { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 16px; color: var(--gold-light); }
+  .collect-card .card-en { font-size: 10px; color: var(--muted); }
+  .collect-card .card-lock { position: absolute; top: 6px; right: 6px; font-size: 12px; }
+
+  /* shop modal */
+  .modal-overlay {
+    position: fixed; inset: 0; background: #00000099; z-index: 300;
+    display: flex; align-items: flex-end; justify-content: center;
+    display: none;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-sheet {
+    background: var(--dark); border-radius: 20px 20px 0 0;
+    padding: 20px 16px 40px; width: 100%; max-width: 500px;
+    animation: slideUp 0.3s;
+  }
+  @keyframes slideUp { from{transform:translateY(100%)} to{transform:none} }
+  .modal-sheet h3 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+  .shop-packs { display: flex; flex-direction: column; gap: 10px; }
+  .shop-pack {
+    background: var(--mid); border-radius: var(--r);
+    padding: 16px; display: flex; align-items: center; gap: 14px;
+    cursor: pointer; border: 1px solid #ffffff10;
+    transition: border-color 0.15s;
+  }
+  .shop-pack:hover { border-color: var(--gold)66; }
+  .shop-pack .pack-icon { font-size: 40px; }
+  .shop-pack .pack-info { flex: 1; }
+  .shop-pack .pack-name { font-size: 15px; font-weight: 700; }
+  .shop-pack .pack-desc { font-size: 13px; color: var(--muted); }
+  .shop-pack .pack-price { font-size: 16px; font-weight: 700; color: var(--coin); }
+
+  /* ── LEADERBOARD ── */
+  .lb-podium { display: flex; align-items: flex-end; justify-content: center; gap: 8px; margin-bottom: 24px; }
+  .lb-podium-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .lb-podium-avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--mid); font-size: 24px; display: flex; align-items: center; justify-content: center; border: 2px solid #ffffff20; }
+  .lb-podium-item.rank1 .lb-podium-avatar { width: 64px; height: 64px; border-color: var(--gold); font-size: 30px; }
+  .lb-podium-item.rank2 .lb-podium-avatar { border-color: #C0C0C0; }
+  .lb-podium-item.rank3 .lb-podium-avatar { border-color: #CD7F32; }
+  .lb-podium-name { font-size: 11px; font-weight: 600; }
+  .lb-podium-score { font-size: 12px; color: var(--gold); font-weight: 700; }
+  .lb-podium-bar { background: var(--mid); border-radius: 6px 6px 0 0; width: 60px; }
+  .lb-list { display: flex; flex-direction: column; gap: 8px; }
+  .lb-row {
+    background: var(--mid); border-radius: var(--r);
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 12px;
+    border: 1px solid #ffffff10;
+  }
+  .lb-row.me { border-color: var(--gold)66; background: #D4A01712; }
+  .lb-rank { font-size: 16px; font-weight: 800; color: var(--muted); min-width: 28px; }
+  .lb-avatar { font-size: 28px; }
+  .lb-name { flex: 1; font-size: 14px; font-weight: 600; }
+  .lb-pts { font-size: 14px; font-weight: 700; color: var(--gold); }
+
+  /* ── DIALECT ── */
+  .dialect-toggle { display: flex; gap: 0; background: var(--mid); border-radius: 50px; padding: 4px; margin-bottom: 20px; }
+  .dialect-btn { flex: 1; padding: 10px; border: none; background: none; border-radius: 50px; color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .dialect-btn.active { background: var(--gold); color: var(--deep); }
+  .dialect-compare { display: flex; flex-direction: column; gap: 10px; }
+  .dc-row { background: var(--mid); border-radius: var(--r); padding: 14px; }
+  .dc-en { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .dc-pair { display: flex; gap: 12px; }
+  .dc-variant { flex: 1; background: #ffffff08; border-radius: 8px; padding: 10px; text-align: center; }
+  .dc-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .dc-tig { font-family: 'Noto Sans Ethiopic', sans-serif; font-size: 20px; color: var(--gold-light); }
+  .dc-latin { font-size: 11px; color: var(--muted); }
+
+  /* ── SOCIAL ── */
+  .social-tabs { display: flex; gap: 0; background: var(--mid); border-radius: 50px; padding: 4px; margin-bottom: 16px; }
+  .social-tab { flex: 1; padding: 8px; border: none; background: none; border-radius: 50px; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .social-tab.active { background: var(--gold); color: var(--deep); }
+
+  /* util */
+  .btn-back {
+    background: none; border: 1px solid #ffffff20; border-radius: 50px;
+    padding: 8px 16px; color: var(--muted); font-size: 13px; cursor: pointer;
+    display: flex; align-items: center; gap: 6px; margin-bottom: 16px;
+  }
+  .btn-back:hover { border-color: var(--gold)66; color: var(--text); }
+
+  .coin-pop {
+    position: fixed; top: 70px; right: 20px; z-index: 500;
+    background: var(--gold); color: var(--deep);
+    font-size: 14px; font-weight: 800; padding: 6px 14px;
+    border-radius: 50px; animation: popUp 1.5s forwards;
+    pointer-events: none;
+  }
+  @keyframes popUp { 0%{opacity:0;transform:translateY(10px)} 20%{opacity:1;transform:none} 80%{opacity:1} 100%{opacity:0;transform:translateY(-20px)} }
+
+  .tab-section { display: none; }
+  .tab-section.active { display: block; }
+
+  .sub-nav { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 16px; scrollbar-width: none; }
+  .sub-nav::-webkit-scrollbar { display: none; }
+  .sub-btn { flex-shrink: 0; background: var(--mid); border: 1px solid #ffffff15; border-radius: 50px; padding: 7px 16px; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; white-space: nowrap; transition: all 0.15s; }
+  .sub-btn.active { background: var(--gold); color: var(--deep); border-color: var(--gold); }
+
+  .empty { text-align: center; color: var(--muted); padding: 40px 20px; font-size: 15px; }
+
+  .tts-btn { background: none; border: 1px solid #ffffff20; border-radius: 50px; padding: 6px 14px; color: var(--muted); font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; }
+  .tts-btn:hover { border-color: var(--gold)66; color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="pattern">🦁</div>
+  <div class="logo-title">ትግርኛ</div>
+  <div class="sub">Learn Tigrinya</div>
+  <button class="start-btn" onclick="startApp()">Start Learning →</button>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- TOP BAR -->
+  <div id="topbar">
+    <span class="brand">ትግርኛ</span>
+    <div style="display:flex;gap:8px">
+      <div class="stat-pill"><span class="coin-icon">🪙</span><span id="coin-count">0</span></div>
+      <div class="stat-pill"><span class="streak-icon">🔥</span><span id="streak-count">1</span></div>
+      <div class="stat-pill">⭐ <span id="xp-count">0</span></div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content">
+
+    <!-- HOME -->
+    <div class="screen active" id="screen-home">
+      <div class="home-hero">
+        <h2>ሰላም! / Selam!</h2>
+        <p>Welcome back. Keep your streak alive! 🔥</p>
+        <div style="margin-top:12px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px">
+            <span>Daily Goal</span><span id="daily-pct">0%</span>
+          </div>
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" id="daily-bar" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="wotd-card">
+        <div class="wotd-label">☀️ Word of the Day</div>
+        <div class="wotd-tigrinya" id="wotd-tig">ሰላም</div>
+        <div class="wotd-latin" id="wotd-latin">Selam</div>
+        <div class="wotd-meaning" id="wotd-meaning">Hello / Peace</div>
+        <div class="wotd-example" id="wotd-example">"ሰላም ከመይ ዲኻ?" — "Hello, how are you?"</div>
+        <button class="tts-btn" onclick="speak(document.getElementById('wotd-tig').textContent)">🔊 Listen</button>
+      </div>
+
+      <div class="section-title">Quick Practice</div>
+      <div class="quick-grid">
+        <div class="quick-card" onclick="goTo('quiz')">
+          <div class="qc-icon">🧠</div>
+          <div class="qc-label">Quiz Me</div>
+          <div class="qc-sub">Test your vocab</div>
+        </div>
+        <div class="quick-card" onclick="goTo('cards')">
+          <div class="qc-icon">🃏</div>
+          <div class="qc-label">Flashcards</div>
+          <div class="qc-sub">Spaced repetition</div>
+        </div>
+        <div class="quick-card" onclick="goToLearnSub('builder')">
+          <div class="qc-icon">🔧</div>
+          <div class="qc-label">Word Builder</div>
+          <div class="qc-sub">Build sentences</div>
+        </div>
+        <div class="quick-card" onclick="goTo('stories')">
+          <div class="qc-icon">📖</div>
+          <div class="qc-label">Stories</div>
+          <div class="qc-sub">Read & learn</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAY (QUIZ) -->
+    <div class="screen" id="screen-play">
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="switchPlayTab('quiz',this)">Quiz</button>
+        <button class="sub-btn" onclick="switchPlayTab('flashcard',this)">Flashcards</button>
+      </div>
+      <div class="tab-section active" id="play-quiz">
+        <div class="quiz-wrap" id="quiz-container"></div>
+      </div>
+      <div class="tab-section" id="play-flashcard">
+        <div id="fc-container"></div>
+      </div>
+    </div>
+
+    <!-- LEARN -->
+    <div class="screen" id="screen-learn">
+      <div class="sub-nav">
+        <button class="sub-btn active" onclick="switchLearnTab('words',this)">Words</button>
+        <button class="sub-btn" onclick="switchLearnTab('builder',this)">Builder</button>
+        <button class="sub-btn" onclick="switchLearnTab('grammar',this)">Grammar</button>
+        <button class="sub-btn" onclick="switchLearnTab('culture',this)">Culture</button>
+        <button class="sub-btn" onclick="switchLearnTab('dialect',this)">Dialect</button>
+      </div>
+      <div class="tab-section active" id="learn-words">
+        <div id="word-categories"></div>
+        <div id="word-list-view" style="display:none"></div>
+      </div>
+      <div class="tab-section" id="learn-builder">
+        <div id="builder-container"></div>
+      </div>
+      <div class="tab-section" id="learn-grammar">
+        <div id="grammar-container"></div>
+      </div>
+      <div class="tab-section" id="learn-culture">
+        <div id="culture-container"></div>
+      </div>
+      <div class="tab-section" id="learn-dialect">
+        <div id="dialect-container"></div>
+      </div>
+    </div>
+
+    <!-- STORIES -->
+    <div class="screen" id="screen-stories">
+      <div id="story-list-view"></div>
+      <div id="story-reader-view" style="display:none"></div>
+    </div>
+
+    <!-- COLLECTION (CARDS) -->
+    <div class="screen" id="screen-collection">
+      <div class="cards-top">
+        <div>
+          <div class="section-title" style="margin:0">My Collection</div>
+          <div style="font-size:13px;color:var(--muted)">
+            <span id="cards-unlocked">0</span>/<span id="cards-total">0</span> cards
+          </div>
+        </div>
+        <button class="shop-btn" onclick="openShop()">🏪 Shop</button>
+      </div>
+      <div class="cards-grid" id="cards-grid"></div>
+    </div>
+
+    <!-- SOCIAL -->
+    <div class="screen" id="screen-social">
+      <div class="social-tabs">
+        <button class="social-tab active" onclick="switchSocial('leaderboard',this)">🏆 Leaderboard</button>
+        <button class="social-tab" onclick="switchSocial('achievements',this)">🎖️ Achievements</button>
+      </div>
+      <div class="tab-section active" id="social-leaderboard">
+        <div id="lb-container"></div>
+      </div>
+      <div class="tab-section" id="social-achievements">
+        <div id="ach-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav id="nav">
+    <button class="nav-btn active" onclick="navigate('home')" id="nav-home">
+      <span class="nav-icon">🏠</span><span>Home</span>
+    </button>
+    <button class="nav-btn" onclick="navigate('play')" id="nav-play">
+      <span class="nav-icon">🎮</span><span>Play</span>
+    </button>
+    <button class="nav-btn" onclick="navigate('learn')" id="nav-learn">
+      <span class="nav-icon">📚</span><span>Learn</span>
+    </button>
+    <button class="nav-btn" onclick="navigate('stories')" id="nav-stories">
+      <span class="nav-icon">📖</span><span>Stories</span>
+    </button>
+    <button class="nav-btn" onclick="navigate('collection')" id="nav-collection">
+      <span class="nav-icon">🃏</span><span>Cards</span>
+    </button>
+    <button class="nav-btn" onclick="navigate('social')" id="nav-social">
+      <span class="nav-icon">🏆</span><span>Social</span>
+    </button>
+  </nav>
+</div>
+
+<!-- SHOP MODAL -->
+<div class="modal-overlay" id="shop-modal" onclick="closeShop(event)">
+  <div class="modal-sheet">
+    <h3>🏪 Card Shop</h3>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:14px">Spend coins to unlock new cards!</div>
+    <div class="shop-packs" id="shop-packs"></div>
+    <button onclick="closeShop()" style="margin-top:16px;width:100%;background:none;border:1px solid #ffffff20;border-radius:50px;padding:12px;color:var(--muted);cursor:pointer;">Cancel</button>
+  </div>
+</div>
+
+<!-- WORD TOOLTIP -->
+<div class="word-tooltip" id="word-tooltip" style="display:none; opacity:0"></div>
+
+<script>
+// ══════════════════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════════════════
+const WORD_CATEGORIES = [
+  { id:'greetings', name:'Greetings', icon:'👋', color:'#D4A017' },
+  { id:'numbers',   name:'Numbers',   icon:'🔢', color:'#3A7BD5' },
+  { id:'family',    name:'Family',    icon:'👨‍👩‍👧', color:'#E05C2A' },
+  { id:'food',      name:'Food',      icon:'🍲', color:'#4CAF50' },
+  { id:'body',      name:'Body',      icon:'🫀', color:'#E53935' },
+  { id:'colors',    name:'Colors',    icon:'🎨', color:'#8B5CF6' },
+  { id:'time',      name:'Time',      icon:'⏰', color:'#00ACC1' },
+  { id:'places',    name:'Places',    icon:'🏙️', color:'#FF7043' },
+  { id:'animals',   name:'Animals',   icon:'🦁', color:'#795548' },
+  { id:'verbs',     name:'Verbs',     icon:'⚡', color:'#FDD835' },
+  { id:'adjectives',name:'Adjectives',icon:'✨', color:'#F06292' },
+  { id:'phrases',   name:'Phrases',   icon:'💬', color:'#26A69A' },
+];
+
+const WORDS = {
+  greetings: [
+    {tig:'ሰላም',       latin:'Selam',        en:'Hello / Peace',    example:'ሰላም ከመይ ዲኻ?'},
+    {tig:'ከመይ ዲኻ',   latin:'Kemey dikha',  en:'How are you? (m)',  example:'ሰላም፣ ከመይ ዲኻ?'},
+    {tig:'ከመይ ዲኺ',   latin:'Kemey dikhi',  en:'How are you? (f)',  example:'ሰላም፣ ከመይ ዲኺ?'},
+    {tig:'ጽቡቕ',       latin:"Ts'buq",       en:'Good / Fine',       example:'ጽቡቕ ኣለኹ'},
+    {tig:'የቐንየለይ',   latin:"Yeqen'yelei",  en:'Thank you',         example:'የቐንየለይ ብዙሕ'},
+    {tig:'ብኸብር',      latin:'Bikhebr',      en:"You're welcome",    example:'የቐንየለይ — ብኸብር'},
+    {tig:'ቻው',        latin:'Chaw',          en:'Goodbye (casual)',  example:'ቻው ናይ ጽባሕ'},
+    {tig:'ብሰላም ሕደር', latin:'Biselam ḥder', en:'Good night',        example:'ብሰላም ሕደር ኣቶ'},
+  ],
+  numbers: [
+    {tig:'ሓደ',  latin:'Ḥade',  en:'One',   example:'ሓደ ዕለት'},
+    {tig:'ክልተ', latin:'Kilte', en:'Two',   example:'ክልተ ሰባት'},
+    {tig:'ሰለስተ',latin:'Seleste',en:'Three',example:'ሰለስተ ቖልዑ'},
+    {tig:'ኣርባዕተ',latin:'Arbaʿte',en:'Four',example:'ኣርባዕተ ዓመት'},
+    {tig:'ሓሙሽተ',latin:'Ḥamushte',en:'Five',example:'ሓሙሽተ ኪሎ'},
+    {tig:'ሽዱሽተ',latin:'Shidushte',en:'Six',example:'ሽዱሽተ ሰዓት'},
+    {tig:'ሸውዓተ',latin:'Shewaʿte',en:'Seven',example:'ሸውዓተ መዓልቲ'},
+    {tig:'ሸሞንተ',latin:'Shemonte',en:'Eight',example:'ሸሞንተ ቕርሺ'},
+    {tig:'ትሽዓተ',latin:"Tishʿate",en:'Nine', example:'ትሽዓተ ዓመት'},
+    {tig:'ዓሰርተ',latin:'ʿAserte',en:'Ten',  example:'ዓሰርተ ቕርሺ'},
+  ],
+  family: [
+    {tig:'ኣቦ',  latin:'Abo',   en:'Father',  example:'ኣቦይ ሓኪም እዩ'},
+    {tig:'ኣደ',  latin:'Ade',   en:'Mother',  example:'ኣደይ ምጃ ኣቅሪባ'},
+    {tig:'ሓዉ',  latin:'Ḥaw',   en:'Brother', example:'ሓወይ ኣስመራ ኣሎ'},
+    {tig:'ሓብቲ', latin:'Ḥabti', en:'Sister',  example:'ሓብተይ ቆልዓ ወሊዳ'},
+    {tig:'ወዲ',  latin:'Wedi',  en:'Son',     example:'ወደይ ቤት ትምህርቲ ኣሎ'},
+    {tig:'ጓል',  latin:'Gual',  en:'Daughter',example:'ጓለይ ተጻወተት'},
+    {tig:'ሰበይቲ',latin:'Sebeyti',en:'Wife',   example:'ሰበይተይ ሓኪም ኣላ'},
+    {tig:'ሰብኣይ',latin:"Seb'ay", en:'Husband',example:'ሰብኣየይ ኣስመራ ከይዱ'},
+  ],
+  food: [
+    {tig:'እንጀራ', latin:'Injera',   en:'Injera (flatbread)',  example:'እንጀራ ምስ ጽብሒ'},
+    {tig:'ጽብሒ',  latin:"Ts'biḥi",  en:'Stew / Sauce',       example:'ጽብሒ ዓዲ ልብስ'},
+    {tig:'ድቃሎ',  latin:'Diqalo',   en:'Fried bread snack',  example:'ድቃሎ ንቆልዑ'},
+    {tig:'ሽሮ',   latin:'Shiro',    en:'Chickpea stew',      example:'ሽሮ ምስ ኣቴ'},
+    {tig:'ሻሂ',   latin:'Shai',     en:'Tea',                example:'ሻሂ ስኽር'},
+    {tig:'ቡን',   latin:'Bun',      en:'Coffee',             example:'ቡን ናይ ሃበሻ'},
+    {tig:'ማይ',   latin:'May',      en:'Water',              example:'ማይ ስቲ'},
+    {tig:'ዳቦ',   latin:'Dabo',     en:'Bread',              example:'ዳቦ ምስ ሻሂ'},
+  ],
+  body: [
+    {tig:'ርእሲ',  latin:"Ri'si",  en:'Head',  example:'ርእሲ የቕንዓኒ'},
+    {tig:'ኢድ',   latin:'Id',     en:'Hand',  example:'ኢድካ ሕጸብ'},
+    {tig:'ዓይኒ',  latin:"ʿAyni",  en:'Eye',   example:'ዓይኒ ምስ ብርሃን'},
+    {tig:'ኣፍ',   latin:'Af',     en:'Mouth', example:'ኣፍካ ክፈት'},
+    {tig:'ጎሮሮ',  latin:'Gororo', en:'Throat',example:'ጎሮሮ ይቐጽጸኒ'},
+    {tig:'ሳምቡቕ', latin:'Sambuq', en:'Lung',  example:'ሳምቡቕ ናይ ኣካልና'},
+    {tig:'ልቢ',   latin:'Libi',   en:'Heart', example:'ልቢ ይሕምም'},
+    {tig:'ኣካል',  latin:'Akal',   en:'Body',  example:'ኣካልካ ሓሉ'},
+  ],
+  colors: [
+    {tig:'ቀይሕ',  latin:'Qeyiḥ',  en:'Red',    example:'ቀይሕ ፍርያ'},
+    {tig:'ሰማያዊ', latin:'Semayawi',en:'Blue',   example:'ሰማያዊ ሰማይ'},
+    {tig:'ቀጠልያ', latin:'Qetelya', en:'Green',  example:'ቀጠልያ ሳዕሪ'},
+    {tig:'ቢጫ',   latin:'Bicha',   en:'Yellow', example:'ቢጫ ጸሓይ'},
+    {tig:'ጸሊም',  latin:'Tselim',  en:'Black',  example:'ጸሊም ቡናማ'},
+    {tig:'ጻዕዳ',  latin:"Ts'aʿda", en:'White',  example:'ጻዕዳ ኣዳምጻ'},
+    {tig:'ቡናማ',  latin:'Bunama',  en:'Brown',  example:'ቡናማ ሕብሪ'},
+    {tig:'ወርቃዊ', latin:'Werqawi', en:'Golden', example:'ወርቃዊ ዘቤ'},
+  ],
+  time: [
+    {tig:'ሎሚ',    latin:'Lomi',    en:'Today',     example:'ሎሚ ምሸት'},
+    {tig:'ጽባሕ',  latin:"Ts'baḥ",  en:'Tomorrow',  example:'ጽባሕ ክምጽእ'},
+    {tig:'ትማሊ',  latin:'Tmali',   en:'Yesterday', example:'ትማሊ ሓዊ ጸንሓ'},
+    {tig:'ሰዓት',  latin:"Se'at",   en:'Hour/Time', example:'ሰዓት ክንደይ?'},
+    {tig:'መዓልቲ', latin:'Meʿalti', en:'Day',       example:'ሰናይ መዓልቲ'},
+    {tig:'ሰሙን',  latin:'Semun',   en:'Week',      example:'ሰሙን ዝቕጽል'},
+    {tig:'ወርሒ',  latin:'Werḥi',   en:'Month/Moon',example:'ወርሒ ምሉእ'},
+    {tig:'ዓመት',  latin:"ʿAmet",   en:'Year',      example:'ዓመት ሓዲሽ'},
+  ],
+  places: [
+    {tig:'ኣስመራ',   latin:'Asmera',  en:'Asmara (capital)',  example:'ኣስመራ ዋና ከተማ'},
+    {tig:'ቤት ትምህርቲ',latin:'Bet Timhrti',en:'School',        example:'ቤት ትምህርቲ ቀሪበ'},
+    {tig:'ሆስፒታል', latin:'Hospital',en:'Hospital',           example:'ሆስፒታል ከይደ'},
+    {tig:'ገዛ',     latin:'Geza',    en:'House / Home',      example:'ገዛ ጠዓምዎ'},
+    {tig:'ዓዲ',     latin:"ʿAdi",    en:'Village / Town',    example:'ዓዲ ሓዋሩ'},
+    {tig:'ሱቕ',     latin:'Suq',     en:'Market',            example:'ሱቕ ከይደ'},
+    {tig:'ቤተ ክርስቲያን',latin:'Bete Kristiyan',en:'Church',  example:'ቤተ ክርስቲያን ኣምሲሉ'},
+    {tig:'ባሕሪ',   latin:'Baḥri',   en:'Sea / Coast',       example:'ባሕሪ ዘለካ'},
+  ],
+  animals: [
+    {tig:'ኣንበሳ', latin:'Anbesa', en:'Lion',    example:'ኣንበሳ ጎረጎሩ'},
+    {tig:'ጸባ',   latin:'Tseba',  en:'Cow',     example:'ጸባ ዓሊሙ'},
+    {tig:'ፍረስ',  latin:'Fres',   en:'Horse',   example:'ፍረስ ጎይጀ'},
+    {tig:'ዓሳ',   latin:"ʿAsa",   en:'Fish',    example:'ዓሳ ካብ ባሕሪ'},
+    {tig:'ዶርሆ',  latin:'Dorho',  en:'Chicken', example:'ዶርሆ ዓሊሙ'},
+    {tig:'ድሙ',   latin:'Dimu',   en:'Cat',     example:'ድሙ ስቃቕ'},
+    {tig:'ከልቢ',  latin:'Kelbi',  en:'Dog',     example:'ከልቢ ናቱ'},
+    {tig:'ዝሑፍ',  latin:'Ziḥuf',  en:'Elephant',example:'ዝሑፍ ዓቢ ኣካል'},
+  ],
+  verbs: [
+    {tig:'ምብላዕ', latin:'Miblaʿ', en:'To eat',   example:'ምብላዕ ጽቡቕ'},
+    {tig:'ምስታይ', latin:'Mistay',  en:'To drink', example:'ምስታይ ማይ'},
+    {tig:'ምኻድ',  latin:'Mikḥad',  en:'To go',    example:'ምኻድ ናብ ሱቕ'},
+    {tig:'ምምጻእ', latin:'Mimtsaʿ', en:'To come',  example:'ምምጻእ ናባና'},
+    {tig:'ምዝርራብ',latin:'Mizrrab', en:'To speak', example:'ምዝርራብ ምስ ዓርኪ'},
+    {tig:'ምድቃስ', latin:'Midqas',  en:'To sleep', example:'ምድቃስ ቅድሚ ለይቲ'},
+    {tig:'ምስራሕ', latin:'Misraḥ',  en:'To work',  example:'ምስራሕ ጽቡቕ'},
+    {tig:'ምፍቃር', latin:'Mifqar',  en:'To love',  example:'ምፍቃር ሕያዋይ'},
+  ],
+  adjectives: [
+    {tig:'ጽቡቕ',  latin:"Ts'buq",  en:'Good/Nice', example:'ጽቡቕ ሰብ'},
+    {tig:'ሕማቕ',  latin:"Ḥmaaq",   en:'Bad',       example:'ሕማቕ ዝናብ'},
+    {tig:'ዓቢ',   latin:"ʿAbi",    en:'Big/Great', example:'ዓቢ ሰብ'},
+    {tig:'ናእሽቱ', latin:'Naʿishtu',en:'Small',     example:'ናእሽቱ ቆልዓ'},
+    {tig:'ሓዲሽ',  latin:'Ḥadish',  en:'New',       example:'ሓዲሽ ዓመት'},
+    {tig:'ኣረጊት', latin:'Aregit',  en:'Old',       example:'ኣረጊት ቤት'},
+    {tig:'ሙቕ',   latin:'Muq',     en:'Hot',       example:'ሙቕ ሻሂ'},
+    {tig:'ቑሩብ',  latin:'Qurub',   en:'Cold/Near', example:'ቑሩብ ዓዲ'},
+  ],
+  phrases: [
+    {tig:'ትግርኛ ትዛረብ ዶ?',    latin:'Tigrinya tizareb do?', en:'Do you speak Tigrinya?',  example:''},
+    {tig:'ኣይፈልጥን',           latin:'Ayfeltin',             en:"I don't know",            example:'ኣይፈልጥን ሕቶ'},
+    {tig:'ከምዚ ዝበለ?',         latin:'Kemzi zbele?',         en:'Like this?',              example:'ከምዚ ዝበለ ስለዚ?'},
+    {tig:'ኣምሲሕካ ናብ ኣስ',    latin:'Amsikha nab As...',    en:'See you in Asmara',       example:''},
+    {tig:'ኩን ሓሊፈ',           latin:'Kun ḥalife',           en:'Excuse me',               example:'ኩን ሓሊፈ ፈቕዲ'},
+    {tig:'ሓጋዚ ኩን',           latin:'Ḥagazi kun',           en:'Please help me',          example:'ሓጋዚ ኩን ሕጂ'},
+    {tig:'ዋጋ ክንደይ?',         latin:'Waga kindey?',         en:'How much does it cost?',  example:'ዋጋ ክንደይ ቕርሺ'},
+    {tig:'ቤት ምግቢ ኣሎ ዶ?',   latin:'Bet migbi alo do?',    en:'Is there a restaurant?',  example:''},
+  ],
+};
+
+const STORIES = [
+  {
+    id:'coffee', title:'The Coffee Ceremony', thumb:'☕',
+    level:'Beginner', duration:'5 min',
+    tags:['Culture','Food','Greetings'],
+    desc:'Follow Tigist as she prepares a traditional coffee ceremony for guests.',
+    text: [
+      {en:'Tigist wakes up early in the morning.',
+       tig:[{t:'ትግስቲ',e:'Tigist',l:'Tigisti'},{t:'ንጉሆ',e:'morning',l:'nguho'},{t:'ተሲኣ',e:'woke up',l:'tesia'}]},
+      {en:'She prepares coffee for the guests.',
+       tig:[{t:'ቡን',e:'coffee',l:'bun'},{t:'ኣቕሪባ',e:'prepared',l:'aqriba'},{t:'ኣጋይሽ',e:'guests',l:'agayish'}]},
+      {en:'She roasts the beans slowly.',
+       tig:[{t:'ቡን',e:'coffee',l:'bun'},{t:'ቆሊዓ',e:'roasted',l:'qolia'},{t:'ቀስ ቀስ',e:'slowly',l:'qes qes'}]},
+      {en:'The aroma fills the whole house.',
+       tig:[{t:'ጥዑም ሽታ',e:'sweet aroma',l:"t'uum shita"},{t:'ቤቱ ኸሊሉ',e:'filled the house',l:'betu khelilu'}]},
+      {en:'The guests arrive and greet her warmly.',
+       tig:[{t:'ኣጋይሽ',e:'guests',l:'agayish'},{t:'ሰላም',e:'greetings',l:'selam'},{t:'ብሓጎስ',e:'warmly',l:'bihagos'}]},
+      {en:'They say: "Selam! The coffee smells wonderful!"',
+       tig:[{t:'ሰላም',e:'hello',l:'selam'},{t:'ቡን',e:'coffee',l:'bun'},{t:'ጥዑም ይሽትት',e:'smells wonderful',l:"t'uum yishtet"}]},
+      {en:'Tigist pours the coffee into small cups.',
+       tig:[{t:'ቡን',e:'coffee',l:'bun'},{t:'ኣፍሲሳ',e:'poured',l:'afsisa'},{t:'ናእሽቱ ብርጭቆ',e:'small cups',l:"na'ishtu birchiqo"}]},
+      {en:'Together they drink three rounds.',
+       tig:[{t:'ሓቢሮም',e:'together',l:'habirom'},{t:'ሰለስተ',e:'three',l:'seleste'},{t:'ዙር',e:'rounds',l:'zur'}]},
+    ]
+  },
+  {
+    id:'market', title:'At the Asmara Market', thumb:'🏪',
+    level:'Beginner', duration:'6 min',
+    tags:['Shopping','Numbers','Places'],
+    desc:'Learn how to buy groceries and negotiate prices at a traditional market.',
+    text: [
+      {en:'Yonas goes to the market on Saturday.',
+       tig:[{t:'ዮናስ',e:'Yonas',l:'Yonas'},{t:'ሱቕ',e:'market',l:'suq'},{t:'ቀዳም',e:'Saturday',l:'qedam'}]},
+      {en:'He needs vegetables, bread, and tea.',
+       tig:[{t:'ኣሕምልቲ',e:'vegetables',l:'aḥmlti'},{t:'ዳቦ',e:'bread',l:'dabo'},{t:'ሻሂ',e:'tea',l:'shai'}]},
+      {en:'The seller greets him: "Selam! What do you need?"',
+       tig:[{t:'ሸቃጣይ',e:'seller',l:'sheqatay'},{t:'ሰላም',e:'hello',l:'selam'},{t:'ምንታይ ደሊኻ',e:'what do you need',l:'mntay delikha'}]},
+      {en:'Yonas asks: "How much is this?"',
+       tig:[{t:'ዮናስ',e:'Yonas',l:'Yonas'},{t:'ዋጋ ክንደይ',e:'how much',l:'waga kindey'}]},
+      {en:'The seller says ten nakfa.',
+       tig:[{t:'ሸቃጣይ',e:'seller',l:'sheqatay'},{t:'ዓሰርተ ናቕፋ',e:'ten nakfa',l:"ʿaserte naqfa"}]},
+      {en:'Yonas pays and says thank you.',
+       tig:[{t:'ዮናስ',e:'Yonas',l:'Yonas'},{t:'ከፊሉ',e:'paid',l:'kefilu'},{t:'የቐንየለይ',e:'thank you',l:"yeqen'yelei"}]},
+    ]
+  },
+  {
+    id:'school', title:'First Day at School', thumb:'🏫',
+    level:'Intermediate', duration:'7 min',
+    tags:['Education','Greetings','Verbs'],
+    desc:'Join young Sara on her first day of school in Asmara.',
+    text: [
+      {en:'Sara wakes up very early.',
+       tig:[{t:'ሳራ',e:'Sara',l:'Sara'},{t:'ቀልጢፉ',e:'very early',l:'qeltif'},{t:'ተሲኣ',e:'woke up',l:'tesia'}]},
+      {en:'Her mother helps her get ready.',
+       tig:[{t:'ኣደኣ',e:'her mother',l:"adea"},{t:'ሓጊዛ',e:'helped',l:'hagiza'},{t:'ምስልቲ',e:'ready',l:'mislti'}]},
+      {en:'At school she meets new friends.',
+       tig:[{t:'ቤት ትምህርቲ',e:'school',l:'bet timhrti'},{t:'ሓደሽቲ ዓርኩ',e:'new friends',l:"hadeshti ʿarku"}]},
+      {en:'The teacher greets the class.',
+       tig:[{t:'መምህር',e:'teacher',l:'memhr'},{t:'ሰላም ኣቀዲሙ',e:'greeted first',l:'selam aqedimu'}]},
+      {en:'They learn the alphabet together.',
+       tig:[{t:'ፊደል',e:'alphabet',l:'fidel'},{t:'ሓቢሮም',e:'together',l:'habirom'},{t:'ተምሂሮም',e:'learned',l:'temhirom'}]},
+      {en:'Sara is happy at the end of the day.',
+       tig:[{t:'ሳራ',e:'Sara',l:'Sara'},{t:'ሕጉስቲ',e:'happy',l:'hqusti'},{t:'ብምምሸቱ',e:'by evening',l:'bimimshetu'}]},
+    ]
+  },
+];
+
+const GRAMMAR_SECTIONS = [
+  {
+    title:'Personal Pronouns',badge:'Basics',
+    content:`Tigrinya distinguishes masculine/feminine and has unique forms.`,
+    table:{
+      headers:['Pronoun','Tigrinya','Latin','Meaning'],
+      rows:[
+        ['I','ኣነ','Ane','1st person sing.'],
+        ['You (m)','ንስኻ','Nisskha','2nd masc. sing.'],
+        ['You (f)','ንስኺ','Nisskhi','2nd fem. sing.'],
+        ['He','ንሱ','Nissu','3rd masc. sing.'],
+        ['She','ንሳ','Nissa','3rd fem. sing.'],
+        ['We','ንሕና','Niḥna','1st plural'],
+        ['You (pl)','ንስኹም','Nisskḥum','2nd plural'],
+        ['They','ንሳቶም','Nissatom','3rd plural'],
+      ]
+    },
+    note:'Verbs conjugate differently for masculine/feminine subjects.'
+  },
+  {
+    title:'Verb Conjugation: To Be',badge:'Core',
+    content:'The verb "to be" (ኮነ/kone) is essential for building sentences.',
+    table:{
+      headers:['Person','Tigrinya','Latin','English'],
+      rows:[
+        ['I am','ኣነ እየ','Ane eye','I am'],
+        ['You are (m)','ንስኻ ኢኻ','Nisskha ikha','You are (m)'],
+        ['You are (f)','ንስኺ ኢኺ','Nisskhi ikhi','You are (f)'],
+        ['He is','ንሱ እዩ','Nissu eyu','He is'],
+        ['She is','ንሳ ያ','Nissa ya','She is'],
+        ['We are','ንሕና ኢና','Niḥna ina','We are'],
+        ['They are','ንሳቶም ኢዮም','Nissatom iyom','They are'],
+      ]
+    },
+    note:'Pattern: Subject + Verb. Tigrinya is mostly SOV (Subject-Object-Verb).'
+  },
+  {
+    title:'Verb Conjugation: To Have',badge:'Core',
+    content:'Tigrinya uses "ኣሎ/Alo" (there is) + possessive for "to have".',
+    table:{
+      headers:['English','Tigrinya','Latin'],
+      rows:[
+        ['I have','ኣሎኒ','Aloni'],
+        ['You have (m)','ኣሎካ','Aloka'],
+        ['You have (f)','ኣሎኪ','Aloki'],
+        ['He has','ኣሎዎ','Alowo'],
+        ['She has','ኣሎዋ','Alowa'],
+        ['We have','ኣሎና','Alona'],
+        ['They have','ኣሎዎም','AloWom'],
+      ]
+    },
+    note:'"ኣሎ" literally means "it exists" — possessives are formed by adding suffixes.'
+  },
+  {
+    title:'Noun Gender',badge:'Structure',
+    content:'Like many Semitic languages, Tigrinya nouns have grammatical gender.',
+    table:{
+      headers:['English','Masc. (Tigrinya)','Fem. (Tigrinya)','Notes'],
+      rows:[
+        ['Child','ቆልዓ (Qolʿa)','ቆልዓ ጓል (Qolʿa Gual)','Add ጓል for fem.'],
+        ['Student','ተምሃራይ (Temharay)','ተምሃሪት (Temharit)','Suffix changes'],
+        ['Worker','ሰራሒ (Serahi)','ሰራሒት (Serahit)','-ት suffix = fem.'],
+        ['King','ንጉስ (Nigus)','ንግስቲ (Nigsti)','Common pattern'],
+      ]
+    },
+    note:'Feminine nouns often end in -ቲ (-ti) or -ኢት (-it).'
+  },
+  {
+    title:'Present Tense',badge:'Verbs',
+    content:'Simple present tense conjugation of ምብላዕ (to eat).',
+    table:{
+      headers:['Person','Tigrinya','Latin','English'],
+      rows:[
+        ['I eat','ኣነ እብላዕ','Ane iblaʿ','I eat'],
+        ['You eat (m)','ንስኻ ትብላዕ','Nisskha tiblaʿ','You eat'],
+        ['She eats','ንሳ ትብላዕ','Nissa tiblaʿ','She eats'],
+        ['He eats','ንሱ ይብላዕ','Nissu yiblaʿ','He eats'],
+        ['We eat','ንሕና ንብላዕ','Niḥna niblaʿ','We eat'],
+        ['They eat','ንሳቶም ይብልዑ','Nissatom yibilu','They eat'],
+      ]
+    },
+    note:'Note: masc. prefix ይ- (yi-), fem./2nd prefix ት- (ti-), 1st sing. prefix እ- (i-).'
+  },
+  {
+    title:'Question Words',badge:'Essentials',
+    content:'Key question words you need to form basic questions.',
+    table:{
+      headers:['Question','Tigrinya','Latin','Example'],
+      rows:[
+        ['What?','ምንታይ?','Mntay?','ምንታይ ደሊኻ?'],
+        ['Who?','መን?','Men?','መን ዩ?'],
+        ['Where?','ኣበይ?','Abey?','ኣበይ ኣሎ?'],
+        ['When?','መዓዝ?','Meʿaz?','መዓዝ ክመጽእ?'],
+        ['Why?','ንምንታይ?','Nmntay?','ንምንታይ?'],
+        ['How?','ከመይ?','Kemey?','ከመይ ዲኻ?'],
+        ['How much?','ክንደይ?','Kindey?','ዋጋ ክንደይ?'],
+      ]
+    },
+    note:'Questions in Tigrinya often end with the particle ዶ (do) for yes/no questions.'
+  },
+];
+
+const CULTURE_TOPICS = [
+  {
+    id:'coffee', title:'The Coffee Ceremony', thumb:'☕',
+    preview:'A sacred 3-round ritual at the heart of Eritrean hospitality.',
+    body:`The Tigrinya coffee ceremony (ቡን — Bun) is one of the most important cultural traditions in Eritrea and Tigray. It is not simply making coffee — it is a sacred social ritual that can last over an hour.
+
+The ceremony involves three rounds of coffee: the first called Abol (ኣቦል), the second Tona (ቶና), and the third Baraka (በረካ — meaning "blessing"). Each round is progressively weaker but carries equal social importance.
+
+The host roasts green coffee beans in a pan, grinds them by hand, and brews the coffee in a clay pot called a jebena (ጀበና). The aroma is considered part of the ceremony itself — guests are expected to lean forward and breathe it in as a sign of respect.
+
+Coffee is typically served with popcorn, roasted barley, or traditional bread. Refusing the ceremony is considered impolite, but accepting all three rounds is a mark of deep respect for the host.`,
+    vocab:[
+      {tig:'ቡን',     en:'Coffee'},
+      {tig:'ጀበና',   en:'Clay coffee pot'},
+      {tig:'ኣቦል',   en:'1st round'},
+      {tig:'ቶና',    en:'2nd round'},
+      {tig:'በረካ',   en:'Blessing / 3rd round'},
+      {tig:'ሽቃ',    en:'Incense burned during ceremony'},
+    ]
+  },
+  {
+    id:'calendar', title:'The Orthodox Calendar', thumb:'📅',
+    preview:'13 months of the year — Eritrea follows the ancient Ge\'ez calendar.',
+    body:`The Eritrean Orthodox Tewahedo Church follows the ancient Ge'ez calendar (Badme — ባደሜ), which is approximately 7–8 years behind the Gregorian calendar. The year has 13 months: 12 months of 30 days each, and a 13th short month called Pagumē (ጳጉሜ) with 5 or 6 days.
+
+The New Year — called Enkutatash (እንቁጣጣሽ) — is celebrated on September 1st (Ge'ez) and coincides with the end of the rainy season and the blooming of yellow flowers.
+
+Major Orthodox holidays shape daily life for most Tigrinya speakers. Christmas (Ledet — ልደት) is celebrated on January 7th, while Easter (Fasika — ፋሲካ) follows a different calculation from Western Easter.
+
+Fasting is central to Orthodox practice. The longest fasting period is called Abiy Tsom (ዓቢ ጾም — Great Fast), similar to Lent, lasting 55 days.`,
+    vocab:[
+      {tig:'ባደሜ',   en:'Ge\'ez calendar'},
+      {tig:'ጳጉሜ',   en:'13th month (short)'},
+      {tig:'ልደት',   en:'Christmas (Eritrean)'},
+      {tig:'ፋሲካ',   en:'Easter'},
+      {tig:'ዓቢ ጾም', en:'Great Fast (Lent)'},
+      {tig:'እንቁጣጣሽ',en:'New Year'},
+    ]
+  },
+  {
+    id:'market', title:'The Asmara Markets', thumb:'🏪',
+    preview:'The bustling medeber and central market — hubs of Eritrean life.',
+    body:`Asmara's markets are vibrant centers of daily life. The Central Market (ሱቕ — Suq) in the heart of Asmara sells everything from spices and cloth to electronics. Bargaining is expected and is part of the cultural exchange.
+
+The Medeber market on the outskirts of Asmara is famous for recycled goods — old engine parts, handmade tools, and repaired electronics. It is a testament to Eritrean ingenuity and resourcefulness forged during decades of economic hardship.
+
+When shopping, greetings are essential before any transaction. Launching directly into a purchase without exchanging greetings is considered rude. The seller will typically offer tea or coffee as a sign of hospitality.
+
+Key phrases for the market: "ዋጋ ክንደይ?" (How much?), "ቅሩብ ይሓስስ" (Give me a small discount), "ሽቕ ኣቕልሎ" (Reduce the price a little).`,
+    vocab:[
+      {tig:'ሱቕ',     en:'Market / Souq'},
+      {tig:'ሸቃጣይ',  en:'Seller / Merchant'},
+      {tig:'ዋጋ',    en:'Price'},
+      {tig:'ቅርሺ',   en:'Money / Nakfa'},
+      {tig:'ሓሰስ',   en:'Discount'},
+      {tig:'ሜደበር',  en:'Medeber market'},
+    ]
+  },
+  {
+    id:'music', title:'Music & Dance', thumb:'🎵',
+    preview:'From the krar to modern Tigrinya pop — music is life.',
+    body:`Music is deeply woven into Tigrinya culture. Traditional music features instruments like the Krar (ክራር), a six-string lyre, and the Kebero (ከበሮ), a double-headed drum used in religious and ceremonial contexts.
+
+The Tigrinya music scale is pentatonic and uses distinctive rhythmic patterns tied to work songs, wedding celebrations, and religious ceremonies. Songs often tell stories of love, heroism, nature, and the homeland.
+
+Modern Tigrinya music blends traditional rhythms with contemporary influences. Artists like Tekle Tesfazghi and Helen Meles brought Tigrinya music to international audiences. Wedding music, known as Guayla (ጓይላ), is a celebrated tradition where the whole community dances together.
+
+Traditional dances include Guayla (group circle dance), which features head movements and shoulder shaking — a uniquely Eritrean style of expression.`,
+    vocab:[
+      {tig:'ክራር',   en:'Traditional lyre (6-string)'},
+      {tig:'ከበሮ',   en:'Double drum'},
+      {tig:'ጓይላ',   en:'Wedding/celebration dance'},
+      {tig:'ዜማ',    en:'Song / Melody'},
+      {tig:'ሙዚቃ',   en:'Music (modern loanword)'},
+      {tig:'ስዕሪ',   en:'Dance'},
+    ]
+  },
+  {
+    id:'asmara', title:'Asmara — La Piccola Roma', thumb:'🏛️',
+    preview:'The Art Deco capital and its unique blend of African and Italian heritage.',
+    body:`Asmara (ኣስመራ), the capital of Eritrea, is nicknamed "La Piccola Roma" (Little Rome) due to its remarkably preserved Italian colonial architecture from the 1930s. It was designated a UNESCO World Heritage Site in 2017.
+
+The city features Art Deco cinemas, futurist buildings, and wide tree-lined boulevards that contrast with the ancient Tigrinya culture surrounding them. The Cinema Impero and the Fiat Tagliero building (shaped like an airplane) are architectural landmarks.
+
+Despite its Italian overlay, Asmara remains deeply Tigrinya at heart. The central market, Orthodox churches like Enda Mariam (እንዳ ማርያም), and the sprawling residential neighborhoods preserve centuries-old customs.
+
+The name Asmara derives from the Tigrinya phrase "ኣርባዕተ ስምዓ ረዋሕ" — meaning "four tribes united in peace."`,
+    vocab:[
+      {tig:'ኣስመራ',    en:'Asmara (capital city)'},
+      {tig:'እንዳ ማርያም',en:'Enda Mariam Cathedral'},
+      {tig:'ሕንጸት',    en:'Architecture / Building'},
+      {tig:'ዝርያ',     en:'Heritage / Ancestry'},
+      {tig:'ዋና ከተማ',  en:'Capital city'},
+      {tig:'ሰላም',     en:'Peace'},
+    ]
+  },
+  {
+    id:'independence', title:'Independence & Identity', thumb:'🇪🇷',
+    preview:'30 years of independence — the Tigrinya story of resilience.',
+    body:`Eritrea gained independence on May 24, 1991, after a 30-year armed struggle — one of the longest liberation wars in African history. Independence Day (ናጽነት — Nats'net) is the most important national holiday and is celebrated on May 24th each year.
+
+The Tigrinya people played a central role in the independence movement. The EPLF (Eritrean People's Liberation Front) drew heavily from Tigrinya-speaking fighters from the Highlands, as did the Tigray People's Liberation Front (TPLF) in neighboring Ethiopia.
+
+Identity is complex — Tigrinya is spoken both in Eritrea and in the Tigray region of northern Ethiopia, yet the two communities have distinct national identities and have experienced periods of both unity and conflict.
+
+The word for independence — ናጽነት (Nats'net) — is deeply emotional for Tigrinya speakers. It represents not just political freedom, but cultural survival.`,
+    vocab:[
+      {tig:'ናጽነት',  en:'Independence / Freedom'},
+      {tig:'ሃገር',   en:'Country / Homeland'},
+      {tig:'ህዝቢ',   en:'People / Nation'},
+      {tig:'ቃልሲ',   en:'Struggle / Fight'},
+      {tig:'ሰዓት',   en:'Victory (in some contexts)'},
+      {tig:'ሓርነት',  en:'Liberation / Emancipation'},
+    ]
+  },
+];
+
+const DIALECT_DATA = [
+  {en:'How are you?',
+   eritrean:{tig:'ከመይ ዲኻ?',    latin:'Kemey dikha?'},
+   tigray:  {tig:'ከመይ ኣለኻ?',   latin:'Kemey alekha?'}},
+  {en:'Hello',
+   eritrean:{tig:'ሰላም',         latin:'Selam'},
+   tigray:  {tig:'ሰላም / ትናብ',  latin:'Selam / Tnab'}},
+  {en:'I don\'t know',
+   eritrean:{tig:'ኣይፈልጥን',     latin:'Ayfeltin'},
+   tigray:  {tig:'ኣይፈልጦን',     latin:'Ayfelton'}},
+  {en:'Come here',
+   eritrean:{tig:'ናዓ ምጻእ',     latin:'Naʿa mitsaʿ'},
+   tigray:  {tig:'ናዓ ሃዲሽ',     latin:'Naʿa hadish'}},
+  {en:'Right now',
+   eritrean:{tig:'ሕጂ ሕጂ',      latin:'Ḥiji ḥiji'},
+   tigray:  {tig:'ሕጂ ሕጂ / ሎሚ',latin:'Ḥiji / lomi'}},
+  {en:'My friend',
+   eritrean:{tig:'ዓርከይ',       latin:"ʿArkey"},
+   tigray:  {tig:'ዓርከይ / ሓዙ',  latin:"ʿArkey / Hazu"}},
+  {en:'Very good',
+   eritrean:{tig:'ጣዕሚ ጽቡቕ',   latin:"Taʿmi ts'buq"},
+   tigray:  {tig:'ጣዕሚ ጽቡቅ',   latin:"Taʿmi ts'buq"}},
+];
+
+const COLLECTIBLE_CARDS = [
+  {id:'selam',     name:'Greeting Master', tig:'ሰላም',    en:'Selam',    art:'👋', rarity:'common',    cost:0,    unlocked:true},
+  {id:'lion',      name:'Lion of Hamasien',tig:'ኣንበሳ',   en:'Anbesa',   art:'🦁', rarity:'rare',      cost:50,   unlocked:false},
+  {id:'coffee',    name:'Coffee Keeper',   tig:'ቡን',      en:'Bun',      art:'☕', rarity:'common',    cost:30,   unlocked:false},
+  {id:'asmara',    name:'Capital Spirit',  tig:'ኣስመራ',   en:'Asmera',   art:'🏛️', rarity:'legendary', cost:200,  unlocked:false},
+  {id:'injera',    name:'Injera Chef',     tig:'እንጀራ',   en:'Injera',   art:'🫓', rarity:'common',    cost:20,   unlocked:false},
+  {id:'krar',      name:'Krar Player',     tig:'ክራር',    en:'Krar',     art:'🎸', rarity:'rare',      cost:80,   unlocked:false},
+  {id:'freedom',   name:'Nats\'net Hero',  tig:'ናጽነት',   en:"Nats'net", art:'🇪🇷', rarity:'legendary', cost:300,  unlocked:false},
+  {id:'teacher',   name:'Memhr',          tig:'መምህር',   en:'Memhr',    art:'📚', rarity:'common',    cost:25,   unlocked:false},
+  {id:'jebena',    name:'Jebena Bearer',  tig:'ጀበና',    en:'Jebena',   art:'🫖', rarity:'rare',      cost:60,   unlocked:false},
+  {id:'star',      name:'Habesha Star',   tig:'ኮኾብ',    en:'Kokhob',   art:'⭐', rarity:'common',    cost:15,   unlocked:false},
+  {id:'priest',    name:'Qeshi Qedus',    tig:'ቀሺ',      en:'Qeshi',    art:'✝️', rarity:'rare',      cost:90,   unlocked:false},
+  {id:'market',    name:'Market Trader',  tig:'ሸቃጣይ',   en:'Sheqatay', art:'🏪', rarity:'common',    cost:35,   unlocked:false},
+];
+
+const LEADERBOARD = [
+  {name:'You',       avatar:'😊', pts:0,    me:true},
+  {name:'Tigist',    avatar:'👩🏾', pts:4820},
+  {name:'Yonas',     avatar:'👨🏾', pts:4210},
+  {name:'Sara',      avatar:'👧🏾', pts:3890},
+  {name:'Haile',     avatar:'🧑🏾', pts:3100},
+  {name:'Miriam',    avatar:'👩🏽', pts:2750},
+  {name:'Dawit',     avatar:'👦🏾', pts:1980},
+  {name:'Selam',     avatar:'🧑🏽', pts:1540},
+  {name:'Azmera',    avatar:'👩🏾', pts:980},
+];
+
+const SENTENCE_BUILDER = [
+  {
+    en:'I eat injera today',
+    parts:['ኣነ','ሎሚ','እንጀራ','እብላዕ'],
+    extra:['ዶርሆ','ጽቡቕ','ሰማያዊ','ቡን'],
+  },
+  {
+    en:'She drinks coffee',
+    parts:['ንሳ','ቡን','ትስቲ'],
+    extra:['ማይ','ሻሂ','ትብላዕ','ሎሚ'],
+  },
+  {
+    en:'The market is big',
+    parts:['ሱቕ','ዓቢ','እዩ'],
+    extra:['ናእሽቱ','ሰላም','ጽቡቕ','ሆስፒታል'],
+  },
+  {
+    en:'He goes to school',
+    parts:['ንሱ','ቤት ትምህርቲ','ይኸይድ'],
+    extra:['ሆስፒታል','ትምህርቲ','ይስቲ','ናብ'],
+  },
+  {
+    en:'We drink tea together',
+    parts:['ንሕና','ሓቢሮም','ሻሂ','ንስቲ'],
+    extra:['ቡን','ዓሰርተ','ሰማያዊ','ትስቲ'],
+  },
+];
+
+// ══════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════
+let state = {
+  coins: 0, xp: 0, streak: 1,
+  dailyXP: 0, dailyGoal: 50,
+  wordMastery: {},
+  cards: COLLECTIBLE_CARDS.map(c => ({...c})),
+  currentQuiz: null, quizIdx: 0, quizScore: 0, quizAnswered: false,
+  currentFC: null, fcIdx: 0,
+  currentBuilder: null, builderSlots: [], builderUsed: [],
+  currentStory: null,
+  currentCulture: null,
+  dialectView: 'comparison',
+  socialTab: 'leaderboard',
+  leaderboard: LEADERBOARD.map(r => ({...r})),
+  pendingConvo: null,
+};
+
+function save() {
+  try {
+    localStorage.setItem('tig_state', JSON.stringify({
+      coins: state.coins, xp: state.xp, streak: state.streak,
+      dailyXP: state.dailyXP, wordMastery: state.wordMastery,
+      cards: state.cards,
+      lbPts: state.leaderboard[0].pts,
+    }));
+  } catch(e) {}
+}
+
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem('tig_state') || '{}');
+    if (d.coins !== undefined) {
+      state.coins = d.coins; state.xp = d.xp; state.streak = d.streak;
+      state.dailyXP = d.dailyXP; state.wordMastery = d.wordMastery || {};
+      if (d.cards) state.cards = d.cards;
+      if (d.lbPts) state.leaderboard[0].pts = d.lbPts;
+    }
+  } catch(e) {}
+}
+
+// ══════════════════════════════════════════════════════
+//  UTILS
+// ══════════════════════════════════════════════════════
+function startApp() {
+  load();
+  document.getElementById('splash').style.opacity = '0';
+  setTimeout(() => { document.getElementById('splash').style.display = 'none'; }, 600);
+  document.getElementById('app').classList.add('active');
+  updateTopBar();
+  renderHome();
+  renderStoryList();
+  renderCards();
+}
+
+function safeRender(id, fn) {
+  try {
+    if (document.getElementById(id)) fn();
+  } catch(e) { console.warn('safeRender error for', id, e); }
+}
+
+function navigate(section) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const scr = document.getElementById('screen-' + section);
+  const nav = document.getElementById('nav-' + section);
+  if (scr) scr.classList.add('active');
+  if (nav) nav.classList.add('active');
+  if (section === 'play') {
+    safeRender('quiz-container', renderQuizQuestion);
+    safeRender('fc-container', renderFlashcard);
+  }
+  if (section === 'learn') {
+    safeRender('word-categories', renderWordCategories);
+    safeRender('builder-container', renderBuilder);
+    safeRender('grammar-container', renderGrammar);
+    safeRender('culture-container', renderCulture);
+    safeRender('dialect-container', renderDialect);
+  }
+  if (section === 'social') {
+    safeRender('lb-container', renderLeaderboard);
+    safeRender('ach-container', renderAchievements);
+  }
+}
+
+function goTo(section) { navigate(section); }
+
+function goToLearnSub(sub) {
+  navigate('learn');
+  document.querySelectorAll('#screen-learn .sub-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#screen-learn .tab-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('learn-' + sub).classList.add('active');
+  const btns = document.querySelectorAll('#screen-learn .sub-btn');
+  const map = {words:0,builder:1,grammar:2,culture:3,dialect:4};
+  btns[map[sub]]?.classList.add('active');
+}
+
+function updateTopBar() {
+  document.getElementById('coin-count').textContent = state.coins;
+  document.getElementById('streak-count').textContent = state.streak;
+  document.getElementById('xp-count').textContent = state.xp;
+  const pct = Math.min(100, Math.round(state.dailyXP / state.dailyGoal * 100));
+  document.getElementById('daily-bar').style.width = pct + '%';
+  document.getElementById('daily-pct').textContent = pct + '%';
+}
+
+function earnCoins(n, xp) {
+  state.coins += n; state.xp += xp;
+  state.dailyXP += xp;
+  state.leaderboard[0].pts += xp;
+  updateTopBar(); save();
+  const pop = document.createElement('div');
+  pop.className = 'coin-pop';
+  pop.textContent = '+' + n + ' 🪙 +' + xp + '⭐';
+  document.body.appendChild(pop);
+  setTimeout(() => pop.remove(), 1600);
+}
+
+function speak(text) {
+  if (!window.speechSynthesis) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ti'; u.rate = 0.85;
+  window.speechSynthesis.speak(u);
+}
+
+// ══════════════════════════════════════════════════════
+//  HOME
+// ══════════════════════════════════════════════════════
+const WOTD_POOL = Object.values(WORDS).flat();
+function renderHome() {
+  const w = WOTD_POOL[Math.floor(Date.now() / 86400000) % WOTD_POOL.length];
+  document.getElementById('wotd-tig').textContent = w.tig;
+  document.getElementById('wotd-latin').textContent = w.latin;
+  document.getElementById('wotd-meaning').textContent = w.en;
+  document.getElementById('wotd-example').textContent = w.example ? '"' + w.example + '"' : '';
+  updateTopBar();
+}
+
+// ══════════════════════════════════════════════════════
+//  QUIZ
+// ══════════════════════════════════════════════════════
+const ALL_WORDS = Object.values(WORDS).flat();
+
+function getQuizPool() {
+  return ALL_WORDS.sort((a,b) => {
+    const ma = state.wordMastery[a.tig] || 0;
+    const mb = state.wordMastery[b.tig] || 0;
+    return ma - mb + Math.random() * 0.5;
+  });
+}
+
+function initQuiz() { renderQuizQuestion(); }
+
+function renderQuizQuestion() {
+  const c = document.getElementById('quiz-container');
+  if (!c) return;
+  const pool = getQuizPool();
+  const word = pool[state.quizIdx % pool.length];
+  state.currentQuiz = word;
+  state.quizAnswered = false;
+  const isToEn = Math.random() > 0.5;
+  const wrongPool = pool.filter(w => w.en !== word.en).sort(() => Math.random()-0.5).slice(0,3);
+  const opts = [word, ...wrongPool].sort(() => Math.random()-0.5);
+
+  c.innerHTML = `
+    <div class="quiz-header">
+      <span class="quiz-progress">Question ${(state.quizIdx%20)+1}/20</span>
+      <span class="quiz-score">Score: ${state.quizScore}</span>
+    </div>
+    <div class="quiz-card">
+      ${isToEn
+        ? `<div class="quiz-prompt-tigrinya">${word.tig}</div><div class="quiz-prompt-sub">${word.latin}</div>`
+        : `<div class="quiz-prompt-en">${word.en}</div>`}
+      <button class="tts-btn" onclick="speak('${word.tig.replace(/'/g,"\\'")}')">🔊 Listen</button>
+    </div>
+    <div class="quiz-options" id="quiz-opts">
+      ${opts.map(o => `
+        <button class="quiz-opt ${isToEn ? '' : 'tigrinya-opt'}"
+          onclick="answerQuiz(this,'${o.en.replace(/'/g,"\\'")}','${word.en.replace(/'/g,"\\'")}','${word.tig.replace(/'/g,"\\'")}')">
+          ${isToEn ? o.en : o.tig}
+        </button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="quiz-feedback"></div>
+    <button class="quiz-next-btn" id="quiz-next" onclick="nextQuiz()">Next →</button>
+  `;
+}
+
+function answerQuiz(btn, chosen, correct, wordTig) {
+  if (state.quizAnswered) return;
+  state.quizAnswered = true;
+  const fb = document.getElementById('quiz-feedback');
+  const nextBtn = document.getElementById('quiz-next');
+  if (!fb || !nextBtn) return;
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => {
+    const label = o.textContent.trim();
+    if (label === correct || label === wordTig) o.classList.add('correct');
+  });
+  const isRight = chosen === correct;
+  if (isRight) {
+    btn.classList.add('correct');
+    state.quizScore++;
+    state.wordMastery[wordTig] = (state.wordMastery[wordTig] || 0) + 1;
+    earnCoins(3, 5);
+    fb.className = 'quiz-feedback show correct-fb';
+    fb.innerHTML = `✅ Correct! <strong>${wordTig}</strong> = <strong>${correct}</strong>`;
+  } else {
+    btn.classList.add('wrong');
+    state.wordMastery[wordTig] = Math.max(0, (state.wordMastery[wordTig] || 0) - 1);
+    fb.className = 'quiz-feedback show wrong-fb';
+    fb.innerHTML = `❌ Not quite — <strong>${wordTig}</strong> = <strong>${correct}</strong>`;
+  }
+  nextBtn.classList.add('show');
+}
+
+function nextQuiz() {
+  const c = document.getElementById('quiz-container');
+  if (!c) return;
+  state.quizIdx++;
+  if (state.quizIdx % 20 === 0) {
+    earnCoins(20, 30);
+    c.innerHTML = `
+      <div style="text-align:center;padding:40px 0">
+        <div style="font-size:48px">🎉</div>
+        <h2 style="font-size:22px;color:var(--gold);margin:12px 0">Round Complete!</h2>
+        <p style="color:var(--muted)">Score: ${state.quizScore % 20} / 20</p>
+        <p style="color:var(--coin);font-weight:700;margin-top:8px">+20 🪙 +30 ⭐</p>
+        <button class="quiz-next-btn show" style="margin-top:20px" onclick="state.quizScore=0;renderQuizQuestion()">Play Again</button>
+      </div>`;
+    return;
+  }
+  renderQuizQuestion();
+}
+
+// ══════════════════════════════════════════════════════
+//  FLASHCARDS
+// ══════════════════════════════════════════════════════
+function initFlashcard() { renderFlashcard(); }
+
+function renderFlashcard() {
+  const c = document.getElementById('fc-container');
+  if (!c) return;
+  const pool = getQuizPool();
+  const word = pool[state.fcIdx % pool.length];
+  state.currentFC = word;
+  c.innerHTML = `
+    <div style="text-align:right;font-size:13px;color:var(--muted);margin-bottom:8px">
+      Card ${(state.fcIdx % pool.length)+1} / ${Math.min(pool.length,30)}
+    </div>
+    <div class="flashcard-wrap" onclick="flipCard()">
+      <div class="flashcard" id="fc-card">
+        <div class="card-face">
+          <div class="fc-tigrinya">${word.tig}</div>
+          <div class="fc-hint">Tap to reveal</div>
+          <button class="tts-btn" onclick="event.stopPropagation();speak('${word.tig.replace(/'/g,"\\'")}')">🔊 Listen</button>
+        </div>
+        <div class="card-back">
+          <div class="fc-english">${word.en}</div>
+          <div class="fc-latin">${word.latin}</div>
+          <div class="fc-example">${word.example}</div>
+        </div>
+      </div>
+    </div>
+    <div id="fc-actions" style="display:none">
+      <div style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:10px">How well did you know this?</div>
+      <div class="fc-actions">
+        <button class="fc-btn hard" onclick="rateFC(1)">😓 Hard</button>
+        <button class="fc-btn good" onclick="rateFC(2)">😊 Good</button>
+        <button class="fc-btn easy" onclick="rateFC(3)">🌟 Easy</button>
+      </div>
+    </div>`;
+}
+
+function flipCard() {
+  document.getElementById('fc-card').classList.toggle('flipped');
+  document.getElementById('fc-actions').style.display = 'block';
+}
+
+function rateFC(score) {
+  const w = state.currentFC;
+  if (score === 1) state.wordMastery[w.tig] = Math.max(0, (state.wordMastery[w.tig]||0)-1);
+  else state.wordMastery[w.tig] = (state.wordMastery[w.tig]||0) + score;
+  earnCoins(score, score * 2);
+  state.fcIdx++;
+  renderFlashcard();
+}
+
+// ══════════════════════════════════════════════════════
+//  WORD CATEGORIES & LIST
+// ══════════════════════════════════════════════════════
+function renderWordCategories() {
+  const c = document.getElementById('word-categories');
+  if (!c) return;
+  c.innerHTML = `<div class="section-title" style="margin-bottom:12px">Word Categories</div>
+  <div class="cat-grid">
+    ${WORD_CATEGORIES.map(cat => {
+      const words = WORDS[cat.id] || [];
+      const mastered = words.filter(w => (state.wordMastery[w.tig]||0) >= 3).length;
+      const pct = Math.round(mastered/words.length*100);
+      return `<div class="cat-card" onclick="showWordList('${cat.id}')">
+        <div class="cat-icon">${cat.icon}</div>
+        <div class="cat-name">${cat.name}</div>
+        <div class="cat-count">${words.length} words · ${pct}% mastered</div>
+        <div class="cat-bar"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%;background:${cat.color}"></div></div></div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function showWordList(catId) {
+  const cat = WORD_CATEGORIES.find(c => c.id === catId);
+  const words = WORDS[catId] || [];
+  document.getElementById('word-categories').style.display = 'none';
+  const v = document.getElementById('word-list-view');
+  v.style.display = 'block';
+  v.innerHTML = `
+    <button class="btn-back" onclick="document.getElementById('word-categories').style.display='block';document.getElementById('word-list-view').style.display='none'">
+      ← Back to Categories
+    </button>
+    <div style="font-size:22px;margin-bottom:4px">${cat.icon} ${cat.name}</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px">${words.length} words</div>
+    <div class="word-list">
+      ${words.map(w => {
+        const m = Math.min(5, state.wordMastery[w.tig]||0);
+        return `<div class="word-item">
+          <div class="word-tigrinya">${w.tig}</div>
+          <div class="word-meta">
+            <div class="word-english">${w.en}</div>
+            <div class="word-latin">${w.latin}</div>
+            <div class="mastery-dots">
+              ${[1,2,3,4,5].map(i=>`<div class="mastery-dot ${i<=m?'filled':''}"></div>`).join('')}
+            </div>
+          </div>
+          <button class="tts-btn" onclick="speak('${w.tig.replace(/'/g,"\\'")}')">🔊</button>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+//  BUILDER
+// ══════════════════════════════════════════════════════
+function initBuilder() { renderBuilder(); }
+
+function renderBuilder() {
+  const c = document.getElementById('builder-container');
+  if (!c) return;
+  const idx = Math.floor(Math.random() * SENTENCE_BUILDER.length);
+  state.currentBuilder = {...SENTENCE_BUILDER[idx]};
+  state.builderSlots = [];
+  state.builderUsed = new Array(state.currentBuilder.parts.length + state.currentBuilder.extra.length).fill(false);
+  const allChoices = [...state.currentBuilder.parts, ...state.currentBuilder.extra].sort(()=>Math.random()-0.5);
+  c.innerHTML = `
+    <div class="section-title">Sentence Builder</div>
+    <div class="builder-prompt">
+      <div style="font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Build this sentence:</div>
+      <div class="builder-target">${state.currentBuilder.en}</div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Your sentence (tap to remove):</div>
+    <div class="builder-slots" id="builder-slots"></div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Word choices:</div>
+    <div class="builder-choices" id="builder-choices">
+      ${allChoices.map((w,i) => `<button class="builder-choice" data-i="${i}" data-word="${w}" onclick="addToBuilder(this,'${w.replace(/'/g,"\\'")}',${i})">${w}</button>`).join('')}
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="builder-check" onclick="checkBuilder()" style="flex:2">Check ✓</button>
+      <button class="builder-check" onclick="clearBuilder()" style="flex:1;background:var(--mid);color:var(--text)">Clear</button>
+    </div>
+    <div class="builder-result" id="builder-result"></div>
+    <button id="builder-next" onclick="initBuilder()" style="display:none;margin-top:12px" class="builder-check">Next Sentence →</button>
+  `;
+}
+
+function addToBuilder(btn, word, idx) {
+  if (btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  state.builderSlots.push({word, idx});
+  updateBuilderSlots();
+}
+
+function updateBuilderSlots() {
+  const el = document.getElementById('builder-slots');
+  if (!el) return;
+  if (state.builderSlots.length === 0) { el.innerHTML = ''; return; }
+  el.innerHTML = state.builderSlots.map((s,i) =>
+    `<div class="builder-slot-word" onclick="removeFromBuilder(${i})">${s.word}</div>`
+  ).join('');
+}
+
+function removeFromBuilder(i) {
+  const s = state.builderSlots[i];
+  state.builderSlots.splice(i, 1);
+  const btn = document.querySelector(`.builder-choice[data-i="${s.idx}"]`);
+  if (btn) btn.classList.remove('used');
+  updateBuilderSlots();
+}
+
+function clearBuilder() {
+  state.builderSlots = [];
+  document.querySelectorAll('.builder-choice').forEach(b => b.classList.remove('used'));
+  updateBuilderSlots();
+}
+
+function checkBuilder() {
+  const answer = state.builderSlots.map(s => s.word).join(' ');
+  const correct = state.currentBuilder.parts.join(' ');
+  const res = document.getElementById('builder-result');
+  const next = document.getElementById('builder-next');
+  if (answer === correct) {
+    res.className = 'builder-result show ok';
+    res.innerHTML = '✅ Correct! 🎉';
+    earnCoins(8, 12);
+    next.style.display = 'block';
+  } else {
+    res.className = 'builder-result show fail';
+    res.innerHTML = `❌ Not quite.<br><span style="color:var(--muted);font-size:13px">Correct: <strong>${correct}</strong></span>`;
+    next.style.display = 'block';
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  GRAMMAR
+// ══════════════════════════════════════════════════════
+function renderGrammar() {
+  const c = document.getElementById('grammar-container');
+  if (!c) return;
+  c.innerHTML = `<div class="section-title" style="margin-bottom:12px">Tigrinya Grammar</div>` +
+    GRAMMAR_SECTIONS.map((g,i) => `
+      <div class="grammar-card">
+        <div class="grammar-header" onclick="toggleGrammar(${i})">
+          <h3>${g.title}</h3>
+          <span class="badge">${g.badge}</span>
+        </div>
+        <div class="grammar-body" id="grammar-body-${i}">
+          <p style="font-size:14px;color:var(--muted);margin-bottom:8px">${g.content}</p>
+          <table class="grammar-table">
+            <tr>${g.table.headers.map(h=>`<th>${h}</th>`).join('')}</tr>
+            ${g.table.rows.map(r=>`<tr>${r.map((cell,ci)=>`<td ${ci===1||ci===0&&r.length>2?'class="tig-cell"':''}>${cell}</td>`).join('')}</tr>`).join('')}
+          </table>
+          <div class="grammar-note">${g.note}</div>
+        </div>
+      </div>`).join('');
+}
+
+function toggleGrammar(i) {
+  const b = document.getElementById('grammar-body-'+i);
+  b.classList.toggle('open');
+}
+
+// ══════════════════════════════════════════════════════
+//  CULTURE
+// ══════════════════════════════════════════════════════
+function renderCulture() {
+  const c = document.getElementById('culture-container');
+  if (!c) return;
+  c.innerHTML = `<div class="section-title" style="margin-bottom:12px">Cultural Lessons</div>` +
+    CULTURE_TOPICS.map(topic => `
+      <div class="culture-card" onclick="showCultureDetail('${topic.id}')">
+        <div class="culture-thumb">${topic.thumb}</div>
+        <div class="culture-info">
+          <div class="culture-title">${topic.title}</div>
+          <div class="culture-preview">${topic.preview}</div>
+        </div>
+      </div>`).join('');
+}
+
+function showCultureDetail(id) {
+  const topic = CULTURE_TOPICS.find(t => t.id === id);
+  const c = document.getElementById('culture-container');
+  c.innerHTML = `
+    <button class="btn-back" onclick="renderCulture()">← Back to Culture</button>
+    <div style="font-size:52px;text-align:center;margin:16px 0">${topic.thumb}</div>
+    <h2 style="font-family:'Cinzel Decorative',serif;font-size:20px;color:var(--gold);margin-bottom:16px">${topic.title}</h2>
+    ${topic.body.split('\n\n').map(p=>`<p style="font-size:15px;line-height:1.8;color:var(--muted);margin-bottom:14px">${p}</p>`).join('')}
+    <div class="vocab-box" style="background:var(--mid);border-radius:var(--r);padding:14px;margin-top:8px">
+      <div style="font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Key Vocabulary</div>
+      ${topic.vocab.map(v=>`
+        <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #ffffff08">
+          <span style="font-family:'Noto Sans Ethiopic',sans-serif;font-size:20px;color:var(--gold-light);min-width:100px">${v.tig}</span>
+          <span style="font-size:14px;font-weight:600">${v.en}</span>
+          <button class="tts-btn" onclick="speak('${v.tig.replace(/'/g,"\\'")}')">🔊</button>
+        </div>`).join('')}
+    </div>`;
+  earnCoins(2, 5);
+}
+
+// ══════════════════════════════════════════════════════
+//  DIALECT
+// ══════════════════════════════════════════════════════
+function renderDialect() {
+  const c = document.getElementById('dialect-container');
+  if (!c) return;
+  c.innerHTML = `
+    <div class="section-title" style="margin-bottom:12px">Eritrean vs Tigray Dialect</div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:16px;line-height:1.7">
+      Tigrinya is spoken in both Eritrea and the Tigray region of Ethiopia. While mutually intelligible, there are vocabulary and pronunciation differences worth learning.
+    </p>
+    <div class="dialect-compare">
+      ${DIALECT_DATA.map(d => `
+        <div class="dc-row">
+          <div class="dc-en">${d.en}</div>
+          <div class="dc-pair">
+            <div class="dc-variant">
+              <div class="dc-label">🇪🇷 Eritrean</div>
+              <div class="dc-tig">${d.eritrean.tig}</div>
+              <div class="dc-latin">${d.eritrean.latin}</div>
+            </div>
+            <div class="dc-variant">
+              <div class="dc-label">🇪🇹 Tigray</div>
+              <div class="dc-tig">${d.tigray.tig}</div>
+              <div class="dc-latin">${d.tigray.latin}</div>
+            </div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+//  STORIES
+// ══════════════════════════════════════════════════════
+function renderStoryList() {
+  const c = document.getElementById('story-list-view');
+  c.innerHTML = `<div class="section-title" style="margin-bottom:12px">Interactive Stories</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Tap any highlighted word for its translation.</p>
+    <div class="story-list">
+      ${STORIES.map(s => `
+        <div class="story-card" onclick="openStory('${s.id}')">
+          <div class="story-thumb">${s.thumb}</div>
+          <div class="story-meta">
+            <div class="story-title">${s.title}</div>
+            <div class="story-desc">${s.desc}</div>
+            <div class="story-tags">
+              <span class="story-tag">${s.level}</span>
+              <span class="story-tag">⏱️ ${s.duration}</span>
+              ${s.tags.map(t=>`<span class="story-tag">${t}</span>`).join('')}
+            </div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function openStory(id) {
+  const story = STORIES.find(s => s.id === id);
+  document.getElementById('story-list-view').style.display = 'none';
+  const rv = document.getElementById('story-reader-view');
+  rv.style.display = 'block';
+  rv.innerHTML = `
+    <button class="btn-back" onclick="closeStory()">← Back to Stories</button>
+    <div style="font-size:32px;text-align:center;margin-bottom:8px">${story.thumb}</div>
+    <h2 style="font-family:'Cinzel Decorative',serif;font-size:18px;color:var(--gold);text-align:center;margin-bottom:20px">${story.title}</h2>
+    <div class="story-text-wrap" style="background:var(--mid);border-radius:var(--r);padding:20px">
+      ${story.text.map(line => `
+        <p style="margin-bottom:16px">
+          <span style="color:var(--muted);font-size:13px;display:block;margin-bottom:4px">${line.en}</span>
+          <span>
+            ${line.tig.map(w => `<span class="tigrinya" 
+              data-tig="${w.t}" data-en="${w.e}" data-lat="${w.l}"
+              onclick="showWordTip(event,'${w.t.replace(/'/g,"\\'")}','${w.e.replace(/'/g,"\\'")}','${w.l.replace(/'/g,"\\'")}')">
+              ${w.t}
+            </span> `).join('')}
+          </span>
+        </p>`).join('')}
+    </div>
+    <div style="margin-top:16px;background:var(--mid);border-radius:var(--r);padding:14px;font-size:13px;color:var(--muted)">
+      💡 Tap any <span style="color:var(--gold-light);font-family:'Noto Sans Ethiopic',sans-serif">ትግርኛ</span> word to see its meaning
+    </div>`;
+  earnCoins(5, 10);
+}
+
+function closeStory() {
+  document.getElementById('story-list-view').style.display = 'block';
+  document.getElementById('story-reader-view').style.display = 'none';
+  hideTooltip();
+}
+
+function showWordTip(event, tig, en, latin) {
+  const t = document.getElementById('word-tooltip');
+  t.innerHTML = `<div class="tt-tig">${tig}</div><div class="tt-en">${en}</div><div class="tt-latin">${latin}</div>`;
+  t.style.display = 'block';
+  setTimeout(() => { t.style.opacity = '1'; }, 10);
+  const rect = event.target.getBoundingClientRect();
+  let top = rect.bottom + 8;
+  let left = rect.left;
+  if (left + 150 > window.innerWidth) left = window.innerWidth - 160;
+  if (top + 80 > window.innerHeight) top = rect.top - 90;
+  t.style.top = top + 'px';
+  t.style.left = left + 'px';
+  speak(tig);
+  setTimeout(hideTooltip, 3000);
+}
+
+function hideTooltip() {
+  const t = document.getElementById('word-tooltip');
+  t.style.opacity = '0';
+  setTimeout(() => { t.style.display = 'none'; }, 200);
+}
+
+document.addEventListener('click', (e) => {
+  if (!e.target.classList.contains('tigrinya')) hideTooltip();
+});
+
+// ══════════════════════════════════════════════════════
+//  CARDS COLLECTION
+// ══════════════════════════════════════════════════════
+function renderCards() {
+  const grid = document.getElementById('cards-grid');
+  const unlocked = state.cards.filter(c => c.unlocked).length;
+  document.getElementById('cards-unlocked').textContent = unlocked;
+  document.getElementById('cards-total').textContent = state.cards.length;
+  grid.innerHTML = state.cards.map(card => `
+    <div class="collect-card ${card.rarity} ${card.unlocked?'':'locked'}">
+      <div class="card-rarity">${card.rarity}</div>
+      <div class="card-art">${card.art}</div>
+      <div class="card-name">${card.name}</div>
+      <div class="card-tig">${card.tig}</div>
+      <div class="card-en">${card.en}</div>
+      ${!card.unlocked ? `<div class="card-lock">🔒</div>` : ''}
+    </div>`).join('');
+}
+
+function openShop() { document.getElementById('shop-modal').classList.add('open'); renderShop(); }
+function closeShop(e) {
+  if (!e || e.target === document.getElementById('shop-modal') || !e.target) {
+    document.getElementById('shop-modal').classList.remove('open');
+  }
+}
+
+const SHOP_PACKS = [
+  {name:'Common Pack', desc:'3 Common cards', icon:'📦', cost:50, rarity:'common'},
+  {name:'Rare Pack',   desc:'1 Rare + 2 Common', icon:'💎', cost:120, rarity:'rare'},
+  {name:'Legend Pack', desc:'1 Legendary + 2 Rare', icon:'👑', cost:350, rarity:'legendary'},
+];
+
+function renderShop() {
+  document.getElementById('shop-packs').innerHTML = SHOP_PACKS.map((p,i) => `
+    <div class="shop-pack" onclick="buyPack(${i})">
+      <div class="pack-icon">${p.icon}</div>
+      <div class="pack-info">
+        <div class="pack-name">${p.name}</div>
+        <div class="pack-desc">${p.desc}</div>
+      </div>
+      <div class="pack-price">🪙 ${p.cost}</div>
+    </div>`).join('');
+}
+
+function buyPack(i) {
+  const pack = SHOP_PACKS[i];
+  if (state.coins < pack.cost) {
+    alert(`Not enough coins! You need 🪙${pack.cost} but have 🪙${state.coins}.\nEarn more by completing quizzes and stories!`);
+    return;
+  }
+  state.coins -= pack.cost;
+  const locked = state.cards.filter(c => !c.unlocked && c.rarity === pack.rarity);
+  const toUnlock = locked.slice(0, pack.rarity === 'legendary' ? 3 : pack.rarity === 'rare' ? 3 : 3).slice(0,3);
+  if (toUnlock.length === 0) { alert('You already have all cards of this type! 🎉'); return; }
+  toUnlock.forEach(c => {
+    const idx = state.cards.findIndex(sc => sc.id === c.id);
+    if (idx !== -1) state.cards[idx].unlocked = true;
+  });
+  save(); updateTopBar(); renderCards();
+  alert(`🎉 Unlocked:\n${toUnlock.map(c => c.art + ' ' + c.name).join('\n')}`);
+  closeShop();
+}
+
+// ══════════════════════════════════════════════════════
+//  LEADERBOARD
+// ══════════════════════════════════════════════════════
+function renderLeaderboard() {
+  const c = document.getElementById('lb-container');
+  if (!c) return;
+  const sorted = [...state.leaderboard].sort((a,b) => b.pts - a.pts);
+  const top3 = sorted.slice(0,3);
+  const rest = sorted.slice(3);
+  const heights = [80, 60, 50];
+  c.innerHTML = `
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px">Weekly Rankings · Resets Sunday</div>
+    <div class="lb-podium">
+      ${[top3[1],top3[0],top3[2]].filter(Boolean).map((p,i) => {
+        const rank = i===1?1:i===0?2:3;
+        const medals = ['🥇','🥈','🥉'];
+        return `<div class="lb-podium-item rank${rank}">
+          <div class="lb-podium-avatar">${p.avatar}</div>
+          <div class="lb-podium-name">${p.name}</div>
+          <div class="lb-podium-score">${p.pts} pts</div>
+          <div class="lb-podium-bar" style="height:${heights[rank-1]}px"></div>
+          <div>${medals[rank-1]}</div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="lb-list">
+      ${rest.map((p,i) => `
+        <div class="lb-row ${p.me?'me':''}">
+          <div class="lb-rank">${i+4}</div>
+          <div class="lb-avatar">${p.avatar}</div>
+          <div class="lb-name">${p.name}${p.me?' (You)':''}</div>
+          <div class="lb-pts">${p.pts} pts</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+//  ACHIEVEMENTS
+// ══════════════════════════════════════════════════════
+const ACHIEVEMENTS = [
+  {icon:'🔥', name:'First Flame',     desc:'Complete your first quiz',         done:()=>state.xp>0},
+  {icon:'📖', name:'Story Time',      desc:'Read your first story',             done:()=>state.xp>=10},
+  {icon:'🃏', name:'Card Collector',  desc:'Unlock 3 collectible cards',        done:()=>state.cards.filter(c=>c.unlocked).length>=3},
+  {icon:'💬', name:'Word Wizard',     desc:'Master 10 words',                   done:()=>Object.values(state.wordMastery).filter(v=>v>=3).length>=10},
+  {icon:'⭐', name:'Star Student',    desc:'Earn 100 XP',                       done:()=>state.xp>=100},
+  {icon:'🏆', name:'Quiz Champion',   desc:'Score 15+ in a single quiz round', done:()=>state.quizScore>=15},
+  {icon:'🌍', name:'Culture Seeker',  desc:'Read 3 cultural lessons',          done:()=>state.xp>=30},
+  {icon:'🪙', name:'Coin Hoarder',    desc:'Accumulate 200 coins',             done:()=>state.coins>=200},
+];
+
+function renderAchievements() {
+  const c = document.getElementById('ach-container');
+  if (!c) return;
+  c.innerHTML = `<div style="display:flex;flex-direction:column;gap:10px">
+    ${ACHIEVEMENTS.map(a => {
+      const d = a.done();
+      return `<div style="background:var(--mid);border-radius:var(--r);padding:14px 16px;display:flex;align-items:center;gap:14px;border:1px solid ${d?'var(--gold)44':'#ffffff10'}">
+        <div style="font-size:32px;${d?'':'filter:grayscale(1);opacity:0.4'}">${a.icon}</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700;${d?'color:var(--gold)':''}">${a.name}</div>
+          <div style="font-size:13px;color:var(--muted)">${a.desc}</div>
+        </div>
+        <div>${d?'✅':'🔒'}</div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+//  TAB SWITCHES
+// ══════════════════════════════════════════════════════
+function switchPlayTab(tab, btn) {
+  document.querySelectorAll('#screen-play .sub-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#screen-play .tab-section').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('play-'+tab).classList.add('active');
+  if (tab==='quiz') renderQuizQuestion();
+  if (tab==='flashcard') renderFlashcard();
+}
+
+function switchLearnTab(tab, btn) {
+  document.querySelectorAll('#screen-learn .sub-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#screen-learn .tab-section').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('learn-'+tab).classList.add('active');
+  if (tab==='grammar') renderGrammar();
+  if (tab==='culture') renderCulture();
+  if (tab==='dialect') renderDialect();
+  if (tab==='builder') renderBuilder();
+  if (tab==='words') renderWordCategories();
+}
+
+function switchSocial(tab, btn) {
+  document.querySelectorAll('.social-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#screen-social .tab-section').forEach(s=>s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('social-'+tab).classList.add('active');
+  if (tab==='leaderboard') renderLeaderboard();
+  if (tab==='achievements') renderAchievements();
+}
+</script>
+</body>
+</html>
