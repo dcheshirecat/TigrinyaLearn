@@ -1,309 +1,224 @@
-name: Build BeadVault APK
+name: Build Tigrinya APK
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-    - name: Download and Setup Gradle
-      run: |
-        wget https://services.gradle.org/distributions/gradle-8.4-bin.zip
-        unzip gradle-8.4-bin.zip
-        echo "GRADLE_HOME=$PWD/gradle-8.4" >> $GITHUB_ENV
-        echo "$PWD/gradle-8.4/bin" >> $GITHUB_PATH
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
-    - name: Create Android Project Structure
-      run: |
-        mkdir -p app/src/main/java/com/beadvault/app
-        mkdir -p app/src/main/res/layout
-        mkdir -p app/src/main/res/values
-        mkdir -p app/src/main/res/mipmap-mdpi
-        mkdir -p app/src/main/res/mipmap-hdpi
-        mkdir -p app/src/main/res/mipmap-xhdpi
-        mkdir -p app/src/main/res/mipmap-xxhdpi
-        mkdir -p app/src/main/res/mipmap-xxxhdpi
-        mkdir -p app/src/main/assets
+      - name: Install Gradle 8.4
+        run: |
+          wget -q https://services.gradle.org/distributions/gradle-8.4-bin.zip
+          unzip -q gradle-8.4-bin.zip
+          sudo mv gradle-8.4 /opt/gradle
+          echo "/opt/gradle/bin" >> $GITHUB_PATH
 
-    - name: Copy index.html to assets
-      run: cp index.html app/src/main/assets/
+      - name: Generate keystore
+        run: |
+          mkdir -p app
+          keytool -genkey -v \
+            -keystore app/keystore.jks \
+            -alias tigrinya \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -storepass TigrinyaBuild2024 \
+            -keypass TigrinyaBuild2024 \
+            -dname "CN=Tigrinya Learn, OU=dcheshirecat, O=Studio, L=Unknown, ST=Unknown, C=US"
 
-    - name: Create Root build.gradle
-      run: |
-        cat > build.gradle << 'EOF'
-        buildscript {
-            repositories {
-                google()
-                mavenCentral()
-            }
-            dependencies {
-                classpath 'com.android.tools.build:gradle:8.1.0'
-            }
-        }
+      - name: Build project structure
+        run: |
+          mkdir -p app/src/main/assets
+          mkdir -p app/src/main/java/com/dcheshirecat/tigrinya
+          mkdir -p app/src/main/res/layout
+          mkdir -p app/src/main/res/values
+          mkdir -p app/src/main/res/mipmap-mdpi
+          mkdir -p app/src/main/res/mipmap-hdpi
+          mkdir -p app/src/main/res/mipmap-xhdpi
+          mkdir -p app/src/main/res/mipmap-xxhdpi
+          mkdir -p app/src/main/res/mipmap-xxxhdpi
+          mkdir -p gradle/wrapper
 
-        allprojects {
-            repositories {
-                google()
-                mavenCentral()
-            }
-        }
-        EOF
+          cp index.html app/src/main/assets/index.html
 
-    - name: Create App build.gradle
-      run: |
-        cat > app/build.gradle << 'EOF'
-        plugins {
-            id 'com.android.application'
-        }
+          # Embed icon as base64 - no image tools needed
+          ICON_B64="iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAJOklEQVR4nO2dPdLVRhBFr11A4IAqdkLMQtgDxCyDGPbAQojZCVUEDkyAE8sIIelpNP3f98Tw1czonukevfckgBBCCCGEENKJP7wHUJnnfz37IfW3vv39D6+VAlzUSSRDfhfKcR8u3AARwn4VSnENLtIJmQL/CAqxDxdlQ6XQH0EZfsKFQI/QH9FdhtaT7xz8LV1FaDdphv4xnWRoM1EGf5wOIpSfIIM/T2URyk6MwZenogjlJsTg61NJhDITYfDtqSDCn94DkIDh96HCuqc2OMMF+PzhxfTfePX2q8BIdMlaDVIOOlrwJUJ+l2hyZBMh1WCBGOH3DPwjIgiRSYI0AwX8wh858I/wEiKLBCkG6RH8zKE/wkOG6CKEHhxgH/6Kwd9iLUJkCcIODLALf4fQH2ElQ1QJQg6KwbenqwihBgPYhJ/BP8ZChEgShBkIoB9+Bv862iJEkSDEIADd8HsG//W7b9N/49P75wIjuYemCBEkcB8AUCP8EkEfxUqMyhK4C6AVfu3gewT+EdpCaIngKYGrANnCHzH0R2jJUE0CNwE0wq8R/EyhP0JDBg0RPCRwESBD+CsEf4u0CBUkMBcgcvgrhv4IKRmyS2AqgHT4Gfx5oopgJYGZABHD3zn4WyREyCiByW+CGf74SKyH9DnM4msxJhVAciKzi8zgP2a2GkhWAu0qoC5AlPAz+OPMiJBFAtUWiOHPzcy6SbZDmq2QmgAMfw2qS6BWWqQGfHcRGXx57rZEUu2QRiukUgEY/prcXVepSqBRBcQFYPhrU00CUQEY/h5UkkC0p5IY2J1FYvD9uHMukDgTSJ0HxCoAw9+TO+svUQmkqkDqx6Mz/DHIfB1EBPDY/TMvekVGr0eUKjAtgFfrQ/ITQQL3Foh9fx28zgMzTAng8dRmhj82HtdnJoeuFYB9f008zgN3uS3A7O7P8NfGWoK7eXQ/AxDiyS0BuPuTK2SoAuYVgOHvRfTzwLAAlnd+GP4aWF7H0XyaVgDve74kB5Y5eTLyj7n7z/Hx5dPL//bNl++KI7Hn9btvZo9zf/7Xsx9Xvy06JMAM3Xb/kbBf/f/VpDjj84cXJq9rMhNghKy7/2zoR/5+Rhksq8BVLv+oYKb9Gdn9M4ZfO/hnZBRhRIKZKnClDQpZAbLgGfztGDKKEIFLFYC7/69ECP4RWUSIUgX4VYhBIocfiD++aIQRIMPunyVcGcYZ5Xo/FMCq/YnMx5dPU4RqTcYxHzGTo0f5DVMBopI9RNnHr42aABUOv1XCE3UeI9ddq5s4FcDjJ49RiBqau1SbzwhnOXZvgSLu/lXDEnFe3tdfRYDMh9+IIZEk8/w0cuVeAQjx5FAAi/7fu/xtybw7jhBtnhY5OMozK8B/RAuFNt3me4S4ABn7/65hyDhv6Xy5VYBo7Q/xxSsP7VugjLugJN3nvytA5w/ASF32ci1aAbL1/913v4Vs6yCZM5cWiP0/2cMjF23PANl2PW26rkdbAQgBKABpTksBupb7R3Rcl98E4C1QUpltvsUqwNVbU7wDRM64mg+pW6EtWyBCFigAaU07AToe9Ebotj7tBCBkDQUgraEApDUUgLSGApDWUADSGgpAWkMBSGsoAGkNBSCtaSdAlpfIedFtfdoJQMgaCkBaIybA1Xe5jrwflvTjaj5m3h285jcBrrxenpCsbPPdsgXqdtC7Ssd1aSkAIQsUgLSmrQAdy/0ZXdfDRQDeCSJ7eORCVACpW1NWdN31tmRbB8mc7QrAW6GkInu5bnsGWMi2+0nTff5uAvAcQNZ45UFcgGznAKDvLphx3tL5at8CLWQMwwzd5nvEoQAWB+FobVCXUESbp0UOjvLMCkBaoyJAxnPAQrTdUZrM89PIlXsFiNYGAblDckbEeXlf/1MBOn8gFjEsM1SbzwhnOVarACPlynsXOKJKaKLOY+S6a7XV7i1QdKKG5yrZx6/NQwFm2qDMh+E1b758TxekjGM+YiZHj/IbpgJEbYPWZAlUhnFGud5hBMhC9HBFH180Lrc3My/QHnmna6b3CEd6oVym4Fsdfq+0709u/3Xyf+g8RcgU/IgMHXBZBc6xFCFr8CPt/kDQCvDp/fOUEqxDqSFD1tAvRDn4rjET4NXbr0NVIDt7YR2RInvYZ7G6hT58j9+qDQLytkLkd0Z3f4v2BzC+DVrlgzGii2VOhgWw/IJcxJ6RjGN5HUfzaf5B2KjdlCA3lq3PHW4JMFsFKEEPrMN/J5f8KgRpzW0BWAXIGRl2f8C5AlCCmkTv+9dMCeDxk0lKEBuP6zOTQ/czwB37KUFM7lwX78+GpgWQqALei0B8kLjus/kTqQAeErAKxMKj75fInXsLNAMliEHm6yAmgFcrlHnxK+DV90vdgBG9izPzTdE1d782zW+P2nF345E670kJINoCSQ3q7iKxGthQJfyAwhmAEtSmUvgBpUMwJahJtfADwmeANVLnAeD+mQDguUCCmQ1F8jMeDQHUboNKDnZmEVkN5qgcfkD5cwBKkJvq4QcUW6A1UdohgC3RFWY3jCzhBxIKAMxLAFCEPSQqpfT3urQFMPkqhPQkJBaZbdGvdAw/YFQBFiJWAqB3NZDaCDKGHzAWAJCXAKAId4gafMD2h1YuL8GLLMFCRRmk277s4QecBABySADUEEHjvFMh/ICjAICOBICOCEAuGbQO+Vq/3vN6Ja/7e4CzSbAQUQbtO1vVwg8EEADQkwDQF2HBQwirW7mav9n2fhl7CAGAGhLsISGG52cWlcMPBBIA0JUA8BUhG9pP6ogQfiCYAIC+BABFOMPiETVRwg8EFACwkQCgCGusns0UKfxAUAEWKII+XYO/EHJQa6wkWOggg/WT+KKGH0ggAGAvAVBTBI9HUEYOP5BEgAUPEYDcMng9dzV68BdSDHKNlwRrIgsR4UHDWcIPJBQAiCHBGk8hIgR+TabwA0kFWIgmwh4SckQL+R7Zgr+QctBbMohQlazBX0j9ePSF7BchKxXWPf0EtrAa6FMh+AtlJrKFIshTKfgL5Sa0hSLMUzH4C2UntoUijFM5+AvlJ7iFIjymQ/AX2kx0D8rwk06hX9Ny0ls6i9A1+AutJ79HBxm6h34NF+KESjIw9PtwUQbIJAQDfw0u0iQRpGDY78OFU0RSDoacEEIIIYQI8S+X7m1KxPNVxQAAAABJRU5ErkJggg=="
 
-        android {
-            namespace 'com.beadvault.app'
-            compileSdk 34
+          for folder in mipmap-mdpi mipmap-hdpi mipmap-xhdpi mipmap-xxhdpi mipmap-xxxhdpi; do
+            echo "$ICON_B64" | base64 -d > "app/src/main/res/${folder}/ic_launcher.png"
+            cp "app/src/main/res/${folder}/ic_launcher.png" "app/src/main/res/${folder}/ic_launcher_round.png"
+          done
+          echo "Icons OK"
 
-            defaultConfig {
-                applicationId "com.beadvault.app"
-                minSdk 24
-                targetSdk 34
-                versionCode 1
-                versionName "1.0"
-            }
+          cat > app/src/main/AndroidManifest.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+              package="com.dcheshirecat.tigrinya">
+              <uses-permission android:name="android.permission.INTERNET" />
+              <application
+                  android:allowBackup="true"
+                  android:icon="@mipmap/ic_launcher"
+                  android:label="ትግርኛ Learn"
+                  android:roundIcon="@mipmap/ic_launcher_round"
+                  android:supportsRtl="true"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                  android:hardwareAccelerated="true">
+                  <activity
+                      android:name=".MainActivity"
+                      android:exported="true"
+                      android:screenOrientation="portrait"
+                      android:configChanges="orientation|screenSize|keyboardHidden">
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+                  </activity>
+              </application>
+          </manifest>
+          EOF
 
-            buildTypes {
-                release {
-                    minifyEnabled false
-                    proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-                }
-            }
+          cat > app/src/main/res/layout/activity_main.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#0e0a06">
+              <WebView
+                  android:id="@+id/webview"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent" />
+          </RelativeLayout>
+          EOF
 
-            compileOptions {
-                sourceCompatibility JavaVersion.VERSION_17
-                targetCompatibility JavaVersion.VERSION_17
-            }
-        }
+          cat > app/src/main/res/values/strings.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <string name="app_name">ትግርኛ Learn</string>
+          </resources>
+          EOF
 
-        dependencies {
-            implementation 'androidx.appcompat:appcompat:1.6.1'
-            implementation 'com.google.android.material:material:1.9.0'
-        }
-        EOF
+          cat > app/src/main/java/com/dcheshirecat/tigrinya/MainActivity.java << 'EOF'
+          package com.dcheshirecat.tigrinya;
+          import android.app.Activity;
+          import android.os.Bundle;
+          import android.view.WindowManager;
+          import android.webkit.WebSettings;
+          import android.webkit.WebView;
+          import android.webkit.WebViewClient;
+          import android.view.View;
+          public class MainActivity extends Activity {
+              private WebView webView;
+              @Override
+              protected void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+                  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                  getWindow().getDecorView().setSystemUiVisibility(
+                      View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+                  setContentView(R.layout.activity_main);
+                  webView = findViewById(R.id.webview);
+                  WebSettings ws = webView.getSettings();
+                  ws.setJavaScriptEnabled(true);
+                  ws.setDomStorageEnabled(true);
+                  ws.setAllowFileAccess(true);
+                  ws.setLoadWithOverviewMode(true);
+                  ws.setUseWideViewPort(true);
+                  webView.setWebViewClient(new WebViewClient());
+                  webView.loadUrl("file:///android_asset/index.html");
+              }
+              @Override
+              public void onBackPressed() {
+                  if (webView.canGoBack()) webView.goBack();
+                  else super.onBackPressed();
+              }
+          }
+          EOF
 
-    - name: Create settings.gradle
-      run: |
-        cat > settings.gradle << 'EOF'
-        rootProject.name = "BeadVault"
-        include ':app'
-        EOF
+          cat > gradle.properties << 'EOF'
+          android.useAndroidX=true
+          android.enableJetifier=true
+          org.gradle.jvmargs=-Xmx2048m
+          EOF
 
-    - name: Create gradle.properties
-      run: |
-        cat > gradle.properties << 'EOF'
-        org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
-        android.useAndroidX=true
-        android.enableJetifier=true
-        EOF
+          cat > settings.gradle << 'EOF'
+          pluginManagement {
+              repositories { google(); mavenCentral(); gradlePluginPortal() }
+          }
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+              repositories { google(); mavenCentral() }
+          }
+          rootProject.name = "TigrinyaLearn"
+          include ':app'
+          EOF
 
-    - name: Create MainActivity.java
-      run: |
-        cat > app/src/main/java/com/beadvault/app/MainActivity.java << 'EOF'
-        package com.beadvault.app;
+          cat > build.gradle << 'EOF'
+          plugins {
+              id 'com.android.application' version '8.2.2' apply false
+          }
+          EOF
 
-        import android.os.Bundle;
-        import android.webkit.WebView;
-        import android.webkit.WebSettings;
-        import androidx.appcompat.app.AppCompatActivity;
+          cat > app/build.gradle << 'EOF'
+          plugins { id 'com.android.application' }
+          android {
+              namespace 'com.dcheshirecat.tigrinya'
+              compileSdk 34
+              defaultConfig {
+                  applicationId "com.dcheshirecat.tigrinya"
+                  minSdk 24
+                  targetSdk 34
+                  versionCode 1
+                  versionName "1.0"
+              }
+              signingConfigs {
+                  release {
+                      storeFile file("keystore.jks")
+                      storePassword "TigrinyaBuild2024"
+                      keyAlias "tigrinya"
+                      keyPassword "TigrinyaBuild2024"
+                  }
+              }
+              buildTypes {
+                  release {
+                      minifyEnabled false
+                      signingConfig signingConfigs.release
+                  }
+              }
+              compileOptions {
+                  sourceCompatibility JavaVersion.VERSION_1_8
+                  targetCompatibility JavaVersion.VERSION_1_8
+              }
+          }
+          dependencies { implementation 'androidx.appcompat:appcompat:1.6.1' }
+          EOF
 
-        public class MainActivity extends AppCompatActivity {
-            @Override
-            protected void onCreate(Bundle savedInstanceState) {
-                super.onCreate(savedInstanceState);
-                
-                WebView webView = new WebView(this);
-                setContentView(webView);
+          cat > gradle/wrapper/gradle-wrapper.properties << 'EOF'
+          distributionBase=GRADLE_USER_HOME
+          distributionPath=wrapper/dists
+          distributionUrl=https\://services.gradle.org/distributions/gradle-8.4-bin.zip
+          zipStoreBase=GRADLE_USER_HOME
+          zipStorePath=wrapper/dists
+          EOF
 
-                WebSettings webSettings = webView.getSettings();
-                webSettings.setJavaScriptEnabled(true);
-                webSettings.setDomStorageEnabled(true);
-                webSettings.setDatabaseEnabled(true);
-                webSettings.setAllowFileAccess(true);
+      - name: Build release APK
+        run: /opt/gradle/bin/gradle assembleRelease --no-daemon
 
-                webView.loadUrl("file:///android_asset/index.html");
-            }
-        }
-        EOF
-
-    - name: Create AndroidManifest.xml
-      run: |
-        cat > app/src/main/AndroidManifest.xml << 'EOF'
-        <?xml version="1.0" encoding="utf-8"?>
-        <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-            package="com.beadvault.app">
-
-            <uses-permission android:name="android.permission.INTERNET" />
-
-            <application
-                android:allowBackup="true"
-                android:icon="@mipmap/ic_launcher"
-                android:label="BeadVault"
-                android:supportsRtl="true"
-                android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-                android:usesCleartextTraffic="true">
-                <activity
-                    android:name=".MainActivity"
-                    android:exported="true"
-                    android:configChanges="orientation|screenSize">
-                    <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
-                        <category android:name="android.intent.category.LAUNCHER" />
-                    </intent-filter>
-                </activity>
-            </application>
-        </manifest>
-        EOF
-
-    - name: Create strings.xml
-      run: |
-        cat > app/src/main/res/values/strings.xml << 'EOF'
-        <?xml version="1.0" encoding="utf-8"?>
-        <resources>
-            <string name="app_name">BeadVault</string>
-        </resources>
-        EOF
-
-    - name: Create colors.xml
-      run: |
-        cat > app/src/main/res/values/colors.xml << 'EOF'
-        <?xml version="1.0" encoding="utf-8"?>
-        <resources>
-            <color name="purple_200">#9D174D</color>
-            <color name="purple_500">#9D174D</color>
-            <color name="purple_700">#831843</color>
-            <color name="teal_200">#FEF7F0</color>
-            <color name="teal_700">#F5E6D3</color>
-            <color name="black">#FF000000</color>
-            <color name="white">#FFFFFFFF</color>
-        </resources>
-        EOF
-
-    - name: Generate App Icons with Python
-      run: |
-        pip install Pillow
-        python3 << 'PYTHON_SCRIPT'
-        from PIL import Image, ImageDraw, ImageFont
-        import os
-
-        sizes = {
-            'mipmap-mdpi': 48,
-            'mipmap-hdpi': 72,
-            'mipmap-xhdpi': 96,
-            'mipmap-xxhdpi': 144,
-            'mipmap-xxxhdpi': 192
-        }
-
-        for folder, size in sizes.items():
-            # Create gradient background
-            img = Image.new('RGB', (size, size), '#9D174D')
-            draw = ImageDraw.Draw(img)
-            
-            # Add decorative elements (beads)
-            bead_size = max(4, size // 16)
-            for x in range(3):
-                for y in range(3):
-                    pos_x = size // 4 + (x * size // 4)
-                    pos_y = size // 4 + (y * size // 4)
-                    draw.ellipse([pos_x - bead_size, pos_y - bead_size, 
-                                pos_x + bead_size, pos_y + bead_size], 
-                               fill='#6D28D9')
-            
-            # Save icon
-            output_path = f'app/src/main/res/{folder}/ic_launcher.png'
-            img.save(output_path)
-            print(f"Created {output_path}")
-
-        print("All icons generated successfully!")
-        PYTHON_SCRIPT
-
-    - name: Make gradlew executable
-      run: chmod +x gradlew || true
-
-    - name: Build APK
-      run: |
-        if [ -f ./gradlew ]; then
-          ./gradlew assembleRelease --no-daemon
-        else
-          gradle-8.4/bin/gradle assembleRelease --no-daemon
-        fi
-
-    - name: Sign APK
-      run: |
-        # Generate a keystore for signing
-        keytool -genkey -v -keystore beadvault.keystore -alias beadvault -keyalg RSA -keysize 2048 -validity 10000 \
-          -storepass android -keypass android \
-          -dname "CN=BeadVault, OU=Development, O=BeadVault, L=Unknown, S=Unknown, C=US"
-        
-        # Get build tools directory
-        BUILD_TOOLS_DIR="$ANDROID_HOME/build-tools"
-        LATEST_BUILD_TOOLS=$(ls -v $BUILD_TOOLS_DIR | tail -n 1)
-        BUILD_TOOLS_PATH="$BUILD_TOOLS_DIR/$LATEST_BUILD_TOOLS"
-        
-        # Align the APK
-        $BUILD_TOOLS_PATH/zipalign -v -p 4 \
-          app/build/outputs/apk/release/app-release-unsigned.apk \
-          app/build/outputs/apk/release/app-release-unsigned-aligned.apk
-        
-        # Sign the APK
-        $BUILD_TOOLS_PATH/apksigner sign \
-          --ks beadvault.keystore \
-          --ks-key-alias beadvault \
-          --ks-pass pass:android \
-          --key-pass pass:android \
-          --out app/build/outputs/apk/release/BeadVault-signed.apk \
-          app/build/outputs/apk/release/app-release-unsigned-aligned.apk
-        
-        # Verify signature
-        $BUILD_TOOLS_PATH/apksigner verify app/build/outputs/apk/release/BeadVault-signed.apk
-        
-        echo "APK signed successfully!"
-
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: BeadVault-APK
-        path: app/build/outputs/apk/release/BeadVault-signed.apk
-        
-    - name: Create Release
-      if: github.ref == 'refs/heads/main'
-      continue-on-error: true
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: v1.0.${{ github.run_number }}
-        name: BeadVault v1.0.${{ github.run_number }}
-        files: app/build/outputs/apk/release/BeadVault-signed.apk
-        body: |
-          🧵 BeadVault - Your Free Beading Pattern Library
-          
-          Features:
-          - 10+ starter patterns (jewelry, 3D animals, amigurumi)
-          - Pattern filtering by stitch type, difficulty, project type
-          - Interactive stitch guides with diagrams
-          - Pattern reading guides (wire & Fireline)
-          - Favorite & completed project tracking
-          - Community pattern submission
-          
-          Install the APK and start beading! ✨
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: TigrinyaLearn-release
+          path: app/build/outputs/apk/release/app-release.apk
+          retention-days: 30
