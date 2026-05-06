@@ -1,224 +1,52 @@
-name: Build Tigrinya APK
+name: Deploy Tigrinya App to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - name: Validate HTML
+        run: |
+          echo "✅ Validating index.html exists..."
+          if [ ! -f "index.html" ]; then
+            echo "❌ ERROR: index.html not found in repository root!"
+            exit 1
+          fi
+          echo "✅ index.html found."
+          echo "File size: $(wc -c < index.html) bytes"
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          path: '.'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install Gradle 8.4
-        run: |
-          wget -q https://services.gradle.org/distributions/gradle-8.4-bin.zip
-          unzip -q gradle-8.4-bin.zip
-          sudo mv gradle-8.4 /opt/gradle
-          echo "/opt/gradle/bin" >> $GITHUB_PATH
-
-      - name: Generate keystore
-        run: |
-          mkdir -p app
-          keytool -genkey -v \
-            -keystore app/keystore.jks \
-            -alias tigrinya \
-            -keyalg RSA -keysize 2048 -validity 10000 \
-            -storepass TigrinyaBuild2024 \
-            -keypass TigrinyaBuild2024 \
-            -dname "CN=Tigrinya Learn, OU=dcheshirecat, O=Studio, L=Unknown, ST=Unknown, C=US"
-
-      - name: Build project structure
-        run: |
-          mkdir -p app/src/main/assets
-          mkdir -p app/src/main/java/com/dcheshirecat/tigrinya
-          mkdir -p app/src/main/res/layout
-          mkdir -p app/src/main/res/values
-          mkdir -p app/src/main/res/mipmap-mdpi
-          mkdir -p app/src/main/res/mipmap-hdpi
-          mkdir -p app/src/main/res/mipmap-xhdpi
-          mkdir -p app/src/main/res/mipmap-xxhdpi
-          mkdir -p app/src/main/res/mipmap-xxxhdpi
-          mkdir -p gradle/wrapper
-
-          cp index.html app/src/main/assets/index.html
-
-          # Embed icon as base64 - no image tools needed
-          ICON_B64="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"
-
-          for folder in mipmap-mdpi mipmap-hdpi mipmap-xhdpi mipmap-xxhdpi mipmap-xxxhdpi; do
-            echo "$ICON_B64" | base64 -d > "app/src/main/res/${folder}/ic_launcher.png"
-            cp "app/src/main/res/${folder}/ic_launcher.png" "app/src/main/res/${folder}/ic_launcher_round.png"
-          done
-          echo "Icons OK"
-
-          cat > app/src/main/AndroidManifest.xml << 'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-              package="com.dcheshirecat.tigrinya">
-              <uses-permission android:name="android.permission.INTERNET" />
-              <application
-                  android:allowBackup="true"
-                  android:icon="@mipmap/ic_launcher"
-                  android:label="ትግርኛ Learn"
-                  android:roundIcon="@mipmap/ic_launcher_round"
-                  android:supportsRtl="true"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-                  android:hardwareAccelerated="true">
-                  <activity
-                      android:name=".MainActivity"
-                      android:exported="true"
-                      android:screenOrientation="portrait"
-                      android:configChanges="orientation|screenSize|keyboardHidden">
-                      <intent-filter>
-                          <action android:name="android.intent.action.MAIN" />
-                          <category android:name="android.intent.category.LAUNCHER" />
-                      </intent-filter>
-                  </activity>
-              </application>
-          </manifest>
-          EOF
-
-          cat > app/src/main/res/layout/activity_main.xml << 'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#0e0a06">
-              <WebView
-                  android:id="@+id/webview"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent" />
-          </RelativeLayout>
-          EOF
-
-          cat > app/src/main/res/values/strings.xml << 'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <resources>
-              <string name="app_name">ትግርኛ Learn</string>
-          </resources>
-          EOF
-
-          cat > app/src/main/java/com/dcheshirecat/tigrinya/MainActivity.java << 'EOF'
-          package com.dcheshirecat.tigrinya;
-          import android.app.Activity;
-          import android.os.Bundle;
-          import android.view.WindowManager;
-          import android.webkit.WebSettings;
-          import android.webkit.WebView;
-          import android.webkit.WebViewClient;
-          import android.view.View;
-          public class MainActivity extends Activity {
-              private WebView webView;
-              @Override
-              protected void onCreate(Bundle savedInstanceState) {
-                  super.onCreate(savedInstanceState);
-                  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                  getWindow().getDecorView().setSystemUiVisibility(
-                      View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-                  setContentView(R.layout.activity_main);
-                  webView = findViewById(R.id.webview);
-                  WebSettings ws = webView.getSettings();
-                  ws.setJavaScriptEnabled(true);
-                  ws.setDomStorageEnabled(true);
-                  ws.setAllowFileAccess(true);
-                  ws.setLoadWithOverviewMode(true);
-                  ws.setUseWideViewPort(true);
-                  webView.setWebViewClient(new WebViewClient());
-                  webView.loadUrl("file:///android_asset/index.html");
-              }
-              @Override
-              public void onBackPressed() {
-                  if (webView.canGoBack()) webView.goBack();
-                  else super.onBackPressed();
-              }
-          }
-          EOF
-
-          cat > gradle.properties << 'EOF'
-          android.useAndroidX=true
-          android.enableJetifier=true
-          org.gradle.jvmargs=-Xmx2048m
-          EOF
-
-          cat > settings.gradle << 'EOF'
-          pluginManagement {
-              repositories { google(); mavenCentral(); gradlePluginPortal() }
-          }
-          dependencyResolutionManagement {
-              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-              repositories { google(); mavenCentral() }
-          }
-          rootProject.name = "TigrinyaLearn"
-          include ':app'
-          EOF
-
-          cat > build.gradle << 'EOF'
-          plugins {
-              id 'com.android.application' version '8.2.2' apply false
-          }
-          EOF
-
-          cat > app/build.gradle << 'EOF'
-          plugins { id 'com.android.application' }
-          android {
-              namespace 'com.dcheshirecat.tigrinya'
-              compileSdk 34
-              defaultConfig {
-                  applicationId "com.dcheshirecat.tigrinya"
-                  minSdk 24
-                  targetSdk 34
-                  versionCode 1
-                  versionName "1.0"
-              }
-              signingConfigs {
-                  release {
-                      storeFile file("keystore.jks")
-                      storePassword "TigrinyaBuild2024"
-                      keyAlias "tigrinya"
-                      keyPassword "TigrinyaBuild2024"
-                  }
-              }
-              buildTypes {
-                  release {
-                      minifyEnabled false
-                      signingConfig signingConfigs.release
-                  }
-              }
-              compileOptions {
-                  sourceCompatibility JavaVersion.VERSION_1_8
-                  targetCompatibility JavaVersion.VERSION_1_8
-              }
-          }
-          dependencies { implementation 'androidx.appcompat:appcompat:1.6.1' }
-          EOF
-
-          cat > gradle/wrapper/gradle-wrapper.properties << 'EOF'
-          distributionBase=GRADLE_USER_HOME
-          distributionPath=wrapper/dists
-          distributionUrl=https\://services.gradle.org/distributions/gradle-8.4-bin.zip
-          zipStoreBase=GRADLE_USER_HOME
-          zipStorePath=wrapper/dists
-          EOF
-
-      - name: Build release APK
-        run: /opt/gradle/bin/gradle assembleRelease --no-daemon
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: TigrinyaLearn-release
-          path: app/build/outputs/apk/release/app-release.apk
-          retention-days: 30
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
