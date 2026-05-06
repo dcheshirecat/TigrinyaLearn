@@ -1,52 +1,275 @@
-name: Deploy Tigrinya App to GitHub Pages
+name: Build Android APK
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      # ── 1. Checkout ────────────────────────────────────────────────────────
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Validate HTML
-        run: |
-          echo "✅ Validating index.html exists..."
-          if [ ! -f "index.html" ]; then
-            echo "❌ ERROR: index.html not found in repository root!"
-            exit 1
-          fi
-          echo "✅ index.html found."
-          echo "File size: $(wc -c < index.html) bytes"
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      # ── 2. Node + Java ─────────────────────────────────────────────────────
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
         with:
-          path: '.'
+          node-version: '20'
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      # ── 3. Install Capacitor + local notifications plugin ──────────────────
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npm install @capacitor/local-notifications
+          pip install Pillow --break-system-packages
+
+      # ── 4. Generate app icon ───────────────────────────────────────────────
+      - name: Generate app icon
+        run: |
+          python3 - << 'PYEOF'
+          from PIL import Image, ImageDraw, ImageFont
+          import os
+
+          SIZE = 1024
+          RADIUS = 220
+
+          def rounded_mask(size, radius):
+              mask = Image.new("L", (size, size), 0)
+              d = ImageDraw.Draw(mask)
+              r, s = radius, size
+              d.rectangle([r, 0, s-r, s], fill=255)
+              d.rectangle([0, r, s, s-r], fill=255)
+              d.ellipse([0, 0, 2*r, 2*r], fill=255)
+              d.ellipse([s-2*r, 0, s, 2*r], fill=255)
+              d.ellipse([0, s-2*r, 2*r, s], fill=255)
+              d.ellipse([s-2*r, s-2*r, s, s], fill=255)
+              return mask
+
+          base = Image.new("RGBA", (SIZE, SIZE), (0,0,0,0))
+          gd = ImageDraw.Draw(base)
+          for y in range(SIZE):
+              t = y / SIZE
+              r = int(255*(1-t) + 108*t)
+              g = int(61*(1-t)  + 59*t)
+              b = int(139*(1-t) + 255*t)
+              gd.line([(0,y),(SIZE,y)], fill=(r,g,b,255))
+
+          mask = rounded_mask(SIZE, RADIUS)
+          img = Image.new("RGBA", (SIZE, SIZE), (0,0,0,0))
+          img.paste(base, mask=mask)
+
+          draw = ImageDraw.Draw(img)
+          cx, cy = SIZE//2, SIZE//2 + 40
+          for radius, alpha, width in [(310,30,3),(230,50,4),(155,75,5),(88,105,7)]:
+              for w in range(width):
+                  draw.ellipse([cx-radius-w, cy-radius-w, cx+radius+w, cy+radius+w],
+                               outline=(255,255,255,alpha))
+          for r2, a2 in [(48,70),(36,150),(24,255)]:
+              draw.ellipse([cx-r2,cy-r2,cx+r2,cy+r2], fill=(255,255,255,a2))
+
+          for font_path in [
+              "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf",
+              "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf",
+          ]:
+              try:
+                  font = ImageFont.truetype(font_path, 185)
+                  small = ImageFont.truetype(font_path, 52)
+                  break
+              except:
+                  font = small = ImageFont.load_default()
+
+          text = "echo"
+          bb = draw.textbbox((0,0), text, font=font)
+          tx = (SIZE-(bb[2]-bb[0]))//2 - bb[0]
+          ty = 160
+          draw.text((tx+5, ty+5), text, font=font, fill=(0,0,0,50))
+          draw.text((tx, ty), text, font=font, fill=(255,255,255,245))
+
+          tag = "feedback memory"
+          tb = draw.textbbox((0,0), tag, font=small)
+          draw.text(((SIZE-(tb[2]-tb[0]))//2-tb[0], ty+(bb[3]-bb[1])+20),
+                    tag, font=small, fill=(255,255,255,160))
+
+          os.makedirs("icon_out", exist_ok=True)
+          img.save("icon_out/icon-1024.png")
+          for sz in [512, 192, 144, 96, 72, 48, 36]:
+              img.resize((sz,sz), Image.LANCZOS).save(f"icon_out/icon-{sz}.png")
+          print("Icons generated OK")
+          PYEOF
+
+      # ── 5. Write capacitor.config.json ─────────────────────────────────────
+      - name: Write Capacitor config
+        run: |
+          cat > capacitor.config.json << 'EOF'
+          {
+            "appId": "com.echo.feedbacktracker",
+            "appName": "Echo",
+            "webDir": "www",
+            "plugins": {
+              "LocalNotifications": {
+                "smallIcon": "ic_stat_icon_config_sample",
+                "iconColor": "#ff3d8b",
+                "sound": "beep.wav"
+              }
+            }
+          }
+          EOF
+
+      # ── 6. Prepare www/ ────────────────────────────────────────────────────
+      - name: Prepare www folder
+        run: |
+          mkdir -p www
+          cp index.html www/index.html
+          cp icon_out/icon-192.png www/icon-192.png
+
+      # ── 7. Add + sync Android platform ────────────────────────────────────
+      - name: Add Android platform
+        run: npx cap add android
+
+      - name: Sync Capacitor
+        run: npx cap sync android
+
+      # ── 8. Copy icons into Android res folders ─────────────────────────────
+      - name: Copy icons into Android res
+        run: |
+          python3 - << 'PYEOF'
+          from PIL import Image
+          import os
+
+          sizes = {
+            "mipmap-mdpi":    48,
+            "mipmap-hdpi":    72,
+            "mipmap-xhdpi":   96,
+            "mipmap-xxhdpi":  144,
+            "mipmap-xxxhdpi": 192,
+          }
+          src = Image.open("icon_out/icon-1024.png")
+          base = "android/app/src/main/res"
+          for folder, sz in sizes.items():
+              out_dir = os.path.join(base, folder)
+              os.makedirs(out_dir, exist_ok=True)
+              for name in ["ic_launcher.png", "ic_launcher_round.png"]:
+                  src.resize((sz,sz), Image.LANCZOS).save(os.path.join(out_dir, name))
+          print("Android icons placed OK")
+          PYEOF
+
+      # ── 9. Add notification permission to AndroidManifest ──────────────────
+      - name: Patch AndroidManifest for notifications
+        run: |
+          python3 - << 'PYEOF'
+          import re
+
+          manifest_path = "android/app/src/main/AndroidManifest.xml"
+          with open(manifest_path) as f:
+              src = f.read()
+
+          permissions = [
+              '<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>',
+              '<uses-permission android:name="android.permission.VIBRATE"/>',
+              '<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>',
+              '<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>',
+          ]
+
+          for perm in permissions:
+              if perm not in src:
+                  src = src.replace('<application', perm + '\n    <application', 1)
+
+          with open(manifest_path, "w") as f:
+              f.write(src)
+          print("AndroidManifest patched OK")
+          PYEOF
+
+      # ── 10. Generate keystore ──────────────────────────────────────────────
+      - name: Generate keystore
+        run: |
+          KEYSTORE_PASS="echo-$(echo $GITHUB_RUN_ID | sha256sum | head -c 24)"
+          echo "KEYSTORE_PASS=$KEYSTORE_PASS" >> $GITHUB_ENV
+          keytool -genkeypair \
+            -keystore android/app/release.keystore \
+            -alias echo -keyalg RSA -keysize 2048 -validity 10000 \
+            -storepass "$KEYSTORE_PASS" -keypass "$KEYSTORE_PASS" \
+            -dname "CN=Echo App, OU=Dev, O=Echo, L=City, S=State, C=US" \
+            -noprompt
+
+      # ── 11. Patch build.gradle ─────────────────────────────────────────────
+      - name: Patch app/build.gradle
+        env:
+          KEYSTORE_PASS: ${{ env.KEYSTORE_PASS }}
+        run: |
+          python3 - << 'PYEOF'
+          import os, re
+
+          gradle_path = "android/app/build.gradle"
+          kp = os.environ["KEYSTORE_PASS"]
+
+          signing_block = (
+              "\n    signingConfigs {\n"
+              "        release {\n"
+              "            storeFile file(\"release.keystore\")\n"
+              f"            storePassword \"{kp}\"\n"
+              "            keyAlias \"echo\"\n"
+              f"            keyPassword \"{kp}\"\n"
+              "        }\n"
+              "    }\n"
+          )
+          release_type = (
+              "\n        release {\n"
+              "            signingConfig signingConfigs.release\n"
+              "            minifyEnabled false\n"
+              "            shrinkResources false\n"
+              "        }\n"
+          )
+          kotlin_dedup = (
+              "\nconfigurations.all {\n"
+              "    resolutionStrategy {\n"
+              "        force \"org.jetbrains.kotlin:kotlin-stdlib:1.8.22\"\n"
+              "        force \"org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22\"\n"
+              "        force \"org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22\"\n"
+              "    }\n"
+              "}\n"
+          )
+
+          with open(gradle_path) as f:
+              src = f.read()
+
+          src = re.sub(r'(android\s*\{)', r'\1' + signing_block, src, count=1)
+          src = re.sub(r'(buildTypes\s*\{)', r'\1' + release_type, src, count=1)
+          src += kotlin_dedup
+
+          with open(gradle_path, "w") as f:
+              f.write(src)
+          print("build.gradle patched OK")
+          PYEOF
+
+      # ── 12. Build release APK ──────────────────────────────────────────────
+      - name: Make gradlew executable
+        run: chmod +x android/gradlew
+
+      - name: Build release APK
+        working-directory: android
+        run: ./gradlew assembleRelease --no-daemon --stacktrace
+
+      # ── 13. Upload artifact ────────────────────────────────────────────────
+      - name: Stage APK
+        run: |
+          mkdir -p dist
+          cp android/app/build/outputs/apk/release/app-release.apk \
+             dist/echo-v${{ github.run_number }}.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-apk-${{ github.run_number }}
+          path: dist/echo-v${{ github.run_number }}.apk
+          retention-days: 30
