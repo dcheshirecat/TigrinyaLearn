@@ -2,7 +2,7 @@ name: Build Tigrinya APK
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -10,201 +10,64 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      # ── 1. Checkout ───────────────────────────────────────────────────────
+      - name: Checkout repository
         uses: actions/checkout@v4
 
+      # ── 2. Set up Java ────────────────────────────────────────────────────
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
+      # ── 3. Set up Android SDK ─────────────────────────────────────────────
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Gradle 8.4
+      # ── 4. Build the entire Android project from scratch ──────────────────
+      #       Everything is generated here — no pre-committed Android files needed.
+      - name: Generate Android project from index.html
         run: |
-          wget -q https://services.gradle.org/distributions/gradle-8.4-bin.zip
-          unzip -q gradle-8.4-bin.zip
-          sudo mv gradle-8.4 /opt/gradle
-          echo "/opt/gradle/bin" >> $GITHUB_PATH
+          set -e
 
-      - name: Generate keystore
-        run: |
-          mkdir -p app
-          keytool -genkey -v \
-            -keystore app/keystore.jks \
-            -alias tigrinya \
-            -keyalg RSA -keysize 2048 -validity 10000 \
-            -storepass TigrinyaBuild2024 \
-            -keypass TigrinyaBuild2024 \
-            -dname "CN=Tigrinya Learn, OU=dcheshirecat, O=Studio, L=Unknown, ST=Unknown, C=US"
-
-      - name: Build project structure
-        run: |
-          mkdir -p app/src/main/assets
-          mkdir -p app/src/main/java/com/dcheshirecat/tigrinya
+          # ── Directory structure ──────────────────────────────────────────
+          mkdir -p app/src/main/java/com/tigrinya/learn
+          mkdir -p app/src/main/assets/public
           mkdir -p app/src/main/res/layout
           mkdir -p app/src/main/res/values
-          mkdir -p app/src/main/res/mipmap-mdpi
           mkdir -p app/src/main/res/mipmap-hdpi
+          mkdir -p app/src/main/res/mipmap-mdpi
           mkdir -p app/src/main/res/mipmap-xhdpi
           mkdir -p app/src/main/res/mipmap-xxhdpi
-          mkdir -p app/src/main/res/mipmap-xxxhdpi
           mkdir -p gradle/wrapper
 
-          cp index.html app/src/main/assets/index.html
+          # ── Copy your app ────────────────────────────────────────────────
+          cp index.html app/src/main/assets/public/index.html
 
-          # Embed icon as base64 - no image tools needed
-          ICON_B64="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"
-
-          for folder in mipmap-mdpi mipmap-hdpi mipmap-xhdpi mipmap-xxhdpi mipmap-xxxhdpi; do
-            echo "$ICON_B64" | base64 -d > "app/src/main/res/${folder}/ic_launcher.png"
-            cp "app/src/main/res/${folder}/ic_launcher.png" "app/src/main/res/${folder}/ic_launcher_round.png"
-          done
-          echo "Icons OK"
-
-          cat > app/src/main/AndroidManifest.xml << 'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-              package="com.dcheshirecat.tigrinya">
-              <uses-permission android:name="android.permission.INTERNET" />
-              <application
-                  android:allowBackup="true"
-                  android:icon="@mipmap/ic_launcher"
-                  android:label="ትግርኛ Learn"
-                  android:roundIcon="@mipmap/ic_launcher_round"
-                  android:supportsRtl="true"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-                  android:hardwareAccelerated="true">
-                  <activity
-                      android:name=".MainActivity"
-                      android:exported="true"
-                      android:screenOrientation="portrait"
-                      android:configChanges="orientation|screenSize|keyboardHidden">
-                      <intent-filter>
-                          <action android:name="android.intent.action.MAIN" />
-                          <category android:name="android.intent.category.LAUNCHER" />
-                      </intent-filter>
-                  </activity>
-              </application>
-          </manifest>
-          EOF
-
-          cat > app/src/main/res/layout/activity_main.xml << 'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#0e0a06">
-              <WebView
-                  android:id="@+id/webview"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent" />
-          </RelativeLayout>
-          EOF
-
-          cat > app/src/main/res/values/strings.xml << 'EOF'
-          <?xml version="1.0" encoding="utf-8"?>
-          <resources>
-              <string name="app_name">ትግርኛ Learn</string>
-          </resources>
-          EOF
-
-          cat > app/src/main/java/com/dcheshirecat/tigrinya/MainActivity.java << 'EOF'
-          package com.dcheshirecat.tigrinya;
-          import android.app.Activity;
-          import android.os.Bundle;
-          import android.view.WindowManager;
-          import android.webkit.WebSettings;
-          import android.webkit.WebView;
-          import android.webkit.WebViewClient;
-          import android.view.View;
-          public class MainActivity extends Activity {
-              private WebView webView;
-              @Override
-              protected void onCreate(Bundle savedInstanceState) {
-                  super.onCreate(savedInstanceState);
-                  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                  getWindow().getDecorView().setSystemUiVisibility(
-                      View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-                  setContentView(R.layout.activity_main);
-                  webView = findViewById(R.id.webview);
-                  WebSettings ws = webView.getSettings();
-                  ws.setJavaScriptEnabled(true);
-                  ws.setDomStorageEnabled(true);
-                  ws.setAllowFileAccess(true);
-                  ws.setLoadWithOverviewMode(true);
-                  ws.setUseWideViewPort(true);
-                  webView.setWebViewClient(new WebViewClient());
-                  webView.loadUrl("file:///android_asset/index.html");
-              }
-              @Override
-              public void onBackPressed() {
-                  if (webView.canGoBack()) webView.goBack();
-                  else super.onBackPressed();
-              }
-          }
-          EOF
-
-          cat > gradle.properties << 'EOF'
-          android.useAndroidX=true
-          android.enableJetifier=true
-          org.gradle.jvmargs=-Xmx2048m
-          EOF
-
+          # ── settings.gradle ──────────────────────────────────────────────
           cat > settings.gradle << 'EOF'
-          pluginManagement {
-              repositories { google(); mavenCentral(); gradlePluginPortal() }
-          }
-          dependencyResolutionManagement {
-              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-              repositories { google(); mavenCentral() }
-          }
           rootProject.name = "TigrinyaLearn"
           include ':app'
           EOF
 
+          # ── Root build.gradle ────────────────────────────────────────────
           cat > build.gradle << 'EOF'
-          plugins {
-              id 'com.android.application' version '8.2.2' apply false
+          buildscript {
+              repositories { google(); mavenCentral() }
+              dependencies { classpath 'com.android.tools.build:gradle:8.2.2' }
           }
+          allprojects { repositories { google(); mavenCentral() } }
           EOF
 
-          cat > app/build.gradle << 'EOF'
-          plugins { id 'com.android.application' }
-          android {
-              namespace 'com.dcheshirecat.tigrinya'
-              compileSdk 34
-              defaultConfig {
-                  applicationId "com.dcheshirecat.tigrinya"
-                  minSdk 24
-                  targetSdk 34
-                  versionCode 1
-                  versionName "1.0"
-              }
-              signingConfigs {
-                  release {
-                      storeFile file("keystore.jks")
-                      storePassword "TigrinyaBuild2024"
-                      keyAlias "tigrinya"
-                      keyPassword "TigrinyaBuild2024"
-                  }
-              }
-              buildTypes {
-                  release {
-                      minifyEnabled false
-                      signingConfig signingConfigs.release
-                  }
-              }
-              compileOptions {
-                  sourceCompatibility JavaVersion.VERSION_1_8
-                  targetCompatibility JavaVersion.VERSION_1_8
-              }
-          }
-          dependencies { implementation 'androidx.appcompat:appcompat:1.6.1' }
+          # ── gradle.properties ────────────────────────────────────────────
+          cat > gradle.properties << 'EOF'
+          org.gradle.jvmargs=-Xmx4096m
+          android.useAndroidX=true
+          android.enableJetifier=true
           EOF
 
+          # ── Gradle wrapper ────────────────────────────────────────────────
           cat > gradle/wrapper/gradle-wrapper.properties << 'EOF'
           distributionBase=GRADLE_USER_HOME
           distributionPath=wrapper/dists
@@ -213,12 +76,300 @@ jobs:
           zipStorePath=wrapper/dists
           EOF
 
-      - name: Build release APK
-        run: /opt/gradle/bin/gradle assembleRelease --no-daemon
+          # Download gradle wrapper jar
+          curl -sL https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradle/wrapper/gradle-wrapper.jar \
+            -o gradle/wrapper/gradle-wrapper.jar
 
+          # ── gradlew ───────────────────────────────────────────────────────
+          curl -sL https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradlew -o gradlew
+          chmod +x gradlew
+
+          # ── App build.gradle ──────────────────────────────────────────────
+          cat > app/build.gradle << 'EOF'
+          apply plugin: 'com.android.application'
+          android {
+              compileSdkVersion 34
+              defaultConfig {
+                  applicationId "com.tigrinya.learn"
+                  minSdkVersion 22
+                  targetSdkVersion 34
+                  versionCode 1
+                  versionName "1.0"
+              }
+              buildTypes {
+                  release {
+                      minifyEnabled false
+                      signingConfig signingConfigs.release
+                  }
+              }
+              signingConfigs {
+                  release {
+                      storeFile file("keystore.jks")
+                      storePassword System.getenv("KEYSTORE_PASS")
+                      keyAlias "tigrinya"
+                      keyPassword System.getenv("KEYSTORE_PASS")
+                  }
+              }
+              compileOptions {
+                  sourceCompatibility JavaVersion.VERSION_17
+                  targetCompatibility JavaVersion.VERSION_17
+              }
+              namespace "com.tigrinya.learn"
+          }
+          dependencies {
+              implementation 'androidx.appcompat:appcompat:1.6.1'
+              implementation 'androidx.webkit:webkit:1.10.0'
+          }
+          EOF
+
+          # ── AndroidManifest.xml ───────────────────────────────────────────
+          cat > app/src/main/AndroidManifest.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <application
+              android:allowBackup="true"
+              android:label="ትግርኛ Learn"
+              android:icon="@mipmap/ic_launcher"
+              android:hardwareAccelerated="true"
+              android:supportsRtl="false"
+              android:theme="@style/AppTheme">
+              <activity
+                android:name=".MainActivity"
+                android:exported="true"
+                android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
+                android:windowSoftInputMode="adjustResize">
+                <intent-filter>
+                  <action android:name="android.intent.action.MAIN"/>
+                  <category android:name="android.intent.category.LAUNCHER"/>
+                </intent-filter>
+              </activity>
+            </application>
+          </manifest>
+          EOF
+
+          # ── activity_main.xml layout ──────────────────────────────────────
+          cat > app/src/main/res/layout/activity_main.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <WebView
+              android:id="@+id/webview"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
+          </FrameLayout>
+          EOF
+
+          # ── strings.xml ───────────────────────────────────────────────────
+          cat > app/src/main/res/values/strings.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+            <string name="app_name">ትግርኛ Learn</string>
+          </resources>
+          EOF
+
+          # ── themes.xml ────────────────────────────────────────────────────
+          cat > app/src/main/res/values/themes.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+            <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+              <item name="colorPrimary">#D4A017</item>
+              <item name="colorPrimaryDark">#1A0E05</item>
+              <item name="colorAccent">#D4A017</item>
+              <item name="android:windowBackground">#1A0E05</item>
+              <item name="android:statusBarColor">#1A0E05</item>
+              <item name="android:navigationBarColor">#2B1A0D</item>
+            </style>
+          </resources>
+          EOF
+
+          # ── App icon (simple gold circle SVG → PNG via Python) ────────────
+          python3 - << 'PYEOF'
+          import struct, zlib, base64
+
+          def make_png(size, r, g, b):
+              # Create a simple solid-color PNG
+              raw = bytes([0] + [r,g,b,255]*size) * size  # filter byte + RGBA per row
+              def chunk(name, data):
+                  c = zlib.crc32(name+data) & 0xffffffff
+                  return struct.pack('>I',len(data)) + name + data + struct.pack('>I',c)
+              ihdr = struct.pack('>IIBBBBB', size, size, 8, 2, 0, 0, 0)
+              idat = zlib.compress(raw)
+              return b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR',ihdr) + chunk(b'IDAT',idat) + chunk(b'IEND',b'')
+
+          import os
+          sizes = {'mipmap-mdpi':48,'mipmap-hdpi':72,'mipmap-xhdpi':96,'mipmap-xxhdpi':144}
+          for folder, sz in sizes.items():
+              path = f'app/src/main/res/{folder}/ic_launcher.png'
+              os.makedirs(os.path.dirname(path), exist_ok=True)
+              with open(path,'wb') as f:
+                  f.write(make_png(sz, 26, 14, 5))  # #1A0E05 dark background
+          print('Icons created')
+          PYEOF
+
+          # ── MainActivity.java ─────────────────────────────────────────────
+          cat > app/src/main/java/com/tigrinya/learn/MainActivity.java << 'JAVAEOF'
+          package com.tigrinya.learn;
+
+          import android.annotation.SuppressLint;
+          import android.os.Bundle;
+          import android.speech.tts.TextToSpeech;
+          import android.webkit.JavascriptInterface;
+          import android.webkit.WebSettings;
+          import android.webkit.WebView;
+          import android.webkit.WebViewClient;
+          import androidx.appcompat.app.AppCompatActivity;
+          import java.util.Locale;
+
+          public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
+              private WebView webView;
+              private TextToSpeech tts;
+              private boolean ttsReady = false;
+
+              @SuppressLint({"SetJavaScriptEnabled","JavascriptInterface"})
+              @Override
+              protected void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+                  setContentView(R.layout.activity_main);
+
+                  webView = findViewById(R.id.webview);
+                  WebSettings s = webView.getSettings();
+                  s.setJavaScriptEnabled(true);
+                  s.setDomStorageEnabled(true);
+                  s.setAllowFileAccessFromFileURLs(true);
+                  s.setAllowUniversalAccessFromFileURLs(true);
+                  s.setMediaPlaybackRequiresUserGesture(false);
+
+                  webView.addJavascriptInterface(new Bridge(), "NativeTTS");
+                  webView.setWebViewClient(new WebViewClient() {
+                      @Override
+                      public void onPageFinished(WebView v, String url) {
+                          webView.evaluateJavascript(
+                              "if(window.onNativeTTSReady)window.onNativeTTSReady();", null);
+                      }
+                  });
+                  webView.loadUrl("file:///android_asset/public/index.html");
+                  tts = new TextToSpeech(this, this);
+              }
+
+              @Override
+              public void onInit(int status) {
+                  if (status == TextToSpeech.SUCCESS) {
+                      Locale[] locs = {
+                          new Locale("ti"), new Locale("am"),
+                          new Locale("ti","ER"), new Locale("ti","ET")
+                      };
+                      for (Locale loc : locs) {
+                          int r = tts.setLanguage(loc);
+                          if (r != TextToSpeech.LANG_MISSING_DATA &&
+                              r != TextToSpeech.LANG_NOT_SUPPORTED) break;
+                      }
+                      tts.setSpeechRate(0.82f);
+                      ttsReady = true;
+                      runOnUiThread(() ->
+                          webView.evaluateJavascript(
+                              "if(window.onNativeTTSReady)window.onNativeTTSReady();", null));
+                  }
+              }
+
+              public class Bridge {
+                  @JavascriptInterface
+                  public void speak(String text) {
+                      if (ttsReady && text != null && !text.trim().isEmpty())
+                          tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "tts");
+                  }
+                  @JavascriptInterface
+                  public boolean isAvailable() { return ttsReady; }
+              }
+
+              @Override
+              public void onBackPressed() {
+                  if (webView.canGoBack()) webView.goBack();
+                  else super.onBackPressed();
+              }
+
+              @Override
+              protected void onDestroy() {
+                  if (tts != null) { tts.stop(); tts.shutdown(); }
+                  super.onDestroy();
+              }
+          }
+          JAVAEOF
+
+          echo "✅ All project files generated"
+
+      # ── 5. Generate a one-time keystore ───────────────────────────────────
+      - name: Generate keystore
+        run: |
+          KEYSTORE_PASS=$(openssl rand -base64 16 | tr -dc 'A-Za-z0-9' | head -c 20)
+          echo "KEYSTORE_PASS=${KEYSTORE_PASS}" >> $GITHUB_ENV
+
+          keytool -genkeypair \
+            -keystore app/keystore.jks \
+            -alias tigrinya \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass "${KEYSTORE_PASS}" \
+            -keypass "${KEYSTORE_PASS}" \
+            -dname "CN=Tigrinya Learn, OU=App, O=TigrinyaLearn, L=Asmara, ST=Eritrea, C=ER" \
+            -noprompt
+
+          echo "✅ Keystore generated"
+
+      # ── 6. Build release APK ──────────────────────────────────────────────
+      - name: Build APK
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease \
+            -PKEYSTORE_PASS="${KEYSTORE_PASS}" \
+            --no-daemon \
+            --stacktrace
+        env:
+          KEYSTORE_PASS: ${{ env.KEYSTORE_PASS }}
+
+      # ── 7. Rename APK ─────────────────────────────────────────────────────
+      - name: Rename APK
+        run: |
+          mkdir -p output
+          cp app/build/outputs/apk/release/app-release.apk \
+             output/tigrinya-learn.apk
+          echo "APK size: $(du -h output/tigrinya-learn.apk | cut -f1)"
+
+      # ── 8. Upload APK as artifact ──────────────────────────────────────────
+      #       Go to: Actions tab → click the run → download "tigrinya-apk"
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: TigrinyaLearn-release
-          path: app/build/outputs/apk/release/app-release.apk
+          name: tigrinya-apk
+          path: output/tigrinya-learn.apk
           retention-days: 30
+
+      # ── 9. Also attach APK to a GitHub Release (if you push a tag) ────────
+      - name: Create Release (on tag push)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: output/tigrinya-learn.apk
+          name: "ትግርኛ Learn ${{ github.ref_name }}"
+          body: |
+            ## ትግርኛ Learn APK
+
+            ### Install instructions
+            1. Download `tigrinya-learn.apk` below
+            2. On your Android phone: Settings → Security → allow "Install unknown apps"
+            3. Open the downloaded APK and tap Install
+
+            ### What's included
+            - Native Android TTS (Tigrinya/Amharic audio)
+            - 170+ words across 17 categories
+            - Quiz, Flashcards by topic, Speed Round, Match Pairs
+            - Listen & Choose, Word Search, Sentence Builder
+            - 6 interactive stories
+            - Fidel script trainer
+            - Learning path A1→B2
+            - 55 collectible cards
+            - Leaderboard & achievements
