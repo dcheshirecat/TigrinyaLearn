@@ -10,28 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ── 1. Checkout ───────────────────────────────────────────────────────
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ── 2. Set up Java ────────────────────────────────────────────────────
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # ── 3. Set up Android SDK ─────────────────────────────────────────────
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      # ── 4. Build the entire Android project from scratch ──────────────────
-      #       Everything is generated here — no pre-committed Android files needed.
       - name: Generate Android project from index.html
         run: |
           set -e
 
-          # ── Directory structure ──────────────────────────────────────────
           mkdir -p app/src/main/java/com/tigrinya/learn
           mkdir -p app/src/main/assets/public
           mkdir -p app/src/main/res/layout
@@ -42,16 +36,13 @@ jobs:
           mkdir -p app/src/main/res/mipmap-xxhdpi
           mkdir -p gradle/wrapper
 
-          # ── Copy your app ────────────────────────────────────────────────
           cp index.html app/src/main/assets/public/index.html
 
-          # ── settings.gradle ──────────────────────────────────────────────
           cat > settings.gradle << 'EOF'
           rootProject.name = "TigrinyaLearn"
           include ':app'
           EOF
 
-          # ── Root build.gradle ────────────────────────────────────────────
           cat > build.gradle << 'EOF'
           buildscript {
               repositories { google(); mavenCentral() }
@@ -60,14 +51,12 @@ jobs:
           allprojects { repositories { google(); mavenCentral() } }
           EOF
 
-          # ── gradle.properties ────────────────────────────────────────────
           cat > gradle.properties << 'EOF'
           org.gradle.jvmargs=-Xmx4096m
           android.useAndroidX=true
           android.enableJetifier=true
           EOF
 
-          # ── Gradle wrapper ────────────────────────────────────────────────
           cat > gradle/wrapper/gradle-wrapper.properties << 'EOF'
           distributionBase=GRADLE_USER_HOME
           distributionPath=wrapper/dists
@@ -76,15 +65,12 @@ jobs:
           zipStorePath=wrapper/dists
           EOF
 
-          # Download gradle wrapper jar
           curl -sL https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradle/wrapper/gradle-wrapper.jar \
             -o gradle/wrapper/gradle-wrapper.jar
-
-          # ── gradlew ───────────────────────────────────────────────────────
           curl -sL https://raw.githubusercontent.com/gradle/gradle/v8.4.0/gradlew -o gradlew
           chmod +x gradlew
 
-          # ── App build.gradle ──────────────────────────────────────────────
+          # KEY FIX: signingConfigs must be defined BEFORE buildTypes
           cat > app/build.gradle << 'EOF'
           apply plugin: 'com.android.application'
           android {
@@ -96,18 +82,18 @@ jobs:
                   versionCode 1
                   versionName "1.0"
               }
-              buildTypes {
-                  release {
-                      minifyEnabled false
-                      signingConfig signingConfigs.release
-                  }
-              }
               signingConfigs {
                   release {
                       storeFile file("keystore.jks")
                       storePassword System.getenv("KEYSTORE_PASS")
                       keyAlias "tigrinya"
                       keyPassword System.getenv("KEYSTORE_PASS")
+                  }
+              }
+              buildTypes {
+                  release {
+                      minifyEnabled false
+                      signingConfig signingConfigs.release
                   }
               }
               compileOptions {
@@ -122,7 +108,6 @@ jobs:
           }
           EOF
 
-          # ── AndroidManifest.xml ───────────────────────────────────────────
           cat > app/src/main/AndroidManifest.xml << 'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
@@ -150,7 +135,6 @@ jobs:
           </manifest>
           EOF
 
-          # ── activity_main.xml layout ──────────────────────────────────────
           cat > app/src/main/res/layout/activity_main.xml << 'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -163,7 +147,6 @@ jobs:
           </FrameLayout>
           EOF
 
-          # ── strings.xml ───────────────────────────────────────────────────
           cat > app/src/main/res/values/strings.xml << 'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
@@ -171,7 +154,6 @@ jobs:
           </resources>
           EOF
 
-          # ── themes.xml ────────────────────────────────────────────────────
           cat > app/src/main/res/values/themes.xml << 'EOF'
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
@@ -186,13 +168,11 @@ jobs:
           </resources>
           EOF
 
-          # ── App icon (simple gold circle SVG → PNG via Python) ────────────
           python3 - << 'PYEOF'
-          import struct, zlib, base64
+          import struct, zlib, os
 
           def make_png(size, r, g, b):
-              # Create a simple solid-color PNG
-              raw = bytes([0] + [r,g,b,255]*size) * size  # filter byte + RGBA per row
+              raw = bytes([0] + [r,g,b,255]*size) * size
               def chunk(name, data):
                   c = zlib.crc32(name+data) & 0xffffffff
                   return struct.pack('>I',len(data)) + name + data + struct.pack('>I',c)
@@ -200,17 +180,15 @@ jobs:
               idat = zlib.compress(raw)
               return b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR',ihdr) + chunk(b'IDAT',idat) + chunk(b'IEND',b'')
 
-          import os
           sizes = {'mipmap-mdpi':48,'mipmap-hdpi':72,'mipmap-xhdpi':96,'mipmap-xxhdpi':144}
           for folder, sz in sizes.items():
               path = f'app/src/main/res/{folder}/ic_launcher.png'
               os.makedirs(os.path.dirname(path), exist_ok=True)
               with open(path,'wb') as f:
-                  f.write(make_png(sz, 26, 14, 5))  # #1A0E05 dark background
+                  f.write(make_png(sz, 26, 14, 5))
           print('Icons created')
           PYEOF
 
-          # ── MainActivity.java ─────────────────────────────────────────────
           cat > app/src/main/java/com/tigrinya/learn/MainActivity.java << 'JAVAEOF'
           package com.tigrinya.learn;
 
@@ -301,7 +279,6 @@ jobs:
 
           echo "✅ All project files generated"
 
-      # ── 5. Generate a one-time keystore ───────────────────────────────────
       - name: Generate keystore
         run: |
           KEYSTORE_PASS=$(openssl rand -base64 16 | tr -dc 'A-Za-z0-9' | head -c 20)
@@ -320,27 +297,21 @@ jobs:
 
           echo "✅ Keystore generated"
 
-      # ── 6. Build release APK ──────────────────────────────────────────────
       - name: Build APK
         run: |
           chmod +x gradlew
           ./gradlew assembleRelease \
-            -PKEYSTORE_PASS="${KEYSTORE_PASS}" \
             --no-daemon \
             --stacktrace
         env:
           KEYSTORE_PASS: ${{ env.KEYSTORE_PASS }}
 
-      # ── 7. Rename APK ─────────────────────────────────────────────────────
       - name: Rename APK
         run: |
           mkdir -p output
-          cp app/build/outputs/apk/release/app-release.apk \
-             output/tigrinya-learn.apk
+          cp app/build/outputs/apk/release/app-release.apk output/tigrinya-learn.apk
           echo "APK size: $(du -h output/tigrinya-learn.apk | cut -f1)"
 
-      # ── 8. Upload APK as artifact ──────────────────────────────────────────
-      #       Go to: Actions tab → click the run → download "tigrinya-apk"
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
@@ -348,7 +319,6 @@ jobs:
           path: output/tigrinya-learn.apk
           retention-days: 30
 
-      # ── 9. Also attach APK to a GitHub Release (if you push a tag) ────────
       - name: Create Release (on tag push)
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
@@ -358,18 +328,7 @@ jobs:
           body: |
             ## ትግርኛ Learn APK
 
-            ### Install instructions
-            1. Download `tigrinya-learn.apk` below
-            2. On your Android phone: Settings → Security → allow "Install unknown apps"
-            3. Open the downloaded APK and tap Install
-
-            ### What's included
-            - Native Android TTS (Tigrinya/Amharic audio)
-            - 170+ words across 17 categories
-            - Quiz, Flashcards by topic, Speed Round, Match Pairs
-            - Listen & Choose, Word Search, Sentence Builder
-            - 6 interactive stories
-            - Fidel script trainer
-            - Learning path A1→B2
-            - 55 collectible cards
-            - Leaderboard & achievements
+            ### Install
+            1. Download tigrinya-learn.apk
+            2. Settings → Security → allow Install unknown apps
+            3. Open APK and tap Install
