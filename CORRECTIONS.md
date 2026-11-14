@@ -105,3 +105,11 @@ No native speaker reviewed this pass. Each change below has a confidence level:
 - Omniglot, Tigrinya phrases: https://omniglot.com/language/phrases/tigrinya.php
 - Wikipedia, Tigrinya language: https://en.wikipedia.org/wiki/Tigrinya_language
 - Wikipedia, Music of Eritrea: https://en.wikipedia.org/wiki/Music_of_Eritrea
+
+## Talk to… drills (added later)
+
+The male, female and plural forms in the "Talk to…" drills (`GENDER_DRILLS` in `index.html`) follow standard Tigrinya patterns. They haven't been checked by a native speaker yet. The ones to check first are:
+
+- ትደልዪ / ትደልዩ ("What do you want?", female and plural)
+- ይመጽኡ ኣለዉ ("they are coming")
+- ተምሃሮ ("students")

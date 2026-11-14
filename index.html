@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover">
 <title>ትግርኛ — Learn Tigrinya</title>
+<meta name="theme-color" content="#14100c">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
@@ -12,7 +15,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .screen{display:none;flex-direction:column;height:100%;height:100dvh;overflow:hidden}
 .screen.active{display:flex}
 .scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:74px}
-.ge{font-family:'Noto Serif Ethiopic','Ethiopic','Nyala',serif}
+.ge{font-family:var(--font-ge)}
 
 /* NAV */
 .nav{position:fixed;bottom:0;left:0;right:0;height:62px;padding-bottom:env(safe-area-inset-bottom,0);background:#160e06;border-top:1px solid var(--border);display:flex;z-index:200}
@@ -22,8 +25,8 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 
 /* HOME */
 .home-hero{background:linear-gradient(175deg,#2a1a0a 0%,#0e0a06 100%);padding:calc(env(safe-area-inset-top,12px) + 0.5rem) 1.25rem 1.25rem;text-align:center;position:relative;overflow:hidden}
-.home-hero::before{content:'ሀ ለ ሐ መ ሰ ረ';position:absolute;inset:0;font-family:'Noto Serif Ethiopic',serif;font-size:4rem;color:rgba(212,160,23,0.04);letter-spacing:1rem;line-height:1;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.hero-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.85rem;letter-spacing:0.3em;color:var(--smoke);margin-bottom:0.3rem}
+.home-hero::before{content:'ሀ ለ ሐ መ ሰ ረ';position:absolute;inset:0;font-family:var(--font-ge);font-size:4rem;color:rgba(212,160,23,0.04);letter-spacing:1rem;line-height:1;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.hero-ge{font-family:var(--font-ge);font-size:0.85rem;letter-spacing:0.3em;color:var(--smoke);margin-bottom:0.3rem}
 .hero-title{font-size:2rem;font-weight:800;color:var(--sand);letter-spacing:-0.02em}
 .hero-sub{font-size:0.6rem;letter-spacing:0.18em;color:var(--smoke);text-transform:uppercase;margin-top:0.3rem}
 .level-card{margin:0.75rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1rem 1.25rem}
@@ -54,7 +57,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .cat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:0.9rem 0.6rem;text-align:center;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
 .cat-card:active{border-color:var(--gold);transform:scale(0.97)}
 .cat-ico{font-size:1.6rem;margin-bottom:0.35rem}
-.cat-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.88rem;color:var(--sand);display:block;margin-bottom:0.15rem}
+.cat-ge{font-family:var(--font-ge);font-size:0.88rem;color:var(--sand);display:block;margin-bottom:0.15rem}
 .cat-en{font-size:0.58rem;letter-spacing:0.08em;color:var(--smoke);text-transform:uppercase}
 .cat-pbar{height:3px;background:rgba(240,230,211,0.07);border-radius:2px;margin-top:0.5rem;overflow:hidden}
 .cat-pfill{height:100%;background:var(--gold);border-radius:2px}
@@ -72,7 +75,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .fc-face{position:absolute;inset:0;border-radius:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem 1.25rem;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .fc-front{background:radial-gradient(ellipse at 30% 25%,rgba(212,160,23,0.1),transparent 60%),var(--card2);border:1px solid rgba(212,160,23,0.2)}
 .fc-back{background:radial-gradient(ellipse at 70% 70%,rgba(74,124,89,0.15),transparent 60%),#1a2e22;border:1px solid rgba(74,124,89,0.35);transform:rotateY(180deg)}
-.fc-ge{font-family:'Noto Serif Ethiopic',serif;font-size:3rem;color:var(--sand);text-align:center}
+.fc-ge{font-family:var(--font-ge);font-size:3rem;color:var(--sand);text-align:center}
 .fc-tap{font-size:0.6rem;letter-spacing:0.15em;color:var(--smoke);text-transform:uppercase;margin-top:0.75rem}
 .fc-en{font-size:1.25rem;font-weight:700;color:var(--sand);text-align:center}
 .fc-tr{font-size:0.82rem;font-style:italic;color:var(--gold);margin-top:0.25rem}
@@ -92,7 +95,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 /* QUIZ */
 .quiz-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:80px}
 .quiz-word{margin:0 1rem 0.75rem;background:radial-gradient(ellipse at 30% 30%,rgba(212,160,23,0.1),transparent 60%),var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:20px;padding:1.25rem;text-align:center}
-.q-ge{font-family:'Noto Serif Ethiopic',serif;font-size:2.6rem;color:var(--sand)}
+.q-ge{font-family:var(--font-ge);font-size:2.6rem;color:var(--sand)}
 .q-tr{font-size:0.82rem;font-style:italic;color:var(--gold);margin-top:0.3rem}
 .q-prompt{font-size:0.85rem;color:var(--smoke);text-align:center;margin:0 1rem 0.65rem}
 .opts{display:flex;flex-direction:column;gap:0.5rem;padding:0 1rem}
@@ -118,7 +121,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .match-timer-big{font-size:1.5rem;font-weight:800;color:var(--gold);text-align:center}
 .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.55rem;padding:0 1rem}
 .mc{background:var(--card);border:2px solid var(--border);border-radius:13px;padding:0.8rem 0.55rem;text-align:center;cursor:pointer;min-height:64px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;font-size:0.82rem;color:var(--sand);line-height:1.3;word-break:break-word}
-.mc.ge-mc{font-family:'Noto Serif Ethiopic',serif;font-size:1.25rem}
+.mc.ge-mc{font-family:var(--font-ge);font-size:1.25rem}
 .mc.sel{border-color:var(--gold);background:rgba(212,160,23,0.1)}
 .mc.mat{border-color:rgba(74,124,89,0.4);background:rgba(74,124,89,0.1);opacity:0.4;cursor:default}
 .mc.bad{border-color:var(--red);background:rgba(155,35,53,0.12);animation:shake 0.4s}
@@ -131,11 +134,11 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 
 /* WORD HUNT */
 .ws-grid{display:grid;padding:0 1rem}
-.ws-cell{flex:1;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif Ethiopic',serif;font-size:1rem;color:var(--sand);cursor:pointer;border:1px solid rgba(240,230,211,0.05);border-radius:5px;margin:1px;background:var(--card2);transition:background 0.15s,color 0.15s;user-select:none}
+.ws-cell{flex:1;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:var(--font-ge);font-size:1rem;color:var(--sand);cursor:pointer;border:1px solid rgba(240,230,211,0.05);border-radius:5px;margin:1px;background:var(--card2);transition:background 0.15s,color 0.15s;user-select:none}
 .ws-cell.sel{background:rgba(212,160,23,0.25);color:var(--gold)}
 .ws-cell.found{background:rgba(74,124,89,0.2);color:#6ab387;border-color:rgba(74,124,89,0.3)}
 .ws-words{display:flex;flex-wrap:wrap;gap:0.4rem;padding:0.6rem 1rem}
-.ws-word{font-family:'Noto Serif Ethiopic',serif;font-size:0.88rem;color:var(--smoke);padding:0.18rem 0.45rem;border:1px solid var(--border);border-radius:6px}
+.ws-word{font-family:var(--font-ge);font-size:0.88rem;color:var(--smoke);padding:0.18rem 0.45rem;border:1px solid var(--border);border-radius:6px}
 .ws-word.found{text-decoration:line-through;color:rgba(240,230,211,0.2);border-color:transparent}
 
 /* ═══ SCRIPT ═══ */
@@ -154,7 +157,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .fidel-cell .ge{font-size:1rem;color:var(--sand)}
 .fidel-detail{margin:0.65rem 1rem;background:var(--card2);border:1px solid rgba(212,160,23,0.2);border-radius:16px;padding:1rem 1.1rem;animation:popIn 0.25s ease;display:none}
 .fidel-detail.show{display:block}
-.fd-char{font-family:'Noto Serif Ethiopic',serif;font-size:3rem;color:var(--sand);text-align:center}
+.fd-char{font-family:var(--font-ge);font-size:3rem;color:var(--sand);text-align:center}
 .fd-row{display:flex;align-items:center;justify-content:space-between;margin-top:0.45rem}
 .fd-label{font-size:0.6rem;color:var(--smoke);text-transform:uppercase;letter-spacing:0.08em}
 .fd-val{font-size:0.85rem;color:var(--sand);font-weight:600}
@@ -166,11 +169,11 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 
 /* WRITE TAB */
 .write-char-pick{display:flex;flex-wrap:wrap;gap:0.35rem;padding:0 1rem 0.65rem}
-.wcp{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:0.35rem 0.45rem;font-family:'Noto Serif Ethiopic',serif;font-size:1rem;color:var(--sand);cursor:pointer;transition:border-color 0.15s}
+.wcp{background:var(--card);border:1px solid var(--border);border-radius:7px;padding:0.35rem 0.45rem;font-family:var(--font-ge);font-size:1rem;color:var(--sand);cursor:pointer;transition:border-color 0.15s}
 .wcp.active{border-color:var(--gold);background:rgba(212,160,23,0.1);color:var(--gold)}
 .canvas-wrap{margin:0 1rem 0.5rem;position:relative}
 .canvas-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.35rem}
-.trace-char{position:absolute;font-family:'Noto Serif Ethiopic',serif;top:50%;left:50%;transform:translate(-50%,-50%);font-size:7rem;color:rgba(212,160,23,0.07);pointer-events:none;user-select:none;line-height:1}
+.trace-char{position:absolute;font-family:var(--font-ge);top:50%;left:50%;transform:translate(-50%,-50%);font-size:7rem;color:rgba(212,160,23,0.07);pointer-events:none;user-select:none;line-height:1}
 #writeCanvas{display:block;width:100%;border-radius:14px;border:3px solid rgba(212,160,23,0.18);background:#1a1009;cursor:crosshair;touch-action:none;transition:border-color 0.4s}
 #writeCanvas.acc-great{border-color:rgba(74,124,89,0.7)}
 #writeCanvas.acc-good{border-color:rgba(212,160,23,0.7)}
@@ -183,7 +186,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .write-tip{margin:0 1rem 1rem;background:var(--card);border-left:3px solid var(--gold);border-radius:0 11px 11px 0;padding:0.65rem 0.85rem;font-size:0.7rem;color:var(--smoke);line-height:1.55}
 .write-tip strong{color:var(--gold);display:block;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.2rem}
 .rq-card{margin:0 1rem 0.75rem;background:var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:18px;padding:1.25rem;text-align:center}
-.rq-ge{font-family:'Noto Serif Ethiopic',serif;font-size:3.8rem;color:var(--sand)}
+.rq-ge{font-family:var(--font-ge);font-size:3.8rem;color:var(--sand)}
 .rq-prompt{font-size:0.78rem;color:var(--smoke);margin-top:0.4rem}
 .rq-opts{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;padding:0 1rem}
 .rq-opt{background:var(--card);border:2px solid var(--border);border-radius:11px;padding:0.75rem 0.45rem;text-align:center;cursor:pointer;font-family:inherit;font-size:0.8rem;color:var(--sand);transition:border-color 0.15s;width:100%}
@@ -202,7 +205,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .lesson-text{font-size:0.78rem;color:var(--smoke);line-height:1.65}
 .lesson-text strong{color:var(--sand)}
 .example-row{background:var(--card2);border-radius:11px;padding:0.7rem 0.85rem;border-left:3px solid var(--gold)}
-.ex-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.15rem;color:var(--sand);margin-bottom:0.2rem}
+.ex-ge{font-family:var(--font-ge);font-size:1.15rem;color:var(--sand);margin-bottom:0.2rem}
 .ex-tr{font-size:0.72rem;font-style:italic;color:var(--gold)}
 .ex-en{font-size:0.72rem;color:var(--smoke);margin-top:0.12rem}
 .ex-note{font-size:0.65rem;color:rgba(240,230,211,0.3);margin-top:0.15rem}
@@ -211,14 +214,14 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .gram-table th{background:rgba(212,160,23,0.1);color:var(--gold);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.5rem 0.55rem;text-align:left;font-weight:700}
 .gram-table td{padding:0.45rem 0.55rem;border-top:1px solid var(--border);color:var(--sand);vertical-align:top}
 .gram-table td:first-child{color:var(--smoke);font-size:0.68rem}
-.td-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.95rem}
+.td-ge{font-family:var(--font-ge);font-size:0.95rem}
 .td-tr{font-size:0.62rem;font-style:italic;color:var(--gold);margin-top:0.08rem}
 .sb-wrap{margin:0 1rem;padding:0 0 0.75rem}
 .sb-target{background:var(--card2);border:1px solid rgba(212,160,23,0.2);border-radius:12px;padding:0.85rem;min-height:56px;margin-bottom:0.65rem;display:flex;flex-wrap:wrap;gap:0.35rem;align-items:flex-start}
 .sb-hint{font-size:0.7rem;color:var(--smoke);font-style:italic}
-.sb-word{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:0.4rem 0.65rem;font-family:'Noto Serif Ethiopic',serif;font-size:0.9rem;cursor:pointer;transition:opacity 0.15s}
+.sb-word{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:0.4rem 0.65rem;font-family:var(--font-ge);font-size:0.9rem;cursor:pointer;transition:opacity 0.15s}
 .sb-word.placed{background:rgba(193,68,14,0.25);color:rgba(240,230,211,0.4);cursor:default}
-.sb-placed{background:rgba(212,160,23,0.12);border:1px solid rgba(212,160,23,0.2);border-radius:7px;padding:0.4rem 0.65rem;font-family:'Noto Serif Ethiopic',serif;font-size:0.9rem;color:var(--gold);cursor:pointer}
+.sb-placed{background:rgba(212,160,23,0.12);border:1px solid rgba(212,160,23,0.2);border-radius:7px;padding:0.4rem 0.65rem;font-family:var(--font-ge);font-size:0.9rem;color:var(--gold);cursor:pointer}
 .sb-bank{display:flex;flex-wrap:wrap;gap:0.35rem;padding-bottom:0.65rem}
 .sb-eng{font-size:0.8rem;color:var(--smoke);margin-bottom:0.5rem;font-style:italic}
 .sb-actions{display:flex;gap:0.45rem;margin-top:0.4rem}
@@ -257,7 +260,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .card-rare .card-rarity{color:var(--rare)}
 .card-legend .card-rarity{color:var(--legend)}
 .card-art{font-size:1.9rem;margin-bottom:0.35rem;line-height:1}
-.card-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.3rem;color:var(--sand);margin-bottom:0.15rem}
+.card-ge{font-family:var(--font-ge);font-size:1.3rem;color:var(--sand);margin-bottom:0.15rem}
 .card-en{font-size:0.68rem;color:var(--smoke);margin-bottom:0.12rem}
 .card-tr{font-size:0.58rem;font-style:italic;color:var(--gold)}
 .card-count{position:absolute;top:5px;right:6px;background:rgba(0,0,0,0.5);border-radius:50px;font-size:0.55rem;color:var(--sand);padding:0.08rem 0.3rem;font-weight:700}
@@ -280,7 +283,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .ach-card:not(.ok) .ach-ico{filter:grayscale(1);opacity:0.2}
 .ach-name{font-size:0.75rem;font-weight:700;color:var(--sand)}
 .ach-card:not(.ok) .ach-name{color:var(--smoke)}
-.ach-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.68rem;color:var(--smoke);margin-top:0.08rem}
+.ach-ge{font-family:var(--font-ge);font-size:0.68rem;color:var(--smoke);margin-top:0.08rem}
 .ach-desc{font-size:0.6rem;color:var(--smoke);margin-top:0.2rem;line-height:1.4}
 .ach-xp{font-size:0.6rem;color:var(--gold);margin-top:0.3rem}
 
@@ -307,11 +310,11 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .daily-ico{font-size:1.4rem}
 .daily-txt{flex:1}
 .daily-label{font-size:0.56rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.18rem}
-.daily-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.2rem;color:var(--sand)}
+.daily-ge{font-family:var(--font-ge);font-size:1.2rem;color:var(--sand)}
 .daily-en{font-size:0.68rem;color:var(--smoke);margin-top:0.08rem}
 
 /* MNEMONICS */
-.fc-mnem{background:rgba(212,160,23,0.07);border-left:2px solid rgba(212,160,23,0.3);border-radius:0 8px 8px 0;padding:0.38rem 0.55rem;margin-top:0.45rem;font-size:0.6rem;color:rgba(240,230,211,0.55);font-style:italic;text-align:left;line-height:1.45;width:100%;font-family:'Noto Serif Ethiopic',serif}
+.fc-mnem{background:rgba(212,160,23,0.07);border-left:2px solid rgba(212,160,23,0.3);border-radius:0 8px 8px 0;padding:0.38rem 0.55rem;margin-top:0.45rem;font-size:0.6rem;color:rgba(240,230,211,0.55);font-style:italic;text-align:left;line-height:1.45;width:100%;font-family:var(--font-ge)}
 
 /* SPACED REP BADGE */
 .q-sr-badge{display:inline-block;font-size:0.52rem;letter-spacing:0.09em;text-transform:uppercase;padding:0.16rem 0.48rem;border-radius:50px;margin-top:0.28rem}
@@ -325,17 +328,17 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .story-card:active{border-color:var(--gold)}
 .story-ico{font-size:1.8rem;margin-bottom:0.3rem}
 .story-title{font-size:0.9rem;font-weight:700;color:var(--sand)}
-.story-ge{font-family:'Noto Serif Ethiopic',serif;font-size:0.78rem;color:var(--smoke);margin-top:0.08rem}
+.story-ge{font-family:var(--font-ge);font-size:0.78rem;color:var(--smoke);margin-top:0.08rem}
 .story-desc{font-size:0.66rem;color:var(--smoke);margin-top:0.22rem;line-height:1.45}
 .story-chips{display:flex;gap:0.4rem;margin-top:0.38rem}
 .story-chip{font-size:0.52rem;letter-spacing:0.07em;text-transform:uppercase;padding:0.18rem 0.48rem;border-radius:50px;background:rgba(240,230,211,0.07);color:var(--smoke)}
 /* Story reader */
 .story-para{font-size:0.85rem;line-height:2.1;color:var(--smoke);margin-bottom:0.75rem}
-.story-word{cursor:pointer;border-bottom:1px dashed rgba(212,160,23,0.3);color:var(--sand);font-family:'Noto Serif Ethiopic',serif;font-size:1rem;transition:color 0.15s;display:inline-block;margin:0 1px}
+.story-word{cursor:pointer;border-bottom:1px dashed rgba(212,160,23,0.3);color:var(--sand);font-family:var(--font-ge);font-size:1rem;transition:color 0.15s;display:inline-block;margin:0 1px}
 .story-word:active,.story-word.hl{color:var(--gold);border-bottom-color:var(--gold)}
 .word-popup{position:fixed;bottom:72px;left:1rem;right:1rem;background:#1a1009;border:1px solid rgba(212,160,23,0.35);border-radius:16px;padding:1rem 1.1rem;z-index:300;animation:popIn 0.22s ease;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
 .word-popup.hidden{display:none}
-.wp-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.6rem;color:var(--sand)}
+.wp-ge{font-family:var(--font-ge);font-size:1.6rem;color:var(--sand)}
 .wp-tr{font-size:0.8rem;font-style:italic;color:var(--gold);margin-top:0.12rem}
 .wp-en{font-size:0.8rem;color:var(--smoke);margin-top:0.18rem}
 .wp-close{position:absolute;top:0.6rem;right:0.8rem;background:none;border:none;color:var(--smoke);font-size:1.1rem;cursor:pointer}
@@ -353,12 +356,12 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .convo-bubbles{display:flex;flex-direction:column;gap:0.5rem;padding:0 1rem;margin-bottom:0.6rem}
 .bubble{padding:0.6rem 0.8rem;border-radius:14px;max-width:88%;font-size:0.8rem;line-height:1.5}
 .bubble-them{background:var(--card);border:1px solid var(--border);align-self:flex-start;color:var(--sand)}
-.bubble-them .bge{font-family:'Noto Serif Ethiopic',serif;font-size:0.98rem;display:block;margin-bottom:0.18rem}
+.bubble-them .bge{font-family:var(--font-ge);font-size:0.98rem;display:block;margin-bottom:0.18rem}
 .bubble-them .btr{font-size:0.62rem;font-style:italic;color:var(--gold)}
 .bubble-them .ben{font-size:0.62rem;color:var(--smoke);margin-top:0.08rem}
 .bubble-you{background:var(--accent);align-self:flex-end;color:#fff;font-size:0.76rem}
 .convo-choices{display:flex;flex-direction:column;gap:0.42rem;padding:0 1rem}
-.choice-btn{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:0.72rem 0.88rem;text-align:left;cursor:pointer;font-family:'Noto Serif Ethiopic',serif;font-size:0.9rem;color:var(--sand);transition:border-color 0.15s;width:100%}
+.choice-btn{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:0.72rem 0.88rem;text-align:left;cursor:pointer;font-family:var(--font-ge);font-size:0.9rem;color:var(--sand);transition:border-color 0.15s;width:100%}
 .choice-en{font-family:system-ui;font-size:0.62rem;color:var(--smoke);display:block;margin-top:0.12rem}
 .choice-btn:active{border-color:var(--gold)}
 .choice-btn.correct-c{border-color:var(--green);background:rgba(74,124,89,0.1)}
@@ -390,7 +393,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .dialect-col-hdr{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.22rem;font-weight:700}
 .dcol-eri{color:#4a90d9}
 .dcol-tig{color:#b44fd4}
-.dialect-ge{font-family:'Noto Serif Ethiopic',serif;font-size:1.05rem;color:var(--sand)}
+.dialect-ge{font-family:var(--font-ge);font-size:1.05rem;color:var(--sand)}
 .dialect-tr{font-size:0.62rem;font-style:italic;color:var(--gold);margin-top:0.06rem}
 .dialect-note{font-size:0.66rem;color:var(--smoke);line-height:1.5;margin-top:0.38rem;padding-top:0.38rem;border-top:1px solid var(--border)}
 
@@ -403,6 +406,185 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 .lb-stats{font-size:0.6rem;color:var(--smoke);margin-top:0.08rem}
 .lb-score{font-size:0.95rem;font-weight:800;color:var(--gold)}
 
+
+/* ═══════════════════════════════════════════
+   REVAMP — design tokens, type scale, components
+═══════════════════════════════════════════ */
+:root{
+  --bg:#14100c;--bg2:#1b1611;--card:#211a14;--card2:#2a211a;--card3:#33281f;
+  --border:rgba(243,234,217,0.09);--border2:rgba(243,234,217,0.16);
+  --accent:#d4572a;--accent2:#e8743f;--gold:#e2b13c;--gold2:#f3c95a;
+  --sand:#f3ead9;--smoke:#a99a87;--dim:#7d6f60;
+  --green:#4f9a6b;--green-t:#7cc596;--red:#c8434f;--red-t:#ec7a84;--blue:#5b9be0;
+  --coin:#f3c95a;--rare:#5b9be0;--legend:#b86ad8;
+  --r-sm:10px;--r-md:14px;--r-lg:20px;
+  --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-ge:'Noto Sans Ethiopic','Abyssinica SIL','Nyala','Kefa',serif;
+  --shadow:0 1px 0 rgba(255,255,255,0.03) inset,0 8px 24px rgba(0,0,0,0.25);
+}
+html{font-size:17px}
+body{font-family:var(--font);background:var(--bg);color:var(--sand);-webkit-font-smoothing:antialiased}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* Readability: lift the smallest labels to a legible floor */
+.nav-btn{font-size:0.62rem;letter-spacing:0.02em;text-transform:none;font-weight:600}
+.stat-l,.cat-en,.fidel-name,.vowel-hdr-cell,.card-rarity,.pack-desc,.story-chip,.dialect-col-hdr,.q-sr-badge,.fd-sib-tr{font-size:0.62rem}
+.sec-label{font-size:0.72rem;letter-spacing:0.12em;font-weight:700;color:var(--dim);margin:1.1rem 1rem 0.6rem}
+.mode-desc,.convo-desc,.story-desc,.culture-sub,.lesson-subtitle,.ach-desc,.daily-en{font-size:0.74rem}
+.daily-label,.fc-tap,.canvas-label{font-size:0.66rem}
+.g-prog{font-size:0.8rem}
+.gtab,.stab,.ctab{font-size:0.7rem;border-radius:var(--r-sm)}
+.td-tr{font-size:0.68rem}
+.fidel-cell .ge{font-size:1.1rem}
+
+/* Surfaces */
+.mode-row,.cat-card,.story-card,.convo-card,.culture-topic,.dialect-card,.prog-item,.ach-card,.lesson-card,.level-card,.stat,.opt,.rq-opt,.choice-btn{border-radius:var(--r-md)}
+.page-header{padding:calc(env(safe-area-inset-top,0px) + 1rem) 1rem 0.6rem}
+.page-title{font-size:1.15rem;font-weight:800;letter-spacing:-0.01em}
+.back{border-radius:12px;width:40px;height:40px}
+.next-btn,.play-again,.convo-next,.pack-close-btn{background:var(--accent);border-radius:var(--r-md);letter-spacing:0.04em}
+
+/* Bottom navigation */
+.nav{height:64px;background:rgba(20,16,12,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--border)}
+.nav-btn{gap:4px;color:var(--dim);position:relative}
+.nav-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav-btn.active{color:var(--gold)}
+.nav-btn.active::before{content:'';position:absolute;top:0;left:30%;right:30%;height:2px;border-radius:2px;background:var(--gold)}
+
+/* ═══ HOME ═══ */
+.hm-top{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 1.1rem) 1rem 0.4rem}
+.hm-hello{font-family:var(--font-ge);font-size:0.95rem;color:var(--gold)}
+.hm-title{font-size:1.55rem;font-weight:800;letter-spacing:-0.02em;line-height:1.15}
+.hm-pills{display:flex;gap:0.4rem}
+.pill{display:inline-flex;align-items:center;gap:0.3rem;background:var(--card);border:1px solid var(--border);border-radius:50px;padding:0.32rem 0.65rem;font-size:0.78rem;font-weight:700}
+.pill-coin{color:var(--coin)}
+.pill-lv{color:var(--sand)}
+.hm-goal{margin:0.6rem 1rem 0;background:linear-gradient(140deg,#2c2017,#1e1712);border:1px solid var(--border);border-radius:var(--r-lg);padding:1rem;display:flex;gap:1rem;align-items:center;box-shadow:var(--shadow)}
+.ring{position:relative;width:76px;height:76px;flex-shrink:0}
+.ring svg{width:76px;height:76px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+.ring .r-bg{stroke:rgba(243,234,217,0.08)}
+.ring .r-fg{stroke:var(--gold);transition:stroke-dashoffset 0.6s ease}
+.ring-txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05}
+.ring-n{font-size:1.15rem;font-weight:800}
+.ring-l{font-size:0.58rem;color:var(--smoke)}
+.goal-info{flex:1;min-width:0}
+.goal-streak{font-size:1rem;font-weight:800}
+.goal-sub{font-size:0.74rem;color:var(--smoke);margin-top:0.15rem}
+.goal-xp{display:flex;justify-content:space-between;font-size:0.68rem;color:var(--smoke);margin-top:0.6rem;margin-bottom:0.3rem}
+.hm-review{margin:0.75rem 1rem 0;border-radius:var(--r-lg);padding:1rem 1.1rem;background:linear-gradient(135deg,var(--accent),#a83f1b);display:flex;align-items:center;gap:0.9rem;cursor:pointer;box-shadow:0 10px 26px rgba(212,87,42,0.25);border:none;width:calc(100% - 2rem);text-align:left;color:#fff}
+.hm-review:active{transform:scale(0.985)}
+.hm-review.calm{background:var(--card);box-shadow:none;border:1px solid var(--border);color:var(--sand)}
+.hmr-ico{font-size:1.9rem}
+.hmr-txt{flex:1}
+.hmr-title{font-size:1.02rem;font-weight:800}
+.hmr-sub{font-size:0.76rem;opacity:0.85;margin-top:0.1rem}
+.hmr-go{background:rgba(255,255,255,0.18);border-radius:50px;padding:0.45rem 0.9rem;font-weight:800;font-size:0.8rem}
+.hm-review.calm .hmr-go{background:var(--card3)}
+.tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.55rem;margin:0 1rem}
+.tile{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:0.85rem 0.4rem 0.75rem;display:flex;flex-direction:column;align-items:center;gap:0.35rem;cursor:pointer;color:var(--sand);text-align:center;position:relative;transition:transform 0.12s,border-color 0.2s}
+.tile:active{transform:scale(0.96);border-color:var(--gold)}
+.tile-ico{font-size:1.55rem;line-height:1}
+.tile-name{font-size:0.76rem;font-weight:700;line-height:1.2}
+.tile-new{position:absolute;top:6px;right:6px;background:var(--gold);color:#1b1309;font-size:0.52rem;font-weight:800;border-radius:50px;padding:0.08rem 0.35rem;letter-spacing:0.04em}
+.wide-row{display:flex;gap:0.55rem;margin:0 1rem}
+.wide-row .tile{flex:1;flex-direction:row;justify-content:flex-start;padding:0.8rem;gap:0.6rem;text-align:left}
+.daily-card{margin:0.75rem 1rem 0;border-radius:var(--r-lg)}
+.daily-ge{font-family:var(--font-ge);font-size:1.35rem}
+
+/* ═══ SHARED EXERCISE CHROME ═══ */
+.ex-hdr{display:flex;align-items:center;gap:0.75rem;padding:calc(env(safe-area-inset-top,0px) + 0.85rem) 1rem 0.5rem;flex-shrink:0}
+.ex-bar{flex:1;height:8px;background:rgba(243,234,217,0.08);border-radius:8px;overflow:hidden}
+.ex-bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:8px;transition:width 0.35s ease}
+.ex-count{font-size:0.78rem;color:var(--smoke);font-weight:700;min-width:3.2rem;text-align:right}
+.ex-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0.5rem 1rem 6rem;display:flex;flex-direction:column;gap:0.8rem}
+.ex-tag{align-self:flex-start;font-size:0.66rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);background:rgba(226,177,60,0.12);border-radius:50px;padding:0.25rem 0.65rem}
+.ex-tag.new{color:#1b1309;background:var(--gold)}
+.ex-card{background:radial-gradient(ellipse at 30% 20%,rgba(226,177,60,0.09),transparent 60%),var(--card2);border:1px solid var(--border2);border-radius:var(--r-lg);padding:1.4rem 1.1rem;text-align:center;box-shadow:var(--shadow)}
+.ex-prompt{font-size:0.86rem;color:var(--smoke)}
+.big-ge{font-family:var(--font-ge);font-size:2.6rem;line-height:1.25;color:var(--sand);word-break:break-word}
+.big-en{font-size:1.35rem;font-weight:800;line-height:1.3}
+.ex-tr{font-size:0.9rem;font-style:italic;color:var(--gold);margin-top:0.35rem}
+.ex-note{font-size:0.76rem;color:var(--smoke);margin-top:0.6rem;line-height:1.5}
+.btn{border:none;border-radius:var(--r-md);padding:0.95rem 1rem;font-weight:800;font-size:0.88rem;cursor:pointer;color:#fff;background:var(--accent);width:100%}
+.btn:active{transform:scale(0.985)}
+.btn.ghost{background:var(--card);color:var(--sand);border:1px solid var(--border2)}
+.btn.ok{background:var(--green)}
+.btn-row{display:flex;gap:0.5rem}
+.btn-row .btn{flex:1}
+.icon-btn{background:rgba(226,177,60,0.12);border:1px solid rgba(226,177,60,0.28);color:var(--gold);border-radius:50px;padding:0.5rem 0.95rem;font-weight:700;font-size:0.82rem;cursor:pointer;display:inline-flex;align-items:center;gap:0.35rem}
+.audio-big{width:96px;height:96px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--accent),var(--gold));color:#fff;font-size:2.4rem;cursor:pointer;margin:0.3rem auto;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(212,87,42,0.35)}
+.audio-big:active{transform:scale(0.95)}
+.audio-row{display:flex;justify-content:center;gap:0.5rem;margin-top:0.5rem}
+.notice{font-size:0.72rem;line-height:1.5;color:var(--smoke);background:var(--card);border:1px dashed var(--border2);border-radius:var(--r-sm);padding:0.55rem 0.7rem}
+.choice{background:var(--card);border:2px solid var(--border);border-radius:var(--r-md);padding:0.8rem 0.95rem;text-align:left;color:var(--sand);cursor:pointer;display:flex;flex-direction:column;gap:0.12rem;width:100%}
+.choice:active{border-color:var(--gold)}
+.choice .c-ge{font-family:var(--font-ge);font-size:1.25rem}
+.choice .c-sub{font-size:0.74rem;color:var(--smoke)}
+.choice.c{border-color:var(--green);background:rgba(79,154,107,0.13)}
+.choice.w{border-color:var(--red);background:rgba(200,67,79,0.1)}
+.choice:disabled{cursor:default}
+.feedback{border-radius:var(--r-md);padding:0.85rem 0.95rem;font-size:0.84rem;line-height:1.55;background:var(--card);border-left:4px solid var(--green)}
+.feedback.bad{border-left-color:var(--red)}
+.feedback b{display:block;font-size:0.95rem;margin-bottom:0.2rem}
+.feedback.good b{color:var(--green-t)}
+.feedback.bad b{color:var(--red-t)}
+.done-card{text-align:center;padding:2rem 1rem}
+.done-ico{font-size:3rem}
+.done-title{font-size:1.3rem;font-weight:800;margin-top:0.4rem}
+.done-sub{font-size:0.86rem;color:var(--smoke);margin:0.35rem 0 1.2rem;line-height:1.5}
+
+/* Review grades */
+.grades{display:grid;grid-template-columns:repeat(4,1fr);gap:0.4rem}
+.grade{border:none;border-radius:var(--r-md);padding:0.7rem 0.2rem;font-weight:800;font-size:0.8rem;cursor:pointer;color:#fff;display:flex;flex-direction:column;align-items:center;gap:0.1rem}
+.grade small{font-size:0.66rem;font-weight:600;opacity:0.85}
+.g0{background:#9b2f3a}.g1{background:#8a6420}.g2{background:var(--green)}.g3{background:#2f6fa8}
+
+/* Gender drill */
+.who{display:inline-flex;align-items:center;gap:0.45rem;background:var(--card3);border-radius:50px;padding:0.4rem 0.85rem;font-weight:800;font-size:0.9rem;margin-top:0.7rem}
+.who span{font-size:1.25rem}
+.seg{display:flex;background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:3px;gap:3px}
+.seg button{flex:1;border:none;background:none;color:var(--smoke);padding:0.55rem;border-radius:11px;font-weight:700;font-size:0.8rem;cursor:pointer}
+.seg button.on{background:var(--accent);color:#fff}
+.pt{width:100%;border-collapse:collapse;font-size:0.82rem}
+.pt th{font-size:0.64rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);text-align:left;padding:0.45rem 0.4rem;background:rgba(226,177,60,0.08)}
+.pt td{padding:0.5rem 0.4rem;border-top:1px solid var(--border);vertical-align:top}
+.pt td.ge{font-family:var(--font-ge);font-size:0.92rem}
+.pt td,.pt th{min-width:4.6rem}
+.pt .tr{display:block;font-size:0.68rem;font-style:italic;color:var(--gold)}
+.pt-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden}
+.pt-title{font-weight:800;font-size:0.9rem;padding:0.75rem 0.8rem 0.3rem}
+.pt-tip{font-size:0.74rem;color:var(--smoke);padding:0 0.8rem 0.6rem}
+.hl{color:var(--gold);font-weight:800}
+
+/* Typing + keyboard */
+.type-box{display:flex;gap:0.4rem;align-items:stretch}
+.type-input{flex:1;min-width:0;background:var(--bg2);border:2px solid var(--border2);border-radius:var(--r-md);padding:0.7rem 0.8rem;font-family:var(--font-ge);font-size:1.5rem;color:var(--sand);outline:none}
+.type-input:focus{border-color:var(--gold)}
+.type-input.ok{border-color:var(--green)}
+.type-input.bad{border-color:var(--red)}
+.diff span{font-family:var(--font-ge);font-size:1.3rem;padding:0 1px;border-radius:4px}
+.diff .d-ok{color:var(--green-t)}
+.diff .d-bad{color:var(--red-t);background:rgba(200,67,79,0.15)}
+.kb{position:fixed;left:0;right:0;bottom:0;z-index:250;background:#100c09;border-top:1px solid var(--border2);padding:0.45rem 0.35rem calc(env(safe-area-inset-bottom,0px) + 0.45rem)}
+.kb.hidden{display:none}
+.ptab{flex-shrink:0;padding:0.55rem 0.85rem;border-radius:var(--r-sm);font-size:0.74rem;font-weight:700;cursor:pointer;white-space:nowrap;border:1px solid var(--border);background:var(--card);color:var(--smoke);transition:background 0.2s,color 0.2s}
+.ptab.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.kb-cands{display:flex;gap:4px;overflow-x:auto;min-height:52px;align-items:center;padding:0 0.15rem 0.4rem;border-bottom:1px solid var(--border);margin-bottom:0.4rem}
+.kb-hint{font-size:0.74rem;color:var(--dim);padding-left:0.3rem}
+.kb-cand{flex-shrink:0;min-width:42px;height:48px;border:none;border-radius:9px;background:var(--card3);color:var(--sand);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.kb-cand .ge{font-family:var(--font-ge);font-size:1.3rem}
+.kb-cand small{font-size:0.56rem;color:var(--smoke);margin-top:2px}
+.kb-cand.lab{background:#3a2b1e}
+.kb-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
+.kb-key{height:40px;border:none;border-radius:8px;background:var(--card2);color:var(--sand);font-family:var(--font-ge);font-size:1.12rem;cursor:pointer}
+.kb-key.on{background:var(--gold);color:#1b1309}
+.kb-key:active{background:var(--card3)}
+.kb-row{display:grid;grid-template-columns:1fr 3fr 1fr 1fr 1.4fr;gap:4px;margin-top:4px}
+.kb-row .kb-key{font-family:var(--font);font-size:0.8rem;font-weight:700;background:var(--card3)}
+.kb-row .kb-enter{background:var(--green);color:#fff}
+.screen.kb-open .ex-body{padding-bottom:300px}
 </style>
 </head>
 <body>
@@ -414,33 +596,66 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 </div>
 
 <!-- NAV -->
-<nav class="nav">
-  <button class="nav-btn active" id="nb-home" onclick="goNav('home')"><span>🏠</span><span>Home</span></button>
-  <button class="nav-btn" id="nb-play" onclick="goNav('play')"><span>🎮</span><span>Play</span></button>
-  <button class="nav-btn" id="nb-learn" onclick="goNav('learn')"><span>📚</span><span>Learn</span></button>
-  <button class="nav-btn" id="nb-stories" onclick="goNav('stories')"><span>📖</span><span>Stories</span></button>
-  <button class="nav-btn" id="nb-cards" onclick="goNav('cards')"><span>🃏</span><span>Cards</span></button>
-  <button class="nav-btn" id="nb-prog" onclick="goNav('prog')"><span>📊</span><span>Stats</span></button>
+<nav class="nav" aria-label="Main">
+  <button class="nav-btn active" id="nb-home" onclick="goNav('home')" aria-label="Home"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg><span>Home</span></button>
+  <button class="nav-btn" id="nb-learn" onclick="goNav('learn')" aria-label="Learn"><svg viewBox="0 0 24 24"><path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5Z"/><path d="M12 6v13.5"/></svg><span>Learn</span></button>
+  <button class="nav-btn" id="nb-stories" onclick="goNav('stories')" aria-label="Stories"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4Z"/><path d="M8 9h8M8 12h5"/></svg><span>Stories</span></button>
+  <button class="nav-btn" id="nb-cards" onclick="goNav('cards')" aria-label="Cards"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="12" height="15" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></svg><span>Cards</span></button>
+  <button class="nav-btn" id="nb-prog" onclick="goNav('prog')" aria-label="Progress"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Progress</span></button>
 </nav>
 
 <!-- HOME -->
 <div class="screen active" id="screen-home">
   <div class="scroll-area">
-    <div class="home-hero">
-      <div class="hero-ge">ትግርኛ ተምሃር</div>
-      <div class="hero-title">Learn Tigrinya</div>
-      <div class="hero-sub">Ge'ez · Grammar · Cards · TTS</div>
+    <div class="hm-top">
+      <div>
+        <div class="hm-hello">ሰላም! 👋</div>
+        <div class="hm-title">Learn Tigrinya</div>
+      </div>
+      <div class="hm-pills">
+        <span class="pill pill-lv" id="h-level">Lv 1</span>
+        <span class="pill pill-coin">🪙 <span id="h-coins">0</span></span>
+      </div>
     </div>
-    <div class="level-card">
-      <div class="lv-row"><div class="lv-badge" id="h-level">Level 1</div><div class="lv-xp" id="h-xp">0 / 100 XP</div></div>
-      <div class="xp-bar"><div class="xp-fill" id="h-xpbar" style="width:0%"></div></div>
+
+    <div class="hm-goal">
+      <div class="ring">
+        <svg viewBox="0 0 80 80"><circle class="r-bg" cx="40" cy="40" r="34"/><circle class="r-fg" id="h-ring" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="213.6"/></svg>
+        <div class="ring-txt"><span class="ring-n" id="h-goal-n">0</span><span class="ring-l" id="h-goal-l">of 20 today</span></div>
+      </div>
+      <div class="goal-info">
+        <div class="goal-streak" id="h-streak-line">🔥 <span id="h-days">0</span>-day streak</div>
+        <div class="goal-sub"><span id="h-words">0</span> words learned · <span id="h-cards-ct">0</span> cards · best run <span id="h-streak">0</span></div>
+        <div class="goal-xp"><span id="h-lvname">Level 1</span><span id="h-xp">0 / 100 XP</span></div>
+        <div class="xp-bar"><div class="xp-fill" id="h-xpbar" style="width:0%"></div></div>
+      </div>
     </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-n" id="h-streak">0</div><div class="stat-l">🔥 Streak</div></div>
-      <div class="stat"><div class="stat-n" id="h-words">0</div><div class="stat-l">📖 Words</div></div>
-      <div class="stat"><div class="stat-n" id="h-coins">0</div><div class="stat-l">🪙 Coins</div></div>
-      <div class="stat"><div class="stat-n" id="h-cards-ct">0</div><div class="stat-l">🃏 Cards</div></div>
+
+    <button class="hm-review" id="h-review" onclick="startReview()">
+      <div class="hmr-ico">🧠</div>
+      <div class="hmr-txt"><div class="hmr-title">Daily Review</div><div class="hmr-sub" id="h-review-sub">Loading…</div></div>
+      <div class="hmr-go">Start</div>
+    </button>
+
+    <div class="sec-label">Practice</div>
+    <div class="tile-grid">
+      <button class="tile" onclick="startListen('pick')"><span class="tile-new">NEW</span><span class="tile-ico">🎧</span><span class="tile-name">Listen</span></button>
+      <button class="tile" onclick="startListen('type')"><span class="tile-new">NEW</span><span class="tile-ico">⌨️</span><span class="tile-name">Type it</span></button>
+      <button class="tile" onclick="startGender()"><span class="tile-new">NEW</span><span class="tile-ico">👥</span><span class="tile-name">Talk to…</span></button>
+      <button class="tile" onclick="startMode('quiz')"><span class="tile-ico">❓</span><span class="tile-name">Quiz</span></button>
+      <button class="tile" onclick="startMode('flash')"><span class="tile-ico">🃏</span><span class="tile-name">Flashcards</span></button>
+      <button class="tile" onclick="startMode('match')"><span class="tile-ico">🔗</span><span class="tile-name">Match</span></button>
+      <button class="tile" onclick="goNav('build')"><span class="tile-ico">🧩</span><span class="tile-name">Sentences</span></button>
+      <button class="tile" onclick="goNav('wordbuild')"><span class="tile-ico">🔡</span><span class="tile-name">Spell</span></button>
+      <button class="tile" onclick="startMode('search')"><span class="tile-ico">🔎</span><span class="tile-name">Word Hunt</span></button>
     </div>
+
+    <div class="sec-label">Study</div>
+    <div class="wide-row">
+      <button class="tile" onclick="goNav('script')"><span class="tile-ico">✍️</span><span class="tile-name">Alphabet<br><span style="font-weight:500;color:var(--smoke);font-size:0.68rem">read · trace · quiz</span></span></button>
+      <button class="tile" onclick="goNav('grammar')"><span class="tile-ico">📝</span><span class="tile-name">Grammar<br><span style="font-weight:500;color:var(--smoke);font-size:0.68rem">10 short lessons</span></span></button>
+    </div>
+
     <div class="daily-card" onclick="speakDaily()">
       <div class="daily-ico">📅</div>
       <div class="daily-txt">
@@ -448,19 +663,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
         <div class="daily-ge ge" id="daily-ge">ሰላም</div>
         <div class="daily-en" id="daily-en">hello / peace</div>
       </div>
-      <button class="tts-btn" onclick="event.stopPropagation();speakDaily()" style="margin-top:0;flex-shrink:0">🔊</button>
-    </div>
-    <div class="sec-label">Games</div>
-    <div class="mode-list">
-      <div class="mode-row" onclick="startMode('quiz')"><div class="mode-ico">❓</div><div class="mode-txt"><div class="mode-name">Quiz</div><div class="mode-desc">+15 XP · +3🪙 per correct</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="startMode('flash')"><div class="mode-ico">🃏</div><div class="mode-txt"><div class="mode-name">Flashcards</div><div class="mode-desc">+5 XP · +1🪙 per card · tap 🔊 to hear</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="startMode('match')"><div class="mode-ico">🔗</div><div class="mode-txt"><div class="mode-name">Match Pairs</div><div class="mode-desc">+25 XP · +5🪙 per round</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="startMode('search')"><div class="mode-ico">🔎</div><div class="mode-txt"><div class="mode-name">Word Hunt</div><div class="mode-desc">Find Ge'ez words in the grid</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="goNav('grammar')"><div class="mode-ico">📝</div><div class="mode-txt"><div class="mode-name">Grammar + Sentence Builder</div><div class="mode-desc">10 lessons · +3🪙 per exercise</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="goNav('script')"><div class="mode-ico">✍️</div><div class="mode-txt"><div class="mode-name">Script — Read &amp; Write</div><div class="mode-desc">Fidel chart · stroke tracing · recognition</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="goNav('cards')"><div class="mode-ico">🃏</div><div class="mode-txt"><div class="mode-name">Card Shop</div><div class="mode-desc">8 pack types · 60+ collectible cards</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="goNav('build')"><div class="mode-ico">🔤</div><div class="mode-txt"><div class="mode-name">Sentence Builder</div><div class="mode-desc">Assemble real sentences · +10 XP · +4🪙 each</div></div><div class="mode-arr">›</div></div>
-      <div class="mode-row" onclick="goNav('wordbuild')"><div class="mode-ico">🔡</div><div class="mode-txt"><div class="mode-name">Word Builder</div><div class="mode-desc">Spell words by tapping Ge'ez syllables · +8 XP</div></div><div class="mode-arr">›</div></div>
+      <button class="tts-btn" onclick="event.stopPropagation();speakDaily()" style="margin-top:0;flex-shrink:0" aria-label="Listen">🔊</button>
     </div>
     <div class="sgap"></div>
   </div>
@@ -660,16 +863,16 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
 <div class="screen" id="screen-learn">
   <div class="page-header"><div class="page-title">📚 Learn</div></div>
   <div style="display:flex;gap:0.4rem;padding:0 1rem 0.6rem;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-shrink:0">
-    <button style="flex-shrink:0;padding:0.48rem 0.75rem;border-radius:9px;font-size:0.6rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;white-space:nowrap;border:1px solid" id="ltab-script" onclick="switchLearnTab('script')">✍️ Script</button>
-    <button style="flex-shrink:0;padding:0.48rem 0.75rem;border-radius:9px;font-size:0.6rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;white-space:nowrap;border:1px solid" id="ltab-grammar" onclick="switchLearnTab('grammar')">📝 Grammar</button>
-    <button style="flex-shrink:0;padding:0.48rem 0.75rem;border-radius:9px;font-size:0.6rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;white-space:nowrap;border:1px solid" id="ltab-culture" onclick="switchLearnTab('culture')">🏛️ Culture</button>
-    <button style="flex-shrink:0;padding:0.48rem 0.75rem;border-radius:9px;font-size:0.6rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;white-space:nowrap;border:1px solid" id="ltab-dialect" onclick="switchLearnTab('dialect')">🗺️ Dialect</button>
+    <button class="ptab" id="ltab-script" onclick="switchLearnTab('script')">✍️ Script</button>
+    <button class="ptab" id="ltab-grammar" onclick="switchLearnTab('grammar')">📝 Grammar</button>
+    <button class="ptab" id="ltab-culture" onclick="switchLearnTab('culture')">🏛️ Culture</button>
+    <button class="ptab" id="ltab-dialect" onclick="switchLearnTab('dialect')">🗺️ Dialect</button>
   </div>
   <div id="learn-script-pane" class="scroll-area" style="padding-bottom:72px">
     <div style="display:flex;gap:0.35rem;padding:0 1rem 0.55rem">
-      <button style="flex:1;padding:0.5rem;border-radius:9px;font-size:0.58rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;border:1px solid" id="stab-chart" onclick="switchScriptTab('chart')">Chart</button>
-      <button style="flex:1;padding:0.5rem;border-radius:9px;font-size:0.58rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;border:1px solid" id="stab-write" onclick="switchScriptTab('write')">Trace</button>
-      <button style="flex:1;padding:0.5rem;border-radius:9px;font-size:0.58rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;border:1px solid" id="stab-rquiz" onclick="switchScriptTab('rquiz')">Quiz</button>
+      <button class="ptab" style="flex:1" id="stab-chart" onclick="switchScriptTab('chart')">Chart</button>
+      <button class="ptab" style="flex:1" id="stab-write" onclick="switchScriptTab('write')">Trace</button>
+      <button class="ptab" style="flex:1" id="stab-rquiz" onclick="switchScriptTab('rquiz')">Quiz</button>
     </div>
     <div id="stab-chart-pane2">
       <div style="margin:0 1rem 0.6rem;background:var(--card);border:1px solid rgba(212,160,23,0.15);border-radius:14px;padding:0.78rem 0.9rem">
@@ -689,7 +892,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
         <button onclick="showGuideAnim()" style="background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);border-radius:7px;padding:0.22rem 0.55rem;font-size:0.6rem;color:var(--gold);cursor:pointer;font-family:inherit">▶ Guide</button>
       </div>
       <div style="margin:0 1rem 0.42rem;position:relative">
-        <div style="position:absolute;font-family:'Noto Serif Ethiopic',serif;top:50%;left:50%;transform:translate(-50%,-50%);font-size:7rem;color:rgba(212,160,23,0.07);pointer-events:none;user-select:none;line-height:1" id="trace-char2">ሀ</div>
+        <div style="position:absolute;font-family:var(--font-ge);top:50%;left:50%;transform:translate(-50%,-50%);font-size:7rem;color:rgba(212,160,23,0.07);pointer-events:none;user-select:none;line-height:1" id="trace-char2">ሀ</div>
         <canvas id="guideCanvas2" height="220" style="display:block;width:100%;position:absolute;top:0;left:0;border-radius:13px;pointer-events:none;opacity:0;transition:opacity 0.3s;height:220px"></canvas>
         <canvas id="writeCanvas2" height="220" style="display:block;width:100%;border-radius:13px;border:3px solid rgba(212,160,23,0.18);background:#1a1009;cursor:crosshair;touch-action:none;transition:border-color 0.4s"></canvas>
       </div>
@@ -708,7 +911,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
     </div>
     <div id="stab-rquiz-pane2" style="display:none">
       <div style="margin:0 1rem 0.7rem;background:var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:16px;padding:1.1rem;text-align:center">
-        <div style="font-family:'Noto Serif Ethiopic',serif;font-size:3.5rem;color:var(--sand)" id="rq-ge2">ሀ</div>
+        <div style="font-family:var(--font-ge);font-size:3.5rem;color:var(--sand)" id="rq-ge2">ሀ</div>
         <button class="tts-btn" onclick="speakFidel2()">🔊 Listen</button>
         <div style="font-size:0.76rem;color:var(--smoke);margin-top:0.38rem" id="rq-prompt2">What sound does this make?</div>
       </div>
@@ -805,6 +1008,58 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
   </div>
 </div>
 
+<!-- ═══ DAILY REVIEW (spaced repetition) ═══ -->
+<div class="screen" id="screen-review">
+  <div class="ex-hdr"><div class="back" onclick="goNav('home')" aria-label="Back">←</div><div class="ex-bar"><div id="rv-bar"></div></div><div class="ex-count" id="rv-prog">0 / 0</div></div>
+  <div class="ex-body" id="rv-body">
+    <span class="ex-tag" id="rv-tag">Review</span>
+    <div class="ex-card">
+      <div id="rv-front"></div>
+      <div class="audio-row"><button class="icon-btn" onclick="rvSpeak()">🔊 Listen</button></div>
+      <div id="rv-back" hidden style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)"></div>
+    </div>
+    <button class="btn" id="rv-show" onclick="rvReveal()">Show answer</button>
+    <div id="rv-grades" hidden>
+      <div class="ex-prompt" style="text-align:center;margin-bottom:0.5rem">How well did you remember it?</div>
+      <div class="grades">
+        <button class="grade g0" data-g="0" onclick="rvGrade(0)">Again<small></small></button>
+        <button class="grade g1" data-g="1" onclick="rvGrade(1)">Hard<small></small></button>
+        <button class="grade g2" data-g="2" onclick="rvGrade(2)">Good<small></small></button>
+        <button class="grade g3" data-g="3" onclick="rvGrade(3)">Easy<small></small></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GENDER & NUMBER ("Talk to…") ═══ -->
+<div class="screen" id="screen-gender">
+  <div class="ex-hdr"><div class="back" onclick="goNav('home')" aria-label="Back">←</div><div class="ex-bar"><div id="gd-bar"></div></div><div class="ex-count" id="gd-prog">0 / 0</div></div>
+  <div class="ex-body">
+    <div class="seg"><button id="gd-tab-p" class="on" onclick="gdTab('p')">Practice</button><button id="gd-tab-r" onclick="gdTab('r')">Patterns</button></div>
+    <div id="gd-practice" style="display:flex;flex-direction:column;gap:0.8rem"></div>
+    <div id="gd-ref" style="display:none;flex-direction:column;gap:0.8rem"></div>
+  </div>
+</div>
+
+<!-- ═══ LISTEN & TYPE ═══ -->
+<div class="screen" id="screen-listen">
+  <div class="ex-hdr"><div class="back" onclick="lsExit()" aria-label="Back">←</div><div class="ex-bar"><div id="ls-bar"></div></div><div class="ex-count" id="ls-prog">0 / 0</div></div>
+  <div class="ex-body" id="ls-body"></div>
+</div>
+
+<!-- ═══ TIGRINYA KEYBOARD ═══ -->
+<div class="kb hidden" id="kb" aria-label="Tigrinya keyboard">
+  <div class="kb-cands" id="kb-cands"><span class="kb-hint">Tap a consonant, then choose its vowel form</span></div>
+  <div class="kb-grid" id="kb-grid"></div>
+  <div class="kb-row">
+    <button class="kb-key" onclick="kbInsert('፣')">፣</button>
+    <button class="kb-key" onclick="kbInsert(' ')">space</button>
+    <button class="kb-key" onclick="kbInsert('።')">።</button>
+    <button class="kb-key" onclick="kbBackspace()" aria-label="Backspace">⌫</button>
+    <button class="kb-key kb-enter" onclick="kbEnter()">Check</button>
+  </div>
+</div>
+
 <script>
 /* ═══════════════════════════
    TEXT-TO-SPEECH ENGINE
@@ -813,7 +1068,12 @@ let ttsSupported = 'speechSynthesis' in window;
 let currentWord = null;
 let currentFidelChar = null;
 
-function speak(geezText, romanization) {
+/* Recorded audio: map Ge'ez text -> file in ./audio/ (e.g. {'ሰላም':'selam.mp3'}).
+   When a recording exists it is played instead of synthetic speech. */
+const AUDIO_FILES = {};
+function speak(geezText, romanization, rate) {
+  const rec = AUDIO_FILES[geezText];
+  if (rec) { try { const a = new Audio('audio/' + rec); if (rate && rate < 0.8) a.playbackRate = 0.75; a.play(); return; } catch (e) {} }
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
 
@@ -862,7 +1122,7 @@ function speak(geezText, romanization) {
       const u = new SpeechSynthesisUtterance(geezText);
       u.voice = tiVoice || amVoice;
       u.lang = (tiVoice || amVoice).lang;
-      u.rate = 0.8; u.pitch = 1.0;
+      u.rate = rate || 0.8; u.pitch = 1.0;
       u.onstart = () => document.querySelectorAll('.tts-btn').forEach(b => b.classList.add('speaking'));
       u.onend = u.onerror = () => document.querySelectorAll('.tts-btn').forEach(b => b.classList.remove('speaking'));
       window.speechSynthesis.speak(u);
@@ -873,7 +1133,7 @@ function speak(geezText, romanization) {
       const u = new SpeechSynthesisUtterance(text);
       if (enVoice) u.voice = enVoice;
       u.lang = 'en-US';
-      u.rate = 0.68;  // Slower = clearer
+      u.rate = rate ? Math.min(0.68, rate) : 0.68;  // Slower = clearer
       u.pitch = 1.05;
       u.onstart = () => document.querySelectorAll('.tts-btn').forEach(b => b.classList.add('speaking'));
       u.onend = u.onerror = () => document.querySelectorAll('.tts-btn').forEach(b => b.classList.remove('speaking'));
@@ -1593,7 +1853,7 @@ function buildTargetMask(){
   const offCanvas=document.createElement('canvas');offCanvas.width=w*dpr;offCanvas.height=h*dpr;
   const offCtx=offCanvas.getContext('2d');offCtx.scale(dpr,dpr);
   const fs=Math.min(w,h)*0.55;
-  offCtx.font=fs+'px "Noto Serif Ethiopic",Ethiopic,serif';
+  offCtx.font=fs+'px var(--font-ge)';
   offCtx.fillStyle='#fff';offCtx.textAlign='center';offCtx.textBaseline='middle';
   offCtx.fillText(ch,w/2,h/2);
   const data=offCtx.getImageData(0,0,w*dpr,h*dpr).data;
@@ -1696,7 +1956,7 @@ function sbCheck(){
   const ok=placed.length===answer.length&&placed.every((w,i)=>w===answer[i]);
   const res=document.getElementById('sb-result');res.className='sb-result show '+(ok?'ok':'bad');
   if(ok){res.innerHTML='✓ Correct! Well done! +10 XP +3🪙';S.sbCorrect=(S.sbCorrect||0)+1;addXP(10);addCoins(3);save();checkAch();setTimeout(()=>{sbExIdx++;renderGrammar(currentGrammarTab);},1600);}
-  else res.innerHTML='✗ Not quite. Hint: '+window._sbCurrent.hint+'<br><span style="font-family:\'Noto Serif Ethiopic\',serif;font-size:1rem">'+answer.join(' ')+'</span>';
+  else res.innerHTML='✗ Not quite. Hint: '+window._sbCurrent.hint+'<br><span style="font-family:var(--font-ge);font-size:1rem">'+answer.join(' ')+'</span>';
 }
 function sbReset(){window._sbPlaced=[];document.querySelectorAll('.sb-word').forEach(b=>b.classList.remove('placed'));document.getElementById('sb-target').innerHTML='<span class="sb-hint">Tap words below in order →</span>';document.getElementById('sb-result').className='sb-result';}
 
@@ -1828,7 +2088,7 @@ function renderBuildExercise(){
     const btn=document.createElement('button');
     btn.id='bdbtn-'+i;
     btn.setAttribute('data-word',w);
-    btn.style.cssText='background:var(--accent);color:#fff;border:none;border-radius:8px;padding:0.45rem 0.75rem;font-family:"Noto Serif Ethiopic",Ethiopic,serif,system-ui;font-size:1rem;cursor:pointer;transition:opacity 0.2s;';
+    btn.style.cssText='background:var(--accent);color:#fff;border:none;border-radius:8px;padding:0.45rem 0.75rem;font-family:var(--font-ge);font-size:1rem;cursor:pointer;transition:opacity 0.2s;';
     btn.textContent=w;
     btn.onclick=()=>bdTapWord(i,w,btn);
     bank.appendChild(btn);
@@ -1850,7 +2110,7 @@ function bdTapWord(i,w,btn){
   const hint=document.getElementById('bd-zone-hint');
   if(hint)hint.remove();
   const chip=document.createElement('span');
-  chip.style.cssText='background:rgba(212,160,23,0.18);border:1px solid rgba(212,160,23,0.3);border-radius:8px;padding:0.4rem 0.65rem;font-family:"Noto Serif Ethiopic",Ethiopic,serif,system-ui;font-size:1rem;color:var(--gold);cursor:pointer;';
+  chip.style.cssText='background:rgba(212,160,23,0.18);border:1px solid rgba(212,160,23,0.3);border-radius:8px;padding:0.4rem 0.65rem;font-family:var(--font-ge);font-size:1rem;color:var(--gold);cursor:pointer;';
   chip.textContent=w;
   chip.onclick=()=>bdRemoveChip(i,btn,chip);
   zone.appendChild(chip);
@@ -1892,7 +2152,7 @@ function bdCheck(){
   } else {
     res.style.cssText='display:block;border-radius:12px;padding:0.75rem 0.9rem;font-size:0.8rem;line-height:1.6;margin-bottom:0.5rem;background:rgba(155,35,53,0.1);border-left:3px solid var(--red);color:#e05565;';
     const correct_str=ex.answer.join(' ');
-    res.innerHTML='<strong>✗ Not quite.</strong><br><span style="font-size:0.72rem;color:var(--smoke)">Correct order: </span><span style="font-family:\"Noto Serif Ethiopic\",serif;font-size:0.95rem;color:var(--sand)">'+correct_str+'</span><br><span style="font-size:0.7rem;color:rgba(240,230,211,0.45)">'+ex.tip+'</span><br><button onclick="bdReset()" style="margin-top:0.6rem;padding:0.65rem 1.5rem;background:rgba(240,230,211,0.1);border:1px solid var(--border);border-radius:10px;color:var(--sand);font-family:inherit;font-weight:700;font-size:0.75rem;cursor:pointer">↺ Try Again</button>';
+    res.innerHTML='<strong>✗ Not quite.</strong><br><span style="font-size:0.72rem;color:var(--smoke)">Correct order: </span><span style="font-family:var(--font-ge);font-size:0.95rem;color:var(--sand)">'+correct_str+'</span><br><span style="font-size:0.7rem;color:rgba(240,230,211,0.45)">'+ex.tip+'</span><br><button onclick="bdReset()" style="margin-top:0.6rem;padding:0.65rem 1.5rem;background:rgba(240,230,211,0.1);border:1px solid var(--border);border-radius:10px;color:var(--sand);font-family:inherit;font-weight:700;font-size:0.75rem;cursor:pointer">↺ Try Again</button>';
     S.streak=0;S.tot++;save();
   }
   document.getElementById('bd-str').textContent='🔥 '+S.streak;
@@ -1939,7 +2199,7 @@ function renderBuildList(){
     el.innerHTML='<span style="font-size:1.1rem">'+(done?'✅':active?'▶️':'⭕')+'</span>'
       +'<div style="flex:1"><div style="font-size:0.78rem;color:var(--sand);font-weight:700">'+ex.eng+'</div>'
       +'<div style="font-size:0.62rem;color:'+levelColors[ex.level]+';margin-top:0.1rem">'+ex.level+'</div></div>'
-      +'<span style="font-family:\"Noto Serif Ethiopic\",serif;font-size:0.8rem;color:var(--smoke)">'+ex.tigrinya+'</span>';
+      +'<span style="font-family:var(--font-ge);font-size:0.8rem;color:var(--smoke)">'+ex.tigrinya+'</span>';
     el.onclick=()=>bdJump(i);
     list.appendChild(el);
   });
@@ -2022,7 +2282,7 @@ function renderWBWord(){
   bank_items.forEach(item=>{
     const btn=document.createElement('button');
     btn.id='wbbtn-'+item.idx;
-    btn.style.cssText='font-family:"Noto Serif Ethiopic",Ethiopic,serif;font-size:1.8rem;background:var(--card2);border:2px solid rgba(212,160,23,0.3);border-radius:12px;padding:0.5rem 0.65rem;color:var(--sand);cursor:pointer;transition:all 0.15s;min-width:52px;';
+    btn.style.cssText='font-family:var(--font-ge);font-size:1.8rem;background:var(--card2);border:2px solid rgba(212,160,23,0.3);border-radius:12px;padding:0.5rem 0.65rem;color:var(--sand);cursor:pointer;transition:all 0.15s;min-width:52px;';
     btn.textContent=item.s;
     btn.onclick=()=>wbTap(item,btn);
     bank.appendChild(btn);
@@ -2043,7 +2303,7 @@ function wbTap(item,btn){
   const zone=document.getElementById('wb-zone');
   const hint=document.getElementById('wb-zone-hint');if(hint)hint.remove();
   const chip=document.createElement('span');
-  chip.style.cssText='font-family:"Noto Serif Ethiopic",Ethiopic,serif;font-size:1.8rem;background:rgba(212,160,23,0.15);border:2px solid rgba(212,160,23,0.4);border-radius:12px;padding:0.45rem 0.6rem;color:var(--gold);cursor:pointer;min-width:52px;text-align:center;display:inline-flex;align-items:center;justify-content:center;';
+  chip.style.cssText='font-family:var(--font-ge);font-size:1.8rem;background:rgba(212,160,23,0.15);border:2px solid rgba(212,160,23,0.4);border-radius:12px;padding:0.45rem 0.6rem;color:var(--gold);cursor:pointer;min-width:52px;text-align:center;display:inline-flex;align-items:center;justify-content:center;';
   chip.textContent=item.s;
   chip.onclick=()=>wbRemove(item,btn,chip);
   zone.appendChild(chip);
@@ -2071,7 +2331,7 @@ function wbCheck(){
   res.style.display='block';
   if(ok){
     res.style.cssText='display:block;border-radius:12px;padding:0.8rem 0.9rem;font-size:0.8rem;line-height:1.7;background:rgba(74,124,89,0.12);border-left:3px solid var(--green);color:#6ab387;';
-    res.innerHTML='<strong>✅ Correct!</strong> You spelled <span style="font-family:\"Noto Serif Ethiopic\",serif;font-size:1rem;color:var(--sand)">'+w.ge+'</span> perfectly!<br>'
+    res.innerHTML='<strong>✅ Correct!</strong> You spelled <span style="font-family:var(--font-ge);font-size:1rem;color:var(--sand)">'+w.ge+'</span> perfectly!<br>'
       +'<span style="font-size:0.72rem;color:var(--smoke)">'+w.roman+' — '+w.eng+'</span><br>'
       +'<button onclick="wbNext()" style="margin-top:0.55rem;padding:0.6rem 1.4rem;background:var(--accent);border:none;border-radius:10px;color:#fff;font-family:inherit;font-weight:700;font-size:0.75rem;cursor:pointer">Next Word →</button>';
     S.cor++;S.tot++;S.streak++;if(S.streak>S.best)S.best=S.streak;
@@ -2082,8 +2342,8 @@ function wbCheck(){
     document.getElementById('wb-str').textContent='🔥 '+S.streak;
   } else {
     res.style.cssText='display:block;border-radius:12px;padding:0.8rem 0.9rem;font-size:0.8rem;line-height:1.7;background:rgba(155,35,53,0.1);border-left:3px solid var(--red);color:#e05565;';
-    res.innerHTML='<strong>✗ Not quite!</strong> You placed: <span style="font-family:\"Noto Serif Ethiopic\",serif;font-size:1rem">'+placed.join('')+'</span><br>'
-      +'<span style="font-size:0.72rem;color:var(--smoke)">The word is: <span style="font-family:\"Noto Serif Ethiopic\",serif;font-size:0.95rem;color:var(--sand)">'+w.ge+'</span> ('+w.roman+')</span><br>'
+    res.innerHTML='<strong>✗ Not quite!</strong> You placed: <span style="font-family:var(--font-ge);font-size:1rem">'+placed.join('')+'</span><br>'
+      +'<span style="font-size:0.72rem;color:var(--smoke)">The word is: <span style="font-family:var(--font-ge);font-size:0.95rem;color:var(--sand)">'+w.ge+'</span> ('+w.roman+')</span><br>'
       +'<button onclick="wbReset()" style="margin-top:0.55rem;padding:0.6rem 1.4rem;background:rgba(240,230,211,0.1);border:1px solid var(--border);border-radius:10px;color:var(--sand);font-family:inherit;font-weight:700;font-size:0.75rem;cursor:pointer">↺ Try Again</button>';
     S.streak=0;S.tot++;save();
     document.getElementById('wb-str').textContent='🔥 '+S.streak;
@@ -2310,7 +2570,7 @@ const LTAB_OFF='background:var(--card);border-color:var(--border);color:var(--sm
 function switchLearnTab(tab){
   currentLearnTab=tab;
   ['script','grammar','culture','dialect'].forEach(t=>{
-    const btn=document.getElementById('ltab-'+t);if(btn)btn.style.cssText=t===tab?LTAB_ON:LTAB_OFF;
+    const btn=document.getElementById('ltab-'+t);if(btn)btn.classList.toggle('on',t===tab);
     const pane=document.getElementById('learn-'+t+'-pane');if(pane)pane.style.display=t===tab?'block':'none';
   });
   if(tab==='grammar')buildLearnGrammar();
@@ -2318,14 +2578,14 @@ function switchLearnTab(tab){
   if(tab==='dialect')buildDialectList();
   if(tab==='script')initLearnScript();
 }
-function initLearn(){['script','grammar','culture','dialect'].forEach(t=>{const btn=document.getElementById('ltab-'+t);if(btn)btn.style.cssText=t===currentLearnTab?LTAB_ON:LTAB_OFF;});switchLearnTab(currentLearnTab);}
+function initLearn(){['script','grammar','culture','dialect'].forEach(t=>{const btn=document.getElementById('ltab-'+t);if(btn)btn.classList.toggle('on',t===currentLearnTab);});switchLearnTab(currentLearnTab);}
 
 /* Script sub-tabs */
 let currentScriptTab2='chart';
 function switchScriptTab(tab){
   currentScriptTab2=tab;
   ['chart','write','rquiz'].forEach(t=>{
-    const btn=document.getElementById('stab-'+t);if(btn)btn.style.cssText=t===tab?LTAB_ON:LTAB_OFF;
+    const btn=document.querySelector('#screen-learn #stab-'+t);if(btn)btn.classList.toggle('on',t===tab);
     const pane=document.getElementById('stab-'+t+'-pane2');if(pane)pane.style.display=t===tab?'block':'none';
   });
   if(tab==='rquiz'&&!rqQueue2.length)nextRQ2();
@@ -2341,7 +2601,7 @@ function initLearnScript(){
       fam.forms.forEach((ch,vi)=>{
         const cell=document.createElement('div');
         cell.style.cssText='flex:1;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--border);border-radius:5px;cursor:pointer';
-        cell.innerHTML='<span style="font-family:"Noto Serif Ethiopic",serif;font-size:0.95rem;color:var(--sand)">'+ch+'</span>';
+        cell.innerHTML='<span style="font-family:var(--font-ge);font-size:0.95rem;color:var(--sand)">'+ch+'</span>';
         cell.onclick=()=>showFidelDetail2(fi,vi,cell);
         row.appendChild(cell);
       });
@@ -2352,7 +2612,7 @@ function initLearnScript(){
   if(picker&&!picker.children.length){
     FIDEL.forEach((fam,fi)=>{
       const btn=document.createElement('button');
-      btn.style.cssText='background:var(--card);border:1px solid var(--border);border-radius:7px;padding:0.32rem 0.42rem;font-family:"Noto Serif Ethiopic",serif;font-size:0.95rem;color:var(--sand);cursor:pointer';
+      btn.style.cssText='background:var(--card);border:1px solid var(--border);border-radius:7px;padding:0.32rem 0.42rem;font-family:var(--font-ge);font-size:0.95rem;color:var(--sand);cursor:pointer';
       btn.textContent=fam.forms[0];
       btn.onclick=()=>{picker.querySelectorAll('button').forEach(b=>b.style.borderColor='var(--border)');btn.style.borderColor='var(--gold)';document.getElementById('trace-char2').textContent=fam.forms[0];currentFidelChar={fam,vi:0,ch:fam.forms[0]};writeXPclaimed2=false;clearCanvas2();};
       picker.appendChild(btn);
@@ -2370,12 +2630,12 @@ function showFidelDetail2(fi,vi,cell){
   document.querySelectorAll('#fidel-chart2 div>div').forEach(c=>c.style.background='var(--card)');
   cell.style.background='rgba(212,160,23,0.15)';
   const det=document.getElementById('fidel-detail2');det.style.display='block';
-  det.innerHTML='<div style="font-family:"Noto Serif Ethiopic",serif;font-size:2.8rem;color:var(--sand);text-align:center">'+ch+'</div>'
+  det.innerHTML='<div style="font-family:var(--font-ge);font-size:2.8rem;color:var(--sand);text-align:center">'+ch+'</div>'
     +'<button class="tts-btn" onclick="speakFidel2()" style="display:block;margin:0.4rem auto">🔊 Listen</button>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;margin-top:0.4rem"><span style="font-size:0.58rem;color:var(--smoke);text-transform:uppercase">Family</span><span style="font-size:0.82rem;color:var(--sand);font-weight:600">'+fam.name+'</span></div>'
     +'<div style="display:flex;align-items:center;justify-content:space-between;margin-top:0.35rem"><span style="font-size:0.58rem;color:var(--smoke);text-transform:uppercase">Sound</span><span style="font-size:0.82rem;color:var(--sand);font-weight:600">'+fam.sound+'</span></div>'
     +'<div style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke);margin:0.7rem 0 0.25rem">All 7 forms</div>'
-    +'<div style="display:flex;gap:0.32rem;flex-wrap:wrap;justify-content:center">'+fam.forms.map((f,i)=>'<div style="display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:0.4rem 0.32rem;min-width:34px;cursor:pointer" onclick="showFidelDetail2('+fi+','+i+',this)"><span style="font-family:"Noto Serif Ethiopic",serif;font-size:1.1rem;color:var(--sand)">'+f+'</span><span style="font-size:0.48rem;color:var(--smoke)">'+fam.name+(VOWEL_LABELS[i]==='ə'?'':VOWEL_LABELS[i])+'</span></div>').join('')+'</div>'
+    +'<div style="display:flex;gap:0.32rem;flex-wrap:wrap;justify-content:center">'+fam.forms.map((f,i)=>'<div style="display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:0.4rem 0.32rem;min-width:34px;cursor:pointer" onclick="showFidelDetail2('+fi+','+i+',this)"><span style="font-family:var(--font-ge);font-size:1.1rem;color:var(--sand)">'+f+'</span><span style="font-size:0.48rem;color:var(--smoke)">'+fam.name+(VOWEL_LABELS[i]==='ə'?'':VOWEL_LABELS[i])+'</span></div>').join('')+'</div>'
     +'<div style="font-size:0.66rem;color:var(--smoke);margin-top:0.65rem;line-height:1.55;border-top:1px solid var(--border);padding-top:0.55rem">'+fam.note+'</div>';
   setTimeout(()=>det.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
 }
@@ -2404,7 +2664,7 @@ function updateAccuracy2(){
   const ch=document.getElementById('trace-char2')?.textContent||'ሀ';
   const off=document.createElement('canvas');off.width=w*dpr;off.height=h*dpr;
   const oc=off.getContext('2d');oc.scale(dpr,dpr);
-  const fs=Math.min(w,h)*0.55;oc.font=fs+'px "Noto Serif Ethiopic",serif';oc.fillStyle='#fff';oc.textAlign='center';oc.textBaseline='middle';oc.fillText(ch,w/2,h/2);
+  const fs=Math.min(w,h)*0.55;oc.font=fs+'px var(--font-ge)';oc.fillStyle='#fff';oc.textAlign='center';oc.textBaseline='middle';oc.fillText(ch,w/2,h/2);
   const data=oc.getImageData(0,0,w*dpr,h*dpr).data;
   const tpx=new Set();for(let i=0;i<data.length;i+=4)if(data[i+3]>40)tpx.add(Math.floor(i/4));
   if(!tpx.size)return;
@@ -2426,7 +2686,7 @@ function runHWR2(){
     const off=document.createElement('canvas');off.width=w*dpr;off.height=h*dpr;
     const oc=off.getContext('2d');oc.scale(dpr,dpr);
     const fs=Math.min(w,h)*0.55;
-    oc.font=fs+'px "Noto Serif Ethiopic",serif';
+    oc.font=fs+'px var(--font-ge)';
     oc.fillStyle='#fff';oc.textAlign='center';oc.textBaseline='middle';
     oc.fillText(ch,w/2,h/2);
     const data=oc.getImageData(0,0,w*dpr,h*dpr).data;
@@ -2454,7 +2714,7 @@ function runHWR2(){
     const pct=Math.min(99,Math.round(s.score*250));
     const border=i===0?'rgba(212,160,23,0.4)':'var(--border)';
     html2+='<div style="background:var(--card2);border:1px solid '+border+';border-radius:9px;padding:0.42rem 0.58rem;text-align:center;cursor:pointer" onclick="speak(this.dataset.ch,this.dataset.ch)" data-ch="'+s.ch+'">';
-    html2+='<span style="font-family:\"Noto Serif Ethiopic\",serif;font-size:1.6rem;display:block">'+s.ch+'</span>';
+    html2+='<span style="font-family:var(--font-ge);font-size:1.6rem;display:block">'+s.ch+'</span>';
     html2+='<span style="font-size:0.52rem;color:var(--smoke)">'+pct+'%</span></div>';
   });
   html2+='</div>';
@@ -2507,12 +2767,12 @@ function renderLearnGrammar(idx){
     +'<div style="margin:0 1rem"><div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--smoke);margin:0 0 0.38rem">Sentence Builder</div>'
     +'<div style="font-size:0.7rem;color:var(--smoke);margin-bottom:0.38rem;font-style:italic">Build: "'+ex.eng+'"</div>'
     +'<div id="sb-target2" style="background:var(--card2);border:1px solid rgba(212,160,23,0.2);border-radius:11px;padding:0.7rem;min-height:48px;margin-bottom:0.5rem;display:flex;flex-wrap:wrap;gap:0.3rem;align-items:flex-start"><span style="font-size:0.66rem;color:var(--smoke);font-style:italic">Tap words below →</span></div>'
-    +'<div id="sb-bank2" style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.5rem">'+window._sbShuffled.map((w,i)=>'<button id="sbw2-'+i+'" onclick="sbTap2('+i+')" style="background:var(--accent);color:#fff;border:none;border-radius:7px;padding:0.36rem 0.58rem;font-family:"Noto Serif Ethiopic",serif;font-size:0.86rem;cursor:pointer">'+w+'</button>').join('')+'</div>'
+    +'<div id="sb-bank2" style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.5rem">'+window._sbShuffled.map((w,i)=>'<button id="sbw2-'+i+'" onclick="sbTap2('+i+')" style="background:var(--accent);color:#fff;border:none;border-radius:7px;padding:0.36rem 0.58rem;font-family:var(--font-ge);font-size:0.86rem;cursor:pointer">'+w+'</button>').join('')+'</div>'
     +'<div style="display:flex;gap:0.4rem;margin-bottom:0.5rem"><button onclick="sbCheck2()" style="flex:1;padding:0.62rem;border:none;border-radius:10px;font-family:inherit;font-size:0.68rem;font-weight:700;text-transform:uppercase;cursor:pointer;background:var(--green);color:#fff;letter-spacing:0.07em">✓ Check</button><button onclick="sbReset2()" style="flex:0 0 68px;padding:0.62rem;border:none;border-radius:10px;font-family:inherit;font-size:0.68rem;font-weight:700;cursor:pointer;background:rgba(240,230,211,0.07);color:var(--smoke);border:1px solid var(--border)">↺ Reset</button></div>'
     +'<div id="sb-result2" style="display:none;border-radius:10px;padding:0.62rem 0.78rem;font-size:0.74rem;line-height:1.5;margin-bottom:0.45rem"></div></div><div style="height:0.7rem"></div>';
 }
-function sbTap2(i){const w=window._sbShuffled[i];const btn=document.getElementById('sbw2-'+i);if(!btn||btn.style.opacity==='0.3')return;window._sbPlaced.push({word:w,idx:i});btn.style.opacity='0.3';btn.style.cursor='default';const t=document.getElementById('sb-target2');if(window._sbPlaced.length===1)t.innerHTML='';const chip=document.createElement('span');chip.style.cssText='background:rgba(212,160,23,0.12);border:1px solid rgba(212,160,23,0.2);border-radius:7px;padding:0.36rem 0.58rem;font-family:"Noto Serif Ethiopic",serif;font-size:0.86rem;color:var(--gold);cursor:pointer';chip.textContent=w;chip.onclick=()=>{window._sbPlaced=window._sbPlaced.filter(p=>p.idx!==i);btn.style.opacity='1';btn.style.cursor='pointer';chip.remove();if(!document.getElementById('sb-target2').children.length)document.getElementById('sb-target2').innerHTML='<span style="font-size:0.66rem;color:var(--smoke);font-style:italic">Tap words below →</span>';};t.appendChild(chip);}
-function sbCheck2(){const PUNCT=new Set(['።','።','?','!']);const placed=window._sbPlaced.map(p=>p.word).filter(w=>!PUNCT.has(w));const answer=(window._sbCurrent.answer||[]).filter(w=>!PUNCT.has(w));const ok=placed.length===answer.length&&placed.every((w,i)=>w===answer[i]);const r=document.getElementById('sb-result2');r.style.display='block';r.style.cssText='display:block;border-radius:10px;padding:0.62rem 0.78rem;font-size:0.74rem;line-height:1.5;margin-bottom:0.45rem;'+(ok?'background:rgba(74,124,89,0.1);border-left:3px solid var(--green);color:#6ab387':'background:rgba(155,35,53,0.08);border-left:3px solid var(--red);color:#e05565');if(ok){r.innerHTML='✓ Correct! +10 XP +3🪙';S.sbCorrect=(S.sbCorrect||0)+1;addXP(10);addCoins(3);save();checkAch();setTimeout(()=>renderLearnGrammar(learnGrammarTab2),1500);}else r.innerHTML='✗ Hint: '+window._sbCurrent.hint+'<br><span style="font-family:"Noto Serif Ethiopic",serif;font-size:0.93rem;color:var(--sand)">'+(window._sbCurrent.answer||[]).join(' ')+'</span>';}
+function sbTap2(i){const w=window._sbShuffled[i];const btn=document.getElementById('sbw2-'+i);if(!btn||btn.style.opacity==='0.3')return;window._sbPlaced.push({word:w,idx:i});btn.style.opacity='0.3';btn.style.cursor='default';const t=document.getElementById('sb-target2');if(window._sbPlaced.length===1)t.innerHTML='';const chip=document.createElement('span');chip.style.cssText='background:rgba(212,160,23,0.12);border:1px solid rgba(212,160,23,0.2);border-radius:7px;padding:0.36rem 0.58rem;font-family:var(--font-ge);font-size:0.86rem;color:var(--gold);cursor:pointer';chip.textContent=w;chip.onclick=()=>{window._sbPlaced=window._sbPlaced.filter(p=>p.idx!==i);btn.style.opacity='1';btn.style.cursor='pointer';chip.remove();if(!document.getElementById('sb-target2').children.length)document.getElementById('sb-target2').innerHTML='<span style="font-size:0.66rem;color:var(--smoke);font-style:italic">Tap words below →</span>';};t.appendChild(chip);}
+function sbCheck2(){const PUNCT=new Set(['።','።','?','!']);const placed=window._sbPlaced.map(p=>p.word).filter(w=>!PUNCT.has(w));const answer=(window._sbCurrent.answer||[]).filter(w=>!PUNCT.has(w));const ok=placed.length===answer.length&&placed.every((w,i)=>w===answer[i]);const r=document.getElementById('sb-result2');r.style.display='block';r.style.cssText='display:block;border-radius:10px;padding:0.62rem 0.78rem;font-size:0.74rem;line-height:1.5;margin-bottom:0.45rem;'+(ok?'background:rgba(74,124,89,0.1);border-left:3px solid var(--green);color:#6ab387':'background:rgba(155,35,53,0.08);border-left:3px solid var(--red);color:#e05565');if(ok){r.innerHTML='✓ Correct! +10 XP +3🪙';S.sbCorrect=(S.sbCorrect||0)+1;addXP(10);addCoins(3);save();checkAch();setTimeout(()=>renderLearnGrammar(learnGrammarTab2),1500);}else r.innerHTML='✗ Hint: '+window._sbCurrent.hint+'<br><span style="font-family:var(--font-ge);font-size:0.93rem;color:var(--sand)">'+(window._sbCurrent.answer||[]).join(' ')+'</span>';}
 function sbReset2(){window._sbPlaced=[];document.querySelectorAll('[id^="sbw2-"]').forEach(b=>{b.style.opacity='1';b.style.cursor='pointer';});document.getElementById('sb-target2').innerHTML='<span style="font-size:0.66rem;color:var(--smoke);font-style:italic">Tap words below →</span>';document.getElementById('sb-result2').style.display='none';}
 
 /* Culture */
@@ -2703,6 +2963,380 @@ function shuf(a){
   }
   return a;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   REVAMP — spaced repetition, daily goal, "Talk to…" drills,
+   listening, typing and the on-screen Tigrinya keyboard
+══════════════════════════════════════════════════════════════ */
+function $id(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function todayN(){const d=new Date();return Math.floor((d.getTime()-d.getTimezoneOffset()*60000)/86400000);}
+
+/* ── State additions (merged into older saves) ── */
+function ensureState(){
+  S.srs=S.srs||{};S.newPerDay=S.newPerDay||8;S.goal=S.goal||20;
+  S.daily=S.daily||{d:0,n:0,newN:0};S.dayStreak=S.dayStreak||0;S.lastDay=S.lastDay||0;
+  S.gdCorrect=S.gdCorrect||0;S.lsCorrect=S.lsCorrect||0;S.tyCorrect=S.tyCorrect||0;S.reviews=S.reviews||0;
+  if(S.daily.d!==todayN())S.daily={d:todayN(),n:0,newN:0};
+}
+function currentDayStreak(){ensureState();return S.lastDay>=todayN()-1?S.dayStreak:0;}
+function logActivity(){
+  ensureState();const t=todayN();
+  if(S.lastDay!==t){S.dayStreak=(S.lastDay===t-1)?S.dayStreak+1:1;S.lastDay=t;}
+  S.daily.n++;
+  if(S.daily.n===S.goal)setTimeout(()=>toast('🎯 Daily goal reached! See you tomorrow.'),350);
+  save();checkAch();
+}
+
+/* ── Spaced repetition (SM-2 style) ──
+   Each word gets {i: interval in days, e: ease, d: due day, r: successful reps, l: lapses}.
+   Grades: 0 again · 1 hard · 2 good · 3 easy. */
+function srsKey(c,w){return c+'|'+w.g;}
+function srsNext(prev,g){
+  const x=Object.assign({i:0,e:2.5,d:0,r:0,l:0},prev||{});const t=todayN();
+  if(g===0){x.l++;x.r=0;x.i=0;x.e=Math.max(1.3,x.e-0.2);x.d=t;return x;}
+  x.r++;
+  if(x.r===1)x.i=[0,1,1,3][g];
+  else if(x.r===2)x.i=[0,2,3,6][g];
+  else x.i=Math.max(x.i+1,Math.round(x.i*[0,1.2,x.e,x.e*1.3][g]));
+  x.e=Math.max(1.3,x.e+[0,-0.15,0,0.15][g]);x.d=t+x.i;return x;
+}
+function srsGrade(c,w,g){
+  ensureState();const k=srsKey(c,w),isNew=!S.srs[k];
+  S.srs[k]=srsNext(S.srs[k],g);if(isNew)S.daily.newN++;save();
+}
+/* Called from the games: only schedules when the word is new or due,
+   so replaying a quiz can't inflate intervals; a wrong answer always counts. */
+function srsTouch(c,w,ok){
+  ensureState();const x=S.srs[srsKey(c,w)];
+  if(!x||x.d<=todayN()||!ok)srsGrade(c,w,ok?2:0);
+  logActivity();
+}
+function fmtIvl(d){return d<=0?'now':d===1?'1 day':d<30?d+' days':d<365?Math.round(d/30)+' mo':(d/365).toFixed(1)+' yr';}
+function allWords(){const out=[];CATS.forEach(c=>V[c].words.forEach(w=>out.push({c,w})));return out;}
+function srsDue(){ensureState();const t=todayN();return allWords().filter(({c,w})=>{const x=S.srs[srsKey(c,w)];return x&&x.d<=t;});}
+function srsNewAvailable(){ensureState();return Math.max(0,S.newPerDay-S.daily.newN);}
+function srsNew(){const lim=srsNewAvailable();return allWords().filter(({c,w})=>!S.srs[srsKey(c,w)]).slice(0,lim);}
+function srsStats(){
+  ensureState();let learning=0,young=0,mature=0;
+  allWords().forEach(({c,w})=>{const x=S.srs[srsKey(c,w)];if(!x)return;if(x.i<1)learning++;else if(x.i<21)young++;else mature++;});
+  return{learning,young,mature,total:learning+young+mature,all:allWords().length};
+}
+
+/* ── Daily Review screen ── */
+let rvQ=[],rvI=0,rvN=0;
+function startReview(){
+  ensureState();
+  const due=shuf(srsDue()),nw=srsNew().map(x=>Object.assign({},x,{isNew:true}));
+  rvQ=[...due,...nw];
+  if(!rvQ.length){toast('✅ All caught up! New words unlock again tomorrow.');return;}
+  rvI=0;rvN=0;goNav('review');showRv();
+}
+function showRv(){
+  if(rvI>=rvQ.length){finishRv();return;}
+  const it=rvQ[rvI],w=it.w,x=S.srs[srsKey(it.c,w)];currentWord=w;
+  it.reverse=!!(x&&x.r>=2&&Math.random()<0.4);
+  $id('rv-prog').textContent=(rvI+1)+' / '+rvQ.length;
+  $id('rv-bar').style.width=(rvI/rvQ.length*100)+'%';
+  const tag=$id('rv-tag');tag.className='ex-tag'+(it.isNew?' new':'');
+  tag.textContent=it.isNew?'New word · '+V[it.c].label:it.reverse?'Say it in Tigrinya':'What does it mean?';
+  $id('rv-front').innerHTML=it.reverse?'<div class="big-en">'+esc(w.e)+'</div>':'<div class="big-ge">'+esc(w.g)+'</div>';
+  $id('rv-back').hidden=true;$id('rv-grades').hidden=true;$id('rv-show').hidden=false;
+  if(!it.reverse)speak(w.g,w.t);
+}
+function rvSpeak(){const it=rvQ[rvI];if(it){S.ttsCount=(S.ttsCount||0)+1;speak(it.w.g,it.w.t);}}
+function rvReveal(){
+  const it=rvQ[rvI];if(!it)return;const w=it.w;
+  $id('rv-back').innerHTML=(it.reverse?'<div class="big-ge">'+esc(w.g)+'</div>':'<div class="big-en">'+esc(w.e)+'</div>')+
+    '<div class="ex-tr">'+esc(w.t)+(w.p?' · '+esc(w.p):'')+'</div>'+(w.n?'<div class="ex-note">'+esc(w.n)+'</div>':'');
+  $id('rv-back').hidden=false;$id('rv-show').hidden=true;
+  const x=S.srs[srsKey(it.c,w)];
+  $id('rv-grades').querySelectorAll('[data-g]').forEach(b=>{const g=+b.dataset.g;b.querySelector('small').textContent=fmtIvl(srsNext(x,g).d-todayN());});
+  $id('rv-grades').hidden=false;
+  if(it.reverse)speak(w.g,w.t);
+}
+function rvGrade(g){
+  const it=rvQ[rvI];if(!it||$id('rv-grades').hidden)return;
+  srsGrade(it.c,it.w,g);S.reviews++;rvN++;logActivity();
+  if(g===0)rvQ.splice(Math.min(rvQ.length,rvI+4),0,{c:it.c,w:it.w});
+  else{markWord(it.c,it.w);S.cor++;S.tot++;addXP(g>=2?6:4);}
+  save();rvI++;showRv();
+}
+function finishRv(){
+  $id('rv-bar').style.width='100%';
+  const st=srsStats();
+  $id('rv-body').dataset.done='1';
+  $id('rv-front').innerHTML='<div class="done-card"><div class="done-ico">🎉</div><div class="done-title">Review complete</div><div class="done-sub">'+rvN+' answers · '+st.total+' of '+st.all+' words in your deck.<br>Come back tomorrow — the schedule keeps each word just before you would forget it.</div></div>';
+  $id('rv-back').hidden=true;$id('rv-grades').hidden=true;
+  $id('rv-show').hidden=false;$id('rv-show').textContent='Back to home';$id('rv-show').onclick=()=>{$id('rv-show').textContent='Show answer';$id('rv-show').onclick=rvReveal;goNav('home');};
+  $id('rv-tag').textContent='Done';
+}
+
+/* ── "Talk to…" — gender & number drills ──
+   m = to a man / he, f = to a woman / she, p = to a group (also polite) / they */
+const GENDER_DRILLS=[
+  {k:'you',en:'How are you?',m:['ከመይ ኣለኻ?','kemey alekha?'],f:['ከመይ ኣለኺ?','kemey alekhi?'],p:['ከመይ ኣለኹም?','kemey alekhum?']},
+  {k:'you',en:'Good morning (how did you sleep?)',m:['ከመይ ሓዲርካ?','kemey hadirka?'],f:['ከመይ ሓዲርኪ?','kemey hadirki?'],p:['ከመይ ሓዲርኩም?','kemey hadirkum?']},
+  {k:'you',en:'Good afternoon (how was your day?)',m:['ከመይ ውዒልካ?',"kemey wi'ilka?"],f:['ከመይ ውዒልኪ?',"kemey wi'ilki?"],p:['ከመይ ውዒልኩም?',"kemey wi'ilkum?"]},
+  {k:'you',en:'What is your name?',m:['ስምካ መን እዩ?','simka men iyu?'],f:['ስምኪ መን እዩ?','simki men iyu?'],p:['ስምኩም መን እዩ?','simkum men iyu?']},
+  {k:'you',en:'Where are you from?',m:['ካብ ኣበይ ኢኻ?','kab abey ikha?'],f:['ካብ ኣበይ ኢኺ?','kab abey ikhi?'],p:['ካብ ኣበይ ኢኹም?','kab abey ikhum?']},
+  {k:'you',en:'Please',m:['በጃኻ','bejakha'],f:['በጃኺ','bejakhi'],p:['በጃኹም','bejakhum']},
+  {k:'you',en:'Welcome!',m:['እንቋዕ ብደሓን መጻእካ',"inkwa'e bidehan metsa'ka"],f:['እንቋዕ ብደሓን መጻእኪ',"inkwa'e bidehan metsa'ki"],p:['እንቋዕ ብደሓን መጻእኩም',"inkwa'e bidehan metsa'kum"]},
+  {k:'you',en:'Come!',m:['ንዓ','ni\'a'],f:['ንዒ','ni\'i'],p:['ንዑ','ni\'u']},
+  {k:'you',en:'Sit down',m:['ኮፍ በል','kof bel'],f:['ኮፍ በሊ','kof beli'],p:['ኮፍ በሉ','kof belu']},
+  {k:'you',en:'Eat!',m:['ብላዕ','bila\''],f:['ብልዒ','bil\'i'],p:['ብልዑ','bil\'u']},
+  {k:'you',en:'Speak slowly',m:['ቀስ ኢልካ ተዛረብ','qes ilka tezareb'],f:['ቀስ ኢልኪ ተዛረቢ','qes ilki tezarebi'],p:['ቀስ ኢልኩም ተዛረቡ','qes ilkum tezarebu']},
+  {k:'you',en:'Help me',m:['ሓግዘኒ','hagzeni'],f:['ሓግዝኒ','hagzini'],p:['ሓግዙኒ','hagzuni']},
+  {k:'you',en:'Do you speak Tigrinya?',m:['ትግርኛ ትዛረብ ዶ?','tigrinya tizareb do?'],f:['ትግርኛ ትዛረቢ ዶ?','tigrinya tizarebi do?'],p:['ትግርኛ ትዛረቡ ዶ?','tigrinya tizarebu do?']},
+  {k:'you',en:'What do you want?',m:['እንታይ ትደሊ?','intay tideli?'],f:['እንታይ ትደልዪ?','intay tideliyi?'],p:['እንታይ ትደልዩ?','intay tideliyu?']},
+  {k:'you',en:'Goodbye (be well)',m:['ደሓን ኩን','dehan kun'],f:['ደሓን ኩኒ','dehan kuni'],p:['ደሓን ኩኑ','dehan kunu']},
+  {k:'you',en:'Your house',m:['ቤትካ','betka'],f:['ቤትኪ','betki'],p:['ቤትኩም','betkum']},
+  {k:'3rd',en:'… is a student',m:['ተምሃራይ እዩ','temharay iyu'],f:['ተምሃሪት እያ','temharit iya'],p:['ተምሃሮ እዮም','temharo iyom']},
+  {k:'3rd',en:'… speaks Tigrinya',m:['ትግርኛ ይዛረብ','tigrinya yizareb'],f:['ትግርኛ ትዛረብ','tigrinya tizareb'],p:['ትግርኛ ይዛረቡ','tigrinya yizarebu']},
+  {k:'3rd',en:'… is coming',m:['ይመጽእ ኣሎ',"yimets'i alo"],f:['ትመጽእ ኣላ',"timets'i ala"],p:['ይመጽኡ ኣለዉ',"yimets'u alewu"]},
+  {k:'3rd',en:'… is at home',m:['ኣብ ገዛ ኣሎ','ab geza alo'],f:['ኣብ ገዛ ኣላ','ab geza ala'],p:['ኣብ ገዛ ኣለዉ','ab geza alewu']},
+  {k:'3rd',en:'… has gone',m:['ከይዱ','keyidu'],f:['ከይዳ','keyida'],p:['ከይዶም','keyidom']},
+  {k:'3rd',en:'… is tired',m:['ደኺሙ','dekhimu'],f:['ደኺማ','dekhima'],p:['ደኺሞም','dekhimom']},
+];
+const WHO={you:{m:['👨','to a man'],f:['👩','to a woman'],p:['👥','to a group / politely']},'3rd':{m:['👨','he'],f:['👩','she'],p:['👥','they']}};
+let gdQ=[],gdI=0,gdDone=false,gdRight=0;
+function startGender(){
+  const qs=[];shuf([...GENDER_DRILLS]).forEach(d=>qs.push({d,who:['m','f','p'][Math.floor(Math.random()*3)]}));
+  gdQ=qs.slice(0,12);gdI=0;gdRight=0;gdTab('p');goNav('gender');showGd();
+}
+function gdTab(t){
+  $id('gd-tab-p').classList.toggle('on',t==='p');$id('gd-tab-r').classList.toggle('on',t==='r');
+  $id('gd-practice').style.display=t==='p'?'flex':'none';$id('gd-ref').style.display=t==='r'?'flex':'none';
+  if(t==='r')renderGdRef();
+}
+function showGd(){
+  gdDone=false;
+  $id('gd-prog').textContent=Math.min(gdI+1,gdQ.length)+' / '+gdQ.length;
+  $id('gd-bar').style.width=(gdI/gdQ.length*100)+'%';
+  const box=$id('gd-practice');
+  if(gdI>=gdQ.length){
+    $id('gd-bar').style.width='100%';
+    box.innerHTML='<div class="done-card"><div class="done-ico">'+(gdRight>=gdQ.length-2?'🌟':'💪')+'</div><div class="done-title">'+gdRight+' / '+gdQ.length+' correct</div><div class="done-sub">Tigrinya changes the ending depending on who you talk to. Check the <b>Patterns</b> tab to see them side by side.</div><div class="btn-row"><button class="btn ghost" onclick="gdTab(\'r\')">See patterns</button><button class="btn" onclick="startGender()">Play again</button></div></div>';
+    return;
+  }
+  const {d,who}=gdQ[gdI],lbl=WHO[d.k][who];
+  const opts=shuf(['m','f','p']);
+  box.innerHTML='<span class="ex-tag">'+(d.k==='you'?'Who are you talking to?':'Who is it about?')+'</span>'+
+    '<div class="ex-card"><div class="ex-prompt">Say it '+(d.k==='you'?'':'about ')+'…</div><div class="big-en" style="margin-top:0.35rem">'+esc(d.en)+'</div><div class="who"><span>'+lbl[0]+'</span>'+esc(lbl[1])+'</div></div>'+
+    '<div id="gd-opts" style="display:flex;flex-direction:column;gap:0.5rem">'+opts.map(o=>'<button class="choice" data-o="'+o+'" onclick="ansGd(\''+o+'\',event)"><span class="c-ge">'+esc(d[o][0])+'</span><span class="c-sub">'+esc(d[o][1])+'</span></button>').join('')+'</div><div id="gd-fb"></div>';
+}
+function ansGd(o,ev){
+  if(gdDone)return;gdDone=true;
+  const {d,who}=gdQ[gdI],ok=o===who;
+  document.querySelectorAll('#gd-opts .choice').forEach(b=>{b.disabled=true;if(b.dataset.o===who)b.classList.add('c');else if(b.dataset.o===o)b.classList.add('w');});
+  if(ok){gdRight++;S.gdCorrect++;addXP(8,ev&&ev.clientX,ev&&ev.clientY);addCoins(2);}
+  logActivity();speak(d[who][0],d[who][1]);
+  const L=WHO[d.k];
+  $id('gd-fb').innerHTML='<div class="feedback '+(ok?'good':'bad')+'"><b>'+(ok?'✓ Correct!':'✗ Not quite')+'</b>'+
+    ['m','f','p'].map(k=>L[k][0]+' <span class="ge" style="font-size:1.05rem">'+esc(d[k][0])+'</span> <span style="color:var(--smoke)">'+esc(L[k][1])+'</span>').join('<br>')+
+    '</div><button class="btn" style="margin-top:0.6rem" onclick="gdI++;showGd()">Continue</button>';
+}
+function renderGdRef(){
+  const tbl=k=>'<table class="pt"><tr><th></th>'+['m','f','p'].map(x=>'<th>'+WHO[k][x][0]+' '+esc(WHO[k][x][1])+'</th>').join('')+'</tr>'+
+    GENDER_DRILLS.filter(d=>d.k===k).map(d=>'<tr><td style="color:var(--smoke);font-size:0.74rem">'+esc(d.en)+'</td>'+['m','f','p'].map(x=>'<td class="ge">'+esc(d[x][0])+'<span class="tr">'+esc(d[x][1])+'</span></td>').join('')+'</tr>').join('')+'</table>';
+  $id('gd-ref').innerHTML=
+    '<div class="pt-wrap"><div class="pt-title">Talking to someone</div><div class="pt-tip">"You/your" endings: <span class="hl">-ka / -kha</span> (man) · <span class="hl">-ki / -khi</span> (woman) · <span class="hl">-kum / -khum</span> (group). Commands end in nothing / <span class="hl">-i</span> / <span class="hl">-u</span>. The plural is also used to address elders politely.</div><div style="overflow-x:auto">'+tbl('you')+'</div></div>'+
+    '<div class="pt-wrap"><div class="pt-title">Talking about someone</div><div class="pt-tip">"To be": <span class="hl">እዩ</span> he · <span class="hl">እያ</span> she · <span class="hl">እዮም</span> they. Present verbs: <span class="hl">ይ-</span> he · <span class="hl">ት-</span> she · <span class="hl">ይ-…-ኡ</span> they.</div><div style="overflow-x:auto">'+tbl('3rd')+'</div></div>';
+}
+
+/* ── Listening & typing ── */
+let lsQ=[],lsI=0,lsMode='pick',lsDone=false,lsRight=0,lsHint=false;
+function ttsMode(){
+  if(!('speechSynthesis' in window))return'none';
+  const v=window.speechSynthesis.getVoices();
+  if(v.some(x=>x.lang&&x.lang.startsWith('ti')))return'ti';
+  if(v.some(x=>x.lang&&x.lang.startsWith('am')))return'am';
+  return'approx';
+}
+function ttsNotice(){
+  const m=ttsMode();
+  if(m==='ti')return'';
+  if(m==='am')return'<div class="notice">🔈 Using an Amharic voice — close, but sounds like ቐ, ኸ and ዐ are not exact.</div>';
+  if(m==='none')return'<div class="notice">🔇 This device has no text-to-speech. Use the transliteration hint instead.</div>';
+  return'<div class="notice">🔈 No Tigrinya voice on this device, so audio is an English-based approximation. Use the hint if a word is unclear.</div>';
+}
+function lsPool(type){
+  let pool=allWords().filter(({w})=>!w.g.includes('...')&&!w.g.includes('/'));
+  if(type)pool=pool.filter(({w})=>w.g.replace(/[።?!]/g,'').length<=9);
+  const seen=pool.filter(({c,w})=>S.srs&&S.srs[srsKey(c,w)]);
+  return seen.length>=10?seen:pool.filter(({c})=>['greetings','numbers','food','family','colors','animals','body','nature','time','places'].includes(c));
+}
+function startListen(mode){
+  ensureState();lsMode=mode;lsQ=shuf(lsPool(mode==='type')).slice(0,10);lsI=0;lsRight=0;
+  goNav('listen');showLs();
+}
+function lsExit(){kbHide();goNav('home');}
+function lsSpeak(rate){const it=lsQ[lsI];if(it){S.ttsCount=(S.ttsCount||0)+1;speak(it.w.g,it.w.t,rate);}}
+function showLs(){
+  lsDone=false;lsHint=false;
+  $id('ls-prog').textContent=Math.min(lsI+1,lsQ.length)+' / '+lsQ.length;
+  $id('ls-bar').style.width=(lsI/lsQ.length*100)+'%';
+  const body=$id('ls-body');
+  if(lsI>=lsQ.length){
+    kbHide();$id('ls-bar').style.width='100%';
+    body.innerHTML='<div class="done-card"><div class="done-ico">'+(lsRight>=8?'🌟':'👂')+'</div><div class="done-title">'+lsRight+' / '+lsQ.length+' correct</div><div class="done-sub">'+(lsMode==='type'?'Typing in fidel is the fastest way to learn the script.':'Every answer also feeds your Daily Review schedule.')+'</div><div class="btn-row"><button class="btn ghost" onclick="lsExit()">Home</button><button class="btn" onclick="startListen(lsMode)">Again</button></div></div>';
+    return;
+  }
+  const {c,w}=lsQ[lsI];currentWord=w;
+  if(lsMode==='pick'){
+    kbHide();
+    const sameCat=V[c].words.filter(x=>x.g!==w.g&&!x.g.includes('...'));
+    const others=shuf(sameCat.length>=3?sameCat:allWords().map(x=>x.w).filter(x=>x.g!==w.g)).slice(0,3);
+    const opts=shuf([w,...others]);
+    body.innerHTML='<span class="ex-tag">Listen and choose</span>'+ttsNotice()+
+      '<div class="ex-card"><button class="audio-big" onclick="lsSpeak()" aria-label="Play">🔊</button><div class="audio-row"><button class="icon-btn" onclick="lsSpeak(0.55)">🐢 Slower</button><button class="icon-btn" id="ls-hint-btn" onclick="lsShowHint()">💡 Hint</button></div><div class="ex-tr" id="ls-hint" style="min-height:1.2em"></div></div>'+
+      '<div id="ls-opts" style="display:flex;flex-direction:column;gap:0.5rem">'+opts.map((o,i)=>'<button class="choice" data-i="'+i+'" onclick="ansLsPick('+i+','+opts.indexOf(w)+',event)"><span class="c-ge">'+esc(o.g)+'</span><span class="c-sub">'+esc(o.e)+'</span></button>').join('')+'</div><div id="ls-fb"></div>';
+    lsQ[lsI].opts=opts;
+  }else{
+    body.innerHTML='<span class="ex-tag">Type it in Tigrinya</span>'+ttsNotice()+
+      '<div class="ex-card"><div class="ex-prompt">Write the Tigrinya for</div><div class="big-en" style="margin-top:0.3rem">'+esc(w.e)+'</div><div class="audio-row"><button class="icon-btn" onclick="lsSpeak()">🔊 Listen</button><button class="icon-btn" onclick="lsShowHint()">💡 Hint</button></div><div class="ex-tr" id="ls-hint" style="min-height:1.2em"></div></div>'+
+      '<div class="type-box"><input class="type-input" id="ty-input" inputmode="none" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ፊደል…" aria-label="Your answer"></div>'+
+      '<div id="ls-fb"></div>';
+    const inp=$id('ty-input');inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();kbEnter();}});
+    kbShow(inp,checkTyped);setTimeout(()=>inp.focus(),50);
+  }
+  setTimeout(()=>lsSpeak(),250);
+}
+function lsShowHint(){const it=lsQ[lsI];if(!it)return;lsHint=true;$id('ls-hint').textContent=it.w.t+(it.w.p?'  ·  '+it.w.p:'');}
+function ansLsPick(i,ci,ev){
+  if(lsDone)return;lsDone=true;const {c,w}=lsQ[lsI],ok=i===ci;
+  document.querySelectorAll('#ls-opts .choice').forEach(b=>{b.disabled=true;const j=+b.dataset.i;if(j===ci)b.classList.add('c');else if(j===i)b.classList.add('w');});
+  if(ok){lsRight++;S.lsCorrect++;addXP(lsHint?6:10,ev&&ev.clientX,ev&&ev.clientY);addCoins(2);}
+  srsTouch(c,w,ok);
+  $id('ls-fb').innerHTML='<div class="feedback '+(ok?'good':'bad')+'"><b>'+(ok?'✓ Correct!':'✗ It was '+esc(w.g))+'</b>'+esc(w.e)+' · <i style="color:var(--gold)">'+esc(w.t)+'</i></div><button class="btn" style="margin-top:0.6rem" onclick="lsI++;showLs()">Continue</button>';
+}
+/* Normalise for comparison: drop punctuation/spaces, treat ፀ-row as ጸ-row and አ-row as ኣ-row (common spelling variants). */
+function normGe(s){
+  return Array.from(String(s).replace(/[\s።፣፤፥፦፧!?.,'"…-]/g,'')).map(ch=>{
+    const cp=ch.codePointAt(0);
+    if(cp>=0x1340&&cp<=0x1346)return String.fromCodePoint(cp-8);
+    if(cp===0x12A0)return'ኣ';
+    return ch;
+  }).join('');
+}
+function checkTyped(){
+  if(lsDone)return;const inp=$id('ty-input');if(!inp)return;
+  const {c,w}=lsQ[lsI],got=inp.value.trim();
+  if(!got){toast('Type your answer with the keyboard below ⌨️');return;}
+  lsDone=true;const ok=normGe(got)===normGe(w.g);
+  inp.classList.add(ok?'ok':'bad');inp.readOnly=true;kbHide();
+  if(ok){lsRight++;S.tyCorrect++;addXP(lsHint?8:14);addCoins(3);}
+  srsTouch(c,w,ok);speak(w.g,w.t);
+  let diff='';
+  if(!ok){const a=Array.from(normGe(w.g)),b=Array.from(normGe(got));diff='<div class="diff" style="margin-top:0.4rem">Correct: '+a.map((ch,i)=>'<span class="'+(b[i]===ch?'d-ok':'d-bad')+'">'+esc(ch)+'</span>').join('')+'</div>';}
+  $id('ls-fb').innerHTML='<div class="feedback '+(ok?'good':'bad')+'"><b>'+(ok?'✓ Perfect spelling!':'✗ Not quite')+'</b><span class="ge" style="font-size:1.2rem">'+esc(w.g)+'</span> · <i style="color:var(--gold)">'+esc(w.t)+'</i>'+diff+'</div><button class="btn" style="margin-top:0.6rem" onclick="lsI++;showLs()">Continue</button>';
+}
+
+/* ── On-screen Tigrinya keyboard ──
+   Tap a consonant to show its 7 vowel orders (plus -wa / labialised forms). */
+const KB_BASES=Array.from('ሀለሐመረሰሸቀቐበቨተቸነኘአከኸወዐዘዠየደጀገጠጨጰጸፀፈፐ');
+const KB_WA=new Set(Array.from('ለሐመረሰሸበቨተቸነኘዘዠደጀጠጨጸፈፐ'));
+const KB_LAB={'ቀ':[0x1248,0x124A,0x124B,0x124C,0x124D],'ቐ':[0x1258,0x125A,0x125B,0x125C,0x125D],'ከ':[0x12B0,0x12B2,0x12B3,0x12B4,0x12B5],'ኸ':[0x12C0,0x12C2,0x12C3,0x12C4,0x12C5],'ገ':[0x1310,0x1312,0x1313,0x1314,0x1315]};
+const KB_VOWELS=['ä','u','i','a','e','ə','o'];
+let kbTarget=null,kbOnEnter=null,kbFam=null;
+function kbBuild(){
+  const g=$id('kb-grid');if(g.childElementCount)return;
+  KB_BASES.forEach(b=>{const k=document.createElement('button');k.className='kb-key';k.textContent=b;k.onclick=()=>kbPick(b,k);g.appendChild(k);});
+}
+function kbPick(base,keyEl){
+  kbFam=base;document.querySelectorAll('#kb-grid .kb-key').forEach(k=>k.classList.toggle('on',k===keyEl));
+  const cp=base.codePointAt(0);let html='';
+  for(let i=0;i<7;i++){const ch=String.fromCodePoint(cp+i);html+='<button class="kb-cand" onclick="kbInsert(\''+ch+'\')"><span class="ge">'+ch+'</span><small>'+KB_VOWELS[i]+'</small></button>';}
+  if(KB_WA.has(base)){const ch=String.fromCodePoint(cp+7);html+='<button class="kb-cand lab" onclick="kbInsert(\''+ch+'\')"><span class="ge">'+ch+'</span><small>wa</small></button>';}
+  (KB_LAB[base]||[]).forEach((c,i)=>{const ch=String.fromCodePoint(c);html+='<button class="kb-cand lab" onclick="kbInsert(\''+ch+'\')"><span class="ge">'+ch+'</span><small>'+['wä','wi','wa','we','wə'][i]+'</small></button>';});
+  $id('kb-cands').innerHTML=html;$id('kb-cands').scrollLeft=0;
+}
+function kbInsert(ch){
+  const t=kbTarget;if(!t||t.readOnly)return;
+  const s=t.selectionStart??t.value.length,e=t.selectionEnd??t.value.length;
+  t.value=t.value.slice(0,s)+ch+t.value.slice(e);const p=s+ch.length;
+  try{t.setSelectionRange(p,p);}catch(_){}
+  t.classList.remove('bad');
+}
+function kbBackspace(){
+  const t=kbTarget;if(!t||t.readOnly)return;
+  const s=t.selectionStart??t.value.length,e=t.selectionEnd??t.value.length;
+  if(s!==e){t.value=t.value.slice(0,s)+t.value.slice(e);try{t.setSelectionRange(s,s);}catch(_){}return;}
+  if(s===0)return;const chars=Array.from(t.value.slice(0,s));const last=chars.pop()||'';
+  t.value=chars.join('')+t.value.slice(s);const p=s-last.length;try{t.setSelectionRange(p,p);}catch(_){}
+}
+function kbEnter(){if(kbOnEnter)kbOnEnter();}
+function kbShow(target,onEnter){kbBuild();kbTarget=target;kbOnEnter=onEnter;$id('kb').classList.remove('hidden');document.querySelector('.screen.active')?.classList.add('kb-open');}
+function kbHide(){$id('kb').classList.add('hidden');document.querySelectorAll('.screen.kb-open').forEach(s=>s.classList.remove('kb-open'));kbTarget=null;kbOnEnter=null;}
+
+/* ── Keyboard shortcuts for desktop / Chromebook users ── */
+document.addEventListener('keydown',e=>{
+  const act=document.querySelector('.screen.active');if(!act)return;
+  if(act.id==='screen-review'){
+    if(e.key===' '||e.key==='Enter'){if(!$id('rv-show').hidden){e.preventDefault();$id('rv-show').click();}}
+    else if(['1','2','3','4'].includes(e.key)&&!$id('rv-grades').hidden){rvGrade(+e.key-1);}
+  }
+});
+
+/* ── Hook the existing games into the review schedule ── */
+const _ansQ=ansQ;
+ansQ=function(chosen,correct,opts,word,ev){const was=qDone;_ansQ(chosen,correct,opts,word,ev);if(!was)srsTouch(cat,word,chosen===correct);};
+const _fcAns=fcAns;
+fcAns=function(knew){const w=fcDeck[fcIdx];if(w)srsTouch(cat,w,knew);_fcAns(knew);};
+
+/* ── Navigation: initialise new screens, hide keyboard when leaving ── */
+const _goNav=goNav;
+goNav=function(id){if(id!=='listen')kbHide();_goNav(id);window.scrollTo(0,0);};
+
+/* ── Home dashboard ── */
+updateHome=function(){
+  ensureState();
+  const level=lv(S.xp),lxp=lvXP(level),nxp=lvXP(level+1);
+  const pct=Math.min(100,((S.xp-lxp)/(nxp-lxp))*100);
+  $id('h-level').textContent='Lv '+level;$id('h-lvname').textContent='Level '+level;
+  $id('h-xp').textContent=(S.xp-lxp)+' / '+(nxp-lxp)+' XP';$id('h-xpbar').style.width=pct+'%';
+  $id('h-streak').textContent=S.best||0;
+  $id('h-words').textContent=S.wl.filter(k=>!k.startsWith('A:')).length;
+  $id('h-coins').textContent=S.coins;$id('h-cards-ct').textContent=(S.collection||[]).length;
+  const ds=currentDayStreak();$id('h-streak-line').innerHTML=ds?'🔥 <span id="h-days">'+ds+'</span>-day streak':'🌱 Start your streak today';
+  const n=S.daily.n,goal=S.goal,C=213.6;
+  $id('h-goal-n').textContent=Math.min(n,goal)===goal?'✓':n;
+  $id('h-goal-l').textContent=n>=goal?'goal met':'of '+goal+' today';
+  $id('h-ring').style.strokeDashoffset=C*(1-Math.min(1,n/goal));
+  const due=srsDue().length,nw=Math.min(srsNewAvailable(),allWords().filter(({c,w})=>!S.srs[srsKey(c,w)]).length);
+  const btn=$id('h-review');btn.classList.toggle('calm',due+nw===0);
+  $id('h-review-sub').textContent=due+nw===0?'All caught up — come back tomorrow':(due?due+' to review':'')+(due&&nw?' · ':'')+(nw?nw+' new words':'');
+  initDailyWord();
+};
+
+/* ── Progress screen: add a review-deck summary ── */
+const _renderProg=renderProg;
+renderProg=function(){
+  _renderProg();const st=srsStats(),list=$id('prog-list');
+  const el=document.createElement('div');el.className='prog-item';
+  const seg=(n,col)=>'<div style="flex:'+n+';background:'+col+'"></div>';
+  el.innerHTML='<div class="prog-hdr"><div class="prog-cat">🧠 Review deck</div><div class="prog-ct">'+st.total+'/'+st.all+'</div></div>'+
+    '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;background:rgba(243,234,217,0.07)">'+seg(st.learning,'var(--accent)')+seg(st.young,'var(--gold)')+seg(st.mature,'var(--green)')+seg(st.all-st.total,'transparent')+'</div>'+
+    '<div style="display:flex;gap:0.9rem;font-size:0.72rem;color:var(--smoke);margin-top:0.5rem"><span>🟧 learning '+st.learning+'</span><span>🟨 young '+st.young+'</span><span>🟩 mature '+st.mature+'</span></div>'+
+    '<div style="display:flex;gap:0.9rem;font-size:0.72rem;color:var(--smoke);margin-top:0.35rem"><span>🔥 '+currentDayStreak()+'-day streak</span><span>👥 '+(S.gdCorrect||0)+'</span><span>🎧 '+(S.lsCorrect||0)+'</span><span>⌨️ '+(S.tyCorrect||0)+'</span></div>'+
+    '<div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.7rem;font-size:0.76rem;color:var(--smoke)">New words per day <select id="np-sel" style="background:var(--card2);color:var(--sand);border:1px solid var(--border2);border-radius:8px;padding:0.25rem 0.4rem;font-family:inherit">'+[4,8,12,20].map(v=>'<option'+(v===S.newPerDay?' selected':'')+'>'+v+'</option>').join('')+'</select> · goal <select id="goal-sel" style="background:var(--card2);color:var(--sand);border:1px solid var(--border2);border-radius:8px;padding:0.25rem 0.4rem;font-family:inherit">'+[10,20,30,50].map(v=>'<option'+(v===S.goal?' selected':'')+'>'+v+'</option>').join('')+'</select></div>';
+  list.insertBefore(el,list.firstChild);
+  $id('np-sel').onchange=e=>{S.newPerDay=+e.target.value;save();};
+  $id('goal-sel').onchange=e=>{S.goal=+e.target.value;save();};
+};
+
+/* ── New achievements ── */
+ACHS.push(
+  {id:'days3',nm:'Daily Habit',ge:'ልማድ',d:'Practise 3 days in a row',ico:'📆',xp:40,ok:s=>(s.dayStreak||0)>=3},
+  {id:'days7',nm:'One Week Strong',ge:'ሓደ ሰሙን',d:'Practise 7 days in a row',ico:'🗓️',xp:100,ok:s=>(s.dayStreak||0)>=7},
+  {id:'rev100',nm:'Memory Builder',ge:'ዘኽታሪ',d:'Complete 100 reviews',ico:'🧠',xp:80,ok:s=>(s.reviews||0)>=100},
+  {id:'gd25',nm:'Polite Speaker',ge:'ትሑት ተዛራቢ',d:'25 correct in Talk to…',ico:'👥',xp:50,ok:s=>(s.gdCorrect||0)>=25},
+  {id:'ls20',nm:'Good Ear',ge:'ጽቡቕ እዝኒ',d:'20 correct listening answers',ico:'🎧',xp:50,ok:s=>(s.lsCorrect||0)>=20},
+  {id:'ty10',nm:'Fidel Typist',ge:'ጸሓፊ ፊደል',d:'Type 10 words correctly',ico:'⌨️',xp:60,ok:s=>(s.tyCorrect||0)>=10}
+);
+
+ensureState();
+
 updateHome();
 initDailyWord();</script>
 </body>
