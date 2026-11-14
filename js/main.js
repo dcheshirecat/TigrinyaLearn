@@ -1,0 +1,2 @@
+updateHome();
+initDailyWord();
