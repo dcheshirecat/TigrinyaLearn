@@ -541,7 +541,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
     <button class="stab" id="stab-rquiz" onclick="switchScriptTab('rquiz')">Quiz</button>
   </div>
   <div id="stab-chart-pane" class="scroll-area" style="padding-bottom:80px">
-    <div class="fidel-intro"><div class="fidel-intro-title">The Ge'ez Fidel (ፊደል)</div><div class="fidel-intro-text">Tigrinya uses the ancient <strong style="color:var(--sand)">Ge'ez script</strong> — an <strong style="color:var(--sand)">abugida</strong> where each character is a consonant+vowel pair. 7 vowel orders · 22 consonant families. Tap any character to explore it and hear it pronounced.</div></div>
+    <div class="fidel-intro"><div class="fidel-intro-title">The Ge'ez Fidel (ፊደል)</div><div class="fidel-intro-text">Tigrinya uses the ancient <strong style="color:var(--sand)">Ge'ez script</strong> — an <strong style="color:var(--sand)">abugida</strong> where each character is a consonant+vowel pair. 7 vowel orders · 32 consonant families. Tap any character to explore it and hear it pronounced.</div></div>
     <div class="vowel-hdr" id="vowel-hdr"></div>
     <div id="fidel-chart"></div>
     <div class="fidel-detail" id="fidel-detail"></div>
@@ -674,7 +674,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#0e0a0
     <div id="stab-chart-pane2">
       <div style="margin:0 1rem 0.6rem;background:var(--card);border:1px solid rgba(212,160,23,0.15);border-radius:14px;padding:0.78rem 0.9rem">
         <div style="font-size:0.7rem;font-weight:700;color:var(--gold);margin-bottom:0.25rem;letter-spacing:0.1em;text-transform:uppercase">The Ge'ez Fidel (ፊደል)</div>
-        <div style="font-size:0.68rem;color:var(--smoke);line-height:1.6">Tigrinya uses the ancient <strong style="color:var(--sand)">Ge'ez script</strong> — an <strong style="color:var(--sand)">abugida</strong> where each character is consonant+vowel. 7 vowel orders · 22 families. Tap any character to explore and hear it.</div>
+        <div style="font-size:0.68rem;color:var(--smoke);line-height:1.6">Tigrinya uses the ancient <strong style="color:var(--sand)">Ge'ez script</strong> — an <strong style="color:var(--sand)">abugida</strong> where each character is consonant+vowel. 7 vowel orders · 32 families. Tap any character to explore and hear it.</div>
       </div>
       <div style="display:flex;gap:2px;padding:0 1rem 0.22rem" id="vowel-hdr2"></div>
       <div id="fidel-chart2"></div>
@@ -910,29 +910,29 @@ const V = {
     {g:'ሰላም',t:'selam',e:'hello / peace',p:'sel-AM',n:'Used any time of day. Also means peace.'},
     {g:'ጽቡቕ',t:'tsbuk',e:'good / fine',p:'tsBUK',n:'Most common reply to "how are you?".'},
     {g:'የቐንየለይ',t:'yeqenyeley',e:'thank you',p:'ye-QEN-ye-ley',n:'A heartfelt expression of gratitude.'},
-    {g:'በጃኻ',t:'bejaka',e:'please (to a male)',p:'be-JA-ka',n:'Change to "bejaki" for a female.'},
-    {g:'ይቕረ',t:'yiqre',e:'excuse me / sorry',p:'YIQ-re',n:'Used for apologies and to get attention.'},
+    {g:'በጃኻ',t:'bejakha',e:'please (to a male)',p:'be-JA-kha',n:'To a female say በጃኺ (bejakhi).'},
+    {g:'ይቕሬታ',t:'yiqreta',e:'sorry / excuse me',p:'yiq-RE-ta',n:'Used for apologies and to get attention.'},
     {g:'እወ',t:'iwe',e:'yes',p:'IH-we',n:'Short and clear.'},
-    {g:'ኣይፋልን',t:'ayfalen',e:'no',p:'ay-FA-len',n:'A polite and clear way to decline.'},
+    {g:'ኣይፋል',t:'ayfal',e:'no',p:'ay-FAL',n:'To say "it is not (so)", use ኣይኮነን (aykonen).'},
     {g:'ሰናይ ጽባሕ',t:'senay tsbah',e:'good morning',p:'se-NAY tsBEH',n:'"Senay" means good or beautiful.'},
     {g:'ሰናይ ምሸት',t:'senay mshet',e:'good evening',p:'se-NAY mSHET',n:'Said as the sun goes down.'},
     {g:'ሰናይ ዕለት',t:'senay ilet',e:'good day',p:'se-NAY IH-let',n:'A general daytime greeting.'},
-    {g:'ሰናይ ምደር',t:'senay mder',e:'good afternoon',p:'se-NAY mDER',n:'Specifically used in the afternoon.'},
-    {g:'ሰናይ ፍጠር',t:'senay fter',e:'goodbye (go in peace)',p:'se-NAY FTer',n:'Literally "go in peace".'},
+    {g:'ከመይ ውዒልካ?',t:'kemey wi\'ilka?',e:'good afternoon / how was your day? (to a male)',p:'ke-MEY wi-IL-ka',n:'Literally "how did you spend the day?" To a female: ከመይ ውዒልኪ?'},
+    {g:'ደሓን ኩን',t:'dehan kun',e:'goodbye (to a male)',p:'de-HAN KUN',n:'Literally "be well". To a female: ደሓን ኩኒ (dehan kuni).'},
   ]},
   numbers:{label:'Numbers',icon:'🔢',ge:'ቁጽሪ',words:[
     {g:'ሓደ',t:'hade',e:'one',p:'HA-de',n:'The beginning of all counting.'},
-    {g:'ክልተ',t:'kilte',e:'two',p:'KIL-te',n:'Tigrinya has gendered forms in certain contexts.'},
-    {g:'ሰለስተ',t:'seleste',e:'three',p:'se-LES-te',n:'Three is an auspicious number in Eritrean culture.'},
+    {g:'ክልተ',t:'kilte',e:'two',p:'KIL-te',n:'Two of something: ክልተ ሰባት (kilte sebat) — two people.'},
+    {g:'ሰለስተ',t:'seleste',e:'three',p:'se-LES-te',n:'The coffee ceremony is served in three rounds.'},
     {g:'ኣርባዕተ',t:'arbaete',e:'four',p:'ar-BAE-te',n:'Note the glottal "ae" sound.'},
     {g:'ሓሙሽተ',t:'hamushte',e:'five',p:'ha-MUSH-te',n:'Five fingers on one hand.'},
-    {g:'ሽድሽተ',t:'shdshte',e:'six',p:'shd-SHTE',n:'A complex consonant cluster.'},
+    {g:'ሽዱሽተ',t:'shdushte',e:'six',p:'shi-DUSH-te',n:'A tricky "sh" sound repeated twice.'},
     {g:'ሸውዓተ',t:'shewaete',e:'seven',p:'she-WAE-te',n:'Seven days of the week.'},
-    {g:'ሸሞንተ',t:'shemonte',e:'eight',p:'she-MON-te',n:'Eight is a balanced number.'},
-    {g:'ትሸዓተ',t:'tsheaete',e:'nine',p:'tshe-AE-te',n:'Almost at ten!'},
+    {g:'ሸሞንተ',t:'shemonte',e:'eight',p:'she-MON-te',n:'Compare Arabic thamaniya and Hebrew shmone — shared Semitic roots.'},
+    {g:'ትሽዓተ',t:'tish\'ate',e:'nine',p:'tish-A-te',n:'Almost at ten!'},
     {g:'ዓሰርተ',t:'aserte',e:'ten',p:'a-SER-te',n:'The base of decimal counting.'},
     {g:'ዕስራ',t:'isra',e:'twenty',p:'IS-ra',n:'Multiples of ten follow a distinct pattern.'},
-    {g:'ሚእቲ',t:'miti',e:'one hundred',p:'MIH-ti',n:'Used constantly in markets.'},
+    {g:'ሚእቲ',t:'mi\'iti',e:'one hundred',p:'MI-i-ti',n:'Used constantly in markets.'},
   ]},
   food:{label:'Food & Drink',icon:'🍞',ge:'መግቢ',words:[
     {g:'እንጀራ',t:'injera',e:'injera (flatbread)',p:'in-JE-ra',n:'The cornerstone of Eritrean cuisine.'},
@@ -954,152 +954,152 @@ const V = {
     {g:'ሓው',t:'haw',e:'brother',p:'HAW',n:'Used as a term of solidarity even for non-relatives.'},
     {g:'ሓብቲ',t:'habti',e:'sister',p:'HAB-ti',n:'Sisters play central roles in family ceremonies.'},
     {g:'ወዲ',t:'wedi',e:'son / boy',p:'WE-di',n:'"Wedi" is also a term of endearment.'},
-    {g:'ጓል',t:'gwal',e:'daughter / girl',p:'GWAL',n:'Also appears in many Eritrean place names.'},
+    {g:'ጓል',t:'gwal',e:'daughter / girl',p:'GWAL',n:'Like ወዲ (son of), ጓል also means "daughter of" in names.'},
     {g:'ሰበይቲ',t:'sebeyti',e:'wife / woman',p:'se-BEY-ti',n:'Can refer to a woman generally or a wife.'},
     {g:'ሰብኣይ',t:'sebay',e:'husband / man',p:'se-BAY',n:'Can refer to a man generally or a husband.'},
-    {g:'ኣያ',t:'aya',e:'grandfather',p:'A-ya',n:'Elders are deeply revered in Tigrinya culture.'},
-    {g:'እዮ',t:'iyo',e:'grandmother',p:'IH-yo',n:'Grandmothers are keepers of family stories.'},
+    {g:'ኣባሓጎ',t:'abahago',e:'grandfather',p:'a-ba-HA-go',n:'Elders are deeply revered in Tigrinya culture. (ኣያ means older brother.)'},
+    {g:'ዓባይ',t:'abay',e:'grandmother',p:'a-BAY',n:'ዓባይ also means "big/great" (feminine) — the "great" mother.'},
     {g:'ቆልዓ',t:'qolaa',e:'child',p:'QO-laa',n:'Children are considered a great blessing.'},
     {g:'ዓርኪ',t:'arki',e:'friend',p:'AR-ki',n:'Friendship is as sacred as family.'},
   ]},
   colors:{label:'Colors',icon:'🎨',ge:'ሕብሪ',words:[
-    {g:'ቀይሕ',t:'qeyh',e:'red',p:'QEYH',n:'Red in the Eritrean flag represents independence fighters.'},
+    {g:'ቀይሕ',t:'qeyih',e:'red',p:'QE-yih',n:'Red in the Eritrean flag stands for the blood shed for independence.'},
     {g:'ጸሊም',t:'tselim',e:'black',p:'TSE-lim',n:'Used to describe dark colors generally.'},
-    {g:'ጻዕዳ',t:'tsaeda',e:'white',p:'TSAE-da',n:'Represents purity and new beginnings.'},
+    {g:'ጻዕዳ',t:'tsa\'ida',e:'white',p:'TSA-i-da',n:'The colour of the traditional ዙርያ cotton dress and ነጸላ shawl.'},
     {g:'ሰማያዊ',t:'semayawi',e:'sky blue',p:'se-ma-YA-wi',n:'Literally "sky-like".'},
-    {g:'ቢጫ',t:'bicha',e:'yellow',p:'BI-cha',n:'The color of gold and warm sunshine.'},
-    {g:'ሓምላይ',t:'hamlay',e:'green',p:'HAM-lay',n:'Green in the flag represents fertile land.'},
+    {g:'ብጫ',t:'bicha',e:'yellow',p:'BI-cha',n:'The colour of the olive wreath on the Eritrean flag.'},
+    {g:'ሓምላይ',t:'hamlay',e:'green',p:'HAM-lay',n:'Green in the Eritrean flag stands for agriculture and the land.'},
     {g:'ቡናዊ',t:'bunawi',e:'brown',p:'bu-NA-wi',n:'Literally "coffee-like".'},
     {g:'ሮዛ',t:'roza',e:'pink',p:'RO-za',n:'A borrowed word now integrated into Tigrinya.'},
-    {g:'ብርቱዕ',t:'brtue',e:'orange',p:'br-TUE',n:'Can also mean strong or intense.'},
+    {g:'ብርቱኻናዊ',t:'birtukhanawi',e:'orange',p:'bir-tu-kha-NA-wi',n:'Literally "orange-like", from ብርቱኻን (the fruit).'},
     {g:'ወርቃዊ',t:'worqawi',e:'golden',p:'wor-QA-wi',n:'From worqi (gold).'},
-    {g:'ሕምብርቲ',t:'hmbrti',e:'purple',p:'hmb-RTI',n:'Associated with royalty and religious vestments.'},
-    {g:'ብሩህ',t:'bruh',e:'bright / light',p:'BRU-h',n:'"Bruh" also means intelligence metaphorically.'},
+    {g:'ሊላ',t:'lila',e:'purple / violet',p:'LI-la',n:'A borrowed word. (Careful: ሕምብርቲ means navel!)'},
+    {g:'ብሩህ',t:'bruh',e:'bright / light',p:'BRUH',n:'Used for light colours and for a bright, clear mind.'},
   ]},
   phrases:{label:'Daily Phrases',icon:'💬',ge:'ዕለታዊ',words:[
     {g:'ስምካ መን ዩ?',t:'smka men yu?',e:'What is your name? (male)',p:'SMKA men YU',n:'Say "smki men yu?" to a female.'},
     {g:'ስመይ ... ዩ',t:'smey ... yu',e:'My name is ...',p:'SME-y ... yu',n:'Fill your name in the middle.'},
-    {g:'ካብ ኣበይ ኢኻ?',t:'kab abey ika?',e:'Where are you from? (male)',p:'KAB a-BEY IH-ka',n:'Eritreans identify closely with their homeland.'},
+    {g:'ካብ ኣበይ ኢኻ?',t:'kab abey ikha?',e:'Where are you from? (male)',p:'KAB a-BEY I-kha',n:'To a female: ካብ ኣበይ ኢኺ? (ikhi)'},
     {g:'ኣይፈልጥን',t:'ayfeltn',e:"I do not know",p:'ay-FEL-tn',n:'An honest and humble answer.'},
-    {g:'ሓጊዝካኒ',t:'hagizakni',e:'Help me (to a male)',p:'ha-GI-zak-ni',n:'A direct and clear request for help.'},
+    {g:'ሓግዘኒ',t:'hagzeni',e:'Help me (to a male)',p:'HAG-ze-ni',n:'To a female: ሓግዝኒ (hagzini). ሓጊዝካኒ means "you helped me".'},
     {g:'ክንደይ ዋጋ?',t:'kindey waga?',e:'How much does it cost?',p:'KIN-dey WA-ga',n:'Essential for shopping at Eritrean markets.'},
     {g:'ኣበይ ዩ?',t:'abey yu?',e:'Where is it?',p:'a-BEY yu',n:'Useful for navigating Eritrean towns.'},
-    {g:'ኣይተረደኣንን',t:'aytereadean',e:"I do not understand",p:'ay-te-re-DE-an',n:'Locals appreciate honesty from learners.'},
-    {g:'ብቐስ ተዛረብ',t:'bqes tzerab',e:'Please speak slowly',p:'bQES tze-RAB',n:'A vital phrase for learners!'},
+    {g:'ኣይተረድኣንን',t:'aytered\'anin',e:"I do not understand",p:'ay-te-red-A-nin',n:'Uses the ኣይ-...-ን negation sandwich.'},
+    {g:'ቀስ ኢልካ ተዛረብ',t:'qes ilka tezareb',e:'Speak slowly (to a male)',p:'QES IL-ka te-ZA-reb',n:'A vital phrase for learners! To a female: ቀስ ኢልኪ ተዛረቢ.'},
     {g:'ናቕፋ',t:'naqfa',e:'Nakfa (Eritrean currency)',p:'NAQ-fa',n:'Named after Nakfa city.'},
-    {g:'ቤተክርስቲያን',t:'betekrstyan',e:'church',p:'be-te-krs-TI-yan',n:'Christianity in Eritrea dates to the 4th century AD.'},
+    {g:'ሕጂ',t:'hiji',e:'now',p:'HI-ji',n:'Very common: ሕጂ እመጽእ (hiji imetsi\') — I am coming now.'},
     {g:'ዕዳጋ',t:'idaga',e:'market / bazaar',p:'IH-da-ga',n:'Markets are the heartbeat of Eritrean towns.'},
   ]},
   body:{label:'Body Parts',icon:'🫀',ge:'ኣካላት',words:[
-    {g:'ርእሲ',t:'resi',e:'head',p:'RE-si',n:'"Resi" also means "chief" or "leader" — a head in both senses.'},
-    {g:'ዓይኒ',t:'ayni',e:'eye',p:'AY-ni',n:'"Eyni" also means "same" — a beautiful double meaning.'},
-    {g:'ኣእዛን',t:'aezan',e:'ear',p:'ae-ZAN',n:'This word uses sounds unique to the Geez script — a great listening exercise.'},
-    {g:'ኣፍ',t:'af',e:'mouth',p:'AF',n:'"Af" also means language in some contexts — you speak through your mouth.'},
+    {g:'ርእሲ',t:'ri\'isi',e:'head',p:'RI-i-si',n:'With suffixes it also means "self": ርእሰይ — myself.'},
+    {g:'ዓይኒ',t:'\'ayni',e:'eye',p:'AY-ni',n:'Plural: ኣዒንቲ (a\'inti) — eyes.'},
+    {g:'እዝኒ',t:'izni',e:'ear',p:'IZ-ni',n:'Plural: ኣእዛን (a\'izan) — ears.'},
+    {g:'ኣፍ',t:'af',e:'mouth',p:'AF',n:'Short, simple and the same in many Semitic languages.'},
     {g:'ኢድ',t:'id',e:'hand / arm',p:'ID',n:'One word covers both hand and arm — context determines which.'},
-    {g:'ኣእጋር',t:'aegar',e:'leg / foot',p:'ae-GAR',n:'Like hand/arm, one word covers both leg and foot.'},
-    {g:'ልቢ',t:'lbi',e:'heart',p:'LBI',n:'"Lbi" also means "mind" or "thought" — the heart as seat of wisdom.'},
-    {g:'ቆርበት',t:'qorbet',e:'skin',p:'QOR-bet',n:'Skin is described in Tigrinya poetry as the body\'s first language.'},
+    {g:'እግሪ',t:'igri',e:'leg / foot',p:'IG-ri',n:'One word covers both leg and foot. Plural: ኣእጋር (a\'igar).'},
+    {g:'ልቢ',t:'libi',e:'heart',p:'LI-bi',n:'Also used for mind and attention: ልቢ ግበር — pay attention!'},
+    {g:'ቆርበት',t:'qorbet',e:'skin / hide',p:'QOR-bet',n:'Used for both human skin and animal hide (leather).'},
     {g:'ጸጉሪ',t:'tseguri',e:'hair',p:'tse-GU-ri',n:'Traditional Eritrean hairstyles carry deep cultural meaning.'},
-    {g:'ኣፍ ልቢ',t:'af lbi',e:'stomach',p:'AF LBI',n:'Literally "mouth of the heart" — a poetic way to describe the stomach.'},
-    {g:'ሑቀ',t:'huqe',e:'back',p:'HU-qe',n:'Often used in proverbs about carrying burdens.'},
-    {g:'ሕቖ',t:'hqo',e:'waist',p:'HQO',n:'Important in traditional Eritrean dance and posture.'},
+    {g:'ከብዲ',t:'kebdi',e:'stomach / belly',p:'KEB-di',n:'ከብዲ ሓሚሙኒ — I have a stomach ache.'},
+    {g:'ሕቖ',t:'hiqo',e:'back',p:'HI-qo',n:'Also used for "behind": ድሕሪ means after/behind.'},
+    {g:'ኣፍንጫ',t:'afncha',e:'nose',p:'af-IN-cha',n:'Literally related to ኣፍ (mouth) — an opening of the face.'},
   ]},
   animals:{label:'Animals',icon:'🦁',ge:'እንስሳ',words:[
     {g:'ንስሪ',t:'nsri',e:'eagle',p:'ns-RI',n:'The eagle is a symbol of freedom and strength in Eritrean culture.'},
     {g:'ኣንበሳ',t:'anbesa',e:'lion',p:'an-BE-sa',n:'Symbol of bravery across East African cultures.'},
     {g:'ፈረስ',t:'feres',e:'horse',p:'FE-res',n:'Horses played a key role in Eritrean history and warfare.'},
-    {g:'ላም',t:'lam',e:'cow',p:'LAM',n:'Cattle are central to agricultural life in Eritrea.'},
-    {g:'ኣባጊዕ',t:'abagi',e:'sheep',p:'a-BA-gi',n:'Sheep are sacrificed at major celebrations and feasts.'},
-    {g:'ድሙ',t:'dmu',e:'cat',p:'DMU',n:'Cats have lived alongside Eritreans for thousands of years.'},
+    {g:'ላም',t:'lam',e:'cow',p:'LAM',n:'Cattle are central to agricultural life in Eritrea. Plural: ኣሓ (aha).'},
+    {g:'በጊዕ',t:'begi\'',e:'sheep',p:'be-GI',n:'Plural: ኣባጊዕ (abagi\'). Often slaughtered for feasts and holidays.'},
+    {g:'ድሙ',t:'dimu',e:'cat',p:'DI-mu',n:'A common household animal in Eritrean towns.'},
     {g:'ከልቢ',t:'kelbi',e:'dog',p:'KEL-bi',n:'Dogs have been used as working animals across the highlands.'},
     {g:'ዑፍ',t:'uf',e:'bird',p:'UF',n:'"Uf" is the general word for bird — specific species have their own names.'},
     {g:'ዓሳ',t:'asa',e:'fish',p:'A-sa',n:'Massawa on the Red Sea is famous for its abundant fish.'},
-    {g:'ዝምቢ',t:'zmbi',e:'fly / insect',p:'ZM-bi',n:'Used broadly for small flying insects.'},
-    {g:'ኣጋም',t:'agam',e:'snake',p:'A-gam',n:'Snakes appear in Tigrinya proverbs about wisdom and deception.'},
-    {g:'ደነቋሪ',t:'deneqwari',e:'monkey',p:'de-ne-QWA-ri',n:'Found in the highlands of Eritrea and northern Ethiopia.'},
+    {g:'ጽንጽያ',t:'tsintsiya',e:'fly (insect)',p:'tsin-TSI-ya',n:'(ዝንቢ is the Amharic-style word; ጽንጽያ is the common Tigrinya one.)'},
+    {g:'ተመን',t:'temen',e:'snake',p:'TE-men',n:'Snakes appear in many Tigrinya proverbs.'},
+    {g:'ህበይ',t:'hibey',e:'monkey / baboon',p:'HI-bey',n:'Baboons are a common sight on the road from Asmara to Massawa.'},
   ]},
   nature:{label:'Nature',icon:'🌿',ge:'ተፈጥሮ',words:[
     {g:'ጸሓይ',t:'tsehay',e:'sun',p:'TSE-hay',n:'"Tsehay" is also a popular Tigrinya name meaning "sunshine".'},
     {g:'ወርሒ',t:'werhi',e:'moon / month',p:'WER-hi',n:'One word for both moon and month — the moon marks time.'},
     {g:'ኮኾብ',t:'kokhob',e:'star',p:'KO-khob',n:'"Kokhob" is used in poetry and names to mean shining one.'},
-    {g:'ማይ',t:'may',e:'water / river',p:'MAY',n:'"May" means both water and river — water is life.'},
-    {g:'ደብሪ',t:'debri',e:'mountain',p:'DEB-ri',n:'Eritrea is known for its dramatic highland mountains.'},
-    {g:'ባሕሪ',t:'bahri',e:'sea / ocean',p:'BAH-ri',n:'Eritrea has 1,200 km of Red Sea coastline.'},
+    {g:'ሩባ',t:'ruba',e:'river',p:'RU-ba',n:'Many Eritrean rivers only flow in the rainy season. (ማይ also appears in place names: ማይ ሓባር.)'},
+    {g:'ጎቦ',t:'gobo',e:'mountain / hill',p:'GO-bo',n:'(ደብሪ also means mountain, and is used for monasteries such as ደብረ ቢዘን.)'},
+    {g:'ባሕሪ',t:'bahri',e:'sea / ocean',p:'BAH-ri',n:'Eritrea has well over 1,000 km of Red Sea coastline, plus the Dahlak islands.'},
     {g:'ሰማይ',t:'semay',e:'sky',p:'SE-may',n:'"Semay" also means heaven — the sky is a sacred space.'},
-    {g:'ምድሪ',t:'mdri',e:'earth / land',p:'MD-ri',n:'Eritrea\'s name comes from Greek "Erythraia" meaning Red Sea.'},
-    {g:'ዓወል',t:'awel',e:'wind',p:'A-wel',n:'Highland winds are celebrated in Tigrinya folk songs.'},
+    {g:'ምድሪ',t:'midri',e:'earth / land',p:'MID-ri',n:'Fun fact: the name Eritrea comes from the Greek name for the Red Sea (Erythra Thalassa).'},
+    {g:'ንፋስ',t:'nifas',e:'wind',p:'ni-FAS',n:'Also means "air".'},
     {g:'ዝናም',t:'znam',e:'rain',p:'Z-nam',n:'Rain is celebrated — Eritrea has distinct rainy and dry seasons.'},
-    {g:'ሓዊ',t:'hawi',e:'fire',p:'HA-wi',n:'"Hawi" also means passion and intensity in Tigrinya poetry.'},
-    {g:'ዕፅ',t:'ets',e:'tree / wood',p:'ETS',n:'Deforestation and reforestation are major environmental issues in Eritrea.'},
+    {g:'ሓዊ',t:'hawi',e:'fire',p:'HA-wi',n:'Coffee for the ceremony is roasted over a small charcoal fire.'},
+    {g:'ኦም',t:'om',e:'tree',p:'OM',n:'Reforestation is a major environmental effort in Eritrea.'},
   ]},
   time:{label:'Time & Days',icon:'📅',ge:'ግዜ',words:[
-    {g:'ሎሚ',t:'lomi',e:'today',p:'LO-mi',n:'"Lomi" can also mean "now" in casual speech.'},
+    {g:'ሎሚ',t:'lomi',e:'today',p:'LO-mi',n:'For "now", say ሕጂ (hiji).'},
     {g:'ጽባሕ',t:'tsbah',e:'tomorrow / morning',p:'tsBAH',n:'Context determines whether it means tomorrow or morning.'},
-    {g:'ትማሊ',t:'tmali',e:'yesterday',p:'TMA-li',n:'The past is referred to gently in Tigrinya culture.'},
+    {g:'ትማሊ',t:'timali',e:'yesterday',p:'ti-MA-li',n:'ቅድሚ ትማሊ — the day before yesterday.'},
     {g:'ሰንበት',t:'senbet',e:'Sunday',p:'SEN-bet',n:'Sunday is a holy day for Eritrean Orthodox Christians.'},
-    {g:'ሰኑይ',t:'senuy',e:'Monday',p:'SE-nuy',n:'The first working day — market days often start here.'},
-    {g:'ሰሉስ',t:'selus',e:'Tuesday',p:'SE-lus',n:'Named from an ancient Ge\'ez counting system.'},
-    {g:'ረቡዕ',t:'rebue',e:'Wednesday',p:'re-BUE',n:'Mid-week — often a secondary market day.'},
-    {g:'ሓሙስ',t:'hamus',e:'Thursday',p:'HA-mus',n:'From "hamushte" (five) — the fifth day.'},
+    {g:'ሰኑይ',t:'senuy',e:'Monday',p:'SE-nuy',n:'From the Ge\'ez word for "second" — the second day after Sunday.'},
+    {g:'ሰሉስ',t:'selus',e:'Tuesday',p:'SE-lus',n:'From the Ge\'ez word for "third" (compare ሰለስተ, three).'},
+    {g:'ረቡዕ',t:'rebu\'',e:'Wednesday',p:'re-BU',n:'From the Ge\'ez word for "fourth" (compare ኣርባዕተ, four).'},
+    {g:'ሓሙስ',t:'hamus',e:'Thursday',p:'HA-mus',n:'From the root for "five" (compare ሓሙሽተ) — the fifth day.'},
     {g:'ዓርቢ',t:'arbi',e:'Friday',p:'AR-bi',n:'A holy day for Eritrean Muslims. Markets are busy.'},
-    {g:'ቀዳም',t:'qedam',e:'Saturday',p:'QE-dam',n:'A major market day across much of Eritrea.'},
+    {g:'ቀዳም',t:'qedam',e:'Saturday',p:'QE-dam',n:'Saturday is a major market day in many highland towns.'},
     {g:'ሰዓት',t:'saat',e:'hour / time',p:'SA-at',n:'From Arabic — Tigrinya absorbed many loanwords.'},
-    {g:'ዓመት',t:'amet',e:'year',p:'A-met',n:'Eritrea uses the Ge\'ez calendar — about 7-8 years behind Gregorian.'},
+    {g:'ዓመት',t:'\'amet',e:'year',p:'A-met',n:'Daily life uses the Gregorian calendar; the Orthodox Church keeps the Ge\'ez calendar, 7–8 years behind.'},
   ]},
   places:{label:'Places',icon:'🗺️',ge:'ቦታ',words:[
     {g:'ኣስመራ',t:'asmera',e:'Asmara (capital)',p:'as-ME-ra',n:'Eritrea\'s capital is known for its stunning Italian art-deco architecture.'},
     {g:'ምጽዋ',t:'mitswa',e:'Massawa (port city)',p:'mits-WA',n:'One of the hottest cities on Earth, on the Red Sea coast.'},
-    {g:'ቤት',t:'bet',e:'house / home',p:'BET',n:'"Bet" also means "family" — home is family.'},
+    {g:'ቤት',t:'bet',e:'house / home',p:'BET',n:'Also starts many compounds: ቤት ትምህርቲ (school), ቤት ጽሕፈት (office).'},
     {g:'ቤተ ክርስቲያን',t:'bete krstyan',e:'church',p:'BE-te krs-TI-yan',n:'The Orthodox church is central to highland Eritrean identity.'},
-    {g:'ሕክምና',t:'hkimna',e:'hospital / clinic',p:'hk-IMna',n:'Healthcare access has been a major development goal in Eritrea.'},
+    {g:'ሆስፒታል',t:'hospital',e:'hospital',p:'hos-pi-TAL',n:'A loanword. ሕክምና means medical treatment.'},
     {g:'ቤት ትምህርቲ',t:'bet tmhrti',e:'school',p:'BET tmh-RTI',n:'Education is highly valued — literacy rates have grown dramatically.'},
     {g:'ዕዳጋ',t:'idaga',e:'market',p:'IH-da-ga',n:'Markets are the economic and social heartbeat of towns.'},
-    {g:'ጎደና',t:'godena',e:'road / street',p:'go-DE-na',n:'Asmara has some of the best-preserved colonial-era streets in Africa.'},
+    {g:'ጎደና',t:'godena',e:'street / avenue',p:'go-DE-na',n:'Asmara\'s main street is ጎደና ሓርነት (Harnet Avenue).'},
     {g:'ሃገር',t:'hager',e:'country / homeland',p:'HA-ger',n:'"Hager" carries deep emotional weight — homeland and identity are one.'},
     {g:'ከተማ',t:'ketema',e:'city / town',p:'ke-TE-ma',n:'Eritrea has several major cities beyond its capital.'},
-    {g:'ዓዲ',t:'adi',e:'village',p:'A-di',n:'Most Eritreans trace their roots to a village — "adi" is sacred.'},
+    {g:'ዓዲ',t:'\'adi',e:'village / homeland',p:'A-di',n:'Also in many place names: ዓዲ ቐይሕ, ዓዲ ዃላ.'},
     {g:'ባሕሪ',t:'bahri',e:'sea / Red Sea',p:'BAH-ri',n:'The Red Sea coast is central to Eritrean trade and culture.'},
   ]},
   emotions:{label:'Emotions',icon:'❤️',ge:'ስምዒት',words:[
     {g:'ፍቕሪ',t:'fiqri',e:'love',p:'fiq-RI',n:'"Fiqri" is one of the most beautiful words in Tigrinya.'},
-    {g:'ሓጎስ',t:'hagos',e:'happiness / joy',p:'HA-gos',n:'"Hagos" is also a popular Tigrinya name meaning joyful.'},
+    {g:'ሓጎስ',t:'hagos',e:'happiness / joy',p:'HA-gos',n:'Also a popular Tigrinya name.'},
     {g:'ሓዘን',t:'hazen',e:'sadness / grief',p:'HA-zen',n:'Tigrinya has rich vocabulary for expressing grief.'},
     {g:'ፍርሒ',t:'firhi',e:'fear',p:'FIR-hi',n:'A natural human emotion acknowledged in Tigrinya culture.'},
-    {g:'ቁጠዐ',t:'qutae',e:'anger',p:'qu-TAE',n:'Anger is expressed but quickly tempered — patience is valued.'},
-    {g:'ሓፍነት',t:'hafnet',e:'shame / embarrassment',p:'HAF-net',n:'An important social emotion in Eritrean culture.'},
+    {g:'ቁጥዓ',t:'qut\'a',e:'anger',p:'qut-A',n:'ተቖጢዑ — he got angry.'},
+    {g:'ሕፍረት',t:'hifret',e:'shame / embarrassment',p:'HIF-ret',n:'An important social emotion in Eritrean culture.'},
     {g:'ተስፋ',t:'tesfa',e:'hope',p:'TES-fa',n:'"Tesfa" is also a popular name meaning hope.'},
-    {g:'ሰላም ልቢ',t:'selam lbi',e:'peace of mind',p:'SE-lam LBI',n:'Literally "peace of heart" — inner peace.'},
-    {g:'ምስጋና',t:'mzgana',e:'gratitude',p:'mz-GA-na',n:'Gratitude is a central value in Tigrinya culture.'},
-    {g:'ምሕዝነት',t:'mhznet',e:'friendship / solidarity',p:'mhz-NET',n:'Community solidarity is the foundation of Eritrean society.'},
+    {g:'ቅሳነት',t:'qisanet',e:'peace of mind / calm',p:'qi-SA-net',n:'Inner calm and rest.'},
+    {g:'ምስጋና',t:'misgana',e:'gratitude / praise',p:'mis-GA-na',n:'Also a common name.'},
+    {g:'ምሕዝነት',t:'mihzinet',e:'friendship',p:'mih-zi-NET',n:'From the same root as ምሕዝቲ (friend, f.).'},
     {g:'ናፍቖት',t:'nafqot',e:'longing / nostalgia',p:'naf-QOT',n:'A feeling many diaspora Eritreans know deeply.'},
-    {g:'ሓበን',t:'haben',e:'pride',p:'HA-ben',n:'"Haben" is also a popular female name meaning pride.'},
+    {g:'ሓበን',t:'haben',e:'pride',p:'HA-ben',n:'Also a popular name.'},
   ]},
   clothing:{label:'Clothing',icon:'👘',ge:'ክዳን',words:[
-    {g:'ክዳን',t:'kdan',e:'clothing / dress',p:'KDA-n',n:'The general word for any garment or clothing.'},
-    {g:'ቀሚስ',t:'qemis',e:'shirt / dress',p:'QE-mis',n:'A versatile word for the main upper garment.'},
+    {g:'ክዳን',t:'kidan',e:'clothing',p:'ki-DAN',n:'The general word for clothes.'},
+    {g:'ቀሚሽ',t:'qemish',e:'dress',p:'qe-MISH',n:'A woman\'s dress.'},
     {g:'ሱሪ',t:'suri',e:'trousers / pants',p:'SU-ri',n:'Modern garment adopted across Eritrean society.'},
-    {g:'ሸሚዝ',t:'shemiz',e:'traditional dress',p:'she-MIZ',n:'The traditional white cotton dress worn by women.'},
-    {g:'ጫቃ',t:'chaqa',e:'shoes',p:'CHA-qa',n:'Footwear became common across Eritrea in the modern era.'},
+    {g:'ዙርያ',t:'zurya',e:'traditional women\'s dress',p:'ZUR-ya',n:'White cotton with a woven coloured border. Worn for holidays and church.'},
+    {g:'ጫማ',t:'chama',e:'shoes',p:'CHA-ma',n:'The usual word for shoes.'},
     {g:'ቆቢዕ',t:'qobie',e:'hat / cap',p:'qo-BIE',n:'Traditional Eritrean caps have distinct regional styles.'},
-    {g:'ቀፎ',t:'qefo',e:'traditional headwrap',p:'QE-fo',n:'Worn by women — the style varies by region and occasion.'},
-    {g:'ክራባት',t:'krabat',e:'tie / necktie',p:'kra-BAT',n:'A borrowed word from the word "Croat" — Croatian soldiers wore them.'},
-    {g:'ሻርፕ',t:'sharp',e:'scarf',p:'SHARP',n:'Scarves are worn for both warmth and modesty across Eritrea.'},
-    {g:'ኳፕ',t:'kwap',e:'coat / jacket',p:'KWAP',n:'The highland climate makes jackets essential in the evenings.'},
-    {g:'ቀዳሕ',t:'qedah',e:'belt',p:'QE-dah',n:'Traditional belts are often elaborately decorated leather.'},
-    {g:'ኣርሻ',t:'arsha',e:'jewelry',p:'AR-sha',n:'Gold and silver jewelry are important in Eritrean cultural ceremonies.'},
+    {g:'ነጸላ',t:'netsela',e:'traditional shawl',p:'ne-TSE-la',n:'White cotton shawl with a coloured border, worn over the head or shoulders.'},
+    {g:'ክራባታ',t:'krabata',e:'tie / necktie',p:'kra-BA-ta',n:'From Italian cravatta, which comes from "Croat" — Croatian soldiers wore them.'},
+    {g:'ሸሚዝ',t:'shemiz',e:'shirt',p:'she-MIZ',n:'A borrowed word (compare Italian camicia, Arabic qamis).'},
+    {g:'ጃኬት',t:'jaket',e:'jacket / coat',p:'JA-ket',n:'Asmara is 2,300 m high — evenings are cool, so jackets are common.'},
+    {g:'ቅናት',t:'qinat',e:'belt',p:'qi-NAT',n:'Also the sash worn with traditional dress.'},
+    {g:'ስልማት',t:'silmat',e:'jewelry',p:'sil-MAT',n:'Gold jewelry is an important part of weddings.'},
   ]},
   sentences:{label:'Sentences',icon:'🗣️',ge:'ሓሳብ',words:[
-    {g:'ከመይ ኣለካ?',t:'kemey aleka?',e:'How are you? (to a male)',p:'ke-MEY a-LE-ka',n:'The most common greeting after hello. Change to aleki for a female.'},
+    {g:'ከመይ ኣለኻ?',t:'kemey alekha?',e:'How are you? (to a male)',p:'ke-MEY a-LE-kha',n:'To a female: ከመይ ኣለኺ? (alekhi). k becomes kh (ኸ) after a vowel.'},
     {g:'ጽቡቕ ኣለኹ።',t:'tsbuk aleku.',e:'I am fine.',p:'tsBUK a-LE-ku',n:'The standard reply to how are you.'},
     {g:'ኣነ ካብ ኤርትራ እየ።',t:'ane kab eritrea eye.',e:'I am from Eritrea.',p:'A-ne kab e-ri-TRE-a EYE',n:'Eritreans feel deep pride in saying where they are from.'},
-    {g:'ትግርኛ ትዛረብ ዶ?',t:'tigrinya tzereb do?',e:'Do you speak Tigrinya?',p:'tig-RI-nya tze-REB do',n:'The do particle at the end turns a statement into a yes or no question.'},
+    {g:'ትግርኛ ትዛረብ ዶ?',t:'tigrinya tizareb do?',e:'Do you speak Tigrinya? (to a male)',p:'tig-RI-nya ti-ZA-reb do',n:'ዶ after the verb turns a statement into a yes/no question. To a female: ትዛረቢ ዶ?'},
     {g:'ፍቕሪ እዩ።',t:'fiqri eyu.',e:'It is love.',p:'fiq-RI EYU',n:'A simple but powerful sentence.'},
     {g:'ኣደይ ጽብቕቲ እያ።',t:'adey tsbqti eya.',e:'My mother is beautiful.',p:'A-dey tsbq-TI EYA',n:'Uses the possessive suffix ey (my) and the feminine to-be form eya.'},
     {g:'ቤትና ዓቢ እዩ።',t:'betna abi eyu.',e:'Our house is big.',p:'BET-na A-bi EYU',n:'Uses na (our) possessive suffix. Abi is the masculine form of big.'},
-    {g:'ማይ ይስተኻ?',t:'may ysteka?',e:'Would you like water?',p:'MAY ys-TE-ka',n:'Offering water to a guest is a sacred act of Eritrean hospitality.'},
-    {g:'ሰናይ ጉዕዞ!',t:'senay guzo!',e:'Have a good journey!',p:'se-NAY GU-zo',n:'Said warmly to someone about to travel.'},
-    {g:'ናብ ዕዳጋ ይኸይድ ኣለኹ።',t:'nab idaga ykheyid aleku.',e:'I am going to the market.',p:'NAB IH-da-ga a-LE-ku',n:'Uses the preposition nab (towards) and present continuous tense.'},
-    {g:'ቡን ይፈቱ ኔረ።',t:'bun yfetu nere.',e:'I used to love coffee.',p:'BOON yfe-TU NE-re',n:'Nere indicates a past habitual action - something you used to do.'},
+    {g:'ማይ ትደሊ ዶ?',t:'may tideli do?',e:'Would you like water? (to a male)',p:'MAY ti-DE-li do',n:'Offering water to a guest is a basic act of hospitality.'},
+    {g:'ጽቡቕ ጉዕዞ!',t:'tsbuq gu\'zo!',e:'Have a good journey!',p:'tsBUQ GU-zo',n:'Said warmly to someone about to travel.'},
+    {g:'ናብ ዕዳጋ እኸይድ ኣለኹ።',t:'nab idaga ikheyid aleku.',e:'I am going to the market.',p:'NAB IH-da-ga a-LE-ku',n:'Uses the preposition nab (towards) and present continuous tense.'},
+    {g:'ቡን እፈቱ ነይረ።',t:'bun ifetu neyre.',e:'I used to love coffee.',p:'BUN i-FE-tu NEY-re',n:'ነይረ after a verb marks a past habit — something you used to do.'},
     {g:'ኤርትራ ሃገርና እያ።',t:'eritrea hagerna eya.',e:'Eritrea is our homeland.',p:'e-ri-TRE-a ha-GER-na EYA',n:'A deeply emotional sentence - homeland identity is central to Tigrinya culture.'},
   ]},
   actions:{label:'Actions',icon:'🏃',ge:'ተግባር',words:[
@@ -1112,8 +1112,8 @@ const V = {
     {g:'ይደቅስ',t:'ydeqs',e:'he sleeps',p:'yde-QS',n:'Masculine present tense of "to sleep".'},
     {g:'ይነብር',t:'ynebr',e:'he lives / stays',p:'yne-BR',n:'Masculine present tense of "to live". Also means "he stays".'},
     {g:'ይጽሕፍ',t:'ytshf',e:'he writes',p:'ytsh-F',n:'Masculine present tense of "to write".'},
-    {g:'ይቐትል',t:'yqetl',e:'he works',p:'yqe-TL',n:'Also means "he kills" — context determines which!'},
-    {g:'ይፈልጥ',t:'yfelṭ',e:'he knows',p:'yfel-T',n:'Masculine present. The negative: ኣይፈልጥን (ayfeltn).'},
+    {g:'ይሰርሕ',t:'yiserih',e:'he works',p:'yi-SE-rih',n:'Masculine present of "to work". Also "he makes". Feminine: ትሰርሕ.'},
+    {g:'ይፈልጥ',t:'yifelt',e:'he knows',p:'yi-FELT',n:'Masculine present. The negative: ኣይፈልጥን (ayfeltin).'},
     {g:'ይፈቱ',t:'yfetu',e:'he loves / likes',p:'yfe-TU',n:'Masculine present tense of "to love". A beautiful verb.'},
   ]},
 };
@@ -1123,17 +1123,17 @@ const CATS = Object.keys(V);
 const VOWEL_LABELS=['ä','u','i','a','e','ə','o'];
 const VOWEL_NAMES=['1st (ä)','2nd (u)','3rd (i)','4th (a)','5th (e)','6th (ə)','7th (o)'];
 const FIDEL=[
-  {name:'h',sound:'like English "h"',forms:['ሀ','ሁ','ሂ','ሃ','ሄ','ህ','ሆ'],note:'One of the softest consonants. "ሃ" appears in many greetings.'},
+  {name:'h',sound:'like English "h"',forms:['ሀ','ሁ','ሂ','ሃ','ሄ','ህ','ሆ'],note:'One of the softest consonants. "ሃ" begins ሃገር (country).'},
   {name:'l',sound:'like English "l"',forms:['ለ','ሉ','ሊ','ላ','ሌ','ል','ሎ'],note:'"ል" is one of the most common final consonants in Tigrinya.'},
   {name:'ḥ',sound:'breathy "h" from throat',forms:['ሐ','ሑ','ሒ','ሓ','ሔ','ሕ','ሖ'],note:'A pharyngeal sound — deeper than regular "h". Common in Semitic languages.'},
-  {name:'m',sound:'like English "m"',forms:['መ','ሙ','ሚ','ማ','ሜ','ም','ሞ'],note:'"መ" starts many important words including "ማይ" (water).'},
+  {name:'m',sound:'like English "m"',forms:['መ','ሙ','ሚ','ማ','ሜ','ም','ሞ'],note:'"ማ" starts ማይ (water); "ም" starts many nouns like ምሸት (evening).'},
   {name:'s',sound:'like English "s"',forms:['ሰ','ሱ','ሲ','ሳ','ሴ','ስ','ሶ'],note:'"ሰ" begins "ሰላም" (selam/peace) — one of the most beautiful Tigrinya words.'},
-  {name:'r',sound:'rolled "r"',forms:['ረ','ሩ','ሪ','ራ','ሬ','ር','ሮ'],note:'Always rolled, like Spanish "r". Never the flat English "r".'},
+  {name:'r',sound:'rolled "r"',forms:['ረ','ሩ','ሪ','ራ','ሬ','ር','ሮ'],note:'A tapped or rolled r, like Spanish or Italian "r".'},
   {name:'sh',sound:'like English "sh"',forms:['ሸ','ሹ','ሺ','ሻ','ሼ','ሽ','ሾ'],note:'"ሽሮ" (shiro — the beloved stew) starts with this sound.'},
-  {name:'q',sound:'deep "k" from back of throat',forms:['ቀ','ቁ','ቂ','ቃ','ቄ','ቅ','ቆ'],note:'A uvular stop — said from the very back of the throat.'},
+  {name:'q',sound:'ejective "k" — popped from the back of the mouth',forms:['ቀ','ቁ','ቂ','ቃ','ቄ','ቅ','ቆ'],note:'An ejective stop. After a vowel it softens to ቐ (see the ቐ family).'},
   {name:'b',sound:'like English "b"',forms:['በ','ቡ','ቢ','ባ','ቤ','ብ','ቦ'],note:'"ብ" means "with" or "by" in Tigrinya.'},
   {name:'t',sound:'like English "t"',forms:['ተ','ቱ','ቲ','ታ','ቴ','ት','ቶ'],note:'"ትግርኛ" (Tigrinya) itself begins with this character!'},
-  {name:'n',sound:'like English "n"',forms:['ነ','ኑ','ኒ','ና','ኔ','ን','ኖ'],note:'"ን" is a common conjunction meaning "and".'},
+  {name:'n',sound:'like English "n"',forms:['ነ','ኑ','ኒ','ና','ኔ','ን','ኖ'],note:'"ን" as a prefix means "to/for" (ንዓኻ — for you); as a suffix on two nouns it means "and" (ኣደን ኣቦን — mother and father).'},
   {name:'ʾ',sound:'glottal stop',forms:['አ','ኡ','ኢ','ኣ','ኤ','እ','ኦ'],note:'A brief catch in the throat. "ኣ" begins "ኣደ" (mother).'},
   {name:'k',sound:'like English "k"',forms:['ከ','ኩ','ኪ','ካ','ኬ','ክ','ኮ'],note:'"ካ" and "ኪ" are common suffixes meaning "your".'},
   {name:'w',sound:'like English "w"',forms:['ወ','ዉ','ዊ','ዋ','ዌ','ው','ዎ'],note:'"ወ" begins "ወዲ" (son) and "ወርቂ" (gold).'},
@@ -1142,9 +1142,19 @@ const FIDEL=[
   {name:'d',sound:'like English "d"',forms:['ደ','ዱ','ዲ','ዳ','ዴ','ድ','ዶ'],note:'"ዳቦ" (dabo/bread) starts with this character.'},
   {name:'j',sound:'like English "j"',forms:['ጀ','ጁ','ጂ','ጃ','ጄ','ጅ','ጆ'],note:'Less common but important in loanwords.'},
   {name:'g',sound:'like English "g"',forms:['ገ','ጉ','ጊ','ጋ','ጌ','ግ','ጎ'],note:'"ጓል" (gwal/daughter) begins with this character.'},
-  {name:'ṭ',sound:'emphatic "t"',forms:['ጠ','ጡ','ጢ','ጣ','ጤ','ጥ','ጦ'],note:'Said with more tension in the throat than regular "t".'},
+  {name:'ṭ',sound:'ejective "t" — a sharp popped t',forms:['ጠ','ጡ','ጢ','ጣ','ጤ','ጥ','ጦ'],note:'Said with more tension in the throat than regular "t".'},
   {name:'f',sound:'like English "f"',forms:['ፈ','ፉ','ፊ','ፋ','ፌ','ፍ','ፎ'],note:'"ፊደል" (fidel/alphabet) starts with this character!'},
   {name:'p',sound:'like English "p"',forms:['ፐ','ፑ','ፒ','ፓ','ፔ','ፕ','ፖ'],note:'Rare in native Tigrinya — mainly used in loanwords.'},
+  {name:'q̱ (qh)',sound:'"ch" as in Scottish "loch", but further back',forms:['ቐ','ቑ','ቒ','ቓ','ቔ','ቕ','ቖ'],note:'Unique to Tigrinya. ቅ softens to ቕ after a vowel — as in የቐንየለይ (thank you).'},
+  {name:'ḵ (kh)',sound:'like "ch" in German "Bach"',forms:['ኸ','ኹ','ኺ','ኻ','ኼ','ኽ','ኾ'],note:'Unique to Tigrinya. ክ softens to ኽ after a vowel — that is why it is ከመይ ኣለኻ (alekha).'},
+  {name:'ṣ (ts)',sound:'ejective "ts" — a sharp popped ts',forms:['ጸ','ጹ','ጺ','ጻ','ጼ','ጽ','ጾ'],note:'Very common: ጽቡቕ (good), ጸሓይ (sun), ጽባሕ (tomorrow).'},
+  {name:'ṣ́ (ts, alt.)',sound:'same sound as ጸ',forms:['ፀ','ፁ','ፂ','ፃ','ፄ','ፅ','ፆ'],note:'Historically a separate letter; today it sounds the same as ጸ. Most Eritrean writing uses ጸ.'},
+  {name:'č̣ (ch\')',sound:'ejective "ch"',forms:['ጨ','ጩ','ጪ','ጫ','ጬ','ጭ','ጮ'],note:'As in ጨው (salt) and ጫማ (shoes).'},
+  {name:'ʿ (ayn)',sound:'voiced throat sound, like Arabic ع',forms:['ዐ','ዑ','ዒ','ዓ','ዔ','ዕ','ዖ'],note:'Deeper than the glottal stop. As in ዓሳ (fish), ዕዳጋ (market), ዓዲ (village).'},
+  {name:'ñ (ny)',sound:'like "ny" in "canyon"',forms:['ኘ','ኙ','ኚ','ኛ','ኜ','ኝ','ኞ'],note:'Appears at the end of ትግርኛ (Tigrinya) itself!'},
+  {name:'ž (zh)',sound:'like "s" in "measure"',forms:['ዠ','ዡ','ዢ','ዣ','ዤ','ዥ','ዦ'],note:'Rare — mostly in loanwords.'},
+  {name:'v',sound:'like English "v"',forms:['ቨ','ቩ','ቪ','ቫ','ቬ','ቭ','ቮ'],note:'Used only for foreign words and names.'},
+  {name:'p̣ (p\')',sound:'ejective "p"',forms:['ጰ','ጱ','ጲ','ጳ','ጴ','ጵ','ጶ'],note:'Rare — mostly in Ge\'ez church words and loanwords.'},
 ];
 
 /* ═══ TRADING CARDS — 60+ cards, 8 pack types ═══ */
@@ -1178,10 +1188,10 @@ const ALL_CARDS = [
   {id:'c25',rarity:'common',art:'✍️',g:'ይጽሕፍ',t:'ytshf',e:'he writes',cat:'Actions'},
   // RARE — Phrases, Culture, Grammar (18)
   {id:'r01',rarity:'rare',art:'🙏',g:'የቐንየለይ',t:'yeqenyeley',e:'thank you',cat:'Phrases'},
-  {id:'r02',rarity:'rare',art:'☕',g:'ቡን ስነ-ስርዓት',t:'bun ceremony',e:'coffee ceremony',cat:'Culture'},
-  {id:'r03',rarity:'rare',art:'🏔️',g:'ደብሪ',t:'debri',e:'mountain',cat:'Nature'},
+  {id:'r02',rarity:'rare',art:'☕',g:'ጀበና',t:'jebena',e:'clay coffee pot',cat:'Culture'},
+  {id:'r03',rarity:'rare',art:'🏔️',g:'ጎቦ',t:'gobo',e:'mountain',cat:'Nature'},
   {id:'r04',rarity:'rare',art:'🌟',g:'ጽቡቕ',t:'tsbuk',e:'good / fine',cat:'Phrases'},
-  {id:'r05',rarity:'rare',art:'🎶',g:'ዜማ',t:'zema',e:'music / melody',cat:'Culture'},
+  {id:'r05',rarity:'rare',art:'🎶',g:'ክራር',t:'krar',e:'krar (lyre)',cat:'Culture'},
   {id:'r06',rarity:'rare',art:'🤝',g:'ምሕዝነት',t:'mhznet',e:'friendship / unity',cat:'Culture'},
   {id:'r07',rarity:'rare',art:'🏛️',g:'ኣስመራ',t:'asmera',e:'Asmara (capital)',cat:'Places'},
   {id:'r08',rarity:'rare',art:'⛵',g:'ምጽዋ',t:'mitswa',e:'Massawa',cat:'Places'},
@@ -1189,25 +1199,25 @@ const ALL_CARDS = [
   {id:'r10',rarity:'rare',art:'🌧️',g:'ዝናም',t:'znam',e:'rain',cat:'Nature'},
   {id:'r11',rarity:'rare',art:'🦅',g:'ንስሪ',t:'nsri',e:'eagle',cat:'Animals'},
   {id:'r12',rarity:'rare',art:'💪',g:'ተስፋ',t:'tesfa',e:'hope',cat:'Emotions'},
-  {id:'r13',rarity:'rare',art:'👑',g:'ሰናይ ፍጠር',t:'senay fter',e:'go in peace',cat:'Phrases'},
+  {id:'r13',rarity:'rare',art:'👋',g:'ደሓን ኩን',t:'dehan kun',e:'goodbye (be well)',cat:'Phrases'},
   {id:'r14',rarity:'rare',art:'🌊',g:'ባሕሪ',t:'bahri',e:'sea',cat:'Nature'},
-  {id:'r15',rarity:'rare',art:'📅',g:'ሰሉስ→ዓርቢ',t:'selus-arbi',e:'Days of the Week',cat:'Grammar'},
-  {id:'r16',rarity:'rare',art:'💬',g:'ትዛረብ',t:'tzereb',e:'she speaks',cat:'Grammar'},
+  {id:'r15',rarity:'rare',art:'📅',g:'መዓልቲ',t:'me\'alti',e:'day',cat:'Time'},
+  {id:'r16',rarity:'rare',art:'💬',g:'ትዛረብ',t:'tizareb',e:'she speaks',cat:'Grammar'},
   {id:'r17',rarity:'rare',art:'🏺',g:'ናፍቖት',t:'nafqot',e:'longing / nostalgia',cat:'Emotions'},
-  {id:'r18',rarity:'rare',art:'🧡',g:'ምስጋና',t:'mzgana',e:'gratitude',cat:'Emotions'},
+  {id:'r18',rarity:'rare',art:'🧡',g:'ምስጋና',t:'misgana',e:'gratitude',cat:'Emotions'},
   // LEGENDARY — Proverbs, History (12)
-  {id:'l01',rarity:'legendary',art:'✨',g:'ሰላም ዘይብሉ ሃብቲ የለን',t:'selam zeyblu habti yelen',e:'Without peace there is no wealth',cat:'Proverb'},
-  {id:'l02',rarity:'legendary',art:'🌍',g:'ሓቂ ትዕወት',t:'haqi titwet',e:'Truth prevails',cat:'Proverb'},
-  {id:'l03',rarity:'legendary',art:'🔥',g:'ሰብ ዘይጸዓሮ ሓዊ ዘይሓቅቅ',t:'seb zeytsearo hawi zeyhaqq',e:'Fire that no one tends will not burn forever',cat:'Proverb'},
-  {id:'l04',rarity:'legendary',art:'🌟',g:'ፍልጠት ሃብቲ እዩ',t:'fltset habti eyu',e:'Knowledge is wealth',cat:'Proverb'},
+  {id:'l01',rarity:'legendary',art:'✨',g:'ሰላም ዘይብሉ ሃብቲ የለን',t:'selam zeyblu habti yelen',e:'Without peace there is no wealth',cat:'Saying'},
+  {id:'l02',rarity:'legendary',art:'🌍',g:'ሓቂ ትዕወት',t:'haqi ti\'iwet',e:'Truth prevails',cat:'Saying'},
+  {id:'l03',rarity:'legendary',art:'🥚',g:'ቀስ ብቐስ እንቋቝሖ ብእግሩ ይኸይድ',t:'qes biqes inquaquho bi\'igru yikheyid',e:'Slowly, slowly, the egg will walk on its own legs (patience)',cat:'Proverb'},
+  {id:'l04',rarity:'legendary',art:'🌟',g:'ፍልጠት ሃብቲ እዩ',t:'filtet habti iyu',e:'Knowledge is wealth',cat:'Saying'},
   {id:'l05',rarity:'legendary',art:'🏛️',g:'ኤርትራ ሃገርና',t:'eritrea hagerna',e:'Eritrea our homeland',cat:'History'},
   {id:'l06',rarity:'legendary',art:'🌺',g:'ናቕፋ',t:'naqfa',e:'Nakfa — city of resistance',cat:'History'},
-  {id:'l07',rarity:'legendary',art:'💎',g:'ሓደ ሕብረተ-ሰብ',t:'hade hbrete-seb',e:'One community (national motto)',cat:'History'},
-  {id:'l08',rarity:'legendary',art:'🕊️',g:'ምሓር ሰላም',t:'mhar selam',e:'Seek peace',cat:'Proverb'},
-  {id:'l09',rarity:'legendary',art:'🌱',g:'ቆልዓ ናይ ጽባሕ',t:'qolaa nay tsbah',e:'Children are tomorrow',cat:'Proverb'},
+  {id:'l07',rarity:'legendary',art:'💎',g:'ሓደ ህዝቢ ሓደ ልቢ',t:'hade hizbi hade libi',e:'One people, one heart (popular slogan)',cat:'History'},
+  {id:'l08',rarity:'legendary',art:'🕊️',g:'ብሰላም ኣብጽሓካ',t:'bselam abtsihaka',e:'May (God) bring you there in peace',cat:'Saying'},
+  {id:'l09',rarity:'legendary',art:'🌱',g:'ቆልዑ ተስፋ ጽባሕ እዮም',t:'qol\'u tesfa tsbah iyom',e:'Children are the hope of tomorrow',cat:'Saying'},
   {id:'l10',rarity:'legendary',art:'⚡',g:'ዓወት ንሓፋሽ',t:'awet nhafash',e:'Victory to the masses',cat:'History'},
-  {id:'l11',rarity:'legendary',art:'🎭',g:'ትግርኛ ቋንቋ ልቢ',t:'tigrinya quanqa lbi',e:'Tigrinya is the language of the heart',cat:'Culture'},
-  {id:'l12',rarity:'legendary',art:'🏆',g:'ምቕዳም ቋንቋ ኣዲኻ',t:'mqdm quanqa adika',e:'Master your mother tongue first',cat:'Proverb'},
+  {id:'l11',rarity:'legendary',art:'🎭',g:'ትግርኛ ቋንቋ ልበይ እዩ',t:'tigrinya qwanqwa libey iyu',e:'Tigrinya is the language of my heart',cat:'Culture'},
+  {id:'l12',rarity:'legendary',art:'🏆',g:'ቋንቋ ኣደ',t:'qwanqwa ade',e:'Mother tongue',cat:'Culture'},
 ];
 
 const PACKS = [
@@ -1217,37 +1227,37 @@ const PACKS = [
   {id:'nature',name:'Nature',ico:'🌿',cost:50,desc:'3 cards · nature & animals',color:'pack-common',draw:(i)=>ALL_CARDS.filter(c=>['Nature','Animals'].includes(c.cat))},
   {id:'emotion',name:'Feelings',ico:'❤️',cost:55,desc:'3 cards · emotions focus',color:'pack-common',draw:(i)=>ALL_CARDS.filter(c=>['Emotions','Phrases'].includes(c.cat))},
   {id:'rare',name:'Rare',ico:'💎',cost:80,desc:'3 cards · rare guaranteed',color:'pack-rare',guaranteed:'rare'},
-  {id:'proverb',name:'Proverb',ico:'📜',cost:100,desc:'3 cards · proverb focus',color:'pack-rare',draw:(i)=>ALL_CARDS.filter(c=>c.cat==='Proverb'||c.rarity==='rare')},
+  {id:'proverb',name:'Proverb',ico:'📜',cost:100,desc:'3 cards · proverbs & sayings',color:'pack-rare',draw:(i)=>ALL_CARDS.filter(c=>c.cat==='Proverb'||c.cat==='Saying'||c.rarity==='rare')},
   {id:'legend',name:'Legend',ico:'🌟',cost:150,desc:'3 cards · legendary possible',color:'pack-legend'},
 ];
 
 /* GRAMMAR LESSONS */
 const GRAMMAR_LESSONS = [
   {title:'Sentence Structure',sub:'SOV — Subject · Object · Verb',content:`<div class="lesson-text">Tigrinya follows <strong>SOV order</strong> — Subject first, Object second, Verb last. This differs from English (SVO).</div><div class="example-row"><div class="ex-ge ge">ኣነ ማይ እሰቲ።</div><div class="ex-tr">ane may isti.</div><div class="ex-en">I drink water.</div><div class="ex-note">Literally: I · water · drink</div></div><div class="example-row"><div class="ex-ge ge">ሳሙኤል እንጀራ ይበልዕ።</div><div class="ex-tr">samuel injera ybele.</div><div class="ex-en">Samuel eats injera.</div></div><div class="example-row"><div class="ex-ge ge">ሳራ ቡን ትሰቲ።</div><div class="ex-tr">sara bun tisti.</div><div class="ex-en">Sara drinks coffee.</div><div class="ex-note">Note: verb changes based on subject gender</div></div><div class="lesson-text"><strong>Key rule:</strong> The verb ALWAYS comes at the end. It also agrees in gender and number with the subject.</div>`},
-  {title:'Pronouns',sub:'Subject pronouns — who is doing the action',content:`<div class="lesson-text">Tigrinya pronouns are <strong>gendered</strong> — "you" has separate forms for male and female. This is a key feature of the language.</div><div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>Geez</th><th>Roman</th></tr><tr><td>I</td><td><span class="td-ge ge">ኣነ</span></td><td>ane</td></tr><tr><td>You (m)</td><td><span class="td-ge ge">ንስኻ</span></td><td>nsikha</td></tr><tr><td>You (f)</td><td><span class="td-ge ge">ንስኺ</span></td><td>nski</td></tr><tr><td>He</td><td><span class="td-ge ge">ንሱ</span></td><td>nsu</td></tr><tr><td>She</td><td><span class="td-ge ge">ንሳ</span></td><td>nsa</td></tr><tr><td>We</td><td><span class="td-ge ge">ንሕና</span></td><td>nhna</td></tr><tr><td>You (pl)</td><td><span class="td-ge ge">ንስኹም</span></td><td>nskum</td></tr><tr><td>They</td><td><span class="td-ge ge">ንሳቶም</span></td><td>nsatom</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ንሱ ሓው እዩ።</div><div class="ex-tr">nsu haw eyu.</div><div class="ex-en">He is a brother.</div></div>`},
-  {title:'Verb "To Be"',sub:'እዩ / እያ / እዩም — expressing existence',content:`<div class="lesson-text">The verb "to be" changes based on <strong>gender and number</strong> of the subject. Always at the <strong>end</strong>.</div><div class="table-wrap"><table class="gram-table"><tr><th>Subject</th><th>Geez</th><th>Roman</th></tr><tr><td>I am</td><td><span class="td-ge ge">እየ</span></td><td>eye</td></tr><tr><td>He is</td><td><span class="td-ge ge">እዩ</span></td><td>eyu</td></tr><tr><td>She is</td><td><span class="td-ge ge">እያ</span></td><td>eya</td></tr><tr><td>We are</td><td><span class="td-ge ge">ኢና</span></td><td>ina</td></tr><tr><td>They are</td><td><span class="td-ge ge">እዮም</span></td><td>eyom</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ኣነ ተምሃራይ እየ።</div><div class="ex-tr">ane temharay eye.</div><div class="ex-en">I am a student.</div></div><div class="example-row"><div class="ex-ge ge">ንሳ ምምህርቲ እያ።</div><div class="ex-tr">nsa mmhrti eya.</div><div class="ex-en">She is a teacher.</div></div>`},
+  {title:'Pronouns',sub:'Subject pronouns — who is doing the action',content:`<div class="lesson-text">Tigrinya pronouns are <strong>gendered</strong> — "you" has separate forms for male and female. This is a key feature of the language.</div><div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>Geez</th><th>Roman</th></tr><tr><td>I</td><td><span class="td-ge ge">ኣነ</span></td><td>ane</td></tr><tr><td>You (m)</td><td><span class="td-ge ge">ንስኻ</span></td><td>nsikha</td></tr><tr><td>You (f)</td><td><span class="td-ge ge">ንስኺ</span></td><td>nski</td></tr><tr><td>He</td><td><span class="td-ge ge">ንሱ</span></td><td>nsu</td></tr><tr><td>She</td><td><span class="td-ge ge">ንሳ</span></td><td>nsa</td></tr><tr><td>We</td><td><span class="td-ge ge">ንሕና</span></td><td>nhna</td></tr><tr><td>You (pl, m)</td><td><span class="td-ge ge">ንስኹም</span></td><td>niskhum</td></tr><tr><td>You (pl, f)</td><td><span class="td-ge ge">ንስኽን</span></td><td>niskhin</td></tr><tr><td>They (m)</td><td><span class="td-ge ge">ንሳቶም</span></td><td>nisatom</td></tr><tr><td>They (f)</td><td><span class="td-ge ge">ንሳተን</span></td><td>nisaten</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ንሱ ሓው እዩ።</div><div class="ex-tr">nsu haw eyu.</div><div class="ex-en">He is a brother.</div></div>`},
+  {title:'Verb "To Be"',sub:'እዩ / እያ / እዩም — expressing existence',content:`<div class="lesson-text">The verb "to be" changes based on <strong>gender and number</strong> of the subject. Always at the <strong>end</strong>.</div><div class="table-wrap"><table class="gram-table"><tr><th>Subject</th><th>Geez</th><th>Roman</th></tr><tr><td>I am</td><td><span class="td-ge ge">እየ</span></td><td>eye</td></tr><tr><td>He is</td><td><span class="td-ge ge">እዩ</span></td><td>eyu</td></tr><tr><td>She is</td><td><span class="td-ge ge">እያ</span></td><td>eya</td></tr><tr><td>You are (m)</td><td><span class="td-ge ge">ኢኻ</span></td><td>ikha</td></tr><tr><td>You are (f)</td><td><span class="td-ge ge">ኢኺ</span></td><td>ikhi</td></tr><tr><td>We are</td><td><span class="td-ge ge">ኢና</span></td><td>ina</td></tr><tr><td>You are (pl)</td><td><span class="td-ge ge">ኢኹም</span></td><td>ikhum</td></tr><tr><td>They are (m)</td><td><span class="td-ge ge">እዮም</span></td><td>iyom</td></tr><tr><td>They are (f)</td><td><span class="td-ge ge">እየን</span></td><td>iyen</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ኣነ ተምሃራይ እየ።</div><div class="ex-tr">ane temharay eye.</div><div class="ex-en">I am a student.</div></div><div class="example-row"><div class="ex-ge ge">ንሳ ምምህርቲ እያ።</div><div class="ex-tr">nsa mmhrti eya.</div><div class="ex-en">She is a teacher.</div></div>`},
   {title:'Verbs',sub:'Present tense — actions happening now',content:`<div class="lesson-text">Tigrinya verbs conjugate based on <strong>subject gender and number</strong>. Masculine uses prefix <strong style="color:var(--gold)">ይ-</strong>, Feminine uses <strong style="color:var(--gold)">ት-</strong>, I uses <strong style="color:var(--gold)">እ-</strong>.</div><div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>He (m)</th><th>She (f)</th></tr><tr><td>eats</td><td><span class="td-ge ge">ይበልዕ</span><div class="td-tr">ybele</div></td><td><span class="td-ge ge">ትበልዕ</span><div class="td-tr">tbele</div></td></tr><tr><td>drinks</td><td><span class="td-ge ge">ይሰቲ</span><div class="td-tr">ysti</div></td><td><span class="td-ge ge">ትሰቲ</span><div class="td-tr">tsti</div></td></tr><tr><td>speaks</td><td><span class="td-ge ge">ይዛረብ</span><div class="td-tr">yzereb</div></td><td><span class="td-ge ge">ትዛረብ</span><div class="td-tr">tzereb</div></td></tr><tr><td>goes</td><td><span class="td-ge ge">ይኸይድ</span><div class="td-tr">ykheyid</div></td><td><span class="td-ge ge">ትኸይድ</span><div class="td-tr">tkheyid</div></td></tr></table></div><div class="example-row"><div class="ex-ge ge">ኣነ ትግርኛ እዛረብ።</div><div class="ex-tr">ane tigrinya ezereb.</div><div class="ex-en">I speak Tigrinya.</div></div>`},
-  {title:'Questions',sub:'How to ask questions in Tigrinya',content:`<div class="lesson-text">Question words go <strong>at or near the start</strong> of the question. Yes/no questions add <strong style="color:var(--gold)">-ዶ</strong> (-do) or change intonation.</div><div class="table-wrap"><table class="gram-table"><tr><th>Question</th><th>Geez</th><th>Roman</th></tr><tr><td>What?</td><td><span class="td-ge ge">እንታይ?</span></td><td>entay?</td></tr><tr><td>Who?</td><td><span class="td-ge ge">መን?</span></td><td>men?</td></tr><tr><td>Where?</td><td><span class="td-ge ge">ኣበይ?</span></td><td>abey?</td></tr><tr><td>When?</td><td><span class="td-ge ge">መዓስ?</span></td><td>meas?</td></tr><tr><td>How?</td><td><span class="td-ge ge">ከመይ?</span></td><td>kemey?</td></tr><tr><td>How many?</td><td><span class="td-ge ge">ክንደይ?</span></td><td>kindey?</td></tr><tr><td>Why?</td><td><span class="td-ge ge">ስለምንታይ?</span></td><td>slemntay?</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ከመይ ኣለካ?</div><div class="ex-tr">kemey aleka?</div><div class="ex-en">How are you? (to a male)</div></div>`},
-  {title:'Negation',sub:'How to say "not" — the ኣይ-...-ን sandwich',content:`<div class="lesson-text">To negate a verb, wrap it: <strong style="color:var(--gold)">ኣይ-</strong> (ay-) before + <strong style="color:var(--gold)">-ን</strong> (-n) after.</div><div class="table-wrap"><table class="gram-table"><tr><th>Positive</th><th>Negative</th><th>Meaning</th></tr><tr><td><span class="td-ge ge">ይፈልጥ</span><div class="td-tr">he knows</div></td><td><span class="td-ge ge">ኣይፈልጥን</span><div class="td-tr">ayfeltn</div></td><td>he does not know</td></tr><tr><td><span class="td-ge ge">ይሰቲ</span><div class="td-tr">he drinks</div></td><td><span class="td-ge ge">ኣይሰትን</span><div class="td-tr">aystn</div></td><td>he does not drink</td></tr><tr><td><span class="td-ge ge">ይዛረብ</span><div class="td-tr">he speaks</div></td><td><span class="td-ge ge">ኣይዛረብን</span><div class="td-tr">ayzerebbn</div></td><td>he does not speak</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ኣነ ቡን ኣይሰትን።</div><div class="ex-tr">ane bun aystn.</div><div class="ex-en">I do not drink coffee.</div></div>`},
-  {title:'Adjectives',sub:'Describing nouns — adjectives come before the noun',content:`<div class="lesson-text">In Tigrinya, adjectives typically come <strong>before</strong> the noun they describe. They also agree in gender with the noun they modify.</div><div class="table-wrap"><table class="gram-table"><tr><th>Adjective</th><th>Geez</th><th>Roman</th></tr><tr><td>big</td><td><span class="td-ge ge">ዓቢ (m) / ዓባይ (f)</span><div class="td-tr">abi / abay</div></td><td>abi / abay</td></tr><tr><td>small</td><td><span class="td-ge ge">ንኣሽቱ</span><div class="td-tr">neshtu</div></td><td>neshtu</td></tr><tr><td>good</td><td><span class="td-ge ge">ጽቡቕ (m) / ጽብቕቲ (f)</span><div class="td-tr">tsbuk / tsbqti</div></td><td>tsbuk / tsbqti</td></tr><tr><td>new</td><td><span class="td-ge ge">ሓዲሽ</span><div class="td-tr">hadish</div></td><td>hadish</td></tr><tr><td>old</td><td><span class="td-ge ge">ኣረጊት</span><div class="td-tr">aregit</div></td><td>aregit</td></tr><tr><td>beautiful</td><td><span class="td-ge ge">ጸብቕ</span><div class="td-tr">tsebq</div></td><td>tsebq</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ዓቢ ቤት</div><div class="ex-tr">abi bet</div><div class="ex-en">big house</div></div><div class="example-row"><div class="ex-ge ge">ጽቡቕ ሰብ</div><div class="ex-tr">tsbuk seb</div><div class="ex-en">a good person</div></div>`},
+  {title:'Questions',sub:'How to ask questions in Tigrinya',content:`<div class="lesson-text">Question words go <strong>at or near the start</strong> of the question. Yes/no questions add <strong style="color:var(--gold)">-ዶ</strong> (-do) or change intonation.</div><div class="table-wrap"><table class="gram-table"><tr><th>Question</th><th>Geez</th><th>Roman</th></tr><tr><td>What?</td><td><span class="td-ge ge">እንታይ?</span></td><td>entay?</td></tr><tr><td>Who?</td><td><span class="td-ge ge">መን?</span></td><td>men?</td></tr><tr><td>Where?</td><td><span class="td-ge ge">ኣበይ?</span></td><td>abey?</td></tr><tr><td>When?</td><td><span class="td-ge ge">መዓስ?</span></td><td>meas?</td></tr><tr><td>How?</td><td><span class="td-ge ge">ከመይ?</span></td><td>kemey?</td></tr><tr><td>How many?</td><td><span class="td-ge ge">ክንደይ?</span></td><td>kindey?</td></tr><tr><td>Why?</td><td><span class="td-ge ge">ስለምንታይ?</span></td><td>slemntay?</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ከመይ ኣለኻ?</div><div class="ex-tr">kemey alekha?</div><div class="ex-en">How are you? (to a male)</div></div>`},
+  {title:'Negation',sub:'How to say "not" — the ኣይ-...-ን sandwich',content:`<div class="lesson-text">To negate a verb, wrap it: <strong style="color:var(--gold)">ኣይ-</strong> (ay-) before + <strong style="color:var(--gold)">-ን</strong> (-n) after.</div><div class="table-wrap"><table class="gram-table"><tr><th>Positive</th><th>Negative</th><th>Meaning</th></tr><tr><td><span class="td-ge ge">ይፈልጥ</span><div class="td-tr">he knows</div></td><td><span class="td-ge ge">ኣይፈልጥን</span><div class="td-tr">ayfeltn</div></td><td>he does not know</td></tr><tr><td><span class="td-ge ge">ይሰቲ</span><div class="td-tr">he drinks</div></td><td><span class="td-ge ge">ኣይሰቲን</span><div class="td-tr">aysetin</div></td><td>he does not drink</td></tr><tr><td><span class="td-ge ge">ይዛረብ</span><div class="td-tr">he speaks</div></td><td><span class="td-ge ge">ኣይዛረብን</span><div class="td-tr">ayzarebin</div></td><td>he does not speak</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ኣነ ቡን ኣይሰቲን።</div><div class="ex-tr">ane bun aysetin.</div><div class="ex-en">I do not drink coffee.</div></div>`},
+  {title:'Adjectives',sub:'Describing nouns — adjectives come before the noun',content:`<div class="lesson-text">In Tigrinya, adjectives typically come <strong>before</strong> the noun they describe. They also agree in gender with the noun they modify.</div><div class="table-wrap"><table class="gram-table"><tr><th>Adjective</th><th>Geez</th><th>Roman</th></tr><tr><td>big</td><td><span class="td-ge ge">ዓቢ (m) / ዓባይ (f)</span><div class="td-tr">abi / abay</div></td><td>abi / abay</td></tr><tr><td>small</td><td><span class="td-ge ge">ንእሽቶ</span><div class="td-tr">nishto</div></td><td>nishto</td></tr><tr><td>good</td><td><span class="td-ge ge">ጽቡቕ (m) / ጽብቕቲ (f)</span><div class="td-tr">tsbuk / tsbqti</div></td><td>tsbuk / tsbqti</td></tr><tr><td>new</td><td><span class="td-ge ge">ሓዲሽ</span><div class="td-tr">hadish</div></td><td>hadish</td></tr><tr><td>old</td><td><span class="td-ge ge">ኣረጊት</span><div class="td-tr">aregit</div></td><td>aregit</td></tr><tr><td>beautiful</td><td><span class="td-ge ge">ጽቡቕ (m) / ጽብቕቲ (f)</span><div class="td-tr">tsbuq / tsbqti</div></td><td>same word as "good"</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ዓቢ ቤት</div><div class="ex-tr">abi bet</div><div class="ex-en">big house</div></div><div class="example-row"><div class="ex-ge ge">ጽቡቕ ሰብ</div><div class="ex-tr">tsbuk seb</div><div class="ex-en">a good person</div></div>`},
   {title:'Possession',sub:'My, your, his, her — possessive suffixes',content:`<div class="lesson-text">In Tigrinya, possession is shown by <strong>attaching suffixes</strong> to the noun. The suffix changes based on the gender of the <em>owner</em> (not the object).</div><div class="table-wrap"><table class="gram-table"><tr><th>Owner</th><th>Suffix</th><th>Example (house = ቤት)</th></tr><tr><td>my</td><td>-ey</td><td><span class="td-ge ge">ቤተይ</span><div class="td-tr">betey — my house</div></td></tr><tr><td>your (m)</td><td>-ka</td><td><span class="td-ge ge">ቤትካ</span><div class="td-tr">betka — your house</div></td></tr><tr><td>your (f)</td><td>-ki</td><td><span class="td-ge ge">ቤትኪ</span><div class="td-tr">betki — your house</div></td></tr><tr><td>his</td><td>-u</td><td><span class="td-ge ge">ቤቱ</span><div class="td-tr">betu — his house</div></td></tr><tr><td>her</td><td>-a</td><td><span class="td-ge ge">ቤታ</span><div class="td-tr">beta — her house</div></td></tr><tr><td>our</td><td>-na</td><td><span class="td-ge ge">ቤትና</span><div class="td-tr">betna — our house</div></td></tr></table></div><div class="example-row"><div class="ex-ge ge">ኣደይ ጽብቕቲ እያ።</div><div class="ex-tr">adey tsbqti eya.</div><div class="ex-en">My mother is beautiful.</div></div>`},
-  {title:'Past Tense',sub:'Actions that already happened',content:`<div class="lesson-text">The past tense in Tigrinya is formed by <strong>modifying the verb root</strong>. The pattern changes based on gender. Note: there is no separate "was" verb — context makes it clear.</div><div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>He (past)</th><th>She (past)</th></tr><tr><td>ate</td><td><span class="td-ge ge">በልዔ</span><div class="td-tr">bele'e</div></td><td><span class="td-ge ge">በልዔት</span><div class="td-tr">bele'et</div></td></tr><tr><td>drank</td><td><span class="td-ge ge">ሰተየ</span><div class="td-tr">seteye</div></td><td><span class="td-ge ge">ሰተየት</span><div class="td-tr">seteyaet</div></td></tr><tr><td>went</td><td><span class="td-ge ge">ከደ</span><div class="td-tr">kede</div></td><td><span class="td-ge ge">ከደት</span><div class="td-tr">kedet</div></td></tr><tr><td>spoke</td><td><span class="td-ge ge">ተዛረበ</span><div class="td-tr">tezarebe</div></td><td><span class="td-ge ge">ተዛረበት</span><div class="td-tr">tezarebet</div></td></tr></table></div><div class="example-row"><div class="ex-ge ge">ንሱ ማይ ሰተየ።</div><div class="ex-tr">nsu may seteye.</div><div class="ex-en">He drank water.</div></div><div class="lesson-text"><strong>Pattern:</strong> Past tense feminine adds <strong style="color:var(--gold)">-ት (-t)</strong> to the masculine past form.</div>`},
-  {title:'Prepositions',sub:'ካብ, ናብ, ምስ, ብ — location and direction',content:`<div class="lesson-text">Tigrinya prepositions come <strong>before</strong> the noun, similar to English. They indicate location, direction, and relationships.</div><div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>Geez</th><th>Roman</th></tr><tr><td>from</td><td><span class="td-ge ge">ካብ</span></td><td>kab</td></tr><tr><td>to / towards</td><td><span class="td-ge ge">ናብ</span></td><td>nab</td></tr><tr><td>with</td><td><span class="td-ge ge">ምስ</span></td><td>ms</td></tr><tr><td>in / by / with</td><td><span class="td-ge ge">ብ</span></td><td>b</td></tr><tr><td>at / in</td><td><span class="td-ge ge">ኣብ</span></td><td>ab</td></tr><tr><td>for / because of</td><td><span class="td-ge ge">ንምኽንያት</span></td><td>nmknyat</td></tr><tr><td>until / up to</td><td><span class="td-ge ge">ክሳብ</span></td><td>ksab</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ካብ ኣስመራ ናብ ምጽዋ</div><div class="ex-tr">kab asmera nab mitswa</div><div class="ex-en">from Asmara to Massawa</div></div><div class="example-row"><div class="ex-ge ge">ኣብ ቤት ኣለኹ።</div><div class="ex-tr">ab bet aleku.</div><div class="ex-en">I am at home.</div></div>`},
+  {title:'Past Tense',sub:'Actions that already happened',content:`<div class="lesson-text">The past tense in Tigrinya is formed by <strong>modifying the verb root</strong>. The pattern changes based on gender. Note: there is no separate "was" verb — context makes it clear.</div><div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>He (past)</th><th>She (past)</th></tr><tr><td>ate</td><td><span class="td-ge ge">በልዐ</span><div class="td-tr">bel'e</div></td><td><span class="td-ge ge">በልዐት</span><div class="td-tr">bel'et</div></td></tr><tr><td>drank</td><td><span class="td-ge ge">ሰተየ</span><div class="td-tr">seteye</div></td><td><span class="td-ge ge">ሰተየት</span><div class="td-tr">seteyet</div></td></tr><tr><td>went</td><td><span class="td-ge ge">ከደ</span><div class="td-tr">kede</div></td><td><span class="td-ge ge">ከደት</span><div class="td-tr">kedet</div></td></tr><tr><td>spoke</td><td><span class="td-ge ge">ተዛረበ</span><div class="td-tr">tezarebe</div></td><td><span class="td-ge ge">ተዛረበት</span><div class="td-tr">tezarebet</div></td></tr></table></div><div class="example-row"><div class="ex-ge ge">ንሱ ማይ ሰተየ።</div><div class="ex-tr">nsu may seteye.</div><div class="ex-en">He drank water.</div></div><div class="lesson-text"><strong>Pattern:</strong> Past tense feminine adds <strong style="color:var(--gold)">-ት (-t)</strong> to the masculine past form.</div>`},
+  {title:'Prepositions',sub:'ካብ, ናብ, ምስ, ብ — location and direction',content:`<div class="lesson-text">Tigrinya prepositions come <strong>before</strong> the noun, similar to English. They indicate location, direction, and relationships.</div><div class="table-wrap"><table class="gram-table"><tr><th>English</th><th>Geez</th><th>Roman</th></tr><tr><td>from</td><td><span class="td-ge ge">ካብ</span></td><td>kab</td></tr><tr><td>to / towards</td><td><span class="td-ge ge">ናብ</span></td><td>nab</td></tr><tr><td>with</td><td><span class="td-ge ge">ምስ</span></td><td>ms</td></tr><tr><td>in / by / with</td><td><span class="td-ge ge">ብ</span></td><td>b</td></tr><tr><td>at / in</td><td><span class="td-ge ge">ኣብ</span></td><td>ab</td></tr><tr><td>for / to (a person)</td><td><span class="td-ge ge">ን-</span></td><td>n-</td></tr><tr><td>because of</td><td><span class="td-ge ge">ብሰንኪ</span></td><td>bsenki</td></tr><tr><td>until / up to</td><td><span class="td-ge ge">ክሳብ</span></td><td>ksab</td></tr></table></div><div class="example-row"><div class="ex-ge ge">ካብ ኣስመራ ናብ ምጽዋ</div><div class="ex-tr">kab asmera nab mitswa</div><div class="ex-en">from Asmara to Massawa</div></div><div class="example-row"><div class="ex-ge ge">ኣብ ቤት ኣለኹ።</div><div class="ex-tr">ab bet aleku.</div><div class="ex-en">I am at home.</div></div>`},
 ];
 
 const SB_EXERCISES = [
-  {eng:'I drink water.',words:['ኣነ','ማይ','እሰቲ','።'],answer:['ኣነ','ማይ','እሰቲ','།'],hint:'I · water · drink'},
-  {eng:'She is a teacher.',words:['ንሳ','ምምህርቲ','እያ','།'],answer:['ንሳ','ምምህርቲ','እያ','།'],hint:'She · teacher · is'},
-  {eng:'Samuel eats injera.',words:['ሳሙኤል','ይበልዕ','እንጀራ','།'],answer:['ሳሙኤል','እንጀራ','ይበልዕ','།'],hint:'Samuel · injera · eats'},
-  {eng:'He is a doctor.',words:['ንሱ','ሓኪም','እዩ','།'],answer:['ንሱ','ሓኪም','እዩ','།'],hint:'He · doctor · is'},
-  {eng:"I do not know.",words:['ኣነ','ኣይፈልጥን','།'],answer:['ኣነ','ኣይፈልጥን','།'],hint:'I · (neg.)know'},
+  {eng:'I drink water.',words:['ኣነ','ማይ','እሰቲ','።'],answer:['ኣነ','ማይ','እሰቲ','።'],hint:'I · water · drink'},
+  {eng:'She is a teacher.',words:['ንሳ','ምምህርቲ','እያ','።'],answer:['ንሳ','ምምህርቲ','እያ','።'],hint:'She · teacher · is'},
+  {eng:'Samuel eats injera.',words:['ሳሙኤል','ይበልዕ','እንጀራ','።'],answer:['ሳሙኤል','እንጀራ','ይበልዕ','።'],hint:'Samuel · injera · eats'},
+  {eng:'He is a doctor.',words:['ንሱ','ሓኪም','እዩ','።'],answer:['ንሱ','ሓኪም','እዩ','።'],hint:'He · doctor · is'},
+  {eng:"I do not know.",words:['ኣነ','ኣይፈልጥን','።'],answer:['ኣነ','ኣይፈልጥን','።'],hint:'I · (neg.)know'},
   {eng:'Where is the market?',words:['ዕዳጋ','ኣበይ','ዩ','?'],answer:['ዕዳጋ','ኣበይ','ዩ','?'],hint:'market · where · is'},
-  {eng:'We speak Tigrinya.',words:['ንሕና','ትግርኛ','ንዛረብ','།'],answer:['ንሕና','ትግርኛ','ንዛረብ','།'],hint:'We · Tigrinya · speak'},
-  {eng:'My house is big.',words:['ቤተይ','ዓቢ','እዩ','།'],answer:['ቤተይ','ዓቢ','እዩ','།'],hint:'My-house · big · is'},
-  {eng:'He drank water.',words:['ንሱ','ማይ','ሰተየ','།'],answer:['ንሱ','ማይ','ሰተየ','།'],hint:'He · water · drank'},
+  {eng:'We speak Tigrinya.',words:['ንሕና','ትግርኛ','ንዛረብ','።'],answer:['ንሕና','ትግርኛ','ንዛረብ','።'],hint:'We · Tigrinya · speak'},
+  {eng:'My house is big.',words:['ቤተይ','ዓቢ','እዩ','።'],answer:['ቤተይ','ዓቢ','እዩ','።'],hint:'My-house · big · is'},
+  {eng:'He drank water.',words:['ንሱ','ማይ','ሰተየ','።'],answer:['ንሱ','ማይ','ሰተየ','።'],hint:'He · water · drank'},
   {eng:'From Asmara to Massawa.',words:['ካብ','ኣስመራ','ናብ','ምጽዋ'],answer:['ካብ','ኣስመራ','ናብ','ምጽዋ'],hint:'from · Asmara · to · Massawa'},
-  {eng:'The sun is beautiful.',words:['ጸሓይ','ጽብቕቲ','እያ','།'],answer:['ጸሓይ','ጽብቕቲ','እያ','།'],hint:'Sun · beautiful · is'},
-  {eng:'I am at home.',words:['ኣብ','ቤት','ኣለኹ','།'],answer:['ኣብ','ቤት','ኣለኹ','།'],hint:'at · home · I-am'},
+  {eng:'The sun is beautiful.',words:['ጸሓይ','ጽብቕቲ','እያ','።'],answer:['ጸሓይ','ጽብቕቲ','እያ','።'],hint:'Sun · beautiful · is'},
+  {eng:'I am at home.',words:['ኣብ','ቤት','ኣለኹ','።'],answer:['ኣብ','ቤት','ኣለኹ','።'],hint:'at · home · I-am'},
 ];
 
 /* ACHIEVEMENTS */
@@ -1258,7 +1268,7 @@ const ACHS=[
   {id:'c50',nm:'Word Master',ge:'ሊቅ ቃላት',d:'Get 50 correct answers',ico:'📚',xp:50,ok:s=>s.cor>=50},
   {id:'c100',nm:'Scholar',ge:'ሊቅ',d:'Get 100 correct answers',ico:'🎓',xp:100,ok:s=>s.cor>=100},
   {id:'fidel5',nm:'Script Student',ge:'ተምሃራይ ፊደል',d:'Explore 5 fidel families',ico:'📜',xp:25,ok:s=>(s.fidelLearned||0)>=5},
-  {id:'fidel22',nm:'Fidel Master',ge:'ሊቅ ፊደል',d:'Explore all 22 families',ico:'🏛️',xp:100,ok:s=>(s.fidelLearned||0)>=22},
+  {id:'fidel22',nm:'Fidel Master',ge:'ሊቅ ፊደል',d:'Explore all fidel families',ico:'🏛️',xp:100,ok:s=>(s.fidelLearned||0)>=FIDEL.length},
   {id:'write5',nm:'First Strokes',ge:'ቀዳሞት ጽሑፍ',d:'Practice writing 5 times',ico:'✍️',xp:20,ok:s=>(s.writeSessions||0)>=5},
   {id:'acc80',nm:'Precise Strokes',ge:'ልክዕ ጽሑፍ',d:'Get 80%+ accuracy while tracing',ico:'🎯',xp:30,ok:s=>(s.bestAccuracy||0)>=80},
   {id:'gram5',nm:'Sentence Builder',ge:'ሰራሒ ሓሳብ',d:'Complete 5 sentence exercises',ico:'🏗️',xp:30,ok:s=>(s.sbCorrect||0)>=5},
@@ -1757,28 +1767,28 @@ function renderProg(){
 ═══════════════════════════ */
 const BD_EXERCISES = [
   // BEGINNER — simple SOV sentences
-  {level:'Beginner',eng:'Hello.',tigrinya:'ሰላም።',words:['ሰላም','།'],answer:['ሰላም','།'],tr:'selam.',tip:'The simplest and most important Tigrinya word.'},
-  {level:'Beginner',eng:'I am fine.',tigrinya:'ጽቡቕ ኣለኹ።',words:['ጽቡቕ','ኣለኹ','།'],answer:['ጽቡቕ','ኣለኹ','།'],tr:'tsbuk aleku.',tip:'Literally "good I-am" — adjective before verb.'},
-  {level:'Beginner',eng:'Thank you.',tigrinya:'የቐንየለይ።',words:['የቐንየለይ','།'],answer:['የቐንየለይ','།'],tr:'yeqenyeley.',tip:'A single beautiful word for "thank you".'},
-  {level:'Beginner',eng:'I drink water.',tigrinya:'ኣነ ማይ እሰቲ።',words:['ኣነ','ማይ','እሰቲ','།'],answer:['ኣነ','ማይ','እሰቲ','།'],tr:'ane may isti.',tip:'SOV: I (subject) · water (object) · drink (verb).'},
-  {level:'Beginner',eng:'He is a doctor.',tigrinya:'ንሱ ሓኪም እዩ።',words:['ንሱ','ሓኪም','እዩ','།'],answer:['ንሱ','ሓኪም','እዩ','།'],tr:'nsu hakim eyu.',tip:'Masculine "to be" = እዩ (eyu). Always at end.'},
-  {level:'Beginner',eng:'She is a teacher.',tigrinya:'ንሳ ምምህርቲ እያ።',words:['ንሳ','ምምህርቲ','እያ','།'],answer:['ንሳ','ምምህርቲ','እያ','།'],tr:'nsa mmhrti eya.',tip:'Feminine "to be" = እያ (eya). Note the gender change!'},
-  {level:'Beginner',eng:'Good morning.',tigrinya:'ሰናይ ጽባሕ።',words:['ሰናይ','ጽባሕ','།'],answer:['ሰናይ','ጽባሕ','།'],tr:'senay tsbah.',tip:'Senay means good/beautiful. Tsbah means morning.'},
+  {level:'Beginner',eng:'Hello.',tigrinya:'ሰላም።',words:['ሰላም','።'],answer:['ሰላም','።'],tr:'selam.',tip:'The simplest and most important Tigrinya word.'},
+  {level:'Beginner',eng:'I am fine.',tigrinya:'ጽቡቕ ኣለኹ።',words:['ጽቡቕ','ኣለኹ','።'],answer:['ጽቡቕ','ኣለኹ','።'],tr:'tsbuk aleku.',tip:'Literally "good I-am" — adjective before verb.'},
+  {level:'Beginner',eng:'Thank you.',tigrinya:'የቐንየለይ።',words:['የቐንየለይ','።'],answer:['የቐንየለይ','።'],tr:'yeqenyeley.',tip:'A single beautiful word for "thank you".'},
+  {level:'Beginner',eng:'I drink water.',tigrinya:'ኣነ ማይ እሰቲ።',words:['ኣነ','ማይ','እሰቲ','።'],answer:['ኣነ','ማይ','እሰቲ','።'],tr:'ane may isti.',tip:'SOV: I (subject) · water (object) · drink (verb).'},
+  {level:'Beginner',eng:'He is a doctor.',tigrinya:'ንሱ ሓኪም እዩ።',words:['ንሱ','ሓኪም','እዩ','።'],answer:['ንሱ','ሓኪም','እዩ','።'],tr:'nsu hakim eyu.',tip:'Masculine "to be" = እዩ (eyu). Always at end.'},
+  {level:'Beginner',eng:'She is a teacher.',tigrinya:'ንሳ ምምህርቲ እያ።',words:['ንሳ','ምምህርቲ','እያ','።'],answer:['ንሳ','ምምህርቲ','እያ','።'],tr:'nsa mmhrti eya.',tip:'Feminine "to be" = እያ (eya). Note the gender change!'},
+  {level:'Beginner',eng:'Good morning.',tigrinya:'ሰናይ ጽባሕ።',words:['ሰናይ','ጽባሕ','።'],answer:['ሰናይ','ጽባሕ','።'],tr:'senay tsbah.',tip:'Senay means good/beautiful. Tsbah means morning.'},
   // INTERMEDIATE
-  {level:'Intermediate',eng:'Samuel eats injera.',tigrinya:'ሳሙኤል እንጀራ ይበልዕ።',words:['ሳሙኤል','ይበልዕ','እንጀራ','།'],answer:['ሳሙኤል','እንጀራ','ይበልዕ','།'],tr:'samuel injera ybele.',tip:'Object comes before verb! Samuel · injera · eats.'},
-  {level:'Intermediate',eng:'How are you?',tigrinya:'ከመይ ኣለካ?',words:['ኣለካ','ከመይ','?'],answer:['ከመይ','ኣለካ','?'],tr:'kemey aleka?',tip:'Question words come first. Aleka = you are (male).'},
+  {level:'Intermediate',eng:'Samuel eats injera.',tigrinya:'ሳሙኤል እንጀራ ይበልዕ።',words:['ሳሙኤል','ይበልዕ','እንጀራ','።'],answer:['ሳሙኤል','እንጀራ','ይበልዕ','።'],tr:'samuel injera ybele.',tip:'Object comes before verb! Samuel · injera · eats.'},
+  {level:'Intermediate',eng:'How are you?',tigrinya:'ከመይ ኣለኻ?',words:['ኣለኻ','ከመይ','?'],answer:['ከመይ','ኣለኻ','?'],tr:'kemey alekha?',tip:'Question words come first. Alekha = you are (male).'},
   {level:'Intermediate',eng:'Where is the market?',tigrinya:'ዕዳጋ ኣበይ ዩ?',words:['ዕዳጋ','ዩ','ኣበይ','?'],answer:['ዕዳጋ','ኣበይ','ዩ','?'],tr:'idaga abey yu?',tip:'Subject first, question word second, verb last.'},
-  {level:'Intermediate',eng:'My mother is beautiful.',tigrinya:'ኣደይ ጽብቕቲ እያ።',words:['ጽብቕቲ','ኣደይ','እያ','།'],answer:['ኣደይ','ጽብቕቲ','እያ','།'],tr:'adey tsbqti eya.',tip:'Adey = my mother (ade + ey suffix). Adjective before verb.'},
-  {level:'Intermediate',eng:'I am going to the market.',tigrinya:'ናብ ዕዳጋ ይኸይድ ኣለኹ።',words:['ናብ','ዕዳጋ','ኣለኹ','ይኸይድ','།'],answer:['ናብ','ዕዳጋ','ይኸይድ','ኣለኹ','།'],tr:'nab idaga ykheyid aleku.',tip:'Nab = to/towards. Present continuous: verb + aleku.'},
-  {level:'Intermediate',eng:"I do not know.",tigrinya:'ኣነ ኣይፈልጥን።',words:['ኣይፈልጥን','ኣነ','།'],answer:['ኣነ','ኣይፈልጥን','།'],tr:'ane ayfeltn.',tip:'Negation: ኣይ- prefix + verb + -ን suffix.'},
-  {level:'Intermediate',eng:'Our house is big.',tigrinya:'ቤትና ዓቢ እዩ።',words:['ቤትና','እዩ','ዓቢ','།'],answer:['ቤትና','ዓቢ','እዩ','།'],tr:'betna abi eyu.',tip:'Betna = our house (bet + na suffix). Adjective then verb.'},
-  {level:'Intermediate',eng:'We speak Tigrinya.',tigrinya:'ንሕና ትግርኛ ንዛረብ።',words:['ትግርኛ','ንዛረብ','ንሕና','།'],answer:['ንሕና','ትግርኛ','ንዛረብ','།'],tr:'nhna tigrinya nzereb.',tip:'We = ንሕና. We-speak = ንዛረብ (n- prefix for we).'},
+  {level:'Intermediate',eng:'My mother is beautiful.',tigrinya:'ኣደይ ጽብቕቲ እያ።',words:['ጽብቕቲ','ኣደይ','እያ','።'],answer:['ኣደይ','ጽብቕቲ','እያ','።'],tr:'adey tsbqti eya.',tip:'Adey = my mother (ade + ey suffix). Adjective before verb.'},
+  {level:'Intermediate',eng:'I am going to the market.',tigrinya:'ናብ ዕዳጋ እኸይድ ኣለኹ።',words:['ናብ','ዕዳጋ','ኣለኹ','እኸይድ','።'],answer:['ናብ','ዕዳጋ','እኸይድ','ኣለኹ','።'],tr:'nab idaga ikheyid aleku.',tip:'Nab = to/towards. Present continuous: verb + aleku.'},
+  {level:'Intermediate',eng:"I do not know.",tigrinya:'ኣነ ኣይፈልጥን።',words:['ኣይፈልጥን','ኣነ','።'],answer:['ኣነ','ኣይፈልጥን','።'],tr:'ane ayfeltn.',tip:'Negation: ኣይ- prefix + verb + -ን suffix.'},
+  {level:'Intermediate',eng:'Our house is big.',tigrinya:'ቤትና ዓቢ እዩ።',words:['ቤትና','እዩ','ዓቢ','።'],answer:['ቤትና','ዓቢ','እዩ','።'],tr:'betna abi eyu.',tip:'Betna = our house (bet + na suffix). Adjective then verb.'},
+  {level:'Intermediate',eng:'We speak Tigrinya.',tigrinya:'ንሕና ትግርኛ ንዛረብ።',words:['ትግርኛ','ንዛረብ','ንሕና','።'],answer:['ንሕና','ትግርኛ','ንዛረብ','።'],tr:'nhna tigrinya nzereb.',tip:'We = ንሕና. We-speak = ንዛረብ (n- prefix for we).'},
   // ADVANCED
-  {level:'Advanced',eng:'From Asmara to Massawa.',tigrinya:'ካብ ኣስመራ ናብ ምጽዋ።',words:['ናብ','ምጽዋ','ካብ','ኣስመራ','།'],answer:['ካብ','ኣስመራ','ናብ','ምጽዋ','།'],tr:'kab asmera nab mitswa.',tip:'Kab = from. Nab = to. Prepositions before their nouns.'},
-  {level:'Advanced',eng:'Eritrea is our homeland.',tigrinya:'ኤርትራ ሃገርና እያ።',words:['ሃገርና','ኤርትራ','እያ','།'],answer:['ኤርትራ','ሃገርና','እያ','།'],tr:'eritrea hagerna eya.',tip:'Hager = homeland/country. -na suffix = our.'},
-  {level:'Advanced',eng:'He drank water.',tigrinya:'ንሱ ማይ ሰተየ።',words:['ሰተየ','ንሱ','ማይ','།'],answer:['ንሱ','ማይ','ሰተየ','།'],tr:'nsu may seteye.',tip:'Past tense: verb root changes. Seteye = he drank.'},
-  {level:'Advanced',eng:'Knowledge is wealth.',tigrinya:'ፍልጠት ሃብቲ እዩ።',words:['ሃብቲ','ፍልጠት','እዩ','།'],answer:['ፍልጠት','ሃብቲ','እዩ','།'],tr:'fltset habti eyu.',tip:'A famous Tigrinya proverb. Subject + predicate + is.'},
-  {level:'Advanced',eng:'Without peace there is no wealth.',tigrinya:'ሰላም ዘይብሉ ሃብቲ የለን።',words:['ሃብቲ','ዘይብሉ','ሰላም','የለን','།'],answer:['ሰላም','ዘይብሉ','ሃብቲ','የለን','།'],tr:'selam zeyblu habti yelen.',tip:'A proverb. Zeyblu = without. Yelen = there is not.'},
+  {level:'Advanced',eng:'From Asmara to Massawa.',tigrinya:'ካብ ኣስመራ ናብ ምጽዋ።',words:['ናብ','ምጽዋ','ካብ','ኣስመራ','።'],answer:['ካብ','ኣስመራ','ናብ','ምጽዋ','።'],tr:'kab asmera nab mitswa.',tip:'Kab = from. Nab = to. Prepositions before their nouns.'},
+  {level:'Advanced',eng:'Eritrea is our homeland.',tigrinya:'ኤርትራ ሃገርና እያ።',words:['ሃገርና','ኤርትራ','እያ','።'],answer:['ኤርትራ','ሃገርና','እያ','።'],tr:'eritrea hagerna eya.',tip:'Hager = homeland/country. -na suffix = our.'},
+  {level:'Advanced',eng:'He drank water.',tigrinya:'ንሱ ማይ ሰተየ።',words:['ሰተየ','ንሱ','ማይ','።'],answer:['ንሱ','ማይ','ሰተየ','።'],tr:'nsu may seteye.',tip:'Past tense: verb root changes. Seteye = he drank.'},
+  {level:'Advanced',eng:'Knowledge is wealth.',tigrinya:'ፍልጠት ሃብቲ እዩ።',words:['ሃብቲ','ፍልጠት','እዩ','።'],answer:['ፍልጠት','ሃብቲ','እዩ','።'],tr:'fltset habti eyu.',tip:'A famous Tigrinya proverb. Subject + predicate + is.'},
+  {level:'Advanced',eng:'Without peace there is no wealth.',tigrinya:'ሰላም ዘይብሉ ሃብቲ የለን።',words:['ሃብቲ','ዘይብሉ','ሰላም','የለን','።'],answer:['ሰላም','ዘይብሉ','ሃብቲ','የለን','።'],tr:'selam zeyblu habti yelen.',tip:'A proverb. Zeyblu = without. Yelen = there is not.'},
 ];
 
 let bdIdx=0, bdPlaced=[], bdDone=false, bdCompleted=[];
@@ -1811,7 +1821,7 @@ function renderBuildExercise(){
   zone.style.borderColor='rgba(212,160,23,0.2)';
   // Word bank
   const bank=document.getElementById('bd-bank');
-  const BDPUNCT=new Set(['།','།','?','!','።','།']);
+  const BDPUNCT=new Set(['።','።','?','!','።','።']);
   const shuffled=shuf([...ex.words].filter(w=>!BDPUNCT.has(w)));
   bank.innerHTML='';
   shuffled.forEach((w,i)=>{
@@ -1860,8 +1870,8 @@ function bdRemoveChip(i,btn,chip){
 function bdCheck(){
   if(bdDone)return;
   const ex=BD_EXERCISES[bdIdx];
-  // Strip punctuation tokens before comparing so ། and ? do not cause false failures
-  const PUNCT=new Set(['།','།','?','!','።','።','.','،',',']);
+  // Strip punctuation tokens before comparing so ። and ? do not cause false failures
+  const PUNCT=new Set(['።','።','?','!','።','።','.','،',',']);
   const placed=bdPlaced.map(p=>p.w).filter(w=>!PUNCT.has(w));
   const answer=ex.answer.filter(w=>!PUNCT.has(w));
   const ok=placed.length===answer.length&&placed.every((w,i)=>w===answer[i]);
@@ -1944,7 +1954,7 @@ const WB_WORDS = [
   {ge:'ሰላም',  roman:'selam',    eng:'hello / peace',      cat:'Greetings'},
   {ge:'የቐንየለይ',roman:'yeqenyeley',eng:'thank you',         cat:'Greetings'},
   {ge:'ጽቡቕ',  roman:'tsbuk',    eng:'good / fine',         cat:'Greetings'},
-  {ge:'ይቕረ',  roman:'yiqre',   eng:'sorry / excuse me',   cat:'Greetings'},
+  {ge:'ይቕሬታ', roman:'yiqreta', eng:'sorry / excuse me',   cat:'Greetings'},
   // family
   {ge:'ኣደ',   roman:'ade',     eng:'mother',               cat:'Family'},
   {ge:'ኣቦ',   roman:'abo',     eng:'father',               cat:'Family'},
@@ -2131,19 +2141,19 @@ const STORIES=[
   {id:'family',title:'Sara and Her Family',titleGe:'ሳርኣ ምስ ስድርኣ',ico:'👨‍👩‍👧',level:'Beginner',wordCount:10,
    desc:'A short story about Sara, her mother, and a traditional coffee ceremony.',
    paragraphs:[
-    {en:'Sara lives in a village near Asmara.',tokens:[{g:'ሳርኣ',e:'Sara (a name)'},{g:'ኣብ',e:'in/at'},{g:'ዓዲ',e:'village'},{g:'ናብ',e:'near'},{g:'ኣስመራ',e:'Asmara'},{g:'ትነብር',e:'she lives'}]},
-    {en:'Her mother is at home making coffee.',tokens:[{g:'ኣዲኣ',e:'her mother'},{g:'ኣብ',e:'at'},{g:'ቤት',e:'home/house'},{g:'ቡን',e:'coffee'},{g:'ትሰርሕ',e:'she makes'}]},
-    {en:'The coffee ceremony takes a long time but it is beautiful.',tokens:[{g:'ቡን',e:'coffee'},{g:'ስነ-ስርዓት',e:'ceremony'},{g:'ነዊሕ',e:'long'},{g:'ጽብቕ',e:'beautiful'}]},
+    {en:'Sara lives in a village near Asmara.',tokens:[{g:'ሳርኣ',e:'Sara (a name)'},{g:'ኣብ',e:'in/at'},{g:'ዓዲ',e:'village'},{g:'ጥቓ',e:'near'},{g:'ኣስመራ',e:'Asmara'},{g:'ትነብር',e:'she lives'}]},
+    {en:'Her mother is at home making coffee.',tokens:[{g:'ኣዲኣ',e:'her mother'},{g:'ኣብ',e:'at'},{g:'ቤት',e:'home/house'},{g:'ቡን',e:'coffee'},{g:'ተፍልሕ',e:'she brews'}]},
+    {en:'The coffee ceremony takes a long time but it is beautiful.',tokens:[{g:'ቡን',e:'coffee'},{g:'ስነ-ስርዓት',e:'ceremony'},{g:'ነዊሕ',e:'long'},{g:'ጽቡቕ',e:'beautiful / good'}]},
     {en:'Sara loves her family very much.',tokens:[{g:'ሳርኣ',e:'Sara'},{g:'ስድርኣ',e:'her family'},{g:'ብዙሕ',e:'very much'},{g:'ትፈቱ',e:'she loves'}]},
     {en:'"Eritrea is our homeland," says Sara with pride.',tokens:[{g:'ኤርትራ',e:'Eritrea'},{g:'ሃገርና',e:'our homeland'},{g:'ትብል',e:'she says'},{g:'ሳርኣ',e:'Sara'}]},
   ]},
-  {id:'sea',title:'The Red Sea',titleGe:'ባሕሪ ቀይሕ',ico:'🌊',level:'Intermediate',wordCount:14,
+  {id:'sea',title:'The Red Sea',titleGe:'ቀይሕ ባሕሪ',ico:'🌊',level:'Intermediate',wordCount:14,
    desc:'Tesfay, a fisherman from Massawa, tells of life on the Red Sea.',
    paragraphs:[
-    {en:'Tesfay is a fisherman from Massawa.',tokens:[{g:'ተስፋይ',e:'Tesfay (a name)'},{g:'ካብ',e:'from'},{g:'ምጽዋ',e:'Massawa'},{g:'ሃጻኒ',e:'fisherman'},{g:'እዩ',e:'he is'}]},
+    {en:'Tesfay is a fisherman from Massawa.',tokens:[{g:'ተስፋይ',e:'Tesfay (a name)'},{g:'ካብ',e:'from'},{g:'ምጽዋ',e:'Massawa'},{g:'ገፋፊ ዓሳ',e:'fisherman'},{g:'እዩ',e:'he is'}]},
     {en:'Every morning he goes to the Red Sea before sunrise.',tokens:[{g:'ኩሉ',e:'every'},{g:'ጽባሕ',e:'morning'},{g:'ናብ',e:'to'},{g:'ባሕሪ',e:'sea'},{g:'ይኸይድ',e:'he goes'}]},
-    {en:'He catches many fish. The sea is generous.',tokens:[{g:'ብዙሕ',e:'many'},{g:'ዓሳ',e:'fish'},{g:'ይሕዝ',e:'he catches'},{g:'ባሕሪ',e:'sea'},{g:'ለጋስ',e:'generous'}]},
-    {en:'The sun sets beautifully over the water in the evening.',tokens:[{g:'ጸሓይ',e:'sun'},{g:'ማይ',e:'water'},{g:'ልዕሊ',e:'over'},{g:'ትጸልም',e:'sets'},{g:'ጽብቕ',e:'beautifully'}]},
+    {en:'He catches many fish. The sea is generous.',tokens:[{g:'ብዙሕ',e:'many'},{g:'ዓሳ',e:'fish'},{g:'ይሕዝ',e:'he catches'},{g:'ባሕሪ',e:'sea'},{g:'ለጋሲ',e:'generous'}]},
+    {en:'The sun sets beautifully over the water in the evening.',tokens:[{g:'ጸሓይ',e:'sun'},{g:'ማይ',e:'water'},{g:'ልዕሊ',e:'over'},{g:'ትዓርብ',e:'sets'},{g:'ብጽቡቕ',e:'beautifully'}]},
     {en:'"The sea is my homeland and my love," says Tesfay.',tokens:[{g:'ባሕሪ',e:'sea'},{g:'ሃገረይ',e:'my homeland'},{g:'ፍቕረይ',e:'my love'},{g:'ይብል',e:'he says'},{g:'ተስፋይ',e:'Tesfay'}]},
   ]},
 ];
@@ -2155,7 +2165,7 @@ const CONVOS=[
   {id:'greeting',title:'First Meeting',ico:'🤝',desc:'Meet someone new in Asmara.',
    scene:'You are walking in Asmara when a friendly local approaches you with a warm smile.',
    turns:[
-    {them:{ge:'ሰላም! ከመይ ኣለካ?',tr:'selam! kemey aleka?',en:'Hello! How are you?'},
+    {them:{ge:'ሰላም! ከመይ ኣለኻ?',tr:'selam! kemey alekha?',en:'Hello! How are you?'},
      choices:[
       {ge:'ጽቡቕ ኣለኹ፣ የቐንየለይ!',en:'I am fine, thank you!',correct:true,fb:'Perfect! ጽቡቕ ኣለኹ (I am fine) + የቐንየለይ (thank you) is the ideal response.'},
       {ge:'ኣይፈልጥን',en:'I do not know',correct:false,fb:'This means I do not know — wrong here! Say ጽቡቕ ኣለኹ (I am fine).'},
@@ -2165,13 +2175,13 @@ const CONVOS=[
      choices:[
       {ge:'ስመይ [ስምካ] እዩ።',en:'My name is [your name].',correct:true,fb:'Excellent! ስመይ (my name) + name + እዩ (is). Perfect structure.'},
       {ge:'ካብ ኣበይ ኢኻ?',en:'Where are you from?',correct:false,fb:'That asks them a question! Answer: ስመይ ... እዩ (My name is ...).'},
-      {ge:'ኣይፋልን',en:'No',correct:false,fb:'"No" is not an answer to "what is your name?" Say ስመይ ... እዩ.'},
+      {ge:'ኣይፋል',en:'No',correct:false,fb:'"No" is not an answer to "what is your name?" Say ስመይ ... እዩ.'},
      ]},
-    {them:{ge:'ካብ ኣበይ ኢኻ?',tr:'kab abey ika?',en:'Where are you from?'},
+    {them:{ge:'ካብ ኣበይ ኢኻ?',tr:'kab abey ikha?',en:'Where are you from?'},
      choices:[
       {ge:'ኣነ ካብ [ሃገርካ] እየ።',en:'I am from [your country].',correct:true,fb:'Well done! ኣነ (I) + ካብ (from) + place + እየ (am). Perfect SOV.'},
-      {ge:'ብቐስ ተዛረብ',en:'Please speak slowly',correct:false,fb:'You understood fine! Answer: ኣነ ካብ ... እየ (I am from ...).'},
-      {ge:'ሰናይ ፍጠር',en:'Go in peace',correct:false,fb:'That is a farewell! Say ኣነ ካብ ... እየ (I am from ...).'},
+      {ge:'ቀስ ኢልካ ተዛረብ',en:'Please speak slowly',correct:false,fb:'You understood fine! Answer: ኣነ ካብ ... እየ (I am from ...).'},
+      {ge:'ደሓን ኩን',en:'Goodbye',correct:false,fb:'That is a farewell! Say ኣነ ካብ ... እየ (I am from ...).'},
      ]},
    ]},
   {id:'market',title:'At the Market',ico:'🏪',desc:'Buy bread and negotiate at the market.',
@@ -2179,33 +2189,33 @@ const CONVOS=[
    turns:[
     {them:{ge:'ሰላም! እንታይ ትደሊ?',tr:'selam! entay tdeli?',en:'Hello! What would you like?'},
      choices:[
-      {ge:'ዳቦ ይደሊ። ክንደይ ዋጋ?',en:'I want bread. How much?',correct:true,fb:'Perfect! State what you want then ask the price — exactly right for Eritrean markets.'},
-      {ge:'የቐንየለይ!',en:'Thank you!',correct:false,fb:'Thank you comes after buying! First say: ዳቦ ይደሊ (I want bread).'},
-      {ge:'ኣይፈልጥን',en:'I do not know',correct:false,fb:'Say what you want: ዳቦ ይደሊ፣ ክንደይ ዋጋ? — I want bread, how much?'},
+      {ge:'ዳቦ እደሊ። ዋጋኡ ክንደይ እዩ?',en:'I want bread. How much is it?',correct:true,fb:'Perfect! State what you want then ask the price — exactly right for Eritrean markets.'},
+      {ge:'የቐንየለይ!',en:'Thank you!',correct:false,fb:'Thank you comes after buying! First say: ዳቦ እደሊ (I want bread).'},
+      {ge:'ኣይፈልጥን',en:'I do not know',correct:false,fb:'Say what you want: ዳቦ እደሊ፣ ዋጋኡ ክንደይ እዩ? — I want bread, how much is it?'},
      ]},
     {them:{ge:'ሓሙሽተ ናቕፋ እዩ።',tr:'hamushte naqfa eyu.',en:'It is five Nakfa.'},
      choices:[
-      {ge:'ጽቡቕ! ኣናቅፍ።',en:'OK! I will take it.',correct:true,fb:'Great! Accepting the price politely — good market manners.'},
+      {ge:'ጽቡቕ! ክወስዶ እየ።',en:'OK! I will take it.',correct:true,fb:'Great! Accepting the price politely — good market manners.'},
       {ge:'ክንደይ ዋጋ?',en:'How much?',correct:false,fb:'They already told you — five Nakfa! Say ጽቡቕ to accept.'},
       {ge:'ሰናይ ምሸት',en:'Good evening',correct:false,fb:'That is a greeting, not a response to a price! Say ጽቡቕ (OK).'},
      ]},
-    {them:{ge:'ኣናቅፍ! ሰናይ ዕለት!',tr:'anaqf! senay ilet!',en:'Here you go! Good day!'},
+    {them:{ge:'ሓዝ! ሰናይ ዕለት!',tr:'haz! senay \'ilet!',en:'Here you go! Good day!'},
      choices:[
       {ge:'የቐንየለይ! ሰናይ ዕለት!',en:'Thank you! Good day!',correct:true,fb:'Perfect! Thanking the seller and returning good-day is ideal Eritrean etiquette.'},
       {ge:'ካብ ኣበይ ኢኻ?',en:'Where are you from?',correct:false,fb:'A bit odd here! Just say የቐንየለይ (Thank you)!'},
-      {ge:'ኣይፋልን',en:'No',correct:false,fb:'Do not say no after a purchase! Say የቐንየለይ (Thank you)!'},
+      {ge:'ኣይፋል',en:'No',correct:false,fb:'Do not say no after a purchase! Say የቐንየለይ (Thank you)!'},
      ]},
    ]},
   {id:'directions',title:'Asking Directions',ico:'🗺️',desc:'Find the church in town.',
    scene:'You are lost on a street in a Tigrinya-speaking town and need to find the church.',
    turns:[
-    {them:{ge:'ሰላም! ናብ ኣበይ ትኸይድ?',tr:'selam! nab abey tkheyid?',en:'Hello! Where are you going?'},
+    {them:{ge:'ሰላም! ናበይ ትኸይድ ኣለኻ?',tr:'selam! nabey tikheyid alekha?',en:'Hello! Where are you going?'},
      choices:[
       {ge:'ቤተ ክርስቲያን ኣበይ ዩ?',en:'Where is the church?',correct:true,fb:'Good! ኣበይ ዩ? (where is?) is the perfect way to ask for a location.'},
       {ge:'ጽቡቕ ኣለኹ!',en:'I am fine!',correct:false,fb:'They asked where you are going! Ask: ቤተ ክርስቲያን ኣበይ ዩ?'},
-      {ge:'ሰናይ ጉዕዞ',en:'Have a good journey',correct:false,fb:'That is a farewell! Ask: ቤተ ክርስቲያን ኣበይ ዩ?'},
+      {ge:'ጽቡቕ ጉዕዞ',en:'Have a good journey',correct:false,fb:'That is a farewell! Ask: ቤተ ክርስቲያን ኣበይ ዩ?'},
      ]},
-    {them:{ge:'ቤተ ክርስቲያን ኣብ ጎደና ቀጻሊ እዩ።',tr:'bete krstyan ab godena qetsali eyu.',en:'The church is on the next street.'},
+    {them:{ge:'ቤተ ክርስቲያን ኣብ ዝቕጽል ጎደና እያ።',tr:'bete kristiyan ab ziqtsil godena iya.',en:'The church is on the next street.'},
      choices:[
       {ge:'የቐንየለይ! ሓጊዝካኒ!',en:'Thank you! You helped me!',correct:true,fb:'Perfect! ሓጊዝካኒ (you helped me) is a lovely phrase to thank someone who gave directions.'},
       {ge:'ክንደይ ዋጋ?',en:'How much?',correct:false,fb:'You do not pay for directions! Just say የቐንየለይ (Thank you)!'},
@@ -2215,16 +2225,16 @@ const CONVOS=[
   {id:'coffee',title:'Coffee Ceremony',ico:'☕',desc:'You are invited to a traditional ceremony.',
    scene:'A kind family invites you into their home for the sacred three-round coffee ceremony.',
    turns:[
-    {them:{ge:'እንቋዕ ብደሓን መጻእካ! ኣቲ ቤትና!',tr:'enquae bdhan metsaeka!',en:'Welcome! Come into our home!'},
+    {them:{ge:'እንቋዕ ብደሓን መጻእካ! እቶ ናብ ቤትና!',tr:'inkwa\'e bidehan metsa\'ka! ito nab betna!',en:'Welcome! Come into our home!'},
      choices:[
-      {ge:'የቐንየለይ! ዓቢ ምኽባር እዩ!',en:'Thank you! It is a great honor!',correct:true,fb:'Beautiful! Expressing gratitude and honor is exactly right when welcomed into a home.'},
-      {ge:'ማይ ይስተኻ?',en:'Would you like water?',correct:false,fb:'Do not offer water in their home! Say የቐንየለይ! ዓቢ ምኽባር እዩ!'},
-      {ge:'ክንደይ ዋጋ?',en:'How much does it cost?',correct:false,fb:'Never ask the price at a ceremony! Say የቐንየለይ! ዓቢ ምኽባር እዩ!'},
+      {ge:'የቐንየለይ! ዓቢ ክብሪ እዩ!',en:'Thank you! It is a great honor!',correct:true,fb:'Beautiful! Expressing gratitude and honor is exactly right when welcomed into a home.'},
+      {ge:'ማይ ትደሊ ዶ?',en:'Would you like water?',correct:false,fb:'You are the guest — the host offers! Say የቐንየለይ! ዓቢ ክብሪ እዩ!'},
+      {ge:'ክንደይ ዋጋ?',en:'How much does it cost?',correct:false,fb:'Never ask the price at a ceremony! Say የቐንየለይ! ዓቢ ክብሪ እዩ!'},
      ]},
-    {them:{ge:'ቡን ትሰቲ ዶ?',tr:'bun tsti do?',en:'Do you drink coffee?'},
+    {them:{ge:'ቡን ትሰቲ ዶ?',tr:'bun tisti do?',en:'Do you drink coffee?'},
      choices:[
       {ge:'እወ! ቡን ፍቕሪ እዩ!',en:'Yes! Coffee is love!',correct:true,fb:'Perfect! Enthusiastically accepting coffee honors the host and their sacred ceremony.'},
-      {ge:'ኣይፋልን፣ ማይ ይደሊ',en:'No, I want water instead',correct:false,fb:'Refusing coffee at a ceremony is rude in Eritrean culture. Accept: እወ ቡን ፍቕሪ እዩ!'},
+      {ge:'ኣይፋል፣ ማይ እደሊ',en:'No, I want water instead',correct:false,fb:'Refusing coffee at a ceremony is rude in Eritrean culture. Accept: እወ ቡን ፍቕሪ እዩ!'},
       {ge:'ሰናይ ምሸት',en:'Good evening',correct:false,fb:'You are accepting coffee, not saying goodbye! Say እወ! ቡን ፍቕሪ እዩ!'},
      ]},
    ]},
@@ -2235,25 +2245,20 @@ const CONVOS=[
 ══════════════════════════════════════════ */
 const CULTURE_TOPICS=[
   {id:"coffee",name:"The Coffee Ceremony",sub:"ስነ-ስርዓት ቡን",ico:"☕",content:"<div class=\"culture-text\">The Eritrean coffee ceremony is one of the most sacred social rituals in Tigrinya culture. It is an act of hospitality, community, and spiritual connection that can last two to three hours.</div><div class=\"culture-box\"><div class=\"culture-box-title\">The Three Rounds</div><div class=\"culture-box-text\">First round — strongest, awakens the body. Second round — medium strength. Third round — lightest, carries a blessing.</div></div><div class=\"culture-text\">The host roasts beans over charcoal, grinds them by hand, and fans the aroma through the room. Incense (ዕጣን) is burned throughout the ceremony.</div><div class=\"culture-box\"><div class=\"culture-box-title\">Key Phrase</div><div class=\"culture-box-text\"><span class=\"ge\">ቡን ጽቡቕ እዩ!</span> — The coffee is delicious! (Say this to honor your host)</div></div>"},
-  {id:"calendar",name:"The Orthodox Calendar",sub:"ቀዳሴ ዓመት",ico:"📅",content:"<div class=\"culture-text\">Eritrean Orthodox Christians follow the <strong>Geez (Ethiopic) calendar</strong> — about 7-8 years behind the Gregorian calendar. It has <strong>13 months</strong>: 12 of 30 days, plus a short 13th month of 5-6 days.</div><div class=\"culture-box\"><div class=\"culture-box-title\">Major Holidays</div><div class=\"culture-box-text\">ልደት — Christmas, January 7<br>ጥምቀት — Epiphany, January 19<br>ፋሲካ — Easter (Orthodox date)<br>መስቀል — Finding of the Cross, Sep 27<br>ናጽነት — Independence Day, May 24</div></div><div class=\"culture-text\">Fasting (ጾም) covers over 200 days per year with no meat or dairy. ሽሮ (shiro stew) and vegetables become the central foods during fasting periods.</div><div class=\"culture-box\"><div class=\"culture-box-title\">New Year Phrase</div><div class=\"culture-box-text\"><span class=\"ge\">ርሑስ ኣዲስ ኣመት!</span> — Happy New Year! (September 11)</div></div>"},
-  {id:"market",name:"Markets and Trade",sub:"ዕዳጋ ምኽባር",ico:"🏪",content:"<div class=\"culture-text\">The <strong>ዕዳጋ</strong> (market) is the economic and social heart of every Eritrean town — a community meeting place where news travels and relationships form.</div><div class=\"culture-box\"><div class=\"culture-box-title\">Market Days</div><div class=\"culture-box-text\"><strong>ቀዳም</strong> (Saturday) is the biggest market day in most highland towns. <strong>ዓርቢ</strong> (Friday) is important in Muslim areas. The ናቕፋ (Nakfa) currency was introduced in 1997, named after the legendary resistance city.</div></div><div class=\"culture-box\"><div class=\"culture-box-title\">Useful Bargaining Phrases</div><div class=\"culture-box-text\"><span class=\"ge\">ክንደይ ዋጋ?</span> — How much?<br><span class=\"ge\">ዝሓሰ ሃበኒ</span> — Give me a lower price<br><span class=\"ge\">ዋጋ ዓቢ!</span> — The price is too high!</div></div>"},
-  {id:"music",name:"Music and Dance",sub:"ዜማ ምስ ስዕሊ",ico:"🎶",content:"<div class=\"culture-text\">Tigrinya music (ዜማ) spans ancient church chants, highland folk songs, and modern pop. Music is inseparable from dance (ስዕሊ).</div><div class=\"culture-box\"><div class=\"culture-box-title\">Traditional Instruments</div><div class=\"culture-box-text\">ክራር — a 5-string lyre, the most iconic Eritrean instrument<br>ኪጋር — a traditional drum<br>ወሽንት — a traditional flute</div></div><div class=\"culture-text\">The distinctive element of Tigrinya dance is the shoulder shimmer called <strong>ጭርሖ</strong> — considered technically demanding, taking years to master. Music plays at every major celebration: weddings (ሰርግ), holidays, and harvests.</div>"},
+  {id:"calendar",name:"The Orthodox Calendar",sub:"ዓውደ ኣዋርሕ",ico:"📅",content:"<div class=\"culture-text\">Eritrean Orthodox Christians follow the <strong>Geez (Ethiopic) calendar</strong> — about 7-8 years behind the Gregorian calendar. It has <strong>13 months</strong>: 12 of 30 days, plus a short 13th month of 5-6 days.</div><div class=\"culture-box\"><div class=\"culture-box-title\">Major Holidays</div><div class=\"culture-box-text\">ልደት — Christmas, January 7<br>ጥምቀት — Epiphany, January 19<br>ፋሲካ — Easter (Orthodox date)<br>መስቀል — Finding of the Cross, Sep 27<br>ናጽነት — Independence Day, May 24</div></div><div class=\"culture-text\">Fasting (ጾም) covers over 200 days per year with no meat or dairy. ሽሮ (shiro stew) and vegetables become the central foods during fasting periods.</div><div class=\"culture-box\"><div class=\"culture-box-title\">New Year Phrase</div><div class=\"culture-box-text\"><span class=\"ge\">ርሑስ ሓድሽ ዓመት!</span> — Happy New Year! (September 11)</div></div>"},
+  {id:"market",name:"Markets and Trade",sub:"ዕዳጋን ንግድን",ico:"🏪",content:"<div class=\"culture-text\">The <strong>ዕዳጋ</strong> (market) is the economic and social heart of every Eritrean town — a community meeting place where news travels and relationships form.</div><div class=\"culture-box\"><div class=\"culture-box-title\">Market Days</div><div class=\"culture-box-text\"><strong>ቀዳም</strong> (Saturday) is the biggest market day in most highland towns. <strong>ዓርቢ</strong> (Friday) is important in Muslim areas. The ናቕፋ (Nakfa) currency was introduced in 1997, named after the legendary resistance city.</div></div><div class=\"culture-box\"><div class=\"culture-box-title\">Useful Bargaining Phrases</div><div class=\"culture-box-text\"><span class=\"ge\">ክንደይ ዋጋ?</span> — How much?<br><span class=\"ge\">ኣጉድለለይ</span> — Lower the price for me<br><span class=\"ge\">ክቡር እዩ!</span> — It's expensive!</div></div>"},
+  {id:"music",name:"Music and Dance",sub:"ሙዚቃን ሳዕስዒትን",ico:"🎶",content:"<div class=\"culture-text\">Tigrinya music (ዜማ) spans ancient church chants, highland folk songs, and modern pop. Music is inseparable from dance (ስዕሊ).</div><div class=\"culture-box\"><div class=\"culture-box-title\">Traditional Instruments</div><div class=\"culture-box-text\">ክራር — a 5-string lyre, the most iconic Eritrean instrument<br>ከበሮ — a double-headed drum<br>ምብልታ — a traditional flute</div></div><div class=\"culture-text\">The distinctive element of Tigrinya dance is the shoulder shimmer called <strong>ጭርሖ</strong> — considered technically demanding, taking years to master. Music plays at every major celebration: weddings (ሰርግ), holidays, and harvests.</div>"},
   {id:"asmara",name:"Asmara — The City",sub:"ኣስመራ ሰናይ ከተማ",ico:"🏛️",content:"<div class=\"culture-text\"><strong>ኣስመራ</strong> is the capital of Eritrea, at 2,325 meters above sea level. Its name means they made them unite — four villages merged into one city.</div><div class=\"culture-box\"><div class=\"culture-box-title\">UNESCO World Heritage Site</div><div class=\"culture-box-text\">Asmara has an extraordinary collection of Italian modernist architecture from the 1930s — art deco, futurist, rationalist, and cubist buildings in near-perfect preservation, unlike anywhere else in Africa.</div></div><div class=\"culture-text\">Nicknamed the little Rome. The Fiat Tagliero building (shaped like an airplane) is iconic. The main street is lined with cafes — coffee culture defines daily life.</div><div class=\"culture-box\"><div class=\"culture-box-title\">Key Phrase</div><div class=\"culture-box-text\"><span class=\"ge\">ኣስመራ ጽብቕቲ ከተማ እያ!</span> — Asmara is a beautiful city!</div></div>"},
-  {id:"independence",name:"Independence and Identity",sub:"ናጽነት ምስ ሃለዋት",ico:"🌺",content:"<div class=\"culture-text\">Eritrea achieved independence on <strong>May 24, 1991</strong>, after a 30-year armed struggle — one of the longest independence wars of the 20th century. <strong>ናጽነት</strong> (independence) is the most emotionally significant national holiday.</div><div class=\"culture-box\"><div class=\"culture-box-title\">Nakfa — The Unbroken City</div><div class=\"culture-box-text\">The city of ናቕፋ in northern Eritrea was never captured during the entire war — a symbol of resistance. The national currency is named in its honor.</div></div><div class=\"culture-box\"><div class=\"culture-box-title\">Independence Day Phrases</div><div class=\"culture-box-text\"><span class=\"ge\">ርሑስ ናጽነት!</span> — Happy Independence!<br><span class=\"ge\">ዓወት ንሓፋሽ!</span> — Victory to the masses!<br><span class=\"ge\">ሃገርና ኤርትራ!</span> — Our homeland Eritrea!</div></div>"},
+  {id:"independence",name:"Independence and Identity",sub:"ናጽነትን መንነትን",ico:"🌺",content:"<div class=\"culture-text\">Eritrea achieved independence on <strong>May 24, 1991</strong>, after a 30-year armed struggle — one of the longest independence wars of the 20th century. <strong>ናጽነት</strong> (independence) is the most emotionally significant national holiday.</div><div class=\"culture-box\"><div class=\"culture-box-title\">Nakfa — The Unbroken City</div><div class=\"culture-box-text\">The city of ናቕፋ in northern Eritrea was never captured during the entire war — a symbol of resistance. The national currency is named in its honor.</div></div><div class=\"culture-box\"><div class=\"culture-box-title\">Independence Day Phrases</div><div class=\"culture-box-text\"><span class=\"ge\">ርሑስ ናጽነት!</span> — Happy Independence!<br><span class=\"ge\">ዓወት ንሓፋሽ!</span> — Victory to the masses!<br><span class=\"ge\">ሃገርና ኤርትራ!</span> — Our homeland Eritrea!</div></div>"},
 ];
 
 /* ══════════════════════════════════════════
    DIALECT DATA
 ══════════════════════════════════════════ */
 const DIALECT_NOTES=[
-  {title:'Greeting Response',eri:{ge:'ጽቡቕ ኣለኹ',tr:'tsbuk aleku'},tig:{ge:'ጽቡቕ ኣሎኹ',tr:'tsbuk aloku'},note:'The verb "to be" for "I" differs slightly. Eritrean: ኣለኹ. Tigray: ኣሎኹ.'},
-  {title:'Coffee',eri:{ge:'ቡን',tr:'bun'},tig:{ge:'ቡና',tr:'buna'},note:'Eritrean Tigrinya borrowed directly from Geez. Tigray borrowed through Amharic, adding the final -a vowel.'},
-  {title:'How are you? (male)',eri:{ge:'ከመይ ኣለካ?',tr:'kemey aleka?'},tig:{ge:'ከመይ ዊዒሉካ?',tr:'kemey wiiluka?'},note:'Tigray uses a different verb phrase meaning "how has the day been for you?" — a fascinating difference.'},
-  {title:'Thank you',eri:{ge:'የቐንየለይ',tr:'yeqenyeley'},tig:{ge:'የምስገናለሁ',tr:'yemsgenalelhu'},note:'Eritrea preserves the classical Geez form. Tigray often uses an Amharic-influenced form.'},
-  {title:'Road / Street',eri:{ge:'ጎደና',tr:'godena'},tig:{ge:'ጽርጊያ',tr:'tsergia'},note:'Different inherited vocabulary for the same concept — a common pattern between the two varieties.'},
-  {title:'Hospital',eri:{ge:'ሕክምና',tr:'hkimna'},tig:{ge:'ሆስፒታል',tr:'hospital'},note:'Eritrea more often uses classical Geez-derived words for modern concepts. Tigray borrows directly from English.'},
-  {title:'Goodbye',eri:{ge:'ሰናይ ፍጠር',tr:'senay fter'},tig:{ge:'ደሓን ኩን',tr:'dehan kun'},note:'Both mean "go well / be well." The Eritrean form is more common in highland Tigrinya-speaking areas.'},
-  {title:'City / Town',eri:{ge:'ከተማ',tr:'ketema'},tig:{ge:'ዓዲ / ሓምሸት',tr:'adi / hamshet'},note:'Eritrea adopted the Amharic loanword ketema. Tigray often uses older Geez-rooted terms.'},
+  {title:'Greeting Response',eri:{ge:'ጽቡቕ ኣለኹ',tr:'tsbuk aleku'},tig:{ge:'ጽቡቕ ኣሎኹ',tr:'tsbuq aloku'},note:'The verb "to be" for "I" differs slightly. Eritrean: ኣለኹ. Tigray: ኣሎኹ.'},
+  {title:'Road / Street',eri:{ge:'ጎደና',tr:'godena'},tig:{ge:'ጽርግያ',tr:'tsirgiya'},note:'Eritrean Tigrinya says ጎደና; in Tigray ጽርግያ is more common. Both are understood.'},
+  {title:'Loanwords',eri:{ge:'ፈርማ',tr:'ferma'},tig:{ge:'ፊርማ',tr:'firma'},note:'Eritrean Tigrinya has many Italian loanwords (e.g. ፈርማ signature, ማኪና car); Ethiopian Tigrinya has more Amharic ones.'},
 ];
 
 /* ══════════════════════════════════════════
@@ -2496,7 +2501,7 @@ function buildLearnGrammar(){
 function renderLearnGrammar(idx){
   const lesson=GRAMMAR_LESSONS[idx];
   const ex=SB_EXERCISES[idx%SB_EXERCISES.length];
-  window._sbCurrent=ex;window._sbShuffled=shuf([...ex.words].filter(w=>!['།','།','?','!','།'].includes(w)));window._sbPlaced=[];
+  window._sbCurrent=ex;window._sbShuffled=shuf([...ex.words].filter(w=>!['።','።','?','!','።'].includes(w)));window._sbPlaced=[];
   const c=document.getElementById('grammar-content2');if(!c)return;
   c.innerHTML='<div class="lesson-card"><div class="lesson-hdr"><div class="lesson-title">'+lesson.title+'</div><div class="lesson-subtitle">'+lesson.sub+'</div></div><div class="lesson-body">'+lesson.content+'</div></div>'
     +'<div style="margin:0 1rem"><div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--smoke);margin:0 0 0.38rem">Sentence Builder</div>'
@@ -2507,7 +2512,7 @@ function renderLearnGrammar(idx){
     +'<div id="sb-result2" style="display:none;border-radius:10px;padding:0.62rem 0.78rem;font-size:0.74rem;line-height:1.5;margin-bottom:0.45rem"></div></div><div style="height:0.7rem"></div>';
 }
 function sbTap2(i){const w=window._sbShuffled[i];const btn=document.getElementById('sbw2-'+i);if(!btn||btn.style.opacity==='0.3')return;window._sbPlaced.push({word:w,idx:i});btn.style.opacity='0.3';btn.style.cursor='default';const t=document.getElementById('sb-target2');if(window._sbPlaced.length===1)t.innerHTML='';const chip=document.createElement('span');chip.style.cssText='background:rgba(212,160,23,0.12);border:1px solid rgba(212,160,23,0.2);border-radius:7px;padding:0.36rem 0.58rem;font-family:"Noto Serif Ethiopic",serif;font-size:0.86rem;color:var(--gold);cursor:pointer';chip.textContent=w;chip.onclick=()=>{window._sbPlaced=window._sbPlaced.filter(p=>p.idx!==i);btn.style.opacity='1';btn.style.cursor='pointer';chip.remove();if(!document.getElementById('sb-target2').children.length)document.getElementById('sb-target2').innerHTML='<span style="font-size:0.66rem;color:var(--smoke);font-style:italic">Tap words below →</span>';};t.appendChild(chip);}
-function sbCheck2(){const PUNCT=new Set(['།','།','?','!']);const placed=window._sbPlaced.map(p=>p.word).filter(w=>!PUNCT.has(w));const answer=(window._sbCurrent.answer||[]).filter(w=>!PUNCT.has(w));const ok=placed.length===answer.length&&placed.every((w,i)=>w===answer[i]);const r=document.getElementById('sb-result2');r.style.display='block';r.style.cssText='display:block;border-radius:10px;padding:0.62rem 0.78rem;font-size:0.74rem;line-height:1.5;margin-bottom:0.45rem;'+(ok?'background:rgba(74,124,89,0.1);border-left:3px solid var(--green);color:#6ab387':'background:rgba(155,35,53,0.08);border-left:3px solid var(--red);color:#e05565');if(ok){r.innerHTML='✓ Correct! +10 XP +3🪙';S.sbCorrect=(S.sbCorrect||0)+1;addXP(10);addCoins(3);save();checkAch();setTimeout(()=>renderLearnGrammar(learnGrammarTab2),1500);}else r.innerHTML='✗ Hint: '+window._sbCurrent.hint+'<br><span style="font-family:"Noto Serif Ethiopic",serif;font-size:0.93rem;color:var(--sand)">'+(window._sbCurrent.answer||[]).join(' ')+'</span>';}
+function sbCheck2(){const PUNCT=new Set(['።','።','?','!']);const placed=window._sbPlaced.map(p=>p.word).filter(w=>!PUNCT.has(w));const answer=(window._sbCurrent.answer||[]).filter(w=>!PUNCT.has(w));const ok=placed.length===answer.length&&placed.every((w,i)=>w===answer[i]);const r=document.getElementById('sb-result2');r.style.display='block';r.style.cssText='display:block;border-radius:10px;padding:0.62rem 0.78rem;font-size:0.74rem;line-height:1.5;margin-bottom:0.45rem;'+(ok?'background:rgba(74,124,89,0.1);border-left:3px solid var(--green);color:#6ab387':'background:rgba(155,35,53,0.08);border-left:3px solid var(--red);color:#e05565');if(ok){r.innerHTML='✓ Correct! +10 XP +3🪙';S.sbCorrect=(S.sbCorrect||0)+1;addXP(10);addCoins(3);save();checkAch();setTimeout(()=>renderLearnGrammar(learnGrammarTab2),1500);}else r.innerHTML='✗ Hint: '+window._sbCurrent.hint+'<br><span style="font-family:"Noto Serif Ethiopic",serif;font-size:0.93rem;color:var(--sand)">'+(window._sbCurrent.answer||[]).join(' ')+'</span>';}
 function sbReset2(){window._sbPlaced=[];document.querySelectorAll('[id^="sbw2-"]').forEach(b=>{b.style.opacity='1';b.style.cursor='pointer';});document.getElementById('sb-target2').innerHTML='<span style="font-size:0.66rem;color:var(--smoke);font-style:italic">Tap words below →</span>';document.getElementById('sb-result2').style.display='none';}
 
 /* Culture */
