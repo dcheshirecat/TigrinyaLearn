@@ -32,16 +32,35 @@ jobs:
           sudo mv gradle-8.4 /opt/gradle
           echo "/opt/gradle/bin" >> $GITHUB_PATH
 
-      - name: Generate keystore
+      - name: Set up signing key
+        # Permanent key from repository secrets (see SIGNING.md). Android only
+        # installs an update over an existing app if both are signed with the
+        # same key, so every build must use this one.
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           mkdir -p app
-          keytool -genkey -v \
-            -keystore app/keystore.jks \
-            -alias tigrinya \
-            -keyalg RSA -keysize 2048 -validity 10000 \
-            -storepass TigrinyaBuild2024 \
-            -keypass TigrinyaBuild2024 \
-            -dname "CN=Tigrinya Learn, OU=dcheshirecat, O=Studio, L=Unknown, ST=Unknown, C=US"
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > app/keystore.jks
+            echo "SIGN_STORE_PASS=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
+            echo "SIGN_KEY_ALIAS=${KEY_ALIAS:-tigrinya}" >> "$GITHUB_ENV"
+            echo "SIGN_KEY_PASS=${KEY_PASSWORD:-$KEYSTORE_PASSWORD}" >> "$GITHUB_ENV"
+            echo "Using the permanent signing key."
+          else
+            echo "::warning title=Temporary signing key::KEYSTORE_BASE64 secret is not set. This APK is signed with a throwaway key, so later builds will not install over it. See SIGNING.md."
+            TMP_PASS=$(openssl rand -hex 16)
+            echo "::add-mask::$TMP_PASS"
+            keytool -genkeypair -keystore app/keystore.jks -alias tigrinya \
+              -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass "$TMP_PASS" -keypass "$TMP_PASS" \
+              -dname "CN=Tigrinya Learn (temporary)"
+            echo "SIGN_STORE_PASS=$TMP_PASS" >> "$GITHUB_ENV"
+            echo "SIGN_KEY_ALIAS=tigrinya" >> "$GITHUB_ENV"
+            echo "SIGN_KEY_PASS=$TMP_PASS" >> "$GITHUB_ENV"
+          fi
 
       - name: Build project structure
         run: |
@@ -185,15 +204,16 @@ jobs:
                   applicationId "com.dcheshirecat.tigrinya"
                   minSdk 24
                   targetSdk 34
-                  versionCode 1
-                  versionName "1.0"
+                  // Each CI run gets a higher versionCode so Android accepts it as an update
+                  versionCode((System.getenv("GITHUB_RUN_NUMBER") ?: "1") as Integer)
+                  versionName("1.1." + (System.getenv("GITHUB_RUN_NUMBER") ?: "0"))
               }
               signingConfigs {
                   release {
                       storeFile file("keystore.jks")
-                      storePassword "TigrinyaBuild2024"
-                      keyAlias "tigrinya"
-                      keyPassword "TigrinyaBuild2024"
+                      storePassword System.getenv("SIGN_STORE_PASS")
+                      keyAlias System.getenv("SIGN_KEY_ALIAS")
+                      keyPassword System.getenv("SIGN_KEY_PASS")
                   }
               }
               buildTypes {
