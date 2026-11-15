@@ -13,7 +13,7 @@ const dataFiles = [...html.matchAll(/<script src="(js\/data\/[^"]+)"><\/script>/
 
 const ctx = vm.createContext({ console });
 for (const f of dataFiles) vm.runInContext(fs.readFileSync(path.join(root, f), 'utf8'), ctx, { filename: f });
-const D = vm.runInContext('({V,CATS,FIDEL,ALL_CARDS,PACKS,GRAMMAR_LESSONS,SB_EXERCISES,BD_EXERCISES,WB_WORDS,ACHS,STORIES,CONVOS,CULTURE_TOPICS,DIALECT_NOTES,GENDER_DRILLS})', ctx);
+const D = vm.runInContext('({V,CATS,FIDEL,ALL_CARDS,PACKS,GRAMMAR_LESSONS,SB_EXERCISES,BD_EXERCISES,WB_WORDS,ACHS,STORIES,CONVOS,CULTURE_TOPICS,DIALECT_NOTES,GENDER_DRILLS,PATH_UNITS})', ctx);
 
 const errors = [], warnings = [];
 const err = (where, msg) => errors.push(`${where}: ${msg}`);
@@ -76,12 +76,33 @@ D.GENDER_DRILLS.forEach((d, i) => {
   if (new Set([d.m[0], d.f[0], d.p[0]]).size !== 3) warn(at, 'two forms are identical — the quiz cannot tell them apart');
 });
 
-/* 8. Achievements */
+/* 8. Learning path: every step points at something that exists */
+const unitIds = new Set();
+D.PATH_UNITS.forEach((u, ui) => {
+  const at = `PATH_UNITS[${ui}] ${u.title}`;
+  if (unitIds.has(u.id)) err(at, 'duplicate unit id'); unitIds.add(u.id);
+  if (!D.V[u.cat]) return err(at, `unknown category "${u.cat}"`);
+  u.steps.forEach(code => {
+    const [type, arg] = code.split(':');
+    const ok = {
+      learn: () => true, quiz: () => true, match: () => D.V[u.cat].words.length >= 4, listen: () => true, build: () => true,
+      type: () => D.V[u.cat].words.filter(w => !w.g.includes('...')).length >= 5,
+      talk: () => arg.split(',').every(i => D.GENDER_DRILLS[+i]),
+      grammar: () => !!D.GRAMMAR_LESSONS[+arg],
+      story: () => D.STORIES.some(s => s.id === arg),
+      convo: () => D.CONVOS.some(c => c.id === arg),
+    }[type];
+    if (!ok) err(at, `unknown step type "${code}"`);
+    else if (!ok()) err(at, `step "${code}" points at missing content`);
+  });
+});
+
+/* 9. Achievements */
 const achIds = new Set();
 D.ACHS.forEach(a => { if (achIds.has(a.id)) err(`ACHS ${a.id}`, 'duplicate id'); achIds.add(a.id); });
 
 const words = D.CATS.reduce((n, c) => n + D.V[c].words.length, 0);
-console.log(`Checked ${dataFiles.length} data files · ${words} words · ${D.FIDEL.length} fidel families · ${D.BD_EXERCISES.length + D.SB_EXERCISES.length} sentence exercises · ${D.GENDER_DRILLS.length} drills`);
+console.log(`Checked ${dataFiles.length} data files · ${words} words · ${D.FIDEL.length} fidel families · ${D.BD_EXERCISES.length + D.SB_EXERCISES.length} sentence exercises · ${D.GENDER_DRILLS.length} drills · ${D.PATH_UNITS.length} path units`);
 warnings.forEach(w => console.log('  warn  ' + w));
 errors.forEach(e => console.log('  ERROR ' + e));
 if (errors.length) { console.log(`\n${errors.length} error(s)`); process.exit(1); }

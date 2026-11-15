@@ -77,8 +77,28 @@ const check = (cond, msg) => { console.log((cond ? '  ok   ' : '  FAIL ') + msg)
   await page.click('.kb-enter');
   check(await page.evaluate(() => $id('ty-input').classList.contains('ok')), `typed "${target}" on the keyboard and it was accepted`);
 
+  // Guided path: home card → flashcards → lesson complete → next step (quiz, 10 questions)
+  await page.evaluate(() => goNav('home'));
+  await page.click('#h-path .btn');
+  check(await page.evaluate(() => document.querySelector('.screen.active').id === 'screen-flash' && pathCtx && pathCtx.type === 'learn'), 'path "Start" opens the first lesson (flashcards)');
+  check(await page.evaluate(() => getComputedStyle(document.querySelector('.nav')).display === 'none'), 'tab bar is hidden during a lesson');
+  await page.evaluate(() => { while (document.querySelector('.screen.active').id === 'screen-flash') { fcFlip(); fcAns(true); } });
+  check(await page.isVisible('#screen-pathdone .pd-title'), 'finishing the deck shows "Lesson complete"');
+  await page.click('#pd-body .btn:not(.ghost)');
+  check(await page.evaluate(() => pathCtx && pathCtx.type === 'quiz'), '"Next" starts the following step (quiz)');
+  for (let i = 0; i < 10; i++) { await page.click('.opt >> nth=0'); await page.click('.next-btn'); }
+  check(await page.evaluate(() => S.path.u01.filter(Boolean).length === 2), 'quiz step completes after 10 questions');
+  await shot('path-lesson-done');
+  await page.evaluate(() => goNav('path'));
+  check((await page.locator('.unit').count()) === await page.evaluate(() => PATH_UNITS.length), 'path screen lists every unit');
+  await shot('path');
+  await page.click('#pd-body .btn.ghost').catch(() => {});
+  // Old screens redirect into Learn
+  await page.evaluate(() => goNav('script'));
+  check(await page.evaluate(() => document.querySelector('.screen.active').id === 'screen-learn'), 'old Alphabet screen redirects to Learn');
+
   // Every other screen opens
-  for (const id of ['learn', 'stories', 'cards', 'prog', 'script', 'grammar', 'build', 'wordbuild', 'home']) {
+  for (const id of ['learn', 'stories', 'cards', 'prog', 'path', 'build', 'wordbuild', 'home']) {
     await page.evaluate(id => goNav(id), id);
     await page.waitForTimeout(120);
   }

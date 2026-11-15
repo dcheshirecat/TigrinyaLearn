@@ -54,13 +54,16 @@
       </div>
     </div>
 
+    <div class="sec-label">Your path</div>
+    <div class="unit-card home" id="h-path"></div>
+
     <button class="hm-review" id="h-review" onclick="startReview()">
       <div class="hmr-ico">🧠</div>
       <div class="hmr-txt"><div class="hmr-title">Daily Review</div><div class="hmr-sub" id="h-review-sub">Loading…</div></div>
       <div class="hmr-go">Start</div>
     </button>
 
-    <div class="sec-label">Practice</div>
+    <div class="sec-label">Free practice</div>
     <div class="tile-grid">
       <button class="tile" onclick="startListen('pick')"><span class="tile-new">NEW</span><span class="tile-ico">🎧</span><span class="tile-name">Listen</span></button>
       <button class="tile" onclick="startListen('type')"><span class="tile-new">NEW</span><span class="tile-ico">⌨️</span><span class="tile-name">Type it</span></button>
@@ -75,8 +78,8 @@
 
     <div class="sec-label">Study</div>
     <div class="wide-row">
-      <button class="tile" onclick="goNav('script')"><span class="tile-ico">✍️</span><span class="tile-name">Alphabet<br><span style="font-weight:500;color:var(--smoke);font-size:0.68rem">read · trace · quiz</span></span></button>
-      <button class="tile" onclick="goNav('grammar')"><span class="tile-ico">📝</span><span class="tile-name">Grammar<br><span style="font-weight:500;color:var(--smoke);font-size:0.68rem">10 short lessons</span></span></button>
+      <button class="tile" onclick="openLearnTab('script')"><span class="tile-ico">✍️</span><span class="tile-name">Alphabet<br><span style="font-weight:500;color:var(--smoke);font-size:0.68rem">read · trace · quiz</span></span></button>
+      <button class="tile" onclick="openLearnTab('grammar')"><span class="tile-ico">📝</span><span class="tile-name">Grammar<br><span style="font-weight:500;color:var(--smoke);font-size:0.68rem">10 short lessons</span></span></button>
     </div>
 
     <div class="daily-card" onclick="speakDaily()">
@@ -100,7 +103,7 @@
 
 <!-- FLASHCARD -->
 <div class="screen" id="screen-flash">
-  <div class="game-hdr"><div class="back" onclick="goNav('play')">←</div><div class="g-prog" id="fc-prog">1/12</div><div class="g-streak" id="fc-str">🔥 0</div></div>
+  <div class="ex-hdr"><button class="back" onclick="exitLesson('play')" aria-label="Close lesson">✕</button><div class="ex-bar"><div class="hdr-bar"></div></div><div class="ex-count" id="fc-prog">1/12</div><div class="run" id="fc-str" title="Correct answers in a row">⚡ 0</div></div>
   <div class="fc-area">
     <div class="flashcard" id="flashcard" onclick="fcFlip()">
       <div class="fc-inner">
@@ -126,7 +129,7 @@
 
 <!-- QUIZ -->
 <div class="screen" id="screen-quiz">
-  <div class="game-hdr"><div class="back" onclick="goNav('play')">←</div><div class="g-prog" id="qz-prog">Q 1</div><div class="g-streak" id="qz-str">🔥 0</div></div>
+  <div class="ex-hdr"><button class="back" onclick="exitLesson('play')" aria-label="Close lesson">✕</button><div class="ex-bar"><div class="hdr-bar"></div></div><div class="ex-count" id="qz-prog">1 / 10</div><div class="run" id="qz-str" title="Correct answers in a row">⚡ 0</div></div>
   <div class="quiz-scroll">
     <div class="quiz-word">
       <div class="q-ge ge" id="q-ge"></div>
@@ -142,7 +145,7 @@
 
 <!-- MATCH -->
 <div class="screen" id="screen-match">
-  <div class="game-hdr"><div class="back" onclick="stopMatch();goNav('play')">←</div><div class="match-timer-big" id="m-timer">0:00</div><div class="g-streak" id="m-str">🔥 0</div></div>
+  <div class="ex-hdr"><button class="back" onclick="stopMatch();exitLesson('play')" aria-label="Close lesson">✕</button><div class="ex-bar"><div class="hdr-bar"></div></div><div class="ex-count" id="m-timer">0:00</div><div class="run" id="m-str" title="Correct answers in a row">⚡ 0</div></div>
   <div class="match-info" id="m-info">Tap Tigrinya word then its English match</div>
   <div class="match-grid" id="m-grid"></div>
   <div id="m-result"></div>
@@ -150,7 +153,7 @@
 
 <!-- WORD HUNT -->
 <div class="screen" id="screen-search">
-  <div class="game-hdr"><div class="back" onclick="goNav('play')">←</div><div class="g-prog" id="ws-found">0/5</div><div class="g-streak" id="ws-str">🔥 0</div></div>
+  <div class="ex-hdr"><button class="back" onclick="exitLesson('play')" aria-label="Close lesson">✕</button><div class="ex-bar"><div class="hdr-bar"></div></div><div class="ex-count" id="ws-found" data-done="1">0/5</div><div class="run" id="ws-str" title="Correct answers in a row">⚡ 0</div></div>
   <div class="scroll-area" style="padding-bottom:80px">
     <div class="ws-grid" id="ws-grid"></div>
     <div class="ws-words" id="ws-words"></div>
@@ -159,64 +162,10 @@
 </div>
 
 <!-- SCRIPT -->
-<div class="screen" id="screen-script">
-  <div class="page-header"><div class="page-title">✍️ Ge'ez Fidel Script</div></div>
-  <div class="script-tabs">
-    <button class="stab active" id="stab-chart" onclick="switchScriptTab('chart')">Chart</button>
-    <button class="stab" id="stab-write" onclick="switchScriptTab('write')">Trace</button>
-    <button class="stab" id="stab-rquiz" onclick="switchScriptTab('rquiz')">Quiz</button>
-  </div>
-  <div id="stab-chart-pane" class="scroll-area" style="padding-bottom:80px">
-    <div class="fidel-intro"><div class="fidel-intro-title">The Ge'ez Fidel (ፊደል)</div><div class="fidel-intro-text">Tigrinya uses the ancient <strong style="color:var(--sand)">Ge'ez script</strong> — an <strong style="color:var(--sand)">abugida</strong> where each character is a consonant+vowel pair. 7 vowel orders · 32 consonant families. Tap any character to explore it and hear it pronounced.</div></div>
-    <div class="vowel-hdr" id="vowel-hdr"></div>
-    <div id="fidel-chart"></div>
-    <div class="fidel-detail" id="fidel-detail"></div>
-    <div class="sgap"></div>
-  </div>
-  <div id="stab-write-pane" class="scroll-area" style="padding-bottom:80px;display:none">
-    <div style="padding:0 1rem 0.5rem;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--smoke)">Pick a character to trace</div>
-    <div class="write-char-pick" id="write-char-pick"></div>
-    <!-- Info row -->
-    <div style="margin:0 1rem 0.45rem;display:flex;align-items:center;justify-content:space-between">
-      <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--smoke)">Draw on the canvas · trace the ghost</div>
-      <button onclick="showGuideAnim()" style="background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.25);border-radius:8px;padding:0.3rem 0.65rem;font-size:0.65rem;color:var(--gold);cursor:pointer;font-family:inherit">▶ Show Guide</button>
-    </div>
-    <div class="canvas-wrap">
-      <div class="trace-char ge" id="trace-char">ሀ</div>
-      <!-- Overlay canvas for guide animation -->
-      <canvas id="guideCanvas" height="220" style="display:block;width:100%;position:absolute;top:0;left:0;border-radius:14px;pointer-events:none;opacity:0;transition:opacity 0.3s"></canvas>
-      <canvas id="writeCanvas" height="220"></canvas>
-    </div>
-    <!-- Accuracy + stroke count -->
-    <div style="display:flex;gap:0.5rem;margin:0 1rem 0.45rem;align-items:center">
-      <div class="accuracy-badge" id="accuracy-badge" style="flex:1;text-align:left"></div>
-      <div id="stroke-count" style="font-size:0.65rem;color:var(--smoke)"></div>
-    </div>
-    <div class="canvas-btns">
-      <button class="cbtn cbtn-clear" onclick="clearCanvas()">🗑 Clear</button>
-      <button onclick="undoStroke()" style="flex:0 0 72px;padding:0.7rem;border:none;border-radius:11px;font-family:inherit;font-size:0.72rem;font-weight:700;background:rgba(212,160,23,0.1);color:var(--gold);border:1px solid rgba(212,160,23,0.2);cursor:pointer">↩ Undo</button>
-      <button class="cbtn cbtn-xp" onclick="claimWriteXP()">✓ Done +10XP</button>
-    </div>
-    <div class="write-tip"><strong>How to write Ge'ez</strong>Trace the glowing ghost character with your finger. Press <strong style="color:var(--gold)">▶ Show Guide</strong> to see an animated example. Use Undo to remove your last stroke. Accuracy score shows how well you covered the character shape.</div>
-    <div class="sgap"></div>
-  </div>
-  <div id="stab-rquiz-pane" style="display:none;flex:1;overflow-y:auto;padding-bottom:80px">
-    <div class="rq-card">
-      <div class="rq-ge ge" id="rq-ge">ሀ</div>
-      <button class="tts-btn" onclick="speakFidel()">🔊 Listen</button>
-      <div class="rq-prompt" id="rq-prompt">What sound does this make?</div>
-    </div>
-    <div class="rq-opts" id="rq-opts"></div>
-    <div class="q-result" id="rq-result"></div>
-  </div>
-</div>
+
 
 <!-- GRAMMAR -->
-<div class="screen" id="screen-grammar">
-  <div class="page-header"><div class="page-title">📝 Grammar</div></div>
-  <div class="grammar-tabs" id="grammar-tabs"></div>
-  <div class="scroll-area" style="padding-bottom:80px" id="grammar-content"></div>
-</div>
+
 
 <!-- CARDS -->
 <div class="screen" id="screen-cards">
@@ -231,11 +180,7 @@
 
 <!-- PROGRESS -->
 <div class="screen" id="screen-wordbuild">
-  <div class="game-hdr">
-    <div class="back" onclick="goNav('home')">←</div>
-    <div class="g-prog" id="wb-prog">1 / 24</div>
-    <div class="g-streak" id="wb-str">🔥 0</div>
-  </div>
+  <div class="ex-hdr"><button class="back" onclick="exitLesson('home')" aria-label="Close lesson">✕</button><div class="ex-bar"><div class="hdr-bar"></div></div><div class="ex-count" id="wb-prog">1 / 24</div><div class="run" id="wb-str" title="Correct answers in a row">⚡ 0</div></div>
   <div class="scroll-area" style="padding-bottom:80px">
     <div style="margin:0 1rem 0.65rem">
       <!-- Word display card -->
@@ -271,7 +216,7 @@
   <div class="scroll-area" style="padding-bottom:80px"><div class="prog-list" id="prog-list"></div></div>
 </div>
 
-<!-- BUILD SCREEN --><div class="screen" id="screen-build">  <div class="game-hdr">    <div class="back" onclick="goNav('home')">←</div>    <div class="g-prog" id="bd-prog">1 / 20</div>    <div class="g-streak" id="bd-str">🔥 0</div>  </div>  <div class="scroll-area" style="padding-bottom:80px">    <div style="margin:0 1rem 0.65rem">      <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.35rem" id="bd-type-label">Build the sentence</div>      <div style="background:var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:14px;padding:0.9rem 1rem;margin-bottom:0.65rem">        <div style="font-size:0.75rem;color:var(--smoke);margin-bottom:0.3rem" id="bd-english"></div>        <div style="font-size:0.62rem;font-style:italic;color:rgba(240,230,211,0.35)" id="bd-hint"></div>      </div>      <!-- Drop zone -->      <div id="bd-zone" style="background:rgba(212,160,23,0.05);border:2px dashed rgba(212,160,23,0.2);border-radius:14px;min-height:56px;padding:0.6rem;display:flex;flex-wrap:wrap;gap:0.35rem;align-items:center;margin-bottom:0.65rem;transition:border-color 0.2s">        <span style="font-size:0.7rem;color:rgba(240,230,211,0.25);font-style:italic" id="bd-zone-hint">Tap words below to place them here</span>      </div>      <!-- Word bank -->      <div id="bd-bank" style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem"></div>      <!-- Actions -->      <div style="display:flex;gap:0.5rem;margin-bottom:0.65rem">        <button onclick="bdCheck()" style="flex:1;padding:0.8rem;background:var(--green);border:none;border-radius:12px;color:#fff;font-family:inherit;font-weight:700;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">✓ Check</button>        <button onclick="bdReset()" style="flex:0 0 80px;padding:0.8rem;background:rgba(240,230,211,0.07);border:1px solid var(--border);border-radius:12px;color:var(--smoke);font-family:inherit;font-weight:700;font-size:0.78rem;cursor:pointer">↺ Reset</button>        <button onclick="bdSpeak()" style="flex:0 0 52px;padding:0.8rem;background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.2);border-radius:12px;color:var(--gold);font-family:inherit;font-size:1rem;cursor:pointer">🔊</button>      </div>      <div id="bd-result" style="display:none;border-radius:12px;padding:0.75rem 0.9rem;font-size:0.8rem;line-height:1.6;margin-bottom:0.5rem"></div>    </div>    <!-- Progress mini-list -->    <div style="margin:0 1rem">      <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.4rem">All Exercises</div>      <div id="bd-list" style="display:flex;flex-direction:column;gap:0.4rem"></div>    </div>    <div class="sgap"></div>  </div></div>
+<!-- BUILD SCREEN --><div class="screen" id="screen-build">  <div class="ex-hdr"><button class="back" onclick="exitLesson('home')" aria-label="Close lesson">✕</button><div class="ex-bar"><div class="hdr-bar"></div></div><div class="ex-count" id="bd-prog">1 / 20</div><div class="run" id="bd-str" title="Correct answers in a row">⚡ 0</div></div>  <div class="scroll-area" style="padding-bottom:80px">    <div style="margin:0 1rem 0.65rem">      <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.35rem" id="bd-type-label">Build the sentence</div>      <div style="background:var(--card2);border:1px solid rgba(212,160,23,0.18);border-radius:14px;padding:0.9rem 1rem;margin-bottom:0.65rem">        <div style="font-size:0.75rem;color:var(--smoke);margin-bottom:0.3rem" id="bd-english"></div>        <div style="font-size:0.62rem;font-style:italic;color:rgba(240,230,211,0.35)" id="bd-hint"></div>      </div>      <!-- Drop zone -->      <div id="bd-zone" style="background:rgba(212,160,23,0.05);border:2px dashed rgba(212,160,23,0.2);border-radius:14px;min-height:56px;padding:0.6rem;display:flex;flex-wrap:wrap;gap:0.35rem;align-items:center;margin-bottom:0.65rem;transition:border-color 0.2s">        <span style="font-size:0.7rem;color:rgba(240,230,211,0.25);font-style:italic" id="bd-zone-hint">Tap words below to place them here</span>      </div>      <!-- Word bank -->      <div id="bd-bank" style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem"></div>      <!-- Actions -->      <div style="display:flex;gap:0.5rem;margin-bottom:0.65rem">        <button onclick="bdCheck()" style="flex:1;padding:0.8rem;background:var(--green);border:none;border-radius:12px;color:#fff;font-family:inherit;font-weight:700;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer">✓ Check</button>        <button onclick="bdReset()" style="flex:0 0 80px;padding:0.8rem;background:rgba(240,230,211,0.07);border:1px solid var(--border);border-radius:12px;color:var(--smoke);font-family:inherit;font-weight:700;font-size:0.78rem;cursor:pointer">↺ Reset</button>        <button onclick="bdSpeak()" style="flex:0 0 52px;padding:0.8rem;background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.2);border-radius:12px;color:var(--gold);font-family:inherit;font-size:1rem;cursor:pointer">🔊</button>      </div>      <div id="bd-result" style="display:none;border-radius:12px;padding:0.75rem 0.9rem;font-size:0.8rem;line-height:1.6;margin-bottom:0.5rem"></div>    </div>    <!-- Progress mini-list -->    <div style="margin:0 1rem">      <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--smoke);margin-bottom:0.4rem">All Exercises</div>      <div id="bd-list" style="display:flex;flex-direction:column;gap:0.4rem"></div>    </div>    <div class="sgap"></div>  </div></div>
 
 <!-- WORD POPUP (tap story words) -->
 <div class="word-popup hidden" id="word-popup">
@@ -384,7 +329,7 @@
 <!-- STORY READER -->
 <div class="screen" id="screen-story-reader">
   <div class="game-hdr">
-    <div class="back" onclick="goNav('stories')">←</div>
+    <button class="back" onclick="exitLesson('stories')" aria-label="Back">←</button>
     <div class="g-prog" id="sr-title" style="color:var(--sand);font-size:0.82rem"></div>
     <button class="tts-btn" onclick="speakStoryLine()" style="margin-top:0">🔊</button>
   </div>
@@ -398,7 +343,7 @@
 <!-- CONVERSATION -->
 <div class="screen" id="screen-convo">
   <div class="game-hdr">
-    <div class="back" onclick="goNav('stories')">←</div>
+    <button class="back" onclick="exitLesson('stories')" aria-label="Back">←</button>
     <div class="g-prog" id="cv-title" style="color:var(--sand);font-size:0.82rem"></div>
     <div class="g-streak" id="cv-str">🔥 0</div>
   </div>
@@ -413,32 +358,27 @@
 </div>
 
 <!-- LEADERBOARD -->
-<div class="screen" id="screen-social">
-  <div class="page-header"><div class="page-title">🏆 Leaderboard</div></div>
-  <div class="scroll-area" style="padding-bottom:72px">
-    <div style="margin:0 1rem 0.65rem;background:var(--card2);border:1px solid rgba(212,160,23,0.25);border-radius:14px;padding:0.9rem 1rem">
-      <div style="font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.38rem">Post Your Score</div>
-      <div style="display:flex;gap:0.45rem;align-items:center">
-        <input id="lb-name-input" type="text" maxlength="20" placeholder="Your name…" style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:0.52rem 0.72rem;color:var(--sand);font-family:inherit;font-size:0.8rem;outline:none">
-        <button onclick="submitScore()" style="padding:0.52rem 0.9rem;background:var(--accent);border:none;border-radius:9px;color:#fff;font-family:inherit;font-weight:700;font-size:0.7rem;cursor:pointer">Post</button>
-      </div>
-      <div style="font-size:0.6rem;color:var(--smoke);margin-top:0.38rem">Your score: <strong style="color:var(--gold)" id="lb-your-score">0</strong> pts · Level <strong style="color:var(--gold)" id="lb-your-level">1</strong></div>
-    </div>
-    <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--smoke);margin:0 1rem 0.5rem">Top Players</div>
-    <div style="display:flex;flex-direction:column;gap:0.4rem;padding:0 1rem" id="lb-list"><div style="text-align:center;padding:1.5rem;color:var(--smoke);font-size:0.8rem">Loading…</div></div>
-    <button onclick="loadLeaderboard()" style="display:block;width:calc(100% - 2rem);margin:0.6rem 1rem;padding:0.68rem;background:rgba(240,230,211,0.07);border:1px solid var(--border);border-radius:11px;color:var(--smoke);font-family:inherit;font-size:0.7rem;cursor:pointer;text-align:center">↻ Refresh</button>
-    <div style="height:0.7rem"></div>
-  </div>
+
+
+<!-- ═══ LEARNING PATH ═══ -->
+<div class="screen" id="screen-path">
+  <div class="page-header"><button class="back" onclick="goNav('home')" aria-label="Back">←</button><div class="page-title">Your path</div></div>
+  <div class="path-summary" id="path-summary"></div>
+  <div class="scroll-area"><div class="path-list" id="path-list"></div><div class="sgap"></div></div>
 </div>
+<div class="screen" id="screen-pathdone">
+  <div class="ex-body" id="pd-body" style="padding-top:calc(env(safe-area-inset-top,0px) + 1.5rem)"></div>
+</div>
+<div class="reward" id="reward" aria-live="polite"></div>
 
 <!-- ═══ DAILY REVIEW (spaced repetition) ═══ -->
 <div class="screen" id="screen-review">
-  <div class="ex-hdr"><div class="back" onclick="goNav('home')" aria-label="Back">←</div><div class="ex-bar"><div id="rv-bar"></div></div><div class="ex-count" id="rv-prog">0 / 0</div></div>
+  <div class="ex-hdr"><button class="back" onclick="goNav('home')" aria-label="Close review">✕</button><div class="ex-bar"><div id="rv-bar"></div></div><div class="ex-count" id="rv-prog">0 / 0</div></div>
   <div class="ex-body" id="rv-body">
     <span class="ex-tag" id="rv-tag">Review</span>
     <div class="ex-card">
       <div id="rv-front"></div>
-      <div class="audio-row"><button class="icon-btn" onclick="rvSpeak()">🔊 Listen</button></div>
+      <div class="audio-row"><button class="icon-btn" id="rv-listen" onclick="rvSpeak()">🔊 Listen</button></div>
       <div id="rv-back" hidden style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)"></div>
     </div>
     <button class="btn" id="rv-show" onclick="rvReveal()">Show answer</button>
@@ -456,7 +396,7 @@
 
 <!-- ═══ GENDER & NUMBER ("Talk to…") ═══ -->
 <div class="screen" id="screen-gender">
-  <div class="ex-hdr"><div class="back" onclick="goNav('home')" aria-label="Back">←</div><div class="ex-bar"><div id="gd-bar"></div></div><div class="ex-count" id="gd-prog">0 / 0</div></div>
+  <div class="ex-hdr"><button class="back" onclick="exitLesson('home')" aria-label="Close lesson">✕</button><div class="ex-bar"><div id="gd-bar"></div></div><div class="ex-count" id="gd-prog">0 / 0</div></div>
   <div class="ex-body">
     <div class="seg"><button id="gd-tab-p" class="on" onclick="gdTab('p')">Practice</button><button id="gd-tab-r" onclick="gdTab('r')">Patterns</button></div>
     <div id="gd-practice" style="display:flex;flex-direction:column;gap:0.8rem"></div>
@@ -466,7 +406,7 @@
 
 <!-- ═══ LISTEN & TYPE ═══ -->
 <div class="screen" id="screen-listen">
-  <div class="ex-hdr"><div class="back" onclick="lsExit()" aria-label="Back">←</div><div class="ex-bar"><div id="ls-bar"></div></div><div class="ex-count" id="ls-prog">0 / 0</div></div>
+  <div class="ex-hdr"><button class="back" onclick="lsExit()" aria-label="Close lesson">✕</button><div class="ex-bar"><div id="ls-bar"></div></div><div class="ex-count" id="ls-prog">0 / 0</div></div>
   <div class="ex-body" id="ls-body"></div>
 </div>
 
@@ -492,9 +432,11 @@
 <script src="js/data/stories.js"></script>
 <script src="js/data/culture.js"></script>
 <script src="js/data/drills.js"></script>
+<script src="js/data/path.js"></script>
 <script src="js/tts.js"></script>
 <script src="js/app.js"></script>
 <script src="js/practice.js"></script>
+<script src="js/path.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

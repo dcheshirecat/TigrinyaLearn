@@ -14,6 +14,7 @@ js/data/                All learning content. Edit these to add or fix words
   fidel.js              The 32 alphabet families, 7 vowel forms each
   grammar.js            Grammar lessons and the sentence-building exercises
   drills.js             "Talk to…" phrases in masculine / feminine / plural forms
+  path.js               The guided learning path: 15 units and the steps in each
   stories.js            Short stories and the conversation role-plays
   culture.js            Culture topics and dialect notes
   cards.js              Trading cards and card packs
@@ -22,6 +23,7 @@ js/data/                All learning content. Edit these to add or fix words
 js/tts.js               Text-to-speech, plus playback of recorded audio
 js/app.js               Core app: state, navigation, games, alphabet, cards, stories
 js/practice.js          Spaced-repetition review, Talk to…, Listen, Type it, keyboard
+js/path.js              Learning path, shared lesson layout, reward indicator
 js/main.js              Startup
 tools/validate-data.js  Checks the content files for common mistakes
 tests/e2e.js            Plays through the app in a headless browser
@@ -42,6 +44,29 @@ There is no build step. The scripts are plain `<script>` tags (not ES modules), 
   node tools/validate-data.js
   ```
   It reports problems such as wrong punctuation, Latin letters in a Ge'ez field, a scrambled alphabet row, or a sentence exercise whose word tiles don't match its answer.
+
+## Editing the learning path
+
+Each unit in `js/data/path.js` is built around one vocabulary category. It lists its steps in order:
+
+```js
+{id:'u03', cat:'family', title:'Family', steps:['learn','grammar:1','quiz','grammar:7','story:family']},
+```
+
+Step codes:
+
+| Code | What it runs |
+|---|---|
+| `learn` | Flashcards for the unit's words |
+| `quiz` | A 10-question quiz |
+| `listen` / `type` | Listening or typing practice |
+| `match` | One round of Match |
+| `talk:0,1,2` | "Talk to…" using those drills |
+| `grammar:N` | Grammar lesson number N |
+| `story:id` / `convo:id` | A story or conversation |
+| `build` | 5 sentence-building exercises |
+
+`tools/validate-data.js` checks that every step points at content that exists.
 
 ## Adding native-speaker audio
 

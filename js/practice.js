@@ -76,6 +76,7 @@ function showRv(){
   tag.textContent=it.isNew?'New word · '+V[it.c].label:it.reverse?'Say it in Tigrinya':'What does it mean?';
   $id('rv-front').innerHTML=it.reverse?'<div class="big-en">'+esc(w.e)+'</div>':'<div class="big-ge">'+esc(w.g)+'</div>';
   $id('rv-back').hidden=true;$id('rv-grades').hidden=true;$id('rv-show').hidden=false;
+  $id('rv-listen').hidden=it.reverse;
   if(!it.reverse)speak(w.g,w.t);
 }
 function rvSpeak(){const it=rvQ[rvI];if(it){S.ttsCount=(S.ttsCount||0)+1;speak(it.w.g,it.w.t);}}
@@ -86,7 +87,7 @@ function rvReveal(){
   $id('rv-back').hidden=false;$id('rv-show').hidden=true;
   const x=S.srs[srsKey(it.c,w)];
   $id('rv-grades').querySelectorAll('[data-g]').forEach(b=>{const g=+b.dataset.g;b.querySelector('small').textContent=fmtIvl(srsNext(x,g).d-todayN());});
-  $id('rv-grades').hidden=false;
+  $id('rv-grades').hidden=false;$id('rv-listen').hidden=false;
   if(it.reverse)speak(w.g,w.t);
 }
 function rvGrade(g){
@@ -107,9 +108,11 @@ function finishRv(){
 }
 
 let gdQ=[],gdI=0,gdDone=false,gdRight=0;
-function startGender(){
-  const qs=[];shuf([...GENDER_DRILLS]).forEach(d=>qs.push({d,who:['m','f','p'][Math.floor(Math.random()*3)]}));
-  gdQ=qs.slice(0,12);gdI=0;gdRight=0;gdTab('p');goNav('gender');showGd();
+function startGender(subset){
+  const pool=Array.isArray(subset)&&subset.length?subset.map(i=>GENDER_DRILLS[i]).filter(Boolean):GENDER_DRILLS;
+  const n=Array.isArray(subset)?Math.min(10,Math.max(6,pool.length)):12;
+  const qs=[];while(qs.length<n)shuf([...pool]).forEach(d=>{if(qs.length<n)qs.push({d,who:['m','f','p'][Math.floor(Math.random()*3)]});});
+  gdQ=qs;gdI=0;gdRight=0;gdTab('p');goNav('gender');showGd();
 }
 function gdTab(t){
   $id('gd-tab-p').classList.toggle('on',t==='p');$id('gd-tab-r').classList.toggle('on',t==='r');
@@ -122,6 +125,7 @@ function showGd(){
   $id('gd-bar').style.width=(gdI/gdQ.length*100)+'%';
   const box=$id('gd-practice');
   if(gdI>=gdQ.length){
+    if(typeof pathCtx!=='undefined'&&pathCtx&&pathCtx.type==='talk'){pathStepDone();return;}
     $id('gd-bar').style.width='100%';
     box.innerHTML='<div class="done-card"><div class="done-ico">'+(gdRight>=gdQ.length-2?'🌟':'💪')+'</div><div class="done-title">'+gdRight+' / '+gdQ.length+' correct</div><div class="done-sub">Tigrinya changes the ending depending on who you talk to. Check the <b>Patterns</b> tab to see them side by side.</div><div class="btn-row"><button class="btn ghost" onclick="gdTab(\'r\')">See patterns</button><button class="btn" onclick="startGender()">Play again</button></div></div>';
     return;
@@ -167,17 +171,18 @@ function ttsNotice(){
   if(m==='none')return'<div class="notice">🔇 This device has no text-to-speech. Use the transliteration hint instead.</div>';
   return'<div class="notice">🔈 No Tigrinya voice on this device, so audio is an English-based approximation. Use the hint if a word is unclear.</div>';
 }
-function lsPool(type){
+function lsPool(type,onlyCat){
   let pool=allWords().filter(({w})=>!w.g.includes('...')&&!w.g.includes('/'));
+  if(onlyCat){const inCat=pool.filter(({c})=>c===onlyCat);const short=inCat.filter(({w})=>w.g.replace(/[።?!]/g,'').length<=9);return type&&short.length>=5?short:inCat;}
   if(type)pool=pool.filter(({w})=>w.g.replace(/[።?!]/g,'').length<=9);
   const seen=pool.filter(({c,w})=>S.srs&&S.srs[srsKey(c,w)]);
   return seen.length>=10?seen:pool.filter(({c})=>['greetings','numbers','food','family','colors','animals','body','nature','time','places'].includes(c));
 }
-function startListen(mode){
-  ensureState();lsMode=mode;lsQ=shuf(lsPool(mode==='type')).slice(0,10);lsI=0;lsRight=0;
+function startListen(mode,onlyCat){
+  ensureState();lsMode=mode;lsQ=shuf(lsPool(mode==='type',onlyCat)).slice(0,10);lsI=0;lsRight=0;
   goNav('listen');showLs();
 }
-function lsExit(){kbHide();goNav('home');}
+function lsExit(){kbHide();exitLesson('home');}
 function lsSpeak(rate){const it=lsQ[lsI];if(it){S.ttsCount=(S.ttsCount||0)+1;speak(it.w.g,it.w.t,rate);}}
 function showLs(){
   lsDone=false;lsHint=false;
@@ -186,6 +191,7 @@ function showLs(){
   const body=$id('ls-body');
   if(lsI>=lsQ.length){
     kbHide();$id('ls-bar').style.width='100%';
+    if(typeof pathCtx!=='undefined'&&pathCtx&&(pathCtx.type==='listen'||pathCtx.type==='type')){pathStepDone();return;}
     body.innerHTML='<div class="done-card"><div class="done-ico">'+(lsRight>=8?'🌟':'👂')+'</div><div class="done-title">'+lsRight+' / '+lsQ.length+' correct</div><div class="done-sub">'+(lsMode==='type'?'Typing in fidel is the fastest way to learn the script.':'Every answer also feeds your Daily Review schedule.')+'</div><div class="btn-row"><button class="btn ghost" onclick="lsExit()">Home</button><button class="btn" onclick="startListen(lsMode)">Again</button></div></div>';
     return;
   }
